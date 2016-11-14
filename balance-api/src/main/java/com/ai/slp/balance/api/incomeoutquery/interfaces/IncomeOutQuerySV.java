@@ -30,6 +30,8 @@ public interface IncomeOutQuerySV {
      * @return
      * @throws BusinessException
      * @throws SystemException
+     * @ApiDocMethod
+     * @RestRelativeURL incomeOutQueryService/incomeOutQuery
      */
     @POST
     @Path("/incomeOutQuery")
