@@ -1,6 +1,6 @@
 .gradle
 build/
-
+.idea
 # Ignore Gradle GUI config
 gradle-app.setting
 
@@ -15,6 +15,3 @@ gradle-app.setting
 .settings/
 bin/
 opt-sdk.iml
-logs/
-*.cache
-*.cache.lock
