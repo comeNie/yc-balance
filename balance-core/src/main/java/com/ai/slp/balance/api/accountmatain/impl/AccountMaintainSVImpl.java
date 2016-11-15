@@ -50,9 +50,9 @@ public class AccountMaintainSVImpl implements IAccountMaintainSV {
             if (StringUtil.isBlank(regAccReq.getAcctType())) {
                 throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "获取参数失败:账户类型不能为空");
             }
-            if (StringUtil.isBlank(regAccReq.getPayType())) {
+           /* if (StringUtil.isBlank(regAccReq.getPayType())) {
                 throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "获取参数失败:付款方式不能为空");
-            }
+            }*/
             //译云不需要验证注册方式
             /*
             if (StringUtil.isBlank(regAccReq.getRegType())) {
