@@ -271,6 +271,7 @@ public class AccountManagerSVImpl implements IAccountManagerSV {
     private void updateFunAccountInfo(AccountUpdateParam param) {
         FunAccountInfo accountUpdateInfo = new FunAccountInfo();
         accountUpdateInfo.setAccountId(param.getAcctId());
+        accountUpdateInfo.setTenantId(param.getTenantId());
         accountUpdateInfo.setAcctName(param.getAcctName());
         accountUpdateInfo.setAcctAddr(param.getAcctAddr());
         accountUpdateInfo.setEmail(param.getEmail());
