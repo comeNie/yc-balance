@@ -99,9 +99,30 @@ public class FundQuerySVImpl implements IFundQuerySV {
         if (accountId.getAccountId() == 0) {
             throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "账户ID不能为空");
         }
-        FundInfo fundInfo = fundQueryBusiSV.queryUsableFund(accountId);
-        LOG.debug("可用余额查询结束");
-        return fundInfo;
+
+        FundInfo fundInfo = new FundInfo();
+        ResponseHeader responseHeader = new ResponseHeader();
+        try{
+            fundInfo = fundQueryBusiSV.queryUsableFund(accountId);
+            LOG.debug("余额查询结束");
+            if(!CollectionUtil.isEmpty(fundInfo.getFundBooks())){
+                responseHeader.setResultCode("0000");
+                responseHeader.setResultMessage("成功");
+                responseHeader.setIsSuccess(true);
+                fundInfo.setResponseHeader(responseHeader);
+            }else{
+                responseHeader.setResultCode("0001");
+                responseHeader.setResultMessage("账本未创建,余额为0,请充值。");
+                fundInfo.setResponseHeader(responseHeader);
+            }
+            //
+            return fundInfo;
+        }catch(Exception e){
+            responseHeader.setResultCode("0002");
+            responseHeader.setResultMessage("账户余额查询失败");
+            fundInfo.setResponseHeader(responseHeader);
+            return fundInfo;
+        }
     }
 
     @Override
