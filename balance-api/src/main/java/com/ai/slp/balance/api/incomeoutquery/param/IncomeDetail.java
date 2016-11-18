@@ -25,7 +25,16 @@ public class IncomeDetail extends BaseInfo {
      * 交易金额
      */
     private Long totalAmount;
+    //收支标记
+    private String incomeFlag;
 
+    public String getIncomeFlag() {
+        return incomeFlag;
+    }
+
+    public void setIncomeFlag(String incomeFlag) {
+        this.incomeFlag = incomeFlag;
+    }
     /**
      *收入
      */
