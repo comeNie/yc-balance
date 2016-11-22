@@ -1,5 +1,6 @@
 package com.ai.slp.balance.dao.mapper.bo;
 
+
 import java.sql.Timestamp;
 
 public class FunFundSerial {
@@ -44,6 +45,8 @@ public class FunFundSerial {
     private String channel;
 
     private String incomeFlag;
+
+    private String busiOperCode;
 
     public String getPaySerialCode() {
         return paySerialCode;
@@ -211,5 +214,13 @@ public class FunFundSerial {
 
     public void setIncomeFlag(String incomeFlag) {
         this.incomeFlag = incomeFlag == null ? null : incomeFlag.trim();
+    }
+
+    public String getBusiOperCode() {
+        return busiOperCode;
+    }
+
+    public void setBusiOperCode(String busiOperCode) {
+        this.busiOperCode = busiOperCode == null ? null : busiOperCode.trim();
     }
 }
