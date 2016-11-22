@@ -1,5 +1,6 @@
 package com.ai.slp.balance.dao.mapper.bo;
 
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -1522,6 +1523,76 @@ public class FunFundSerialCriteria {
 
         public Criteria andIncomeFlagNotBetween(String value1, String value2) {
             addCriterion("INCOME_FLAG not between", value1, value2, "incomeFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeIsNull() {
+            addCriterion("BUSI_OPER_CODE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeIsNotNull() {
+            addCriterion("BUSI_OPER_CODE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeEqualTo(String value) {
+            addCriterion("BUSI_OPER_CODE =", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeNotEqualTo(String value) {
+            addCriterion("BUSI_OPER_CODE <>", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeGreaterThan(String value) {
+            addCriterion("BUSI_OPER_CODE >", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("BUSI_OPER_CODE >=", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeLessThan(String value) {
+            addCriterion("BUSI_OPER_CODE <", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeLessThanOrEqualTo(String value) {
+            addCriterion("BUSI_OPER_CODE <=", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeLike(String value) {
+            addCriterion("BUSI_OPER_CODE like", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeNotLike(String value) {
+            addCriterion("BUSI_OPER_CODE not like", value, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeIn(List<String> values) {
+            addCriterion("BUSI_OPER_CODE in", values, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeNotIn(List<String> values) {
+            addCriterion("BUSI_OPER_CODE not in", values, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeBetween(String value1, String value2) {
+            addCriterion("BUSI_OPER_CODE between", value1, value2, "busiOperCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusiOperCodeNotBetween(String value1, String value2) {
+            addCriterion("BUSI_OPER_CODE not between", value1, value2, "busiOperCode");
             return (Criteria) this;
         }
     }
