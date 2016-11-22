@@ -38,12 +38,29 @@ public class IncomeDetail extends BaseInfo {
     /**
      *收入
      */
-//    private Long incomeBalance;
+    private Long incomeBalance;
+
+    public Long getOutBalance() {
+        return outBalance;
+    }
+
+    public void setOutBalance(Long outBalance) {
+        this.outBalance = outBalance;
+    }
+
+    public Long getIncomeBalance() {
+        return incomeBalance;
+    }
+
+    public void setIncomeBalance(Long incomeBalance) {
+        this.incomeBalance = incomeBalance;
+    }
 
     /**
      *支出
+
      */
-//    private Long outBalance;
+    private Long outBalance;
 
     /**
      *当前余额
