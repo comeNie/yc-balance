@@ -55,6 +55,19 @@ public class DepositParam extends BaseInfo {
      */
     private String payStyle;
 
+    /**
+     * 业务操作类型  内部系统必填。300000：余额充值
+     */
+    private String busiOperCode;
+
+    public String getBusiOperCode() {
+        return busiOperCode;
+    }
+
+    public void setBusiOperCode(String busiOperCode) {
+        this.busiOperCode = busiOperCode;
+    }
+
     public String getCurrencyUnit() {
         return currencyUnit;
     }
