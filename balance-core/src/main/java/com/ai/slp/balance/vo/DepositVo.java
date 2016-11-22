@@ -58,6 +58,19 @@ public class DepositVo extends BaseVo {
     private String currencyUnit;
 
     /**
+     * 业务操作类型  内部系统必填。300000：余额充值
+     */
+    private String busiOperCode;
+
+    public String getBusiOperCode() {
+        return busiOperCode;
+    }
+
+    public void setBusiOperCode(String busiOperCode) {
+        this.busiOperCode = busiOperCode;
+    }
+
+    /**
      * 创建一个交易摘要
      *
      * @return
