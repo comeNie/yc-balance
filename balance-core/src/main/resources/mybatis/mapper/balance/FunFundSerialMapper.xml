@@ -23,6 +23,7 @@
     <result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
     <result column="channel" property="channel" jdbcType="VARCHAR" />
     <result column="INCOME_FLAG" property="incomeFlag" jdbcType="VARCHAR" />
+    <result column="BUSI_OPER_CODE" property="busiOperCode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,7 +87,7 @@
     pay_serial_code, tenant_id, system_id, peer_serial_code, cancel_serial_code, opt_type,
     total_amount, trans_summary, pay_rule_id, pay_status, acct_id1, acct_name1, acct_id2,
     acct_name2, create_time, pay_time, last_status_date, remark, CURRENCY_UNIT, channel,
-    INCOME_FLAG
+    INCOME_FLAG, BUSI_OPER_CODE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunFundSerialCriteria" >
     select
@@ -129,16 +130,16 @@
     pay_status, acct_id1, acct_name1,
     acct_id2, acct_name2, create_time,
     pay_time, last_status_date, remark,
-    CURRENCY_UNIT, channel, INCOME_FLAG
-    )
+    CURRENCY_UNIT, channel, INCOME_FLAG,
+    BUSI_OPER_CODE)
     values (#{paySerialCode,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{systemId,jdbcType=VARCHAR},
     #{peerSerialCode,jdbcType=VARCHAR}, #{cancelSerialCode,jdbcType=VARCHAR}, #{optType,jdbcType=VARCHAR},
     #{totalAmount,jdbcType=BIGINT}, #{transSummary,jdbcType=VARCHAR}, #{payRuleId,jdbcType=BIGINT},
     #{payStatus,jdbcType=VARCHAR}, #{acctId1,jdbcType=BIGINT}, #{acctName1,jdbcType=VARCHAR},
     #{acctId2,jdbcType=BIGINT}, #{acctName2,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
     #{payTime,jdbcType=TIMESTAMP}, #{lastStatusDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
-    #{currencyUnit,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, #{incomeFlag,jdbcType=VARCHAR}
-    )
+    #{currencyUnit,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, #{incomeFlag,jdbcType=VARCHAR},
+    #{busiOperCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunFundSerial" >
     insert into fun_fund_serial
@@ -206,6 +207,9 @@
       <if test="incomeFlag != null" >
         INCOME_FLAG,
       </if>
+      <if test="busiOperCode != null" >
+        BUSI_OPER_CODE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="paySerialCode != null" >
@@ -270,6 +274,9 @@
       </if>
       <if test="incomeFlag != null" >
         #{incomeFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="busiOperCode != null" >
+        #{busiOperCode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -345,6 +352,9 @@
       <if test="record.incomeFlag != null" >
         INCOME_FLAG = #{record.incomeFlag,jdbcType=VARCHAR},
       </if>
+      <if test="record.busiOperCode != null" >
+        BUSI_OPER_CODE = #{record.busiOperCode,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -372,7 +382,8 @@
     remark = #{record.remark,jdbcType=VARCHAR},
     CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
     channel = #{record.channel,jdbcType=VARCHAR},
-    INCOME_FLAG = #{record.incomeFlag,jdbcType=VARCHAR}
+    INCOME_FLAG = #{record.incomeFlag,jdbcType=VARCHAR},
+    BUSI_OPER_CODE = #{record.busiOperCode,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -440,6 +451,9 @@
       <if test="incomeFlag != null" >
         INCOME_FLAG = #{incomeFlag,jdbcType=VARCHAR},
       </if>
+      <if test="busiOperCode != null" >
+        BUSI_OPER_CODE = #{busiOperCode,jdbcType=VARCHAR},
+      </if>
     </set>
     where pay_serial_code = #{paySerialCode,jdbcType=VARCHAR}
   </update>
@@ -464,7 +478,8 @@
       remark = #{remark,jdbcType=VARCHAR},
       CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
       channel = #{channel,jdbcType=VARCHAR},
-      INCOME_FLAG = #{incomeFlag,jdbcType=VARCHAR}
+      INCOME_FLAG = #{incomeFlag,jdbcType=VARCHAR},
+      BUSI_OPER_CODE = #{busiOperCode,jdbcType=VARCHAR}
     where pay_serial_code = #{paySerialCode,jdbcType=VARCHAR}
   </update>
 </mapper>
