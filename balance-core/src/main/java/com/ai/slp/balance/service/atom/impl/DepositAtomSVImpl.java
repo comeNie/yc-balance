@@ -236,6 +236,8 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
         funFundSerial.setTransSummary("无");// FIXME
         //业务渠道
         funFundSerial.setChannel(vo.getPayStyle());
+        //业务操作类型
+        funFundSerial.setBusiOperCode(vo.getBusiOperCode());
         //币种
         funFundSerial.setCurrencyUnit(vo.getCurrencyUnit());
         //收支标识 1:收入   0:支出
