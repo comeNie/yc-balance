@@ -2,7 +2,7 @@
 
 #env
 APP_HOME=/dubbo-service
-APP_NAME="general.common"
+APP_NAME="general.balance"
 
 for file in ${APP_HOME}/libs/**/*.jar;
 do CP=${CP}:$file;
