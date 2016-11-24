@@ -5,9 +5,9 @@ gradle clean
 gradle build -x test
 2.生成镜像
 #在本地生成带私服前缀的镜像
-docker build -t 10.19.13.18:5000/yc-common:v1.0 .   (每次打镜像前版本号要更新)
+docker build -t 10.19.13.18:5000/yc-balance:v1.0 .   (每次打镜像前版本号要更新)
 #将镜像推送到私服
-docker push 10.19.13.18:5000/yc-common:v1.0
+docker push 10.19.13.18:5000/yc-balance:v1.0
 
 3. 运行镜像
 #--net=host  表示为主机(host)模式  去掉该配置，默认为桥接(bridge)模式
@@ -25,7 +25,7 @@ docker run -d --name yc-balance -p 10885:10885 \
 -e "SRVAREA_CURR=cn.hb"  \
 10.19.13.18:5000/yc-balance:v1.0_2
 #查看镜像启动日志
-docker logs yc-common
+docker logs yc-balance
 #进入容器，查看镜像内部的情况
 docker exec -it yc-balance /bin/bash
 #删除运行的容器
