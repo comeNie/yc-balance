@@ -23,7 +23,7 @@ docker run -d --name yc-balance -p 10885:10885 \
 -e "PAAS_CCS_PWD=123456" \
 -e "SRVAREA_ALL=cn.hb,us.ea"  \
 -e "SRVAREA_CURR=cn.hb"  \
-10.19.13.20:5000/yc-balance:v1.0_2
+10.19.13.20:5000/yc-balance:v1.0_3
 #查看镜像启动日志
 docker logs yc-balance
 #进入容器，查看镜像内部的情况
