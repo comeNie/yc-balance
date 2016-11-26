@@ -2,6 +2,9 @@ package com.ai.slp.balance.api.accountquery.impl;
 
 import java.util.List;
 
+import com.ai.opt.sdk.util.BeanUtils;
+import com.ai.slp.balance.api.accountquery.param.*;
+import com.ai.slp.balance.dao.mapper.bo.FunAccountSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +17,6 @@ import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.accountquery.interfaces.IAccountQuerySV;
-import com.ai.slp.balance.api.accountquery.param.AccountIdParam;
-import com.ai.slp.balance.api.accountquery.param.AccountInfoVo;
-import com.ai.slp.balance.api.accountquery.param.CustIdParam;
-import com.ai.slp.balance.api.accountquery.param.ListAccountResponse;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.IAccountManagerSV;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -48,6 +47,20 @@ public class AccountQuerySVImpl implements IAccountQuerySV {
                 accountId.getAccountId());
         log.debug("账户查询结束");
         return accountInfoVo;
+    }
+
+    @Override
+    public AccountSetVo queryAccontSetById(Long accountId) throws BusinessException, SystemException {
+        log.debug("按账户ID查询账户设置信息开始");
+        AccountSetVo accountSetVo = new AccountSetVo();
+        if (accountId == 0) {
+            throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
+        }
+
+        FunAccountSet funAccountSet = accountSV.queryFunAccountSetInfo(accountId);
+        BeanUtils.copyProperties(accountSetVo, funAccountSet);
+        return accountSetVo;
+
     }
 
     @Override
