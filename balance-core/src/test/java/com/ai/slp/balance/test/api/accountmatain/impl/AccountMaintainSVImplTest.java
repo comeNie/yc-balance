@@ -2,6 +2,7 @@ package com.ai.slp.balance.test.api.accountmatain.impl;
 
 import java.util.List;
 
+import com.ai.slp.balance.api.accountquery.param.AccountSetVo;
 import junit.framework.TestCase;
 
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +57,7 @@ public class AccountMaintainSVImplTest extends TestCase {
         vo.setAcctName("加多宝");
         vo.setAcctType("0");// 账户类型， 0 后付费
 //        vo.setRegType("3");//注册方式网站注册
-        vo.setPayType("2");// 支付方式
+//        vo.setPayType("2");// 支付方式
         vo.setRegEmail("jiaduobao@asiainfo.com");//注册邮箱
         vo.setAcctAddr("加多宝厂区");
         long newAccountId;
@@ -89,6 +90,20 @@ public class AccountMaintainSVImplTest extends TestCase {
         assertNotNull("返回结果空，存入失败", account);
         // assertEquals("查询账户ID不是预期值", 18, account.getRegCustomerId());
     }
+
+    /**
+     * 账号设置信息查询
+     *
+     * @author LLG
+     */
+    @Test
+    public void testQueryAccontSetById() throws Exception {
+        AccountSetVo account = accountQuerySV.queryAccontSetById(11531l);
+        System.out.print(account.toString());
+        assertNotNull("返回结果空，存入失败", account);
+        // assertEquals("查询账户ID不是预期值", 18, account.getRegCustomerId());
+    }
+
     /**
      * 账号查询
      *
@@ -114,14 +129,14 @@ public class AccountMaintainSVImplTest extends TestCase {
     public void testUpdateAccountCase1() throws Exception {
         AccountUpdateParam param = new AccountUpdateParam();
         param.setTenantId("yeecloud");
-        param.setAcctId(11531);
-        param.setAcctMailType(2);
-        param.setAcctName("louis1111111111111");
-        param.setPayCheck(1);
+        param.setAcctId(11573);
+//        param.setAcctMailType(2);
+//        param.setAcctName("13000000000");
+//        param.setPayCheck(1);
         param.setPayPassword("123%aa");
-        param.setTempCredit(100l);
+       /* param.setTempCredit(100l);
         param.setTempValidTime("20151027");
-        param.setdSigQuota(500l);
+        param.setdSigQuota(500l);*/
         accountMaintainSV.updateAccount(param);
         System.out.println("param:"+JSON.toJSONString(param));
     }
