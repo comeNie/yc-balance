@@ -10,10 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
-import com.ai.slp.balance.api.accountquery.param.AccountIdParam;
-import com.ai.slp.balance.api.accountquery.param.AccountInfoVo;
-import com.ai.slp.balance.api.accountquery.param.CustIdParam;
-import com.ai.slp.balance.api.accountquery.param.ListAccountResponse;
+import com.ai.slp.balance.api.accountquery.param.*;
+
 
 /**
  * 账户查询接口类 <br>
@@ -43,6 +41,22 @@ public interface IAccountQuerySV {
 	@POST
 	@Path("/queryAccontById")
     public AccountInfoVo queryAccontById(AccountIdParam accountId) throws BusinessException,SystemException;
+
+	/**
+	 * 按账户ID查询帐户设置信息.<br>
+	 * 按照账户查询账户的基本资料<br>
+	 *
+	 * @param accountId
+	 * @return 账户信息
+	 * @throws BusinessException,SystemException
+	 * @author liquid
+	 * @ApiDocMethod
+	 * @ApiCode
+	 * @RestRelativeURL accountQueryService/queryAccontSetById
+	 */
+	@POST
+	@Path("/queryAccontSetById")
+	public AccountSetVo queryAccontSetById(Long accountId) throws BusinessException,SystemException;
 
     /**
      * 按客户查询账户资料.<br>

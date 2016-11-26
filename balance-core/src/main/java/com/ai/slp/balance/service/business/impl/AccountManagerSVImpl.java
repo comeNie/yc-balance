@@ -58,6 +58,23 @@ public class AccountManagerSVImpl implements IAccountManagerSV {
 //    @Autowired
 //    private IATSSenderAtomSV iATSSSenderAtomSV;
 
+    /**
+     * 更新账户信息表
+     *
+     * @param accountId
+     * @author liquid
+     * @ApiDocMethod
+     */
+    public FunAccountSet queryFunAccountSetInfo(Long accountId) throws BusinessException{
+        FunAccountSet accountSet = funAccountSetSV.getFunAccountSet(accountId);
+        if(accountSet==null){
+            LOG.debug("账户设置信息不存在,账户ID[{}]", accountId);
+            throw new BusinessException(ExceptCodeConstants.Account.ACCOUNT_SET_INFO_CHECK_FAILED,
+                    "账户设置信息不存在["  + "],账户ID[" + accountId + "]");
+        }
+        return accountSet;
+    }
+
     @Override
     public long createAccount(RegAccReq regAccReq) throws BusinessException {
         /* 一、做幂等性校验---查询账户索引表；如果结果非空，则直接返回"账户已创建" */

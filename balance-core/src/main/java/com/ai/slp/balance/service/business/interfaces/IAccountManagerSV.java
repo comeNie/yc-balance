@@ -6,6 +6,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.slp.balance.api.accountmaintain.param.AccountUpdateParam;
 import com.ai.slp.balance.api.accountmaintain.param.RegAccReq;
 import com.ai.slp.balance.api.accountquery.param.AccountInfoVo;
+import com.ai.slp.balance.dao.mapper.bo.FunAccountSet;
 
 public interface IAccountManagerSV {
     
@@ -18,14 +19,24 @@ public interface IAccountManagerSV {
      * @ApiDocMethod
      */
     public long createAccount(RegAccReq regAccReq) throws BusinessException;
-    
+
     /**
-     * 更新账户设置
-     * @param param
-     * @throws BusinessException
-     * @author fanpw
+     * 更新账户信息表
+     *
+     * @param accountId
+     * @author liquid
      * @ApiDocMethod
      */
+    public FunAccountSet queryFunAccountSetInfo(Long accountId) throws BusinessException;
+
+
+        /**
+         * 更新账户设置
+         * @param param
+         * @throws BusinessException
+         * @author fanpw
+         * @ApiDocMethod
+         */
     public void updateAccount(AccountUpdateParam param) throws BusinessException;
     
     /**
