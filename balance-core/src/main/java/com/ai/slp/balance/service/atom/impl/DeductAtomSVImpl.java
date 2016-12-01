@@ -202,6 +202,7 @@ public class DeductAtomSVImpl implements IDeductAtomSV {
         funFundSerial.setCurrencyUnit(vo.getCurrencyUnit());
         funFundSerial.setIncomeFlag("0");
         funFundSerial.setChannel(vo.getChannel());
+        funFundSerial.setBusiOperCode(vo.getBusinessCode());
         log.debug("记录订单交易FUN_FUND_SERIAL:pay_serial_code=" + funFundSerial.getPaySerialCode());
         funFundSerialSV.insertFunFundSerial(funFundSerial);
         return funFundSerial.getPaySerialCode();

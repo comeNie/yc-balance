@@ -67,6 +67,20 @@ public class DeductVo extends BaseVo {
      */
     private String channel;
 
+    /**
+     * 业务操作类型  300001
+     * @return
+     */
+    private String businessCode;
+
+    public String getBusinessCode() {
+        return businessCode;
+    }
+
+    public void setBusinessCode(String businessCode) {
+        this.businessCode = businessCode;
+    }
+
     public String getChannel() {
         return channel;
     }
