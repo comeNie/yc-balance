@@ -193,7 +193,7 @@ public class DeductAtomSVImpl implements IDeductAtomSV {
         funFundSerial.setAcctId1(vo.getAccountId());
         // funFundSerial.setAcctName1(vo.getAccountInfo().getAcctName());// TODO 是否要保存账户姓名
         funFundSerial.setRemark(vo.getBusiDesc());
-        funFundSerial.setOptType(BalancesCostants.FunFundSerial.OptType.DEPOSIT);
+        funFundSerial.setOptType(BalancesCostants.FunFundSerial.OptType.DEDUCT);
         funFundSerial.setPayStatus(BalancesCostants.FunFundSerial.PayStatus.SUCCESS);// TODO 成功？
         funFundSerial.setCreateTime(DateUtil.getSysDate());// TODO 不需要交易时间，只保留创建时间
         funFundSerial.setPayTime(DateUtil.getSysDate()); // FIXME 应该修改表模型，删掉字段
