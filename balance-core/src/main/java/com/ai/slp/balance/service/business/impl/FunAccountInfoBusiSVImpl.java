@@ -89,7 +89,7 @@ public class FunAccountInfoBusiSVImpl implements IFunAccountInfoBusiSV {
 		StringBuffer stringBuffer = new StringBuffer(str32);
 		//将第十一位字符替换为1 当前修改信用额度
 		stringBuffer.replace(10, 11, "1");
-		System.out.println("update_mask:"+stringBuffer.toString());
+//		System.out.println("update_mask:"+stringBuffer.toString());
 		//
 		funAccountLog.setUpdateMask(stringBuffer.toString());
 		funAccountLog.setOldCredit(oldCredit);
@@ -209,7 +209,7 @@ public class FunAccountInfoBusiSVImpl implements IFunAccountInfoBusiSV {
 		StringBuffer stringBuffer = new StringBuffer(str32);
 		//将第十一位字符替换为1 当前修改信用额度
 		stringBuffer.replace(10, 11, "1");
-		System.out.println("update_mask:"+stringBuffer.toString());
+//		System.out.println("update_mask:"+stringBuffer.toString());
 		//
 		funAccountLog.setUpdateMask(stringBuffer.toString());
 		funAccountLog.setOldCredit(oldCredit);

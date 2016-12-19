@@ -60,7 +60,7 @@ public class DeductAtomSVImpl implements IDeductAtomSV {
     @Override
     public void validAccountInfo(long accountId, String tenantId,int checkPwd,String password) {
         FunAccountInfo accountInfo = funAccountInfoAtomSV.getBeanByPrimaryKey(accountId);
-        FunAccountSet accountSet = funAccountSetAtomSV.getFunAccountSet(accountId);
+//        FunAccountSet accountSet = funAccountSetAtomSV.getFunAccountSet(accountId);
         
         if (accountInfo == null
                 || !accountInfo.getTenantId().equals(tenantId)

@@ -1,5 +1,7 @@
 package com.ai.slp.balance.api.custcredit.impl;
 
+import com.alibaba.dubbo.common.logger.Logger;
+import com.alibaba.dubbo.common.logger.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +21,13 @@ import com.ai.slp.balance.api.custcredit.param.CustCreditUnUsedResponse;
 import com.ai.slp.balance.api.custcredit.param.CustCreditUsedRequest;
 import com.ai.slp.balance.api.custcredit.param.CustCreditUsedResponse;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
-import com.ai.slp.balance.dao.mapper.bo.FunAccountInfo;
-import com.ai.slp.balance.service.atom.interfaces.IFunAccountInfoAtomSV;
 import com.ai.slp.balance.service.business.interfaces.IFunAccountInfoBusiSV;
 import com.alibaba.dubbo.config.annotation.Service;
 
 @Service
 @Component
 public class CustCreditManageSVImpl implements ICustCreditManageSV {
+	private static final Logger LOGGER = LoggerFactory.getLogger(CustCreditManageSVImpl.class);
 	@Autowired
 	private IFunAccountInfoBusiSV funAccountInfoBusiSV;
 
@@ -102,16 +103,9 @@ public class CustCreditManageSVImpl implements ICustCreditManageSV {
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
 			responseHeader.setResultMessage("信用额度设置成功");
 			response.setResponseHeader(responseHeader);
-		}catch(BusinessException|SystemException e){
-			//
-			responseHeader.setResultCode(e.getErrorCode());
-			responseHeader.setResultMessage(e.getErrorMessage());
-			response.setResponseHeader(responseHeader);
 		}catch(Exception e){
-			//
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-			responseHeader.setResultMessage("信用额度设置失败");
-			response.setResponseHeader(responseHeader);
+			LOGGER.error("信用额度设置失败.",e);
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"信用额度设置失败");
 		}
 		return response;
 	}
@@ -140,16 +134,9 @@ public class CustCreditManageSVImpl implements ICustCreditManageSV {
 			responseHeader.setResultMessage("成功");
 			//
 			response.setResponseHeader(responseHeader);
-		}catch(BusinessException e){
-			responseHeader.setResultCode(e.getErrorCode());
-			responseHeader.setResultMessage(e.getErrorMessage());
-			//
-			response.setResponseHeader(responseHeader);
 		}catch(Exception e){
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-			responseHeader.setResultMessage("失败");
-			//
-			response.setResponseHeader(responseHeader);
+			LOGGER.error("失败.",e);
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"失败");
 		}
 		//
 		return response;
@@ -182,16 +169,9 @@ public class CustCreditManageSVImpl implements ICustCreditManageSV {
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
 			responseHeader.setResultMessage("成功");
 			response.setResponseHeader(responseHeader);
-		}catch(BusinessException e){
-			responseHeader.setResultCode(e.getErrorCode());
-			responseHeader.setResultMessage(e.getErrorMessage());
-			//
-			response.setResponseHeader(responseHeader);
 		}catch(Exception e){
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-			responseHeader.setResultMessage("失败");
-			//
-			response.setResponseHeader(responseHeader);
+			LOGGER.error("失败.",e);
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"失败");
 		}
 		//
 		return response;
@@ -223,16 +203,9 @@ public class CustCreditManageSVImpl implements ICustCreditManageSV {
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
 			responseHeader.setResultMessage("成功");
 			response.setResponseHeader(responseHeader);
-		}catch(BusinessException e){
-			responseHeader.setResultCode(e.getErrorCode());
-			responseHeader.setResultMessage(e.getErrorMessage());
-			//
-			response.setResponseHeader(responseHeader);
 		}catch(Exception e){
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-			responseHeader.setResultMessage("失败");
-			//
-			response.setResponseHeader(responseHeader);
+			LOGGER.error("失败.",e);
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"失败");
 		}
 		
 		return response;
@@ -264,16 +237,9 @@ public class CustCreditManageSVImpl implements ICustCreditManageSV {
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
 			responseHeader.setResultMessage("成功");
 			response.setResponseHeader(responseHeader);
-		}catch(BusinessException e){
-			responseHeader.setResultCode(e.getErrorCode());
-			responseHeader.setResultMessage(e.getErrorMessage());
-			//
-			response.setResponseHeader(responseHeader);
 		}catch(Exception e){
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-			responseHeader.setResultMessage("失败");
-			//
-			response.setResponseHeader(responseHeader);
+			LOGGER.error("失败.",e);
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"失败");
 		}
 		
 		//

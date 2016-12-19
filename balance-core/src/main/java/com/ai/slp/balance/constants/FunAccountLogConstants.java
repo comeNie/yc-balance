@@ -5,13 +5,13 @@ public class FunAccountLogConstants {
 	public static final String UPDATE_MASK = "1";
 	//
 	public static String str32Zero(){
-		String str = "";
+		StringBuilder str = new StringBuilder();
 		//
 		for(int i=0;i<32;i++){
-			str += 0;
+			str.append("0");
 		}
 		//
-		return str;
+		return str.toString();
 	}
 
 }

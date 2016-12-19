@@ -170,7 +170,7 @@ public final class BillCycleUtil {
 		
 	}
     
-    public static void main(String[] args){
+    /*public static void main(String[] args){
     	//DateUtil.getTimeInterval(Calendar.DAY_OF_MONTH, -5);
     	Map<String,Object> map = BillCycleUtil.getBillCycleIdAndPayDate("W",28);
     	System.out.println("日期转换timstamp："+Timestamp.valueOf(map.get(PAY_DATE_NEW).toString()));
@@ -181,5 +181,5 @@ public final class BillCycleUtil {
     	Timestamp timestamp = DateUtil.getTimestamp(timeStr+" 23:59:59", DATETIME_FORMAT);
     	System.out.println("timeStr:"+timeStr);
     	System.out.println("timestamp:"+timestamp);
-    }
+    }*/
 }

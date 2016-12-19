@@ -1,5 +1,6 @@
 package com.ai.slp.balance.util;
 
+import com.ai.opt.sdk.components.mcs.MCSClientFactory;
 import com.ai.paas.ipaas.mcs.interfaces.ICacheClient;
 
 public final class CacheFactoryUtil {
@@ -8,7 +9,7 @@ public final class CacheFactoryUtil {
     }
 
     public static ICacheClient getCacheClient(String namespace) {
-    	return CacheFactoryUtil.getCacheClient(namespace);
+    	return MCSClientFactory.getCacheClient(namespace);
     }
 
 }

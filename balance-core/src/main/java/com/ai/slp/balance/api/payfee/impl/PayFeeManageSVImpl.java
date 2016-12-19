@@ -1,5 +1,7 @@
 package com.ai.slp.balance.api.payfee.impl;
 
+import com.alibaba.dubbo.common.logger.Logger;
+import com.alibaba.dubbo.common.logger.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 @Service
 @Component
 public class PayFeeManageSVImpl implements IPayFeeManageSV {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PayFeeManageSVImpl.class);
 
 	@Autowired
 	private IBillPayLogBusiSV billPayLogBusiSV;
@@ -49,19 +52,14 @@ public class PayFeeManageSVImpl implements IPayFeeManageSV {
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
 			responseHeader.setResultMessage("还款成功");
 			response.setResponseHeader(responseHeader);
-		}catch(BusinessException e){
-			responseHeader.setResultCode(e.getErrorCode());
-			responseHeader.setResultMessage(e.getErrorMessage());
-			//
-			response.setResponseHeader(responseHeader);
-			
 		}catch (Exception e) {
-			e.printStackTrace();
 			//
-			responseHeader.setIsSuccess(false);
+			LOGGER.error("失败.",e);
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"还款失败");
+			/*responseHeader.setIsSuccess(false);
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
 			responseHeader.setResultMessage("还款失败");
-			response.setResponseHeader(responseHeader);
+			response.setResponseHeader(responseHeader);*/
 		}
 		return response;
 	}
@@ -92,18 +90,19 @@ public class PayFeeManageSVImpl implements IPayFeeManageSV {
 			//
 			response.setResponseHeader(responseHeader);
 			
-		}catch(BusinessException e){
+		}/*catch(BusinessException e){
 			responseHeader.setResultCode(e.getErrorCode());
 			responseHeader.setResultMessage(e.getErrorMessage());
 			//
 			response.setResponseHeader(responseHeader);
 			
-		}catch(Exception e){
-			
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+		}*/catch(Exception e){
+			LOGGER.error("失败.",e);
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"查询失败");
+			/*responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
 			responseHeader.setResultMessage("查询失败");
 			//
-			response.setResponseHeader(responseHeader);
+			response.setResponseHeader(responseHeader);*/
 			
 		}
 		//

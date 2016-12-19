@@ -79,8 +79,8 @@ public class AccountQuerySVImpl implements IAccountQuerySV {
         List<AccountInfoVo> accountInfoVoList = accountSV.queryAccountInfoByCustId(
                 custId.getTenantId(), custId.getCustId());
         log.debug("账户查询结束");
-        BaseResponse response = new BaseResponse();
-        ResponseHeader responseHeader = new ResponseHeader();
+//        BaseResponse response = new BaseResponse();
+//        ResponseHeader responseHeader = new ResponseHeader();
         if(CollectionUtil.isEmpty(accountInfoVoList)){
 //        	responseHeader.setIsSuccess(false);
 //        	responseHeader.setResultCode("0001");

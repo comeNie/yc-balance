@@ -73,11 +73,11 @@ public class BillAccountBusiSVImpl implements IBillAccountBusiSV {
 		 FunAccountInfo funAccountInfo = this.funAccountInfoAtomSV.getBeanByPrimaryKey(accountId);
 		 String billCycleId = "";
 		 
-		 BillCycleDef billCycleDef = new BillCycleDef();
+		 BillCycleDef billCycleDef;
 		 if(null != funAccountInfo){
 			 //
 			 if(!StringUtils.isEmpty(funAccountInfo.getBillCycleDefId())){
-				 billCycleDef = this.billCycleDefAtomSV.getBillCycleDef(Integer.valueOf(funAccountInfo.getBillCycleDefId().toString())); 
+				 billCycleDef = this.billCycleDefAtomSV.getBillCycleDef(Integer.valueOf(funAccountInfo.getBillCycleDefId().toString()));
 			 }else{
 				 throw new BusinessException("", "fun_account_info未配置账期信息"); 
 			 }
@@ -88,9 +88,8 @@ public class BillAccountBusiSVImpl implements IBillAccountBusiSV {
 		 Integer amount = billCycleDef.getPostpayUnits();
 		 //
 		 if(!StringUtil.isBlank(billGenType)){
-			 Map<String,Object> billCycleMap = new HashMap<String,Object>();
 			 //
-			 billCycleMap = BillCycleUtil.getBillCycleIdAndPayDate(billGenType, amount);
+			 Map<String,Object> billCycleMap = BillCycleUtil.getBillCycleIdAndPayDate(billGenType, amount);
 			 billCycleId = billCycleMap.get(BillCycleUtil.BILL_CYCLE_ID).toString();
 			 billAccount.setPayDay(Timestamp.valueOf(billCycleMap.get(BillCycleUtil.PAY_DATE_NEW).toString()));
 		 }
@@ -215,7 +214,7 @@ public class BillAccountBusiSVImpl implements IBillAccountBusiSV {
 		 FunAccountInfo funAccountInfo = this.funAccountInfoAtomSV.getBeanByPrimaryKey(accountId);
 		 String billCycleId = "";
 		 //
-		 BillCycleDef billCycleDef = new BillCycleDef();
+		 BillCycleDef billCycleDef;
 		 if(null != funAccountInfo){
 			 //
 			 if(!StringUtils.isEmpty(funAccountInfo.getBillCycleDefId())){
@@ -230,9 +229,7 @@ public class BillAccountBusiSVImpl implements IBillAccountBusiSV {
 		 Integer amount = billCycleDef.getPostpayUnits();
 		 //
 		 if(!StringUtil.isBlank(billGenType)){
-			 Map<String,Object> billCycleMap = new HashMap<String,Object>();
-			 //
-			 billCycleMap = BillCycleUtil.getBillCycleIdAndPayDate(billGenType, amount);
+			 Map<String,Object>  billCycleMap = BillCycleUtil.getBillCycleIdAndPayDate(billGenType, amount);
 			 billCycleId = billCycleMap.get(BillCycleUtil.BILL_CYCLE_ID).toString();
 		 }
 		//根据商品类目id查询科目id
@@ -252,12 +249,13 @@ public class BillAccountBusiSVImpl implements IBillAccountBusiSV {
 		 //
 		 BillAccount billAccountPrimaryKey = this.billAccountAtomSV.getBillAccount(billAccountKey);
 		 //
-		 if(billAccountPrimaryKey.getFee() - fee < 0 || billAccountPrimaryKey.getOverdraftQuota() - overdraftQuota < 0){
-			 throw new BusinessException("000002","订单回退金额超限"); 
-		 }
+
 		 //如果存在
 		 BillAccount billAccount = new BillAccount();
 		 if(null != billAccountPrimaryKey){
+			 if(billAccountPrimaryKey.getFee() - fee < 0 || billAccountPrimaryKey.getOverdraftQuota() - overdraftQuota < 0){
+				 throw new BusinessException("000002","订单回退金额超限");
+			 }
 			 billAccount.setFee(billAccountPrimaryKey.getFee() - fee);
 			 billAccount.setOverdraftQuota(billAccountPrimaryKey.getOverdraftQuota() - overdraftQuota);
 			 billAccount.setUserId(userId);
