@@ -31,31 +31,30 @@ public class DepositBusiSVImpl implements IDepositBusiSV {
     private IDepositAtomSV depositAtomSV;
 
     @Override
-    public String depositFund(DepositParam param) throws BusinessException {
-        /* 参数转化 */
-        DepositVo depositVo = new DepositVo();
-        BeanUtils.copyProperties(depositVo, param);
-        for (TransSummary transSummary : param.getTransSummary()) {
-            BeanUtils.copyProperties(depositVo.createTransSummary(), transSummary);
-        }
+    public String depositFundCheck(DepositVo depositVo) throws BusinessException {
         /* 1.数据校验 */
         /* 账户校验 */
         depositAtomSV.validAccountInfo(depositVo.getAccountId(), depositVo.getTenantId());
         /* 幂等性校验 */
         String paySerialCode = depositAtomSV.validIdempotent(depositVo);
-        if (!StringUtil.isBlank(paySerialCode)) {
-            return paySerialCode;
-        }
-        /* 校验科目 */
-        // 现金存款，资金类型只能是现金或赠款
-        depositVo.addFundType(BalancesCostants.FunSubject.FundType.CASH);
-        depositVo.addFundType(BalancesCostants.FunSubject.FundType.GRANT);
-        Map<Long, SubjectFundVo> subjectList = depositAtomSV.validSubject(depositVo);
+        if (StringUtil.isBlank(paySerialCode)) {
+            /* 校验科目 */
+            // 现金存款，资金类型只能是现金或赠款
+            depositVo.addFundType(BalancesCostants.FunSubject.FundType.CASH);
+            depositVo.addFundType(BalancesCostants.FunSubject.FundType.GRANT);
+            Map<Long, SubjectFundVo> subjectList = depositAtomSV.validSubject(depositVo);
         /* 2 确定账本，更新账本 */
-        depositAtomSV.matchFundBook(depositVo, subjectList);
+            depositAtomSV.matchFundBook(depositVo, subjectList);
+        }
+
+        return paySerialCode;
+    }
+
+    @Override
+    public String depositFund(DepositVo depositVo) throws BusinessException {
         /* 3.记录交易 */
         // 订单交易流水
-        paySerialCode = depositAtomSV.recordFundSerial(depositVo);
+        String paySerialCode = depositAtomSV.recordFundSerial(depositVo);
         depositVo.setPaySerialCode(paySerialCode);
         // 资金异动流水
         depositAtomSV.recordFundDetail(depositVo);

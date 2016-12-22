@@ -1,5 +1,7 @@
 package com.ai.slp.balance.api.deposit.impl;
 
+import com.ai.opt.sdk.util.BeanUtils;
+import com.ai.slp.balance.vo.DepositVo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,17 @@ public class DepositSVImpl implements IDepositSV {
                         + JSON.toJSONString(summary) + "]");
             }
         }
-        return depositSV.depositFund(param);
+        /* 参数转化 */
+        DepositVo depositVo = new DepositVo();
+        BeanUtils.copyProperties(depositVo, param);
+        for (TransSummary transSummary : param.getTransSummary()) {
+            BeanUtils.copyProperties(depositVo.createTransSummary(), transSummary);
+        }
+        String paySerialCode =depositSV.depositFundCheck(depositVo);
+        if(StringUtil.isBlank(paySerialCode)){
+            paySerialCode =depositSV.depositFund(depositVo);
+        }
+        return paySerialCode;
     }
 
     @Override
