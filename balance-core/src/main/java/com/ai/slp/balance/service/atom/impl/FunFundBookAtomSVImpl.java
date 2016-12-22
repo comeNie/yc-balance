@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.ai.opt.sdk.util.CollectionUtil;
@@ -16,13 +18,17 @@ import com.ai.slp.balance.service.atom.interfaces.IFunFundBookAtomSV;
 
 @Component
 public class FunFundBookAtomSVImpl implements IFunFundBookAtomSV {
+    private static final Logger log = LogManager.getLogger(FunFundBookAtomSVImpl.class);
     @Override
     public FunFundBook getBean(String tenantId, long accountId, long bookId) {
         Timestamp sysdate = DateUtil.getSysDate();
+        Timestamp effDate = new Timestamp(sysdate.getTime()+1000);
+        log.info("stsDate:"+sysdate.toString());
+        log.info("effdate:"+effDate.toString());
         FunFundBookCriteria fundBookExample = new FunFundBookCriteria();
         fundBookExample.createCriteria().andTenantIdEqualTo(tenantId)
                 .andAccountIdEqualTo(accountId).andBookIdEqualTo(bookId)
-                .andEffectDateLessThanOrEqualTo(sysdate).andExpireDateGreaterThanOrEqualTo(sysdate);
+                .andEffectDateLessThanOrEqualTo(effDate).andExpireDateGreaterThanOrEqualTo(sysdate);
         List<FunFundBook> funFundBookList = MapperFactory.getFunFundBookMapper().selectByExample(
                 fundBookExample);
         if (CollectionUtil.isEmpty(funFundBookList)) {
