@@ -80,6 +80,14 @@
             <tx:method name="insert*" propagation="REQUIRED"/>
             <tx:method name="update*" propagation="REQUIRED"/>
             <tx:method name="del*" propagation="REQUIRED"/>
+            <tx:method name="c*" propagation="REQUIRED"/>
+            <tx:method name="d*" propagation="REQUIRED"/>
+            <tx:method name="p*" propagation="REQUIRED"/>
+            <tx:method name="s*" propagation="REQUIRED"/>
+            <tx:method name="t*" propagation="REQUIRED"/>
+            <tx:method name="i*" propagation="REQUIRED"/>
+            <tx:method name="a*" propagation="REQUIRED"/>
+            <tx:method name="m*" propagation="REQUIRED"/>
             <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
