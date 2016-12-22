@@ -61,17 +61,7 @@ public class DepositSVImpl implements IDepositSV {
                         + JSON.toJSONString(summary) + "]");
             }
         }
-        /* 参数转化 */
-        DepositVo depositVo = new DepositVo();
-        BeanUtils.copyProperties(depositVo, param);
-        for (TransSummary transSummary : param.getTransSummary()) {
-            BeanUtils.copyProperties(depositVo.createTransSummary(), transSummary);
-        }
-        String paySerialCode =depositSV.depositFundCheck(depositVo);
-        if(StringUtil.isBlank(paySerialCode)){
-            paySerialCode =depositSV.depositFund(depositVo);
-        }
-        return paySerialCode;
+        return depositSV.depositFund(param);
     }
 
     @Override

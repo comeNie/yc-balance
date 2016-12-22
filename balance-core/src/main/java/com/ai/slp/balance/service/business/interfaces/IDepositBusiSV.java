@@ -21,15 +21,7 @@ public interface IDepositBusiSV {
      * @author lilg
      * @ApiDocMethod
      */
-    public String depositFundCheck(DepositVo depositVo) throws BusinessException;
-
-    /**
-     *
-     * @param depositVo
-     * @return
-     * @throws BusinessException
-     */
-    public String depositFund(DepositVo depositVo)  throws BusinessException;
+    public String depositFund(DepositParam param) throws BusinessException;
     
     /**
      * 押金存入
