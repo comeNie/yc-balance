@@ -33,6 +33,7 @@ import com.ai.slp.balance.util.FunSubjectUtil;
 import com.ai.slp.balance.vo.DepositVo;
 import com.ai.slp.balance.vo.DepositVo.TransSummaryVo;
 import com.ai.slp.balance.vo.SubjectFundVo;
+import com.alibaba.fastjson.JSON;
 
 @Component
 public class DepositAtomSVImpl implements IDepositAtomSV {
@@ -250,7 +251,9 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
 
     @Override
     public String recordFundDetail(DepositVo depositVo) {
+    	log.info("$$$$开始recordFundDetail的for循环处理。。。。");
         for (TransSummaryVo summary : depositVo.getTransSummary()) {
+        	log.info("开始recordFundDetail的单条处理。。。。");
             FunFundDetail funFundDetail = new FunFundDetail();
             funFundDetail.setSerialCode(SeqUtil.getNewId(SeqConstants.FUN_FUND_DETAIL$SERIAL_CODE)
                     .toString());
@@ -260,7 +263,15 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
             funFundDetail.setBookId(summary.getBookId());
             funFundDetail.setCreateTime(DateUtil.getSysDate());
             funFundDetail.setValueDate(DateUtil.getSysDate());// FIXME 应该修改表模型，删掉字段
+            log.info("开始查询funFundBookAtomSV.getBean");
             FunFundBook funFundBook = funFundBookAtomSV.getBean(depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
+            log.info("结束查询funFundBookAtomSV.getBean");
+            if(funFundBook==null){
+            	log.info("funFundBook为空，未查询到");
+            }
+            else{
+            	log.info("funFundBook已创建，OK："+JSON.toJSONString(funFundBook));
+            }
             funFundDetail.setBalancePre(funFundBook.getBalance());
 //            funFundDetail.setBalancePre(0l);// FIXME 应该修改表模型，删掉字段
             funFundDetail.setOptType(BalancesCostants.FunFundSerial.OptType.DEPOSIT);
@@ -268,9 +279,13 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
             funFundDetail.setSubjectId(summary.getSubjectId());
             //币种
             funFundDetail.setCurrencyUnit(depositVo.getCurrencyUnit());
-            log.debug("记录资金流水FUN_FUND_SERIAL:serial_code=" + funFundDetail.getSerialCode());
+            log.info("记录资金流水FUN_FUND_SERIAL:serial_code=" + funFundDetail.getSerialCode());
+            log.info("开始处理funFundDetailSV.insertFunFundDetail");
             funFundDetailSV.insertFunFundDetail(funFundDetail);
+            log.info("结束处理funFundDetailSV.insertFunFundDetail");
+            log.info("结束recordFundDetail的单条处理。。。。");
         }
+        log.info("$$$$结束recordFundDetail的for循环处理。。。。");
         return depositVo.getPaySerialCode();
     }
 
