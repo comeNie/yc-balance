@@ -1,7 +1,11 @@
 package com.ai.slp.balance.service.business.impl;
 
+import java.util.List;
 import java.util.Map;
 
+import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.slp.balance.dao.mapper.bo.FunFundBook;
+import com.alibaba.fastjson.JSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +44,14 @@ public class DepositBusiSVImpl implements IDepositBusiSV {
         if (StringUtil.isBlank(paySerialCode)) {
             /* 校验科目 */
             // 现金存款，资金类型只能是现金或赠款
+            log.info("开始更新账本:");
             depositVo.addFundType(BalancesCostants.FunSubject.FundType.CASH);
             depositVo.addFundType(BalancesCostants.FunSubject.FundType.GRANT);
             Map<Long, SubjectFundVo> subjectList = depositAtomSV.validSubject(depositVo);
+            log.info("subjectlist:{}", JSON.toJSON(subjectList));
         /* 2 确定账本，更新账本 */
-            depositAtomSV.matchFundBook(depositVo, subjectList);
+            List<FunFundBook> funFundBooks = depositAtomSV.matchFundBook(depositVo, subjectList);
+            log.info("查询帐本:{}",JSON.toJSON(funFundBooks));
         }
 
         return paySerialCode;

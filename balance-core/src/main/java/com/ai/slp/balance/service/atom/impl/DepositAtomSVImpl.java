@@ -263,7 +263,8 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
             funFundDetail.setBookId(summary.getBookId());
             funFundDetail.setCreateTime(DateUtil.getSysDate());
             funFundDetail.setValueDate(DateUtil.getSysDate());// FIXME 应该修改表模型，删掉字段
-            log.info("开始查询funFundBookAtomSV.getBean");
+            log.info("开始查询funFundBookAtomSV.getBean,tenantId:{},accountId:{},bookId:{}",
+                    depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
             FunFundBook funFundBook = funFundBookAtomSV.getBean(depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
             log.info("结束查询funFundBookAtomSV.getBean");
             if(funFundBook==null){
