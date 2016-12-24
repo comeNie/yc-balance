@@ -170,6 +170,7 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
             }
             // 4.账本ID暂存在业务参数里
             summary.setBookId(fundBook.getBookId());
+            summary.setNewBook(newBook);
             funFundBookList.add(fundBook);
         }
         return funFundBookList;
@@ -265,15 +266,21 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
             funFundDetail.setValueDate(DateUtil.getSysDate());// FIXME 应该修改表模型，删掉字段
             log.info("开始查询funFundBookAtomSV.getBean,tenantId:{},accountId:{},bookId:{}",
                     depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
-            FunFundBook funFundBook = funFundBookAtomSV.getBean(depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
-            log.info("结束查询funFundBookAtomSV.getBean");
-            if(funFundBook==null){
-            	log.info("funFundBook为空，未查询到");
+
+            //如果第一次创建账本,赋值异动前余额为输入的金额,否则赋值为账本余额
+            if(summary.getNewBook()){
+                funFundDetail.setBalancePre(depositVo.getTotalAmount());
+            }else {
+                FunFundBook funFundBook = funFundBookAtomSV.getBean(depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
+                log.info("结束查询funFundBookAtomSV.getBean");
+                if(funFundBook==null){
+                    log.info("funFundBook为空，未查询到");
+                }
+                else{
+                    log.info("funFundBook已创建，OK："+JSON.toJSONString(funFundBook));
+                }
+                funFundDetail.setBalancePre(funFundBook.getBalance());
             }
-            else{
-            	log.info("funFundBook已创建，OK："+JSON.toJSONString(funFundBook));
-            }
-            funFundDetail.setBalancePre(funFundBook.getBalance());
 //            funFundDetail.setBalancePre(0l);// FIXME 应该修改表模型，删掉字段
             funFundDetail.setOptType(BalancesCostants.FunFundSerial.OptType.DEPOSIT);
             funFundDetail.setRemark(depositVo.getBusiDesc());

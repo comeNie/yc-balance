@@ -22,13 +22,13 @@ public class FunFundBookAtomSVImpl implements IFunFundBookAtomSV {
     @Override
     public FunFundBook getBean(String tenantId, long accountId, long bookId) {
         Timestamp sysdate = DateUtil.getSysDate();
-        Timestamp effDate = new Timestamp(sysdate.getTime()+1000);
+//        Timestamp effDate = new Timestamp(sysdate.getTime()+1000);
         log.info("stsDate:"+sysdate.toString());
-        log.info("effdate:"+effDate.toString());
+//        log.info("effdate:"+effDate.toString());
         FunFundBookCriteria fundBookExample = new FunFundBookCriteria();
         fundBookExample.createCriteria().andTenantIdEqualTo(tenantId)
                 .andAccountIdEqualTo(accountId).andBookIdEqualTo(bookId)
-                .andEffectDateLessThanOrEqualTo(effDate).andExpireDateGreaterThanOrEqualTo(sysdate);
+                .andEffectDateLessThanOrEqualTo(sysdate).andExpireDateGreaterThanOrEqualTo(sysdate);
         List<FunFundBook> funFundBookList = MapperFactory.getFunFundBookMapper().selectByExample(
                 fundBookExample);
         if (CollectionUtil.isEmpty(funFundBookList)) {

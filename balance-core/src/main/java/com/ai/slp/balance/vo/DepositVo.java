@@ -145,8 +145,19 @@ public class DepositVo extends BaseVo {
          */
         private long bookId;
 
+        /**
+         * 标志变量  是否第一次创建账本
+         */
 
+        private Boolean newBook;
 
+        public Boolean getNewBook() {
+            return newBook;
+        }
+
+        public void setNewBook(Boolean newBook) {
+            this.newBook = newBook;
+        }
 
         /**
          * 账本状态 状态取值如下：  0：无效  1：有效 2：冻结  如果不传，默认账本状态为1:有效；如果资金科目为100001：译员收入，请调用方传2:冻结
