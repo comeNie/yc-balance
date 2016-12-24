@@ -269,8 +269,10 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
 
             //如果第一次创建账本,赋值异动前余额为输入的金额,否则赋值为账本余额
             if(summary.getNewBook()){
+                log.info("第一次创建账本充值:",summary.getAmount());
                 funFundDetail.setBalancePre(depositVo.getTotalAmount());
             }else {
+                log.info("多次次创建账本充值:",summary.getAmount());
                 FunFundBook funFundBook = funFundBookAtomSV.getBean(depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
                 log.info("结束查询funFundBookAtomSV.getBean");
                 if(funFundBook==null){
