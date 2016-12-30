@@ -98,10 +98,10 @@ public class AccountMaintainSVImpl implements IAccountMaintainSV {
             if (StringUtil.isBlank(regAccReq.getPayCheck())) {// 支付密码是否验证 --- 如果不传，接口默认为0不验证
                 regAccReq.setPayCheck("0");
             }
-            if (StringUtil.isBlank(regAccReq.getPayPassword())) {// 支付密码 ---
-                                                                 // 如果不传，接口默认设置"000000"MD5加密串
-                regAccReq.setPayPassword(md5DefaultKey);
-            }
+//            if (StringUtil.isBlank(regAccReq.getPayPassword())) {// 支付密码 ---
+//                                                                 // 如果不传，接口默认设置"000000"MD5加密串
+//                regAccReq.setPayPassword(md5DefaultKey);
+//            }
             // 执行 创建账户的业务方法
             newAccountId = accountSV.createAccount(regAccReq);
             if (newAccountId == -1) {

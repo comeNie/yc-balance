@@ -37,7 +37,7 @@ public class DeductParam extends BaseInfo {
     /**
      * 是否校验支付密码
      */
-    private int checkPwd;
+//    private int checkPwd;
     /**
      * 支付密码
      */
@@ -134,13 +134,13 @@ public class DeductParam extends BaseInfo {
         this.accountId = accountId;
     }
 
-    public int getCheckPwd() {
-        return checkPwd;
-    }
-
-    public void setCheckPwd(int checkPwd) {
-        this.checkPwd = checkPwd;
-    }
+//    public int getCheckPwd() {
+//        return checkPwd;
+//    }
+//
+//    public void setCheckPwd(int checkPwd) {
+//        this.checkPwd = checkPwd;
+//    }
 
     public String getPassword() {
         return password;

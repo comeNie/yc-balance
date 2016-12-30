@@ -1,5 +1,8 @@
 package com.ai.slp.balance.api.deduct.impl;
 
+import com.ai.slp.balance.api.accountquery.interfaces.IAccountQuerySV;
+import com.ai.slp.balance.dao.mapper.bo.FunAccountSet;
+import com.ai.slp.balance.service.business.interfaces.IAccountManagerSV;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,8 @@ public class DeductSVImpl implements IDeductSV {
     @Autowired
     private IDeductBusiSV deductBusiSV;
 
+    @Autowired
+    private IAccountManagerSV accountSV;
     @Override
     public DeductResponse deductFund(DeductParam param) throws BusinessException,SystemException {
         log.debug("开始普通扣款服务");
@@ -53,10 +58,24 @@ public class DeductSVImpl implements IDeductSV {
                 throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "账户号不能为空");
             }
             
-            //译云不需要校验支付密码
-           /* if (param.getCheckPwd() == 0 && StringUtil.isBlank(param.getPassword())) {
-                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "校验支付密码后支付密码不能为空");
-            }*/
+            //校验支付密码
+            long accountId = param.getAccountId();
+            FunAccountSet funAccountSet = accountSV.queryFunAccountSetInfo(accountId);
+            if (funAccountSet.getPayCheck().equals("1")) {
+                //是否已设置支付密码
+                if (StringUtil.isBlank(funAccountSet.getPayPassword())){
+                    throw new BusinessException(ExceptCodeConstants.Special.NO_SET_PASSWORD, "抱歉，您还没有设置支付密码，无法用账户余额付款。");
+                }
+                //传入的支付密码是否为空
+                if (StringUtil.isBlank(param.getPassword())){
+                    throw new BusinessException(ExceptCodeConstants.Special.PASSWORD_IS_NULL, "支付密码不能为空");
+                }
+                //校验支付密码是否正确
+                if (!funAccountSet.getPayPassword().equals(param.getPassword())){
+                    throw new BusinessException(ExceptCodeConstants.Special.PASSWORD_IS_WRONG, "支付密码不正确");
+                }
+
+            }
             if (StringUtil.isBlank(param.getExternalId())) {
                 throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "外部流水号不能为空");
             }

@@ -29,6 +29,19 @@ public final class ExceptCodeConstants {
         public static final String PARAM_IS_NULL = "888888";
 
         /**
+         * 没有设置支付密码
+         */
+        public static final String NO_SET_PASSWORD = "000007";
+        /**
+         * 支付密码为空
+         */
+        public static final String PASSWORD_IS_NULL = "000005";
+        /**
+         * 支付密码为空
+         */
+        public static final String PASSWORD_IS_WRONG = "000006";
+
+        /**
          * 查找记录不存在
          */
         public static final String NO_RESULT = "000001";
