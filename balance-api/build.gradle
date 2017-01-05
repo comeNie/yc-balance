@@ -47,6 +47,7 @@ for(File file:fileSet){
 
 def Map<String,Object> apiDocTaskMap = new HashMap<String,Object>();
 def Map<String,Object> apiTaskMap = new HashMap<String,Object>();
+def Map<String,Object> apiSourceTaskMap = new HashMap<String,Object>();
 for(Map<String,String> apiMap:apiList){
     String apiName = apiMap.get("apiName");
     String apiVersion = apiMap.get("apiVersion");
@@ -63,7 +64,18 @@ for(Map<String,String> apiMap:apiList){
         }
     }
     apiTaskMap.put(apiName, jarTask);
-
+    def jarSourceTask = task("${apiTaskName}SourcesJar",group: "buildJar",type:Jar){
+        version apiVersion
+        baseName apiArtifactId
+        classifier 'sources'
+        from sourceSets.main.allSource
+        destinationDir file("$buildDir/api-libs")
+        include 'com/ai/slp/balance/api/'+apiName+'/**'
+        manifest {
+            attributes 'artifactId': apiArtifactId, 'Built-By': builtBy,'Built-date': new Date().format('yyyy-MM-dd HH:mm:ss'),'Manifest-Version':apiVersion
+        }
+    }
+    apiSourceTaskMap.put(apiName,jarSourceTask);
     def apidocTask=task("${apiArtifactId}APIDoc",type:com.ai.runner.gradle.plugin.APICollectorTask){
        // dependsOn apiJarProcessTask
 	//esconfig = "[{ip:54.223.185.42, port:14999}]"
@@ -102,6 +114,7 @@ publishing {
                 artifactId apiArtifactId
                 version apiVersion
                 artifact  apiTaskMap.get(apiName)
+                artifact  apiSourceTaskMap.get(apiName)
                 pom.withXml {
                     asNode().children().last() + {
                         delegate.dependencies {
