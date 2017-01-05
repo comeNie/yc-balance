@@ -2,6 +2,7 @@ package com.ai.slp.balance.api.accountmatain.impl;
 
 import java.io.UnsupportedEncodingException;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class AccountMaintainSVImpl implements IAccountMaintainSV {
 
     @Override
     public long createAccount(RegAccReq regAccReq) throws BusinessException,SystemException {
+        log.info("传过来的参数============"+ JSON.toJSONString(regAccReq));
         log.debug("创建账户---开始");
         long newAccountId = 0;
         try {
