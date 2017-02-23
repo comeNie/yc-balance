@@ -2,6 +2,7 @@ package com.ai.slp.balance.dao.mapper.factory;
 
 import javax.annotation.PostConstruct;
 
+import com.ai.slp.balance.dao.mapper.interfaces.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,27 +12,6 @@ import com.ai.slp.balance.dao.mapper.attach.FunFundBookAttachMapper;
 import com.ai.slp.balance.dao.mapper.attach.FunResBookAttachMapper;
 import com.ai.slp.balance.dao.mapper.attach.FunResBookRestAmountAttachMapper;
 import com.ai.slp.balance.dao.mapper.attach.FunResOperaDetailAttachMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.BillAccountMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.BillCycleDefMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.BillOrder2feeMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.BillPayDetailMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.BillPayLogMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunAccountInfoByCustIdIdxMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunAccountInfoByExternalIdIdxMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunAccountInfoMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunAccountLogMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunAccountSetLogMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunAccountSetMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunFundBookMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunFundDetailMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunFundSerialByAcctIdIdxMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunFundSerialMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunResBookMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunResBookRestAmountMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunResOperaDetailMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunSubjectFundMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunSubjectMapper;
-import com.ai.slp.balance.dao.mapper.interfaces.FunSubsFreezeMapper;
 
 @Component
 public class MapperFactory {
@@ -48,6 +28,18 @@ public class MapperFactory {
 
     public static void setSqlSessionTemplate(SqlSessionTemplate st) {
         MapperFactory.sqlSessionTemplate = st;
+    }
+
+    public static TAccountParamMapper getTAccountParamMapper(){
+        return sqlSessionTemplate.getMapper(TAccountParamMapper.class);
+    }
+
+    public static FunAccountDetailMapper getFunAccountDetailMapper(){
+        return sqlSessionTemplate.getMapper(FunAccountDetailMapper.class);
+    }
+
+    public static FunAccountMapper getFunAccountMapper(){
+        return sqlSessionTemplate.getMapper(FunAccountMapper.class);
     }
 
     public static FunSubjectMapper getFunSubjectMapper() {
