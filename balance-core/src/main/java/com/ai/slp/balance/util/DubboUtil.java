@@ -1,5 +1,6 @@
 package com.ai.slp.balance.util;
 
+import com.ai.yc.order.api.orderquery.interfaces.IOrderQuerySV;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 import com.ai.opt.base.exception.SystemException;
@@ -32,6 +33,19 @@ public final class DubboUtil {
         }
         if (sv == null) {
             throw new SystemException("获取不到远程服务:" + IGnSubjectQuerySV.class);
+        }
+        return sv;
+    }
+
+    public static IOrderQuerySV getIOrderQuerySV(){
+        IOrderQuerySV sv = null;
+        try {
+            sv = DubboConsumerFactory.getService("IOrderQuerySV", IOrderQuerySV.class);
+        } catch (NoSuchBeanDefinitionException ex) {
+            throw new SystemException("获取不到远程服务:[" + ex.getMessage() + "],请检查配置文件", ex);
+        }
+        if (sv == null) {
+            throw new SystemException("获取不到远程服务:" + IOrderQuerySV.class);
         }
         return sv;
     }
