@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
+    <id column="COUPON_ID" property="couponId" jdbcType="INTEGER" />
+    <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
+    <result column="COUPON_DESC" property="couponDesc" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="INTEGER" />
+    <result column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="FACE_VALUE" property="faceValue" jdbcType="INTEGER" />
+    <result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
+    <result column="COUPON_USER_ID" property="couponUserId" jdbcType="VARCHAR" />
+    <result column="used_scene" property="usedScene" jdbcType="VARCHAR" />
+    <result column="USE_LIMITS" property="useLimits" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="EFFECTIVE_TIME" property="effectiveTime" jdbcType="INTEGER" />
+    <result column="EFFECTIVE_START_TIME" property="effectiveStartTime" jdbcType="TIMESTAMP" />
+    <result column="EFFECTIVE_END_TIME" property="effectiveEndTime" jdbcType="TIMESTAMP" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="INTEGER" />
+    <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+    <result column="USE_TIME" property="useTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    COUPON_ID, COUPON_NAME, COUPON_DESC, ACTIVITY_ID, template_id, FACE_VALUE, CURRENCY_UNIT, 
+    COUPON_USER_ID, used_scene, USE_LIMITS, STATUS, EFFECTIVE_TIME, EFFECTIVE_START_TIME, 
+    EFFECTIVE_END_TIME, USER_ID, ACCOUNT_ID, ORDER_ID, USE_TIME, CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from fun_discount_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fun_discount_coupon
+    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Integer" >
+    delete from fun_discount_coupon
+    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria" >
+    delete from fun_discount_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
+    insert into fun_discount_coupon (COUPON_ID, COUPON_NAME, COUPON_DESC, 
+      ACTIVITY_ID, template_id, FACE_VALUE, 
+      CURRENCY_UNIT, COUPON_USER_ID, used_scene, 
+      USE_LIMITS, STATUS, EFFECTIVE_TIME, 
+      EFFECTIVE_START_TIME, EFFECTIVE_END_TIME, 
+      USER_ID, ACCOUNT_ID, ORDER_ID, 
+      USE_TIME, CREATE_TIME)
+    values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{couponDesc,jdbcType=VARCHAR}, 
+      #{activityId,jdbcType=INTEGER}, #{templateId,jdbcType=INTEGER}, #{faceValue,jdbcType=INTEGER}, 
+      #{currencyUnit,jdbcType=VARCHAR}, #{couponUserId,jdbcType=VARCHAR}, #{usedScene,jdbcType=VARCHAR}, 
+      #{useLimits,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{effectiveTime,jdbcType=INTEGER}, 
+      #{effectiveStartTime,jdbcType=TIMESTAMP}, #{effectiveEndTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+      #{useTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
+    insert into fun_discount_coupon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        COUPON_ID,
+      </if>
+      <if test="couponName != null" >
+        COUPON_NAME,
+      </if>
+      <if test="couponDesc != null" >
+        COUPON_DESC,
+      </if>
+      <if test="activityId != null" >
+        ACTIVITY_ID,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="faceValue != null" >
+        FACE_VALUE,
+      </if>
+      <if test="currencyUnit != null" >
+        CURRENCY_UNIT,
+      </if>
+      <if test="couponUserId != null" >
+        COUPON_USER_ID,
+      </if>
+      <if test="usedScene != null" >
+        used_scene,
+      </if>
+      <if test="useLimits != null" >
+        USE_LIMITS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="effectiveTime != null" >
+        EFFECTIVE_TIME,
+      </if>
+      <if test="effectiveStartTime != null" >
+        EFFECTIVE_START_TIME,
+      </if>
+      <if test="effectiveEndTime != null" >
+        EFFECTIVE_END_TIME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="useTime != null" >
+        USE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couponId != null" >
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="couponName != null" >
+        #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDesc != null" >
+        #{couponDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="faceValue != null" >
+        #{faceValue,jdbcType=INTEGER},
+      </if>
+      <if test="currencyUnit != null" >
+        #{currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="couponUserId != null" >
+        #{couponUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="usedScene != null" >
+        #{usedScene,jdbcType=VARCHAR},
+      </if>
+      <if test="useLimits != null" >
+        #{useLimits,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveTime != null" >
+        #{effectiveTime,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveStartTime != null" >
+        #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndTime != null" >
+        #{effectiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="useTime != null" >
+        #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria" resultType="java.lang.Integer" >
+    select count(*) from fun_discount_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fun_discount_coupon
+    <set >
+      <if test="record.couponId != null" >
+        COUPON_ID = #{record.couponId,jdbcType=INTEGER},
+      </if>
+      <if test="record.couponName != null" >
+        COUPON_NAME = #{record.couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponDesc != null" >
+        COUPON_DESC = #{record.couponDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityId != null" >
+        ACTIVITY_ID = #{record.activityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.templateId != null" >
+        template_id = #{record.templateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.faceValue != null" >
+        FACE_VALUE = #{record.faceValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.currencyUnit != null" >
+        CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponUserId != null" >
+        COUPON_USER_ID = #{record.couponUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usedScene != null" >
+        used_scene = #{record.usedScene,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useLimits != null" >
+        USE_LIMITS = #{record.useLimits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.effectiveTime != null" >
+        EFFECTIVE_TIME = #{record.effectiveTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.effectiveStartTime != null" >
+        EFFECTIVE_START_TIME = #{record.effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.effectiveEndTime != null" >
+        EFFECTIVE_END_TIME = #{record.effectiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        ORDER_ID = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.useTime != null" >
+        USE_TIME = #{record.useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fun_discount_coupon
+    set COUPON_ID = #{record.couponId,jdbcType=INTEGER},
+      COUPON_NAME = #{record.couponName,jdbcType=VARCHAR},
+      COUPON_DESC = #{record.couponDesc,jdbcType=VARCHAR},
+      ACTIVITY_ID = #{record.activityId,jdbcType=INTEGER},
+      template_id = #{record.templateId,jdbcType=INTEGER},
+      FACE_VALUE = #{record.faceValue,jdbcType=INTEGER},
+      CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
+      COUPON_USER_ID = #{record.couponUserId,jdbcType=VARCHAR},
+      used_scene = #{record.usedScene,jdbcType=VARCHAR},
+      USE_LIMITS = #{record.useLimits,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      EFFECTIVE_TIME = #{record.effectiveTime,jdbcType=INTEGER},
+      EFFECTIVE_START_TIME = #{record.effectiveStartTime,jdbcType=TIMESTAMP},
+      EFFECTIVE_END_TIME = #{record.effectiveEndTime,jdbcType=TIMESTAMP},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      ACCOUNT_ID = #{record.accountId,jdbcType=INTEGER},
+      ORDER_ID = #{record.orderId,jdbcType=INTEGER},
+      USE_TIME = #{record.useTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
+    update fun_discount_coupon
+    <set >
+      <if test="couponName != null" >
+        COUPON_NAME = #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDesc != null" >
+        COUPON_DESC = #{couponDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        ACTIVITY_ID = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="faceValue != null" >
+        FACE_VALUE = #{faceValue,jdbcType=INTEGER},
+      </if>
+      <if test="currencyUnit != null" >
+        CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="couponUserId != null" >
+        COUPON_USER_ID = #{couponUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="usedScene != null" >
+        used_scene = #{usedScene,jdbcType=VARCHAR},
+      </if>
+      <if test="useLimits != null" >
+        USE_LIMITS = #{useLimits,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveTime != null" >
+        EFFECTIVE_TIME = #{effectiveTime,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveStartTime != null" >
+        EFFECTIVE_START_TIME = #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndTime != null" >
+        EFFECTIVE_END_TIME = #{effectiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="useTime != null" >
+        USE_TIME = #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
+    update fun_discount_coupon
+    set COUPON_NAME = #{couponName,jdbcType=VARCHAR},
+      COUPON_DESC = #{couponDesc,jdbcType=VARCHAR},
+      ACTIVITY_ID = #{activityId,jdbcType=INTEGER},
+      template_id = #{templateId,jdbcType=INTEGER},
+      FACE_VALUE = #{faceValue,jdbcType=INTEGER},
+      CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
+      COUPON_USER_ID = #{couponUserId,jdbcType=VARCHAR},
+      used_scene = #{usedScene,jdbcType=VARCHAR},
+      USE_LIMITS = #{useLimits,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      EFFECTIVE_TIME = #{effectiveTime,jdbcType=INTEGER},
+      EFFECTIVE_START_TIME = #{effectiveStartTime,jdbcType=TIMESTAMP},
+      EFFECTIVE_END_TIME = #{effectiveEndTime,jdbcType=TIMESTAMP},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      ACCOUNT_ID = #{accountId,jdbcType=INTEGER},
+      ORDER_ID = #{orderId,jdbcType=INTEGER},
+      USE_TIME = #{useTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+  </update>
+</mapper>
