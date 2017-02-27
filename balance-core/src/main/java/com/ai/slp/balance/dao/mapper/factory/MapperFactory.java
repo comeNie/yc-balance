@@ -22,6 +22,10 @@ import com.ai.slp.balance.dao.mapper.interfaces.FunAccountInfoMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunAccountLogMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunAccountSetLogMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunAccountSetMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunActivityCouponRelMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunActivityMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunFundBookMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunFundDetailMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunFundSerialByAcctIdIdxMapper;
@@ -153,4 +157,21 @@ public class MapperFactory {
     public static BillOrder2feeMapper getBillOrder2feeMapper() {
         return sqlSessionTemplate.getMapper(BillOrder2feeMapper.class);
     }
+    
+    public static FunActivityMapper getFunActivityMapper(){
+    	return sqlSessionTemplate.getMapper(FunActivityMapper.class);
+    }
+    
+    public static FunActivityCouponRelMapper getFunActivityCouponRelMapper(){
+    	return sqlSessionTemplate.getMapper(FunActivityCouponRelMapper.class);
+    }
+    
+    public static FunCouponTemplateMapper getFunCouponTemplateMapper(){
+    	return sqlSessionTemplate.getMapper(FunCouponTemplateMapper.class);
+    }
+    
+    public static FunDiscountCouponMapper getFunDiscountCouponMapper(){
+    	return sqlSessionTemplate.getMapper(FunDiscountCouponMapper.class);
+    }
+    
 }
