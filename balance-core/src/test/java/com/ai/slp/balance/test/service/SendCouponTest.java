@@ -1,5 +1,12 @@
 package com.ai.slp.balance.test.service;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +36,13 @@ public class SendCouponTest extends TestCase {
         sendCouponSV.offLineSendCoupon(3, "注册", "1");
     }
     
+    
+    public static void main(String[] args) throws ParseException {
+    	Calendar c = Calendar.getInstance();
+	     c.add(Calendar.SATURDAY, 2);
+	     c.add(Calendar.SATURDAY, 2);
+	     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String sDate=sdf.format(c.getTime());
+			System.out.println(Timestamp.valueOf(sDate));
+     }
 }

@@ -2,6 +2,7 @@ package com.ai.slp.balance.dao.mapper.bo;
 
 import java.sql.Timestamp;
 
+
 public class FunDiscountCoupon {
     private Integer couponId;
 
@@ -137,23 +138,7 @@ public class FunDiscountCoupon {
         this.effectiveTime = effectiveTime;
     }
 
-    public Timestamp getEffectiveStartTime() {
-        return effectiveStartTime;
-    }
-
-    public void setEffectiveStartTime(Timestamp effectiveStartTime) {
-        this.effectiveStartTime = effectiveStartTime;
-    }
-
-    public Timestamp getEffectiveEndTime() {
-        return effectiveEndTime;
-    }
-
-    public void setEffectiveEndTime(Timestamp effectiveEndTime) {
-        this.effectiveEndTime = effectiveEndTime;
-    }
-
-    public String getUserId() {
+	public String getUserId() {
         return userId;
     }
 
@@ -185,11 +170,27 @@ public class FunDiscountCoupon {
         this.useTime = useTime;
     }
 
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
+	public Timestamp getEffectiveStartTime() {
+		return effectiveStartTime;
+	}
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
-    }
+	public void setEffectiveStartTime(Timestamp effectiveStartTime) {
+		this.effectiveStartTime = effectiveStartTime;
+	}
+
+	public Timestamp getEffectiveEndTime() {
+		return effectiveEndTime;
+	}
+
+	public void setEffectiveEndTime(Timestamp effectiveEndTime) {
+		this.effectiveEndTime = effectiveEndTime;
+	}
+
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
 }

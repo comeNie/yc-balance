@@ -2,6 +2,10 @@ package com.ai.slp.balance.service.business.impl;
 
 
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -76,8 +80,27 @@ public class SendCouponSVImpl implements ISendCouponSV {
                 funDiscountCoupon.setUsedScene(funCouponTemplate.getUsedScene());
                 funDiscountCoupon.setStatus("1");
                 funDiscountCoupon.setEffectiveTime(funCouponTemplate.getEffectiveTime());
-                funDiscountCoupon.setEffectiveStartTime(funCouponTemplate.getEffectiveStartTime());
-                funDiscountCoupon.setEffectiveEndTime(funCouponTemplate.getEffectiveEndTime());
+                
+                //有效期开始时间=领取时的系统时间＋获得时间
+                Calendar c = Calendar.getInstance();
+	             c.add(Calendar.SATURDAY, funActivityCouponRel.getAcquireDays());
+	             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	 			String format = sdf.format(c.getTime());
+                funDiscountCoupon.setEffectiveStartTime(Timestamp.valueOf(format));
+                
+                if(funCouponTemplate.getEffectiveEndTime() != null){
+                	//有效期结束时间＝领取时的系统时间＋获得时间＋优惠券模版表中的有效期
+                	Calendar e = Calendar.getInstance();
+	   	             c.add(Calendar.SATURDAY, funActivityCouponRel.getAcquireDays());
+	   	             c.add(Calendar.SATURDAY, funCouponTemplate.getEffectiveTime());
+	   	             SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	   	 			String sDate = sdf1.format(e.getTime());
+                	funDiscountCoupon.setEffectiveEndTime(Timestamp.valueOf(sDate));
+                }else{
+                	//有效期结束时间＝优惠券模版表中的有效期结束时间；
+                    funDiscountCoupon.setEffectiveEndTime(funCouponTemplate.getEffectiveEndTime());
+                }
+                
                 funDiscountCoupon.setUserId(userId);
                 //funDiscountCoupon.setAccountId();
                 //funDiscountCoupon.setOrderId();
@@ -99,6 +122,13 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	public void offLineSendCoupon(int maxCount, String couponName, String userId)
 			throws BusinessException, SystemException {
 		for (int i=0;i<maxCount;i++){
+			
+			 FunActivityCouponRelCriteria funActivityCouponRelCriteria = new FunActivityCouponRelCriteria();
+             FunActivityCouponRelMapper facrMapper = MapperFactory.getFunActivityCouponRelMapper();
+             List<FunActivityCouponRel> funActivityCouponRels = facrMapper.selectByExample(funActivityCouponRelCriteria);
+             FunActivityCouponRel funActivityCouponRel=new FunActivityCouponRel();
+             BeanUtils.copyProperties(funActivityCouponRel,funActivityCouponRels.get(0));
+			
 			 FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
              FunCouponTemplateCriteria.Criteria fatCriteria = funCouponTemplateCriteria.createCriteria();
              fatCriteria.andCouponNameNotLike(couponName);
@@ -109,18 +139,37 @@ public class SendCouponSVImpl implements ISendCouponSV {
              
              FunDiscountCoupon funDiscountCoupon = new FunDiscountCoupon();
              //funActivity;funCouponTemplate
-             funDiscountCoupon.setCouponId(1);
-             //funDiscountCoupon.setCouponName(funCouponTemplate.getCouponName());
-             //funDiscountCoupon.setCouponDesc(funCouponTemplate.getCouponDesc());
+             //funDiscountCoupon.setCouponId(1);
+             funDiscountCoupon.setCouponName(funCouponTemplate.getCouponName());
+             funDiscountCoupon.setCouponDesc(funCouponTemplate.getCouponDesc());
              funDiscountCoupon.setTemplateId(1);
-             //funDiscountCoupon.setFaceValue(funCouponTemplate.getFaceValue());
-             funDiscountCoupon.setCurrencyUnit("RMB");
-             //funDiscountCoupon.setCouponUserId(funCouponTemplate.getCouponUserId());
-             //funDiscountCoupon.setUsedScene("1");
+             funDiscountCoupon.setFaceValue(funCouponTemplate.getFaceValue());
+             funDiscountCoupon.setCurrencyUnit(funCouponTemplate.getCurrencyUnit());
+             funDiscountCoupon.setCouponUserId(funCouponTemplate.getCouponUserId());
+             funDiscountCoupon.setUsedScene(funCouponTemplate.getUsedScene());
              funDiscountCoupon.setStatus("1");
-             //funDiscountCoupon.setEffectiveTime(funCouponTemplate.getEffectiveTime());
-             //funDiscountCoupon.setEffectiveStartTime(funCouponTemplate.getEffectiveStartTime());
-             //funDiscountCoupon.setEffectiveEndTime(funCouponTemplate.getEffectiveEndTime());
+             funDiscountCoupon.setEffectiveTime(funCouponTemplate.getEffectiveTime());
+             
+             //有效期开始时间=领取时的系统时间＋获得时间
+             Calendar c = Calendar.getInstance();
+	             c.add(Calendar.SATURDAY, funActivityCouponRel.getAcquireDays());
+	             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	 			String format = sdf.format(c.getTime());
+             funDiscountCoupon.setEffectiveStartTime(Timestamp.valueOf(format));
+             funDiscountCoupon.setEffectiveStartTime(funCouponTemplate.getEffectiveStartTime());
+             
+             if(funCouponTemplate.getEffectiveEndTime() != null){
+             	//有效期结束时间＝领取时的系统时间＋获得时间＋优惠券模版表中的有效期
+             	Calendar e = Calendar.getInstance();
+	   	             c.add(Calendar.SATURDAY, funActivityCouponRel.getAcquireDays());
+	   	             c.add(Calendar.SATURDAY, funCouponTemplate.getEffectiveTime());
+	   	             SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	   	 			String sDate = sdf1.format(e.getTime());
+             	funDiscountCoupon.setEffectiveEndTime(Timestamp.valueOf(sDate));
+             }else{
+             	//有效期结束时间＝优惠券模版表中的有效期结束时间；
+                 funDiscountCoupon.setEffectiveEndTime(funCouponTemplate.getEffectiveEndTime());
+             }
              funDiscountCoupon.setUserId(userId);
              //funDiscountCoupon.setAccountId();
              //funDiscountCoupon.setOrderId();
