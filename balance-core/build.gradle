@@ -11,7 +11,8 @@ dependencies {
     }
     //科目
     compile 'com.ai.yc.common:subject:1.0-SNAPSHOT'
-
+    //订单查询
+    compile 'com.ai.yc.order:orderquery:1.0-SNAPSHOT'
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
             "junit:junit:4.12",
