@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.FunAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunAccount" >
+    <id column="BILL_ID" property="billId" jdbcType="VARCHAR" />
+    <result column="TARGET_TYPE" property="targetType" jdbcType="VARCHAR" />
+    <result column="TARGET_ID" property="targetId" jdbcType="VARCHAR" />
+    <result column="TARGET_NAME" property="targetName" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_CLS" property="accountCls" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_PERIOD" property="accountPeriod" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_PERIOD_DAY" property="accountPeriodDay" jdbcType="VARCHAR" />
+    <result column="PLAN_ACCOUNT_TIME" property="planAccountTime" jdbcType="TIMESTAMP" />
+    <result column="ACT_ACCOUNT_TIME" property="actAccountTime" jdbcType="TIMESTAMP" />
+    <result column="PAY_TIME" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="LSP_ADMIN" property="lspAdmin" jdbcType="CHAR" />
+    <result column="BILL_FEE" property="billFee" jdbcType="BIGINT" />
+    <result column="PLAT_FEE" property="platFee" jdbcType="BIGINT" />
+    <result column="ACCOUNT_AMOUT" property="accountAmout" jdbcType="BIGINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="START_ACCOUNT_TIME" property="startAccountTime" jdbcType="TIMESTAMP" />
+    <result column="END_ACCOUNT_TIME" property="endAccountTime" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="ACCOUNT_TYPE" property="accountType" jdbcType="VARCHAR" />
+    <result column="SETTLE_ACCOUNT" property="settleAccount" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BILL_ID, TARGET_TYPE, TARGET_ID, TARGET_NAME, ACCOUNT_CLS, ACCOUNT_PERIOD, ACCOUNT_PERIOD_DAY, 
+    PLAN_ACCOUNT_TIME, ACT_ACCOUNT_TIME, PAY_TIME, nickname, LSP_ADMIN, BILL_FEE, PLAT_FEE, 
+    ACCOUNT_AMOUT, CREATE_TIME, START_ACCOUNT_TIME, END_ACCOUNT_TIME, STATE, ACCOUNT_TYPE, 
+    SETTLE_ACCOUNT, CONTENT, FLAG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from fun_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fun_account
+    where BILL_ID = #{billId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fun_account
+    where BILL_ID = #{billId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountCriteria" >
+    delete from fun_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccount" >
+    insert into fun_account (BILL_ID, TARGET_TYPE, TARGET_ID, 
+      TARGET_NAME, ACCOUNT_CLS, ACCOUNT_PERIOD, 
+      ACCOUNT_PERIOD_DAY, PLAN_ACCOUNT_TIME, ACT_ACCOUNT_TIME, 
+      PAY_TIME, nickname, LSP_ADMIN, 
+      BILL_FEE, PLAT_FEE, ACCOUNT_AMOUT, 
+      CREATE_TIME, START_ACCOUNT_TIME, END_ACCOUNT_TIME, 
+      STATE, ACCOUNT_TYPE, SETTLE_ACCOUNT, 
+      CONTENT, FLAG)
+    values (#{billId,jdbcType=VARCHAR}, #{targetType,jdbcType=VARCHAR}, #{targetId,jdbcType=VARCHAR}, 
+      #{targetName,jdbcType=VARCHAR}, #{accountCls,jdbcType=VARCHAR}, #{accountPeriod,jdbcType=VARCHAR}, 
+      #{accountPeriodDay,jdbcType=VARCHAR}, #{planAccountTime,jdbcType=TIMESTAMP}, #{actAccountTime,jdbcType=TIMESTAMP}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{nickname,jdbcType=VARCHAR}, #{lspAdmin,jdbcType=CHAR}, 
+      #{billFee,jdbcType=BIGINT}, #{platFee,jdbcType=BIGINT}, #{accountAmout,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{startAccountTime,jdbcType=TIMESTAMP}, #{endAccountTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER}, #{accountType,jdbcType=VARCHAR}, #{settleAccount,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccount" >
+    insert into fun_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        BILL_ID,
+      </if>
+      <if test="targetType != null" >
+        TARGET_TYPE,
+      </if>
+      <if test="targetId != null" >
+        TARGET_ID,
+      </if>
+      <if test="targetName != null" >
+        TARGET_NAME,
+      </if>
+      <if test="accountCls != null" >
+        ACCOUNT_CLS,
+      </if>
+      <if test="accountPeriod != null" >
+        ACCOUNT_PERIOD,
+      </if>
+      <if test="accountPeriodDay != null" >
+        ACCOUNT_PERIOD_DAY,
+      </if>
+      <if test="planAccountTime != null" >
+        PLAN_ACCOUNT_TIME,
+      </if>
+      <if test="actAccountTime != null" >
+        ACT_ACCOUNT_TIME,
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="lspAdmin != null" >
+        LSP_ADMIN,
+      </if>
+      <if test="billFee != null" >
+        BILL_FEE,
+      </if>
+      <if test="platFee != null" >
+        PLAT_FEE,
+      </if>
+      <if test="accountAmout != null" >
+        ACCOUNT_AMOUT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="startAccountTime != null" >
+        START_ACCOUNT_TIME,
+      </if>
+      <if test="endAccountTime != null" >
+        END_ACCOUNT_TIME,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="accountType != null" >
+        ACCOUNT_TYPE,
+      </if>
+      <if test="settleAccount != null" >
+        SETTLE_ACCOUNT,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="flag != null" >
+        FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetType != null" >
+        #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null" >
+        #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetName != null" >
+        #{targetName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCls != null" >
+        #{accountCls,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPeriod != null" >
+        #{accountPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPeriodDay != null" >
+        #{accountPeriodDay,jdbcType=VARCHAR},
+      </if>
+      <if test="planAccountTime != null" >
+        #{planAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actAccountTime != null" >
+        #{actAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="lspAdmin != null" >
+        #{lspAdmin,jdbcType=CHAR},
+      </if>
+      <if test="billFee != null" >
+        #{billFee,jdbcType=BIGINT},
+      </if>
+      <if test="platFee != null" >
+        #{platFee,jdbcType=BIGINT},
+      </if>
+      <if test="accountAmout != null" >
+        #{accountAmout,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startAccountTime != null" >
+        #{startAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endAccountTime != null" >
+        #{endAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="settleAccount != null" >
+        #{settleAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountCriteria" resultType="java.lang.Integer" >
+    select count(*) from fun_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fun_account
+    <set >
+      <if test="record.billId != null" >
+        BILL_ID = #{record.billId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetType != null" >
+        TARGET_TYPE = #{record.targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetId != null" >
+        TARGET_ID = #{record.targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetName != null" >
+        TARGET_NAME = #{record.targetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountCls != null" >
+        ACCOUNT_CLS = #{record.accountCls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountPeriod != null" >
+        ACCOUNT_PERIOD = #{record.accountPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountPeriodDay != null" >
+        ACCOUNT_PERIOD_DAY = #{record.accountPeriodDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planAccountTime != null" >
+        PLAN_ACCOUNT_TIME = #{record.planAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.actAccountTime != null" >
+        ACT_ACCOUNT_TIME = #{record.actAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payTime != null" >
+        PAY_TIME = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lspAdmin != null" >
+        LSP_ADMIN = #{record.lspAdmin,jdbcType=CHAR},
+      </if>
+      <if test="record.billFee != null" >
+        BILL_FEE = #{record.billFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.platFee != null" >
+        PLAT_FEE = #{record.platFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.accountAmout != null" >
+        ACCOUNT_AMOUT = #{record.accountAmout,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startAccountTime != null" >
+        START_ACCOUNT_TIME = #{record.startAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endAccountTime != null" >
+        END_ACCOUNT_TIME = #{record.endAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountType != null" >
+        ACCOUNT_TYPE = #{record.accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleAccount != null" >
+        SETTLE_ACCOUNT = #{record.settleAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        FLAG = #{record.flag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fun_account
+    set BILL_ID = #{record.billId,jdbcType=VARCHAR},
+      TARGET_TYPE = #{record.targetType,jdbcType=VARCHAR},
+      TARGET_ID = #{record.targetId,jdbcType=VARCHAR},
+      TARGET_NAME = #{record.targetName,jdbcType=VARCHAR},
+      ACCOUNT_CLS = #{record.accountCls,jdbcType=VARCHAR},
+      ACCOUNT_PERIOD = #{record.accountPeriod,jdbcType=VARCHAR},
+      ACCOUNT_PERIOD_DAY = #{record.accountPeriodDay,jdbcType=VARCHAR},
+      PLAN_ACCOUNT_TIME = #{record.planAccountTime,jdbcType=TIMESTAMP},
+      ACT_ACCOUNT_TIME = #{record.actAccountTime,jdbcType=TIMESTAMP},
+      PAY_TIME = #{record.payTime,jdbcType=TIMESTAMP},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      LSP_ADMIN = #{record.lspAdmin,jdbcType=CHAR},
+      BILL_FEE = #{record.billFee,jdbcType=BIGINT},
+      PLAT_FEE = #{record.platFee,jdbcType=BIGINT},
+      ACCOUNT_AMOUT = #{record.accountAmout,jdbcType=BIGINT},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      START_ACCOUNT_TIME = #{record.startAccountTime,jdbcType=TIMESTAMP},
+      END_ACCOUNT_TIME = #{record.endAccountTime,jdbcType=TIMESTAMP},
+      STATE = #{record.state,jdbcType=INTEGER},
+      ACCOUNT_TYPE = #{record.accountType,jdbcType=VARCHAR},
+      SETTLE_ACCOUNT = #{record.settleAccount,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      FLAG = #{record.flag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccount" >
+    update fun_account
+    <set >
+      <if test="targetType != null" >
+        TARGET_TYPE = #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null" >
+        TARGET_ID = #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetName != null" >
+        TARGET_NAME = #{targetName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCls != null" >
+        ACCOUNT_CLS = #{accountCls,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPeriod != null" >
+        ACCOUNT_PERIOD = #{accountPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPeriodDay != null" >
+        ACCOUNT_PERIOD_DAY = #{accountPeriodDay,jdbcType=VARCHAR},
+      </if>
+      <if test="planAccountTime != null" >
+        PLAN_ACCOUNT_TIME = #{planAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actAccountTime != null" >
+        ACT_ACCOUNT_TIME = #{actAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="lspAdmin != null" >
+        LSP_ADMIN = #{lspAdmin,jdbcType=CHAR},
+      </if>
+      <if test="billFee != null" >
+        BILL_FEE = #{billFee,jdbcType=BIGINT},
+      </if>
+      <if test="platFee != null" >
+        PLAT_FEE = #{platFee,jdbcType=BIGINT},
+      </if>
+      <if test="accountAmout != null" >
+        ACCOUNT_AMOUT = #{accountAmout,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startAccountTime != null" >
+        START_ACCOUNT_TIME = #{startAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endAccountTime != null" >
+        END_ACCOUNT_TIME = #{endAccountTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="accountType != null" >
+        ACCOUNT_TYPE = #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="settleAccount != null" >
+        SETTLE_ACCOUNT = #{settleAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        FLAG = #{flag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BILL_ID = #{billId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccount" >
+    update fun_account
+    set TARGET_TYPE = #{targetType,jdbcType=VARCHAR},
+      TARGET_ID = #{targetId,jdbcType=VARCHAR},
+      TARGET_NAME = #{targetName,jdbcType=VARCHAR},
+      ACCOUNT_CLS = #{accountCls,jdbcType=VARCHAR},
+      ACCOUNT_PERIOD = #{accountPeriod,jdbcType=VARCHAR},
+      ACCOUNT_PERIOD_DAY = #{accountPeriodDay,jdbcType=VARCHAR},
+      PLAN_ACCOUNT_TIME = #{planAccountTime,jdbcType=TIMESTAMP},
+      ACT_ACCOUNT_TIME = #{actAccountTime,jdbcType=TIMESTAMP},
+      PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      LSP_ADMIN = #{lspAdmin,jdbcType=CHAR},
+      BILL_FEE = #{billFee,jdbcType=BIGINT},
+      PLAT_FEE = #{platFee,jdbcType=BIGINT},
+      ACCOUNT_AMOUT = #{accountAmout,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      START_ACCOUNT_TIME = #{startAccountTime,jdbcType=TIMESTAMP},
+      END_ACCOUNT_TIME = #{endAccountTime,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=INTEGER},
+      ACCOUNT_TYPE = #{accountType,jdbcType=VARCHAR},
+      SETTLE_ACCOUNT = #{settleAccount,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      FLAG = #{flag,jdbcType=VARCHAR}
+    where BILL_ID = #{billId,jdbcType=VARCHAR}
+  </update>
+</mapper>

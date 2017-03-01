@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.FunAccountDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunAccountDetail" >
+    <id column="DETAIL_ID" property="detailId" jdbcType="VARCHAR" />
+    <result column="BILL_ID" property="billId" jdbcType="VARCHAR" />
+    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+    <result column="ORDER_TIME" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="LANGUNGE_PAIR_NAME" property="langungePairName" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
+    <result column="TOTAL_FEE" property="totalFee" jdbcType="BIGINT" />
+    <result column="PLAT_FEE" property="platFee" jdbcType="BIGINT" />
+    <result column="INTERPER_FEE" property="interperFee" jdbcType="BIGINT" />
+    <result column="nickname2" property="nickname2" jdbcType="VARCHAR" />
+    <result column="LSP_ID" property="lspId" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DETAIL_ID, BILL_ID, ORDER_ID, ORDER_TIME, LANGUNGE_PAIR_NAME, nickname, CURRENCY_UNIT, 
+    TOTAL_FEE, PLAT_FEE, INTERPER_FEE, nickname2, LSP_ID, STATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetailCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from fun_account_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fun_account_detail
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fun_account_detail
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetailCriteria" >
+    delete from fun_account_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetail" >
+    insert into fun_account_detail (DETAIL_ID, BILL_ID, ORDER_ID, 
+      ORDER_TIME, LANGUNGE_PAIR_NAME, nickname, 
+      CURRENCY_UNIT, TOTAL_FEE, PLAT_FEE, 
+      INTERPER_FEE, nickname2, LSP_ID, 
+      STATE)
+    values (#{detailId,jdbcType=VARCHAR}, #{billId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{langungePairName,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{currencyUnit,jdbcType=VARCHAR}, #{totalFee,jdbcType=BIGINT}, #{platFee,jdbcType=BIGINT}, 
+      #{interperFee,jdbcType=BIGINT}, #{nickname2,jdbcType=VARCHAR}, #{lspId,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetail" >
+    insert into fun_account_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        DETAIL_ID,
+      </if>
+      <if test="billId != null" >
+        BILL_ID,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="orderTime != null" >
+        ORDER_TIME,
+      </if>
+      <if test="langungePairName != null" >
+        LANGUNGE_PAIR_NAME,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="currencyUnit != null" >
+        CURRENCY_UNIT,
+      </if>
+      <if test="totalFee != null" >
+        TOTAL_FEE,
+      </if>
+      <if test="platFee != null" >
+        PLAT_FEE,
+      </if>
+      <if test="interperFee != null" >
+        INTERPER_FEE,
+      </if>
+      <if test="nickname2 != null" >
+        nickname2,
+      </if>
+      <if test="lspId != null" >
+        LSP_ID,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="langungePairName != null" >
+        #{langungePairName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyUnit != null" >
+        #{currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee,jdbcType=BIGINT},
+      </if>
+      <if test="platFee != null" >
+        #{platFee,jdbcType=BIGINT},
+      </if>
+      <if test="interperFee != null" >
+        #{interperFee,jdbcType=BIGINT},
+      </if>
+      <if test="nickname2 != null" >
+        #{nickname2,jdbcType=VARCHAR},
+      </if>
+      <if test="lspId != null" >
+        #{lspId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetailCriteria" resultType="java.lang.Integer" >
+    select count(*) from fun_account_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fun_account_detail
+    <set >
+      <if test="record.detailId != null" >
+        DETAIL_ID = #{record.detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billId != null" >
+        BILL_ID = #{record.billId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        ORDER_ID = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTime != null" >
+        ORDER_TIME = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.langungePairName != null" >
+        LANGUNGE_PAIR_NAME = #{record.langungePairName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyUnit != null" >
+        CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalFee != null" >
+        TOTAL_FEE = #{record.totalFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.platFee != null" >
+        PLAT_FEE = #{record.platFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.interperFee != null" >
+        INTERPER_FEE = #{record.interperFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.nickname2 != null" >
+        nickname2 = #{record.nickname2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lspId != null" >
+        LSP_ID = #{record.lspId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fun_account_detail
+    set DETAIL_ID = #{record.detailId,jdbcType=VARCHAR},
+      BILL_ID = #{record.billId,jdbcType=VARCHAR},
+      ORDER_ID = #{record.orderId,jdbcType=VARCHAR},
+      ORDER_TIME = #{record.orderTime,jdbcType=TIMESTAMP},
+      LANGUNGE_PAIR_NAME = #{record.langungePairName,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
+      TOTAL_FEE = #{record.totalFee,jdbcType=BIGINT},
+      PLAT_FEE = #{record.platFee,jdbcType=BIGINT},
+      INTERPER_FEE = #{record.interperFee,jdbcType=BIGINT},
+      nickname2 = #{record.nickname2,jdbcType=VARCHAR},
+      LSP_ID = #{record.lspId,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetail" >
+    update fun_account_detail
+    <set >
+      <if test="billId != null" >
+        BILL_ID = #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        ORDER_TIME = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="langungePairName != null" >
+        LANGUNGE_PAIR_NAME = #{langungePairName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyUnit != null" >
+        CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        TOTAL_FEE = #{totalFee,jdbcType=BIGINT},
+      </if>
+      <if test="platFee != null" >
+        PLAT_FEE = #{platFee,jdbcType=BIGINT},
+      </if>
+      <if test="interperFee != null" >
+        INTERPER_FEE = #{interperFee,jdbcType=BIGINT},
+      </if>
+      <if test="nickname2 != null" >
+        nickname2 = #{nickname2,jdbcType=VARCHAR},
+      </if>
+      <if test="lspId != null" >
+        LSP_ID = #{lspId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetail" >
+    update fun_account_detail
+    set BILL_ID = #{billId,jdbcType=VARCHAR},
+      ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      ORDER_TIME = #{orderTime,jdbcType=TIMESTAMP},
+      LANGUNGE_PAIR_NAME = #{langungePairName,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
+      TOTAL_FEE = #{totalFee,jdbcType=BIGINT},
+      PLAT_FEE = #{platFee,jdbcType=BIGINT},
+      INTERPER_FEE = #{interperFee,jdbcType=BIGINT},
+      nickname2 = #{nickname2,jdbcType=VARCHAR},
+      LSP_ID = #{lspId,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR}
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </update>
+</mapper>
