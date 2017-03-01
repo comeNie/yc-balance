@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
+import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
 import com.alibaba.dubbo.config.annotation.Service;
 
 @Service
@@ -15,17 +16,17 @@ public class SendCouponSVImpl implements ISendCouponSV {
     
     
     @Autowired
-    private ISendCouponSV sendCouponSV;
+    private ISendCouponBusiSV sendCouponBusiSV;
 
 	@Override
 	public void registerSendCoupon(String activityName, String userId) throws BusinessException, SystemException {
-		sendCouponSV.registerSendCoupon(activityName, userId);
+		sendCouponBusiSV.registerSendCoupon(activityName, userId);
 	}
 
 	@Override
 	public void offLineSendCoupon(int maxCount, String couponName, String userId)
 			throws BusinessException, SystemException {
-		sendCouponSV.offLineSendCoupon(maxCount, couponName, userId);
+		sendCouponBusiSV.offLineSendCoupon(maxCount, couponName, userId);
 	}
 
 

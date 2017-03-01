@@ -1,11 +1,5 @@
 package com.ai.slp.balance.test.service;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
+import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -25,7 +19,7 @@ public class SendCouponTest extends TestCase {
 
 
     @Autowired
-    private ISendCouponBusiSV sendCouponSV;
+    private ISendCouponSV sendCouponSV;
 
     @Test
     public void testSendCouponTest() {
