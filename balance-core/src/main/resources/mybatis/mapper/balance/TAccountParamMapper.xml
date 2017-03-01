@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.TAccountParamMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.TAccountParam" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TARGET_TYPE" property="targetType" jdbcType="VARCHAR" />
+    <result column="TARGET_ID" property="targetId" jdbcType="VARCHAR" />
+    <result column="TARGET_NAME" property="targetName" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_CLS" property="accountCls" jdbcType="VARCHAR" />
+    <result column="CREDITLIMIT" property="creditlimit" jdbcType="INTEGER" />
+    <result column="DISCOUNT" property="discount" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_TYPE" property="accountType" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_PERIOD" property="accountPeriod" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_DAY" property="accountDay" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, TARGET_TYPE, TARGET_ID, TARGET_NAME, ACCOUNT_CLS, CREDITLIMIT, DISCOUNT, ACCOUNT_TYPE, 
+    ACCOUNT_PERIOD, ACCOUNT_DAY, CONTENT, CREATE_TIME, MODIFY_TIME, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.TAccountParamCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_account_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_account_param
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_account_param
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.TAccountParamCriteria" >
+    delete from t_account_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.TAccountParam" >
+    insert into t_account_param (ID, TARGET_TYPE, TARGET_ID, 
+      TARGET_NAME, ACCOUNT_CLS, CREDITLIMIT, 
+      DISCOUNT, ACCOUNT_TYPE, ACCOUNT_PERIOD, 
+      ACCOUNT_DAY, CONTENT, CREATE_TIME, 
+      MODIFY_TIME, STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{targetType,jdbcType=VARCHAR}, #{targetId,jdbcType=VARCHAR}, 
+      #{targetName,jdbcType=VARCHAR}, #{accountCls,jdbcType=VARCHAR}, #{creditlimit,jdbcType=INTEGER}, 
+      #{discount,jdbcType=DECIMAL}, #{accountType,jdbcType=VARCHAR}, #{accountPeriod,jdbcType=VARCHAR}, 
+      #{accountDay,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.TAccountParam" >
+    insert into t_account_param
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="targetType != null" >
+        TARGET_TYPE,
+      </if>
+      <if test="targetId != null" >
+        TARGET_ID,
+      </if>
+      <if test="targetName != null" >
+        TARGET_NAME,
+      </if>
+      <if test="accountCls != null" >
+        ACCOUNT_CLS,
+      </if>
+      <if test="creditlimit != null" >
+        CREDITLIMIT,
+      </if>
+      <if test="discount != null" >
+        DISCOUNT,
+      </if>
+      <if test="accountType != null" >
+        ACCOUNT_TYPE,
+      </if>
+      <if test="accountPeriod != null" >
+        ACCOUNT_PERIOD,
+      </if>
+      <if test="accountDay != null" >
+        ACCOUNT_DAY,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="targetType != null" >
+        #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null" >
+        #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetName != null" >
+        #{targetName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCls != null" >
+        #{accountCls,jdbcType=VARCHAR},
+      </if>
+      <if test="creditlimit != null" >
+        #{creditlimit,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPeriod != null" >
+        #{accountPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDay != null" >
+        #{accountDay,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.TAccountParamCriteria" resultType="java.lang.Integer" >
+    select count(*) from t_account_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_account_param
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetType != null" >
+        TARGET_TYPE = #{record.targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetId != null" >
+        TARGET_ID = #{record.targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetName != null" >
+        TARGET_NAME = #{record.targetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountCls != null" >
+        ACCOUNT_CLS = #{record.accountCls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditlimit != null" >
+        CREDITLIMIT = #{record.creditlimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.discount != null" >
+        DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accountType != null" >
+        ACCOUNT_TYPE = #{record.accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountPeriod != null" >
+        ACCOUNT_PERIOD = #{record.accountPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountDay != null" >
+        ACCOUNT_DAY = #{record.accountDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_account_param
+    set ID = #{record.id,jdbcType=VARCHAR},
+      TARGET_TYPE = #{record.targetType,jdbcType=VARCHAR},
+      TARGET_ID = #{record.targetId,jdbcType=VARCHAR},
+      TARGET_NAME = #{record.targetName,jdbcType=VARCHAR},
+      ACCOUNT_CLS = #{record.accountCls,jdbcType=VARCHAR},
+      CREDITLIMIT = #{record.creditlimit,jdbcType=INTEGER},
+      DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      ACCOUNT_TYPE = #{record.accountType,jdbcType=VARCHAR},
+      ACCOUNT_PERIOD = #{record.accountPeriod,jdbcType=VARCHAR},
+      ACCOUNT_DAY = #{record.accountDay,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.TAccountParam" >
+    update t_account_param
+    <set >
+      <if test="targetType != null" >
+        TARGET_TYPE = #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null" >
+        TARGET_ID = #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetName != null" >
+        TARGET_NAME = #{targetName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCls != null" >
+        ACCOUNT_CLS = #{accountCls,jdbcType=VARCHAR},
+      </if>
+      <if test="creditlimit != null" >
+        CREDITLIMIT = #{creditlimit,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        DISCOUNT = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountType != null" >
+        ACCOUNT_TYPE = #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPeriod != null" >
+        ACCOUNT_PERIOD = #{accountPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDay != null" >
+        ACCOUNT_DAY = #{accountDay,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.TAccountParam" >
+    update t_account_param
+    set TARGET_TYPE = #{targetType,jdbcType=VARCHAR},
+      TARGET_ID = #{targetId,jdbcType=VARCHAR},
+      TARGET_NAME = #{targetName,jdbcType=VARCHAR},
+      ACCOUNT_CLS = #{accountCls,jdbcType=VARCHAR},
+      CREDITLIMIT = #{creditlimit,jdbcType=INTEGER},
+      DISCOUNT = #{discount,jdbcType=DECIMAL},
+      ACCOUNT_TYPE = #{accountType,jdbcType=VARCHAR},
+      ACCOUNT_PERIOD = #{accountPeriod,jdbcType=VARCHAR},
+      ACCOUNT_DAY = #{accountDay,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
