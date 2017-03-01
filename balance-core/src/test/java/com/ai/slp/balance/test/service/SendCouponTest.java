@@ -13,36 +13,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ai.slp.balance.service.business.interfaces.ISendCouponSV;
+import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
 //import net.sourceforge.groboutils.junit.v1.TestRunnable;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "/context/core-context.xml" })
+@ContextConfiguration(locations="classpath:/context/core-context-*.xml")
 public class SendCouponTest extends TestCase {
 
 
     @Autowired
-    private ISendCouponSV sendCouponSV;
+    private ISendCouponBusiSV sendCouponSV;
 
-   /* @Test
+    @Test
     public void testSendCouponTest() {
         sendCouponSV.registerSendCoupon("注册测", "1");
-    }*/
-    @Test
+    }
+    /*@Test
     public void testDepositForegift() {
         sendCouponSV.offLineSendCoupon(3, "注册", "1");
-    }
+    }*/
     
     
-    public static void main(String[] args) throws ParseException {
+    /*public static void main(String[] args) throws ParseException {
     	Calendar c = Calendar.getInstance();
 	     c.add(Calendar.SATURDAY, 2);
 	     c.add(Calendar.SATURDAY, 2);
 	     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String sDate=sdf.format(c.getTime());
 			System.out.println(Timestamp.valueOf(sDate));
-     }
+     }*/
 }

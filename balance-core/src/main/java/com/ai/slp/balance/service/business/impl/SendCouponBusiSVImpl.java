@@ -29,11 +29,11 @@ import com.ai.slp.balance.dao.mapper.interfaces.FunActivityCouponRelMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunActivityMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
-import com.ai.slp.balance.service.business.interfaces.ISendCouponSV;
+import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
 @Service
 @Transactional
-public class SendCouponSVImpl implements ISendCouponSV {
-	private static final Logger LOG = LogManager.getLogger(SendCouponSVImpl.class);
+public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
+	private static final Logger LOG = LogManager.getLogger(SendCouponBusiSVImpl.class);
 	
 	/**
 	 * 新用户注册发送/领取优惠券
