@@ -15,6 +15,8 @@ public class FunActivity {
 
     private Integer totalMoneyAmount;
 
+    private String activityTime;
+
     private Integer remainingMoneyAmount;
 
     private Timestamp startTime;
@@ -75,6 +77,14 @@ public class FunActivity {
 
     public void setTotalMoneyAmount(Integer totalMoneyAmount) {
         this.totalMoneyAmount = totalMoneyAmount;
+    }
+
+    public String getActivityTime() {
+        return activityTime;
+    }
+
+    public void setActivityTime(String activityTime) {
+        this.activityTime = activityTime == null ? null : activityTime.trim();
     }
 
     public Integer getRemainingMoneyAmount() {

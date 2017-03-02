@@ -8,9 +8,10 @@
     <result column="used_scene" property="usedScene" jdbcType="VARCHAR" />
     <result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
     <result column="TOTAL_MONEY_AMOUNT" property="totalMoneyAmount" jdbcType="INTEGER" />
+    <result column="ACTIVITY_TIME" property="activityTime" jdbcType="VARCHAR" />
     <result column="REMAINING_MONEY_AMOUNT" property="remainingMoneyAmount" jdbcType="INTEGER" />
-    <result column="START_ TIME" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="END_ TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="CREATE_STAFF" property="createStaff" jdbcType="VARCHAR" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
@@ -76,8 +77,8 @@
   </sql>
   <sql id="Base_Column_List" >
     ACTIVITY_ID, ACTIVITY_NAME, activity_desc, used_scene, CURRENCY_UNIT, TOTAL_MONEY_AMOUNT, 
-    REMAINING_MONEY_AMOUNT, "START_ TIME", "END_ TIME", STATUS, CREATE_STAFF, CREATE_TIME, 
-    UPDATE_TIME
+    ACTIVITY_TIME, REMAINING_MONEY_AMOUNT, START_TIME, END_TIME, STATUS, CREATE_STAFF, 
+    CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityCriteria" >
     select
@@ -116,14 +117,14 @@
   <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivity" >
     insert into fun_activity (ACTIVITY_ID, ACTIVITY_NAME, activity_desc, 
       used_scene, CURRENCY_UNIT, TOTAL_MONEY_AMOUNT, 
-      REMAINING_MONEY_AMOUNT, "START_ TIME", "END_ TIME", 
-      STATUS, CREATE_STAFF, CREATE_TIME, 
-      UPDATE_TIME)
+      ACTIVITY_TIME, REMAINING_MONEY_AMOUNT, START_TIME, 
+      END_TIME, STATUS, CREATE_STAFF, 
+      CREATE_TIME, UPDATE_TIME)
     values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{activityDesc,jdbcType=VARCHAR}, 
       #{usedScene,jdbcType=VARCHAR}, #{currencyUnit,jdbcType=VARCHAR}, #{totalMoneyAmount,jdbcType=INTEGER}, 
-      #{remainingMoneyAmount,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR}, #{createStaff,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{activityTime,jdbcType=VARCHAR}, #{remainingMoneyAmount,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{createStaff,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivity" >
     insert into fun_activity
@@ -146,14 +147,17 @@
       <if test="totalMoneyAmount != null" >
         TOTAL_MONEY_AMOUNT,
       </if>
+      <if test="activityTime != null" >
+        ACTIVITY_TIME,
+      </if>
       <if test="remainingMoneyAmount != null" >
         REMAINING_MONEY_AMOUNT,
       </if>
       <if test="startTime != null" >
-        "START_ TIME",
+        START_TIME,
       </if>
       <if test="endTime != null" >
-        "END_ TIME",
+        END_TIME,
       </if>
       <if test="status != null" >
         STATUS,
@@ -186,6 +190,9 @@
       </if>
       <if test="totalMoneyAmount != null" >
         #{totalMoneyAmount,jdbcType=INTEGER},
+      </if>
+      <if test="activityTime != null" >
+        #{activityTime,jdbcType=VARCHAR},
       </if>
       <if test="remainingMoneyAmount != null" >
         #{remainingMoneyAmount,jdbcType=INTEGER},
@@ -237,14 +244,17 @@
       <if test="record.totalMoneyAmount != null" >
         TOTAL_MONEY_AMOUNT = #{record.totalMoneyAmount,jdbcType=INTEGER},
       </if>
+      <if test="record.activityTime != null" >
+        ACTIVITY_TIME = #{record.activityTime,jdbcType=VARCHAR},
+      </if>
       <if test="record.remainingMoneyAmount != null" >
         REMAINING_MONEY_AMOUNT = #{record.remainingMoneyAmount,jdbcType=INTEGER},
       </if>
       <if test="record.startTime != null" >
-        "START_ TIME" = #{record.startTime,jdbcType=TIMESTAMP},
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.endTime != null" >
-        "END_ TIME" = #{record.endTime,jdbcType=TIMESTAMP},
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
         STATUS = #{record.status,jdbcType=VARCHAR},
@@ -271,9 +281,10 @@
       used_scene = #{record.usedScene,jdbcType=VARCHAR},
       CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
       TOTAL_MONEY_AMOUNT = #{record.totalMoneyAmount,jdbcType=INTEGER},
+      ACTIVITY_TIME = #{record.activityTime,jdbcType=VARCHAR},
       REMAINING_MONEY_AMOUNT = #{record.remainingMoneyAmount,jdbcType=INTEGER},
-      "START_ TIME" = #{record.startTime,jdbcType=TIMESTAMP},
-      "END_ TIME" = #{record.endTime,jdbcType=TIMESTAMP},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
       STATUS = #{record.status,jdbcType=VARCHAR},
       CREATE_STAFF = #{record.createStaff,jdbcType=VARCHAR},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
@@ -300,14 +311,17 @@
       <if test="totalMoneyAmount != null" >
         TOTAL_MONEY_AMOUNT = #{totalMoneyAmount,jdbcType=INTEGER},
       </if>
+      <if test="activityTime != null" >
+        ACTIVITY_TIME = #{activityTime,jdbcType=VARCHAR},
+      </if>
       <if test="remainingMoneyAmount != null" >
         REMAINING_MONEY_AMOUNT = #{remainingMoneyAmount,jdbcType=INTEGER},
       </if>
       <if test="startTime != null" >
-        "START_ TIME" = #{startTime,jdbcType=TIMESTAMP},
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="endTime != null" >
-        "END_ TIME" = #{endTime,jdbcType=TIMESTAMP},
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
         STATUS = #{status,jdbcType=VARCHAR},
@@ -331,9 +345,10 @@
       used_scene = #{usedScene,jdbcType=VARCHAR},
       CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
       TOTAL_MONEY_AMOUNT = #{totalMoneyAmount,jdbcType=INTEGER},
+      ACTIVITY_TIME = #{activityTime,jdbcType=VARCHAR},
       REMAINING_MONEY_AMOUNT = #{remainingMoneyAmount,jdbcType=INTEGER},
-      "START_ TIME" = #{startTime,jdbcType=TIMESTAMP},
-      "END_ TIME" = #{endTime,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
       STATUS = #{status,jdbcType=VARCHAR},
       CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},

@@ -71,6 +71,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                 
                 FunDiscountCoupon funDiscountCoupon = new FunDiscountCoupon();
                 //funActivity;funCouponTemplate
+                funDiscountCoupon.setCouponId("a1");
                 funDiscountCoupon.setAccountId(funActivity.getActivityId());
                 funDiscountCoupon.setCouponName(funCouponTemplate.getCouponName());
                 funDiscountCoupon.setCouponDesc(funCouponTemplate.getCouponDesc());
@@ -112,7 +113,6 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                 
                 FunDiscountCouponMapper fudMapper = MapperFactory.getFunDiscountCouponMapper();
                 fudMapper.insert(funDiscountCoupon);
-                System.out.println(fudMapper);
         	}
         }
 	}

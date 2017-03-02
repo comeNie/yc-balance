@@ -525,6 +525,76 @@ public class FunActivityCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andActivityTimeIsNull() {
+            addCriterion("ACTIVITY_TIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeIsNotNull() {
+            addCriterion("ACTIVITY_TIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeEqualTo(String value) {
+            addCriterion("ACTIVITY_TIME =", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeNotEqualTo(String value) {
+            addCriterion("ACTIVITY_TIME <>", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeGreaterThan(String value) {
+            addCriterion("ACTIVITY_TIME >", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("ACTIVITY_TIME >=", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeLessThan(String value) {
+            addCriterion("ACTIVITY_TIME <", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeLessThanOrEqualTo(String value) {
+            addCriterion("ACTIVITY_TIME <=", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeLike(String value) {
+            addCriterion("ACTIVITY_TIME like", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeNotLike(String value) {
+            addCriterion("ACTIVITY_TIME not like", value, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeIn(List<String> values) {
+            addCriterion("ACTIVITY_TIME in", values, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeNotIn(List<String> values) {
+            addCriterion("ACTIVITY_TIME not in", values, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeBetween(String value1, String value2) {
+            addCriterion("ACTIVITY_TIME between", value1, value2, "activityTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityTimeNotBetween(String value1, String value2) {
+            addCriterion("ACTIVITY_TIME not between", value1, value2, "activityTime");
+            return (Criteria) this;
+        }
+
         public Criteria andRemainingMoneyAmountIsNull() {
             addCriterion("REMAINING_MONEY_AMOUNT is null");
             return (Criteria) this;
@@ -586,122 +656,122 @@ public class FunActivityCriteria {
         }
 
         public Criteria andStartTimeIsNull() {
-            addCriterion("\"START_ TIME\" is null");
+            addCriterion("START_TIME is null");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeIsNotNull() {
-            addCriterion("\"START_ TIME\" is not null");
+            addCriterion("START_TIME is not null");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeEqualTo(Timestamp value) {
-            addCriterion("\"START_ TIME\" =", value, "startTime");
+            addCriterion("START_TIME =", value, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeNotEqualTo(Timestamp value) {
-            addCriterion("\"START_ TIME\" <>", value, "startTime");
+            addCriterion("START_TIME <>", value, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeGreaterThan(Timestamp value) {
-            addCriterion("\"START_ TIME\" >", value, "startTime");
+            addCriterion("START_TIME >", value, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeGreaterThanOrEqualTo(Timestamp value) {
-            addCriterion("\"START_ TIME\" >=", value, "startTime");
+            addCriterion("START_TIME >=", value, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeLessThan(Timestamp value) {
-            addCriterion("\"START_ TIME\" <", value, "startTime");
+            addCriterion("START_TIME <", value, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeLessThanOrEqualTo(Timestamp value) {
-            addCriterion("\"START_ TIME\" <=", value, "startTime");
+            addCriterion("START_TIME <=", value, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeIn(List<Timestamp> values) {
-            addCriterion("\"START_ TIME\" in", values, "startTime");
+            addCriterion("START_TIME in", values, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeNotIn(List<Timestamp> values) {
-            addCriterion("\"START_ TIME\" not in", values, "startTime");
+            addCriterion("START_TIME not in", values, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeBetween(Timestamp value1, Timestamp value2) {
-            addCriterion("\"START_ TIME\" between", value1, value2, "startTime");
+            addCriterion("START_TIME between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andStartTimeNotBetween(Timestamp value1, Timestamp value2) {
-            addCriterion("\"START_ TIME\" not between", value1, value2, "startTime");
+            addCriterion("START_TIME not between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeIsNull() {
-            addCriterion("\"END_ TIME\" is null");
+            addCriterion("END_TIME is null");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeIsNotNull() {
-            addCriterion("\"END_ TIME\" is not null");
+            addCriterion("END_TIME is not null");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeEqualTo(Timestamp value) {
-            addCriterion("\"END_ TIME\" =", value, "endTime");
+            addCriterion("END_TIME =", value, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeNotEqualTo(Timestamp value) {
-            addCriterion("\"END_ TIME\" <>", value, "endTime");
+            addCriterion("END_TIME <>", value, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeGreaterThan(Timestamp value) {
-            addCriterion("\"END_ TIME\" >", value, "endTime");
+            addCriterion("END_TIME >", value, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeGreaterThanOrEqualTo(Timestamp value) {
-            addCriterion("\"END_ TIME\" >=", value, "endTime");
+            addCriterion("END_TIME >=", value, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeLessThan(Timestamp value) {
-            addCriterion("\"END_ TIME\" <", value, "endTime");
+            addCriterion("END_TIME <", value, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeLessThanOrEqualTo(Timestamp value) {
-            addCriterion("\"END_ TIME\" <=", value, "endTime");
+            addCriterion("END_TIME <=", value, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeIn(List<Timestamp> values) {
-            addCriterion("\"END_ TIME\" in", values, "endTime");
+            addCriterion("END_TIME in", values, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeNotIn(List<Timestamp> values) {
-            addCriterion("\"END_ TIME\" not in", values, "endTime");
+            addCriterion("END_TIME not in", values, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeBetween(Timestamp value1, Timestamp value2) {
-            addCriterion("\"END_ TIME\" between", value1, value2, "endTime");
+            addCriterion("END_TIME between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
         public Criteria andEndTimeNotBetween(Timestamp value1, Timestamp value2) {
-            addCriterion("\"END_ TIME\" not between", value1, value2, "endTime");
+            addCriterion("END_TIME not between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
