@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.TestRunnable;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:/context/core-context-*.xml")
+@ContextConfiguration({ "/context/core-context.xml" })
 public class SendCouponTest extends TestCase {
 
 
