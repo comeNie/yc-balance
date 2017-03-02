@@ -23,11 +23,11 @@ public class SendCouponSVImpl implements ISendCouponSV {
 		sendCouponBusiSV.registerSendCoupon(activityName, userId);
 	}
 
-	@Override
+	/*@Override
 	public void offLineSendCoupon(int maxCount, String couponName, String userId)
 			throws BusinessException, SystemException {
 		sendCouponBusiSV.offLineSendCoupon(maxCount, couponName, userId);
-	}
+	}*/
 
 
 }

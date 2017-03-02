@@ -3,6 +3,7 @@ package com.ai.slp.balance.service.business.impl;
 
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 		//从serial中取出需要的字段
 		FunActivityCriteria funActivityCriteria = new FunActivityCriteria();
 		FunActivityCriteria.Criteria faCriteria = funActivityCriteria.createCriteria();
-		faCriteria.andActivityNameLike(activityName);
+		faCriteria.andActivityNameLike("%"+activityName+"%");
 		FunActivityMapper fcMapper = MapperFactory.getFunActivityMapper();
         List<FunActivity> funActivitys = fcMapper.selectByExample(funActivityCriteria);
         if (!CollectionUtil.isEmpty(funActivitys)){
@@ -102,14 +103,16 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                 }
                 
                 funDiscountCoupon.setUserId(userId);
-                //funDiscountCoupon.setAccountId();
-                //funDiscountCoupon.setOrderId();
-                //funDiscountCoupon.setUseTime();
-                //funDiscountCoupon.setCreateTime());
+                /*funDiscountCoupon.setAccountId();
+                funDiscountCoupon.setOrderId();
+                funDiscountCoupon.setUseTime();*/
+                Date date=new Date();
+                DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                funDiscountCoupon.setCreateTime(Timestamp.valueOf(format1.format(date)));
                 
                 FunDiscountCouponMapper fudMapper = MapperFactory.getFunDiscountCouponMapper();
                 fudMapper.insert(funDiscountCoupon);
-                
+                System.out.println(fudMapper);
         	}
         }
 	}
@@ -117,7 +120,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	
 	/**
 	 * 线下发送/领取优惠券
-	 */
+	 *//*
 	@Override
 	public void offLineSendCoupon(int maxCount, String couponName, String userId)
 			throws BusinessException, SystemException {
@@ -179,7 +182,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
              FunDiscountCouponMapper fudMapper = MapperFactory.getFunDiscountCouponMapper();
              fudMapper.insertSelective(funDiscountCoupon);
 		}
-	}
+	}*/
 	
 	
 	

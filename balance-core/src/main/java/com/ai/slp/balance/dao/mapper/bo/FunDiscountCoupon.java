@@ -2,9 +2,8 @@ package com.ai.slp.balance.dao.mapper.bo;
 
 import java.sql.Timestamp;
 
-
 public class FunDiscountCoupon {
-    private Integer couponId;
+    private String couponId;
 
     private String couponName;
 
@@ -42,12 +41,14 @@ public class FunDiscountCoupon {
 
     private Timestamp createTime;
 
-    public Integer getCouponId() {
+    private String remark;
+
+    public String getCouponId() {
         return couponId;
     }
 
-    public void setCouponId(Integer couponId) {
-        this.couponId = couponId;
+    public void setCouponId(String couponId) {
+        this.couponId = couponId == null ? null : couponId.trim();
     }
 
     public String getCouponName() {
@@ -138,7 +139,23 @@ public class FunDiscountCoupon {
         this.effectiveTime = effectiveTime;
     }
 
-	public String getUserId() {
+    public Timestamp getEffectiveStartTime() {
+        return effectiveStartTime;
+    }
+
+    public void setEffectiveStartTime(Timestamp effectiveStartTime) {
+        this.effectiveStartTime = effectiveStartTime;
+    }
+
+    public Timestamp getEffectiveEndTime() {
+        return effectiveEndTime;
+    }
+
+    public void setEffectiveEndTime(Timestamp effectiveEndTime) {
+        this.effectiveEndTime = effectiveEndTime;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
@@ -170,27 +187,19 @@ public class FunDiscountCoupon {
         this.useTime = useTime;
     }
 
-	public Timestamp getEffectiveStartTime() {
-		return effectiveStartTime;
-	}
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
 
-	public void setEffectiveStartTime(Timestamp effectiveStartTime) {
-		this.effectiveStartTime = effectiveStartTime;
-	}
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
 
-	public Timestamp getEffectiveEndTime() {
-		return effectiveEndTime;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setEffectiveEndTime(Timestamp effectiveEndTime) {
-		this.effectiveEndTime = effectiveEndTime;
-	}
-
-	public Timestamp getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Timestamp createTime) {
-		this.createTime = createTime;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
 }

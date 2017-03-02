@@ -23,7 +23,7 @@ public class SendCouponTest extends TestCase {
 
     @Test
     public void testSendCouponTest() {
-        sendCouponSV.registerSendCoupon("注册测", "1");
+        sendCouponSV.registerSendCoupon("注册", "1");
     }
     /*@Test
     public void testDepositForegift() {

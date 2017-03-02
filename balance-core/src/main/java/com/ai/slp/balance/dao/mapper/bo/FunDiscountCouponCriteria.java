@@ -135,52 +135,62 @@ public class FunDiscountCouponCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdEqualTo(Integer value) {
+        public Criteria andCouponIdEqualTo(String value) {
             addCriterion("COUPON_ID =", value, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdNotEqualTo(Integer value) {
+        public Criteria andCouponIdNotEqualTo(String value) {
             addCriterion("COUPON_ID <>", value, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdGreaterThan(Integer value) {
+        public Criteria andCouponIdGreaterThan(String value) {
             addCriterion("COUPON_ID >", value, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCouponIdGreaterThanOrEqualTo(String value) {
             addCriterion("COUPON_ID >=", value, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdLessThan(Integer value) {
+        public Criteria andCouponIdLessThan(String value) {
             addCriterion("COUPON_ID <", value, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdLessThanOrEqualTo(Integer value) {
+        public Criteria andCouponIdLessThanOrEqualTo(String value) {
             addCriterion("COUPON_ID <=", value, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdIn(List<Integer> values) {
+        public Criteria andCouponIdLike(String value) {
+            addCriterion("COUPON_ID like", value, "couponId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCouponIdNotLike(String value) {
+            addCriterion("COUPON_ID not like", value, "couponId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCouponIdIn(List<String> values) {
             addCriterion("COUPON_ID in", values, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdNotIn(List<Integer> values) {
+        public Criteria andCouponIdNotIn(List<String> values) {
             addCriterion("COUPON_ID not in", values, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdBetween(Integer value1, Integer value2) {
+        public Criteria andCouponIdBetween(String value1, String value2) {
             addCriterion("COUPON_ID between", value1, value2, "couponId");
             return (Criteria) this;
         }
 
-        public Criteria andCouponIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andCouponIdNotBetween(String value1, String value2) {
             addCriterion("COUPON_ID not between", value1, value2, "couponId");
             return (Criteria) this;
         }
@@ -1342,6 +1352,76 @@ public class FunDiscountCouponCriteria {
 
         public Criteria andCreateTimeNotBetween(Timestamp value1, Timestamp value2) {
             addCriterion("CREATE_TIME not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
     }

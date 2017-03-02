@@ -2,8 +2,6 @@ package com.ai.slp.balance.dao.mapper.bo;
 
 import java.sql.Timestamp;
 
-import jxl.write.DateTime;
-
 public class FunCouponTemplate {
     private Integer templateId;
 
@@ -143,35 +141,35 @@ public class FunCouponTemplate {
         this.effectiveTime = effectiveTime;
     }
 
-	public Timestamp getEffectiveStartTime() {
-		return effectiveStartTime;
-	}
+    public Timestamp getEffectiveStartTime() {
+        return effectiveStartTime;
+    }
 
-	public void setEffectiveStartTime(Timestamp effectiveStartTime) {
-		this.effectiveStartTime = effectiveStartTime;
-	}
+    public void setEffectiveStartTime(Timestamp effectiveStartTime) {
+        this.effectiveStartTime = effectiveStartTime;
+    }
 
-	public Timestamp getEffectiveEndTime() {
-		return effectiveEndTime;
-	}
+    public Timestamp getEffectiveEndTime() {
+        return effectiveEndTime;
+    }
 
-	public void setEffectiveEndTime(Timestamp effectiveEndTime) {
-		this.effectiveEndTime = effectiveEndTime;
-	}
+    public void setEffectiveEndTime(Timestamp effectiveEndTime) {
+        this.effectiveEndTime = effectiveEndTime;
+    }
 
-	public Timestamp getReceiveStartTime() {
-		return receiveStartTime;
-	}
+    public Timestamp getReceiveStartTime() {
+        return receiveStartTime;
+    }
 
-	public void setReceiveStartTime(Timestamp receiveStartTime) {
-		this.receiveStartTime = receiveStartTime;
-	}
+    public void setReceiveStartTime(Timestamp receiveStartTime) {
+        this.receiveStartTime = receiveStartTime;
+    }
 
-	public Timestamp getReceiveEndTime() {
-		return receiveEndTime;
-	}
+    public Timestamp getReceiveEndTime() {
+        return receiveEndTime;
+    }
 
-	public void setReceiveEndTime(Timestamp receiveEndTime) {
-		this.receiveEndTime = receiveEndTime;
-	}
+    public void setReceiveEndTime(Timestamp receiveEndTime) {
+        this.receiveEndTime = receiveEndTime;
+    }
 }

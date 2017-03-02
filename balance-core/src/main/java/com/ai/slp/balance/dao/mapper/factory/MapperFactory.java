@@ -12,6 +12,7 @@ import com.ai.slp.balance.dao.mapper.attach.FunFundBookAttachMapper;
 import com.ai.slp.balance.dao.mapper.attach.FunResBookAttachMapper;
 import com.ai.slp.balance.dao.mapper.attach.FunResBookRestAmountAttachMapper;
 import com.ai.slp.balance.dao.mapper.attach.FunResOperaDetailAttachMapper;
+import com.ai.slp.balance.dao.mapper.bo.FunActivityCriteria.Criteria;
 
 @Component
 public class MapperFactory {

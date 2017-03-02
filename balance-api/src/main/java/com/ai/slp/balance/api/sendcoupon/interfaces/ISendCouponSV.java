@@ -27,9 +27,9 @@ public interface ISendCouponSV {
 	
 	/**
      * 线下发送/领取优惠券.<br>
-     */
+     *//*
 	@POST
 	@Path("/offLineSendCoupon")
-    public void offLineSendCoupon(int maxCount, String couponName, String userId) throws BusinessException,SystemException;
+    public void offLineSendCoupon(int maxCount, String couponName, String userId) throws BusinessException,SystemException;*/
 
 }

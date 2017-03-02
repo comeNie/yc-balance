@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper" >
   <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
-    <id column="COUPON_ID" property="couponId" jdbcType="INTEGER" />
+    <id column="COUPON_ID" property="couponId" jdbcType="VARCHAR" />
     <result column="COUPON_NAME" property="couponName" jdbcType="VARCHAR" />
     <result column="COUPON_DESC" property="couponDesc" jdbcType="VARCHAR" />
     <result column="ACTIVITY_ID" property="activityId" jdbcType="INTEGER" />
@@ -21,6 +21,7 @@
     <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
     <result column="USE_TIME" property="useTime" jdbcType="TIMESTAMP" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -83,7 +84,7 @@
   <sql id="Base_Column_List" >
     COUPON_ID, COUPON_NAME, COUPON_DESC, ACTIVITY_ID, template_id, FACE_VALUE, CURRENCY_UNIT, 
     COUPON_USER_ID, used_scene, USE_LIMITS, STATUS, EFFECTIVE_TIME, EFFECTIVE_START_TIME, 
-    EFFECTIVE_END_TIME, USER_ID, ACCOUNT_ID, ORDER_ID, USE_TIME, CREATE_TIME
+    EFFECTIVE_END_TIME, USER_ID, ACCOUNT_ID, ORDER_ID, USE_TIME, CREATE_TIME, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria" >
     select
@@ -103,15 +104,15 @@
       limit #{limitStart} , #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from fun_discount_coupon
-    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+    where COUPON_ID = #{couponId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from fun_discount_coupon
-    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+    where COUPON_ID = #{couponId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria" >
     delete from fun_discount_coupon
@@ -126,14 +127,16 @@
       USE_LIMITS, STATUS, EFFECTIVE_TIME, 
       EFFECTIVE_START_TIME, EFFECTIVE_END_TIME, 
       USER_ID, ACCOUNT_ID, ORDER_ID, 
-      USE_TIME, CREATE_TIME)
-    values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{couponDesc,jdbcType=VARCHAR}, 
+      USE_TIME, CREATE_TIME, remark
+      )
+    values (#{couponId,jdbcType=VARCHAR}, #{couponName,jdbcType=VARCHAR}, #{couponDesc,jdbcType=VARCHAR}, 
       #{activityId,jdbcType=INTEGER}, #{templateId,jdbcType=INTEGER}, #{faceValue,jdbcType=INTEGER}, 
       #{currencyUnit,jdbcType=VARCHAR}, #{couponUserId,jdbcType=VARCHAR}, #{usedScene,jdbcType=VARCHAR}, 
       #{useLimits,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{effectiveTime,jdbcType=INTEGER}, 
       #{effectiveStartTime,jdbcType=TIMESTAMP}, #{effectiveEndTime,jdbcType=TIMESTAMP}, 
       #{userId,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
-      #{useTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+      #{useTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
     insert into fun_discount_coupon
@@ -195,10 +198,13 @@
       <if test="createTime != null" >
         CREATE_TIME,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="couponId != null" >
-        #{couponId,jdbcType=INTEGER},
+        #{couponId,jdbcType=VARCHAR},
       </if>
       <if test="couponName != null" >
         #{couponName,jdbcType=VARCHAR},
@@ -254,6 +260,9 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria" resultType="java.lang.Integer" >
@@ -266,7 +275,7 @@
     update fun_discount_coupon
     <set >
       <if test="record.couponId != null" >
-        COUPON_ID = #{record.couponId,jdbcType=INTEGER},
+        COUPON_ID = #{record.couponId,jdbcType=VARCHAR},
       </if>
       <if test="record.couponName != null" >
         COUPON_NAME = #{record.couponName,jdbcType=VARCHAR},
@@ -322,6 +331,9 @@
       <if test="record.createTime != null" >
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -329,7 +341,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update fun_discount_coupon
-    set COUPON_ID = #{record.couponId,jdbcType=INTEGER},
+    set COUPON_ID = #{record.couponId,jdbcType=VARCHAR},
       COUPON_NAME = #{record.couponName,jdbcType=VARCHAR},
       COUPON_DESC = #{record.couponDesc,jdbcType=VARCHAR},
       ACTIVITY_ID = #{record.activityId,jdbcType=INTEGER},
@@ -347,7 +359,8 @@
       ACCOUNT_ID = #{record.accountId,jdbcType=INTEGER},
       ORDER_ID = #{record.orderId,jdbcType=INTEGER},
       USE_TIME = #{record.useTime,jdbcType=TIMESTAMP},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -409,8 +422,11 @@
       <if test="createTime != null" >
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
-    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+    where COUPON_ID = #{couponId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
     update fun_discount_coupon
@@ -431,7 +447,8 @@
       ACCOUNT_ID = #{accountId,jdbcType=INTEGER},
       ORDER_ID = #{orderId,jdbcType=INTEGER},
       USE_TIME = #{useTime,jdbcType=TIMESTAMP},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
-    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where COUPON_ID = #{couponId,jdbcType=VARCHAR}
   </update>
 </mapper>

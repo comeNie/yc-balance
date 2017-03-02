@@ -10,7 +10,7 @@ public interface FunDiscountCouponMapper {
 
     int deleteByExample(FunDiscountCouponCriteria example);
 
-    int deleteByPrimaryKey(Integer couponId);
+    int deleteByPrimaryKey(String couponId);
 
     int insert(FunDiscountCoupon record);
 
@@ -18,7 +18,7 @@ public interface FunDiscountCouponMapper {
 
     List<FunDiscountCoupon> selectByExample(FunDiscountCouponCriteria example);
 
-    FunDiscountCoupon selectByPrimaryKey(Integer couponId);
+    FunDiscountCoupon selectByPrimaryKey(String couponId);
 
     int updateByExampleSelective(@Param("record") FunDiscountCoupon record, @Param("example") FunDiscountCouponCriteria example);
 
