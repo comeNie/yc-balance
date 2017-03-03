@@ -1,7 +1,9 @@
 package com.ai.slp.balance.api.translatorbill.impl;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
+import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.resquery.param.ResUsableDetail;
 import com.ai.slp.balance.api.translatorbill.interfaces.IBillGenerateSV;
@@ -38,12 +40,28 @@ public class BillGenerateSVImpl implements IBillGenerateSV {
     @Override
     public FunAccountQueryResponse queryFunAccount(FunAccountQueryRequest param) throws BusinessException, SystemException {
         log.debug("账单查询");
+        FunAccountQueryResponse funAccountQueryResponse = new FunAccountQueryResponse();
+        ResponseHeader responseHeader = new ResponseHeader();
         if (param == null) {
             throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
         }
-        PageInfo<FunAccountResponse> pageInfo = iBillQuerySV.funAccountQuery(param);
-        FunAccountQueryResponse funAccountQueryResponse = new FunAccountQueryResponse();
-        funAccountQueryResponse.setPageInfo(pageInfo);
+        try {
+            PageInfo<FunAccountResponse> pageInfo = iBillQuerySV.funAccountQuery(param);
+            funAccountQueryResponse.setPageInfo(pageInfo);
+            responseHeader.setIsSuccess(true);
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+            responseHeader.setResultMessage("账单查询成功");
+            funAccountQueryResponse.setResponseHeader(responseHeader);
+        }catch (BusinessException businessException){
+            responseHeader.setResultCode(businessException.getErrorCode());
+            responseHeader.setResultMessage(businessException.getErrorMessage());
+            funAccountQueryResponse.setResponseHeader(responseHeader);
+        }catch (Exception e){
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+            responseHeader.setResultMessage("账单查询失败");
+            funAccountQueryResponse.setResponseHeader(responseHeader);
+        }
+
         return funAccountQueryResponse;
     }
 

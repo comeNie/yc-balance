@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * 收入支出查询结果对象
  */
-public class FunAccountQueryResponse implements Serializable {
+public class FunAccountQueryResponse extends BaseResponse {
 
 
     private static final long serialVersionUID = 1L;
