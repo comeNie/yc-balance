@@ -269,8 +269,9 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         if (!StringUtil.isBlank(funAccountQueryRequest.getAcountType())){
             criteria.andAccountTypeEqualTo(funAccountQueryRequest.getAcountType());
         }
-        if (!StringUtil.isBlank(funAccountQueryRequest.getBeginDate())&&StringUtil.isBlank(funAccountQueryRequest.getEndDate())){
-            criteria.andCreateTimeBetween(Timestamp.valueOf(funAccountQueryRequest.getBeginDate()),Timestamp.valueOf(funAccountQueryRequest.getEndDate()));
+        if (!(StringUtil.isBlank(funAccountQueryRequest.getBeginDate())&&StringUtil.isBlank(funAccountQueryRequest.getEndDate()))){
+            criteria.andCreateTimeGreaterThanOrEqualTo(Timestamp.valueOf(funAccountQueryRequest.getBeginDate()));
+            criteria.andCreateTimeLessThanOrEqualTo(Timestamp.valueOf(funAccountQueryRequest.getEndDate()));
         }
         PageInfo<FunAccountResponse> pageInfo = new PageInfo<FunAccountResponse>();
         FunAccountMapper mapper = MapperFactory.getFunAccountMapper();
