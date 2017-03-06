@@ -299,14 +299,12 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         }else {
             return null;
         }
-        if(!CollectionUtil.isEmpty(funAccountResponses)){
-            pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
-            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
-            pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
-            pageInfo.setResult(funAccountResponses);
-        }else {
-            return null;
-        }
+
+        pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
+        pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+        pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
+        pageInfo.setResult(funAccountResponses);
+
         return pageInfo;
     }
 
