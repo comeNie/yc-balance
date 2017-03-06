@@ -252,7 +252,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
      */
     @Override
     public PageInfo<FunAccountResponse> funAccountQuery(FunAccountQueryRequest funAccountQueryRequest) throws BusinessException, SystemException {
-        List<FunAccountResponse> funAccountResponses = null;
+        List<FunAccountResponse> funAccountResponses =  new ArrayList<FunAccountResponse>();;
         FunAccountCriteria funAccountCriteria = new FunAccountCriteria();
         FunAccountCriteria.Criteria criteria= funAccountCriteria.createCriteria();
         String orderByClause = "CREATE_TIME desc";
@@ -269,8 +269,9 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         if (!StringUtil.isBlank(funAccountQueryRequest.getAcountType())){
             criteria.andAccountTypeEqualTo(funAccountQueryRequest.getAcountType());
         }
-        if (!StringUtil.isBlank(funAccountQueryRequest.getBeginDate())&&StringUtil.isBlank(funAccountQueryRequest.getEndDate())){
-            criteria.andCreateTimeBetween(Timestamp.valueOf(funAccountQueryRequest.getBeginDate()),Timestamp.valueOf(funAccountQueryRequest.getEndDate()));
+        if (!(StringUtil.isBlank(funAccountQueryRequest.getBeginDate())&&StringUtil.isBlank(funAccountQueryRequest.getEndDate()))){
+            criteria.andCreateTimeGreaterThanOrEqualTo(Timestamp.valueOf(funAccountQueryRequest.getBeginDate()));
+            criteria.andCreateTimeLessThanOrEqualTo(Timestamp.valueOf(funAccountQueryRequest.getEndDate()));
         }
         PageInfo<FunAccountResponse> pageInfo = new PageInfo<FunAccountResponse>();
         FunAccountMapper mapper = MapperFactory.getFunAccountMapper();
@@ -289,23 +290,18 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         List<FunAccount> funAccounts = mapper.selectByExample(funAccountCriteria);
 
         if (!CollectionUtil.isEmpty(funAccounts)){
-            funAccountResponses = new ArrayList<FunAccountResponse>();
+
             for (int i=0;i<funAccounts.size();i++){
                 FunAccountResponse funAccountResponse = new FunAccountResponse();
                 BeanUtils.copyProperties(funAccountResponse,funAccounts.get(i));
                 funAccountResponses.add(funAccountResponse);
             }
-        }else {
-            return null;
         }
-        if(!CollectionUtil.isEmpty(funAccountResponses)){
-            pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
-            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
-            pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
-            pageInfo.setResult(funAccountResponses);
-        }else {
-            return null;
-        }
+        pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
+        pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+        pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
+        pageInfo.setResult(funAccountResponses);
+
         return pageInfo;
     }
 
