@@ -17,7 +17,7 @@ public class FunCouponTemplate {
 
     private String currencyUnit;
 
-    private Integer maxCountIssue;
+    private String maxCountIssue;
 
     private String couponUserId;
 
@@ -36,6 +36,10 @@ public class FunCouponTemplate {
     private Timestamp receiveStartTime;
 
     private Timestamp receiveEndTime;
+
+    private String createOperator;
+
+    private Timestamp createTime;
 
     public Integer getTemplateId() {
         return templateId;
@@ -93,12 +97,12 @@ public class FunCouponTemplate {
         this.currencyUnit = currencyUnit == null ? null : currencyUnit.trim();
     }
 
-    public Integer getMaxCountIssue() {
+    public String getMaxCountIssue() {
         return maxCountIssue;
     }
 
-    public void setMaxCountIssue(Integer maxCountIssue) {
-        this.maxCountIssue = maxCountIssue;
+    public void setMaxCountIssue(String maxCountIssue) {
+        this.maxCountIssue = maxCountIssue == null ? null : maxCountIssue.trim();
     }
 
     public String getCouponUserId() {
@@ -171,5 +175,21 @@ public class FunCouponTemplate {
 
     public void setReceiveEndTime(Timestamp receiveEndTime) {
         this.receiveEndTime = receiveEndTime;
+    }
+
+    public String getCreateOperator() {
+        return createOperator;
+    }
+
+    public void setCreateOperator(String createOperator) {
+        this.createOperator = createOperator == null ? null : createOperator.trim();
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 }

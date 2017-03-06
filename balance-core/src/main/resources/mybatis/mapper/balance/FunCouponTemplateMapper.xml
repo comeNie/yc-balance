@@ -9,7 +9,7 @@
     <result column="FACE_VALUE_UP" property="faceValueUp" jdbcType="INTEGER" />
     <result column="FACE_VALUE_DOWN" property="faceValueDown" jdbcType="INTEGER" />
     <result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
-    <result column="MAX_COUNT_ISSUE" property="maxCountIssue" jdbcType="INTEGER" />
+    <result column="MAX_COUNT_ISSUE" property="maxCountIssue" jdbcType="VARCHAR" />
     <result column="COUPON_USER_ID" property="couponUserId" jdbcType="VARCHAR" />
     <result column="used_scene" property="usedScene" jdbcType="VARCHAR" />
     <result column="USE_LIMITS" property="useLimits" jdbcType="VARCHAR" />
@@ -19,6 +19,8 @@
     <result column="EFFECTIVE_END_TIME" property="effectiveEndTime" jdbcType="TIMESTAMP" />
     <result column="RECEIVE_START_TIME" property="receiveStartTime" jdbcType="TIMESTAMP" />
     <result column="RECEIVE_END_TIME" property="receiveEndTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_OPERATOR" property="createOperator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,7 +83,8 @@
   <sql id="Base_Column_List" >
     template_id, COUPON_NAME, COUPON_DESC, FACE_VALUE, FACE_VALUE_UP, FACE_VALUE_DOWN, 
     CURRENCY_UNIT, MAX_COUNT_ISSUE, COUPON_USER_ID, used_scene, USE_LIMITS, STATUS, EFFECTIVE_TIME, 
-    EFFECTIVE_START_TIME, EFFECTIVE_END_TIME, RECEIVE_START_TIME, RECEIVE_END_TIME
+    EFFECTIVE_START_TIME, EFFECTIVE_END_TIME, RECEIVE_START_TIME, RECEIVE_END_TIME, CREATE_OPERATOR, 
+    CREATE_TIME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria" >
     select
@@ -123,13 +126,15 @@
       CURRENCY_UNIT, MAX_COUNT_ISSUE, COUPON_USER_ID, 
       used_scene, USE_LIMITS, STATUS, 
       EFFECTIVE_TIME, EFFECTIVE_START_TIME, EFFECTIVE_END_TIME, 
-      RECEIVE_START_TIME, RECEIVE_END_TIME)
+      RECEIVE_START_TIME, RECEIVE_END_TIME, CREATE_OPERATOR, 
+      CREATE_TIME)
     values (#{templateId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{couponDesc,jdbcType=VARCHAR}, 
       #{faceValue,jdbcType=INTEGER}, #{faceValueUp,jdbcType=INTEGER}, #{faceValueDown,jdbcType=INTEGER}, 
-      #{currencyUnit,jdbcType=VARCHAR}, #{maxCountIssue,jdbcType=INTEGER}, #{couponUserId,jdbcType=VARCHAR}, 
+      #{currencyUnit,jdbcType=VARCHAR}, #{maxCountIssue,jdbcType=VARCHAR}, #{couponUserId,jdbcType=VARCHAR}, 
       #{usedScene,jdbcType=VARCHAR}, #{useLimits,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{effectiveTime,jdbcType=INTEGER}, #{effectiveStartTime,jdbcType=TIMESTAMP}, #{effectiveEndTime,jdbcType=TIMESTAMP}, 
-      #{receiveStartTime,jdbcType=TIMESTAMP}, #{receiveEndTime,jdbcType=TIMESTAMP})
+      #{receiveStartTime,jdbcType=TIMESTAMP}, #{receiveEndTime,jdbcType=TIMESTAMP}, #{createOperator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate" >
     insert into fun_coupon_template
@@ -185,6 +190,12 @@
       <if test="receiveEndTime != null" >
         RECEIVE_END_TIME,
       </if>
+      <if test="createOperator != null" >
+        CREATE_OPERATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="templateId != null" >
@@ -209,7 +220,7 @@
         #{currencyUnit,jdbcType=VARCHAR},
       </if>
       <if test="maxCountIssue != null" >
-        #{maxCountIssue,jdbcType=INTEGER},
+        #{maxCountIssue,jdbcType=VARCHAR},
       </if>
       <if test="couponUserId != null" >
         #{couponUserId,jdbcType=VARCHAR},
@@ -237,6 +248,12 @@
       </if>
       <if test="receiveEndTime != null" >
         #{receiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperator != null" >
+        #{createOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -271,7 +288,7 @@
         CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
       </if>
       <if test="record.maxCountIssue != null" >
-        MAX_COUNT_ISSUE = #{record.maxCountIssue,jdbcType=INTEGER},
+        MAX_COUNT_ISSUE = #{record.maxCountIssue,jdbcType=VARCHAR},
       </if>
       <if test="record.couponUserId != null" >
         COUPON_USER_ID = #{record.couponUserId,jdbcType=VARCHAR},
@@ -300,6 +317,12 @@
       <if test="record.receiveEndTime != null" >
         RECEIVE_END_TIME = #{record.receiveEndTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.createOperator != null" >
+        CREATE_OPERATOR = #{record.createOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -314,7 +337,7 @@
       FACE_VALUE_UP = #{record.faceValueUp,jdbcType=INTEGER},
       FACE_VALUE_DOWN = #{record.faceValueDown,jdbcType=INTEGER},
       CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
-      MAX_COUNT_ISSUE = #{record.maxCountIssue,jdbcType=INTEGER},
+      MAX_COUNT_ISSUE = #{record.maxCountIssue,jdbcType=VARCHAR},
       COUPON_USER_ID = #{record.couponUserId,jdbcType=VARCHAR},
       used_scene = #{record.usedScene,jdbcType=VARCHAR},
       USE_LIMITS = #{record.useLimits,jdbcType=VARCHAR},
@@ -323,7 +346,9 @@
       EFFECTIVE_START_TIME = #{record.effectiveStartTime,jdbcType=TIMESTAMP},
       EFFECTIVE_END_TIME = #{record.effectiveEndTime,jdbcType=TIMESTAMP},
       RECEIVE_START_TIME = #{record.receiveStartTime,jdbcType=TIMESTAMP},
-      RECEIVE_END_TIME = #{record.receiveEndTime,jdbcType=TIMESTAMP}
+      RECEIVE_END_TIME = #{record.receiveEndTime,jdbcType=TIMESTAMP},
+      CREATE_OPERATOR = #{record.createOperator,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -350,7 +375,7 @@
         CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
       </if>
       <if test="maxCountIssue != null" >
-        MAX_COUNT_ISSUE = #{maxCountIssue,jdbcType=INTEGER},
+        MAX_COUNT_ISSUE = #{maxCountIssue,jdbcType=VARCHAR},
       </if>
       <if test="couponUserId != null" >
         COUPON_USER_ID = #{couponUserId,jdbcType=VARCHAR},
@@ -379,6 +404,12 @@
       <if test="receiveEndTime != null" >
         RECEIVE_END_TIME = #{receiveEndTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createOperator != null" >
+        CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where template_id = #{templateId,jdbcType=INTEGER}
   </update>
@@ -390,7 +421,7 @@
       FACE_VALUE_UP = #{faceValueUp,jdbcType=INTEGER},
       FACE_VALUE_DOWN = #{faceValueDown,jdbcType=INTEGER},
       CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
-      MAX_COUNT_ISSUE = #{maxCountIssue,jdbcType=INTEGER},
+      MAX_COUNT_ISSUE = #{maxCountIssue,jdbcType=VARCHAR},
       COUPON_USER_ID = #{couponUserId,jdbcType=VARCHAR},
       used_scene = #{usedScene,jdbcType=VARCHAR},
       USE_LIMITS = #{useLimits,jdbcType=VARCHAR},
@@ -399,7 +430,9 @@
       EFFECTIVE_START_TIME = #{effectiveStartTime,jdbcType=TIMESTAMP},
       EFFECTIVE_END_TIME = #{effectiveEndTime,jdbcType=TIMESTAMP},
       RECEIVE_START_TIME = #{receiveStartTime,jdbcType=TIMESTAMP},
-      RECEIVE_END_TIME = #{receiveEndTime,jdbcType=TIMESTAMP}
+      RECEIVE_END_TIME = #{receiveEndTime,jdbcType=TIMESTAMP},
+      CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where template_id = #{templateId,jdbcType=INTEGER}
   </update>
 </mapper>

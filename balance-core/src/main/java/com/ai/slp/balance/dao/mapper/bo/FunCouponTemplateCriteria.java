@@ -585,52 +585,62 @@ public class FunCouponTemplateCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueEqualTo(Integer value) {
+        public Criteria andMaxCountIssueEqualTo(String value) {
             addCriterion("MAX_COUNT_ISSUE =", value, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueNotEqualTo(Integer value) {
+        public Criteria andMaxCountIssueNotEqualTo(String value) {
             addCriterion("MAX_COUNT_ISSUE <>", value, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueGreaterThan(Integer value) {
+        public Criteria andMaxCountIssueGreaterThan(String value) {
             addCriterion("MAX_COUNT_ISSUE >", value, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMaxCountIssueGreaterThanOrEqualTo(String value) {
             addCriterion("MAX_COUNT_ISSUE >=", value, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueLessThan(Integer value) {
+        public Criteria andMaxCountIssueLessThan(String value) {
             addCriterion("MAX_COUNT_ISSUE <", value, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueLessThanOrEqualTo(Integer value) {
+        public Criteria andMaxCountIssueLessThanOrEqualTo(String value) {
             addCriterion("MAX_COUNT_ISSUE <=", value, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueIn(List<Integer> values) {
+        public Criteria andMaxCountIssueLike(String value) {
+            addCriterion("MAX_COUNT_ISSUE like", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueNotLike(String value) {
+            addCriterion("MAX_COUNT_ISSUE not like", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueIn(List<String> values) {
             addCriterion("MAX_COUNT_ISSUE in", values, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueNotIn(List<Integer> values) {
+        public Criteria andMaxCountIssueNotIn(List<String> values) {
             addCriterion("MAX_COUNT_ISSUE not in", values, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueBetween(Integer value1, Integer value2) {
+        public Criteria andMaxCountIssueBetween(String value1, String value2) {
             addCriterion("MAX_COUNT_ISSUE between", value1, value2, "maxCountIssue");
             return (Criteria) this;
         }
 
-        public Criteria andMaxCountIssueNotBetween(Integer value1, Integer value2) {
+        public Criteria andMaxCountIssueNotBetween(String value1, String value2) {
             addCriterion("MAX_COUNT_ISSUE not between", value1, value2, "maxCountIssue");
             return (Criteria) this;
         }
@@ -1212,6 +1222,136 @@ public class FunCouponTemplateCriteria {
 
         public Criteria andReceiveEndTimeNotBetween(Timestamp value1, Timestamp value2) {
             addCriterion("RECEIVE_END_TIME not between", value1, value2, "receiveEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorIsNull() {
+            addCriterion("CREATE_OPERATOR is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorIsNotNull() {
+            addCriterion("CREATE_OPERATOR is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorEqualTo(String value) {
+            addCriterion("CREATE_OPERATOR =", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorNotEqualTo(String value) {
+            addCriterion("CREATE_OPERATOR <>", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorGreaterThan(String value) {
+            addCriterion("CREATE_OPERATOR >", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorGreaterThanOrEqualTo(String value) {
+            addCriterion("CREATE_OPERATOR >=", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorLessThan(String value) {
+            addCriterion("CREATE_OPERATOR <", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorLessThanOrEqualTo(String value) {
+            addCriterion("CREATE_OPERATOR <=", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorLike(String value) {
+            addCriterion("CREATE_OPERATOR like", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorNotLike(String value) {
+            addCriterion("CREATE_OPERATOR not like", value, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorIn(List<String> values) {
+            addCriterion("CREATE_OPERATOR in", values, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorNotIn(List<String> values) {
+            addCriterion("CREATE_OPERATOR not in", values, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorBetween(String value1, String value2) {
+            addCriterion("CREATE_OPERATOR between", value1, value2, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateOperatorNotBetween(String value1, String value2) {
+            addCriterion("CREATE_OPERATOR not between", value1, value2, "createOperator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("CREATE_TIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("CREATE_TIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Timestamp value) {
+            addCriterion("CREATE_TIME =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Timestamp value) {
+            addCriterion("CREATE_TIME <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Timestamp value) {
+            addCriterion("CREATE_TIME >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Timestamp value) {
+            addCriterion("CREATE_TIME >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Timestamp value) {
+            addCriterion("CREATE_TIME <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Timestamp value) {
+            addCriterion("CREATE_TIME <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Timestamp> values) {
+            addCriterion("CREATE_TIME in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Timestamp> values) {
+            addCriterion("CREATE_TIME not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Timestamp value1, Timestamp value2) {
+            addCriterion("CREATE_TIME between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Timestamp value1, Timestamp value2) {
+            addCriterion("CREATE_TIME not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }
