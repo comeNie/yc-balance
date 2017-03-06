@@ -3,10 +3,7 @@ package com.ai.slp.balance.service.atom.interfaces;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountDetailResponse;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountQueryRequest;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountResponse;
-import com.ai.slp.balance.api.translatorbill.param.SettleParam;
+import com.ai.slp.balance.api.translatorbill.param.*;
 
 import java.util.List;
 
@@ -41,7 +38,7 @@ public interface IBillGenerateAtomSV {
      * @throws BusinessException
      * @throws SystemException
      */
-    public List<FunAccountDetailResponse> queryFunAccountDetail(String param) throws BusinessException, SystemException;
+    public PageInfo<FunAccountDetailResponse> queryFunAccountDetail(FunAccountDetailQueryRequest param) throws BusinessException, SystemException ;
 
     /**
      * 结算账户

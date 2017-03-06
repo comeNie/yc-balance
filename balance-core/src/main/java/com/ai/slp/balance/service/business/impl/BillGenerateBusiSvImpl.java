@@ -3,11 +3,7 @@ package com.ai.slp.balance.service.business.impl;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountDetailResponse;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountResponse;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountQueryRequest;
-import com.ai.slp.balance.api.translatorbill.param.SettleParam;
-import com.ai.slp.balance.dao.mapper.bo.FunAccount;
+import com.ai.slp.balance.api.translatorbill.param.*;
 import com.ai.slp.balance.service.atom.interfaces.IBillGenerateAtomSV;
 import com.ai.slp.balance.service.business.interfaces.IBillGenerateBusiSV;
 import org.apache.logging.log4j.LogManager;
@@ -43,10 +39,8 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
     }
 
     @Override
-    public List<FunAccountDetailResponse> queryFunAccountDetail(String param) throws BusinessException, SystemException {
-        List<FunAccountDetailResponse> FunAccountDetailResponse =  billGenerateAtomSV.queryFunAccountDetail(param);
-
-        return FunAccountDetailResponse;
+    public PageInfo<FunAccountDetailResponse> queryFunAccountDetail(FunAccountDetailQueryRequest param) throws BusinessException, SystemException {
+        return billGenerateAtomSV.queryFunAccountDetail(param);
     }
 
     @Override

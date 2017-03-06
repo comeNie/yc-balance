@@ -10,6 +10,7 @@ import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.translatorbill.param.*;
 import com.ai.slp.balance.dao.mapper.bo.*;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountDetailMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunAccountMapper;
 import com.ai.slp.balance.service.atom.interfaces.IBillGenerateAtomSV;
 import com.ai.slp.balance.service.atom.interfaces.IFunAccountAtomSV;
@@ -313,11 +314,30 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
      * @throws SystemException
      */
     @Override
-    public List<FunAccountDetailResponse> queryFunAccountDetail(String param) throws BusinessException, SystemException {
+    public PageInfo<FunAccountDetailResponse> queryFunAccountDetail(FunAccountDetailQueryRequest param) throws BusinessException, SystemException {
 
-        List<FunAccountDetailResponse> funAccountDetaiResponses = null;
-        List<FunAccountDetail> funAccountDetails = funAccountDetailAtomSV.queryFunAccountDetail(param);
-
+        List<FunAccountDetailResponse> funAccountDetaiResponses = new ArrayList<FunAccountDetailResponse>();
+        FunAccountDetailCriteria funAccountDetailCriteria = new FunAccountDetailCriteria();
+        FunAccountDetailCriteria.Criteria critreia = funAccountDetailCriteria.createCriteria();
+        String orderByClause = "ORDER_TIME desc";
+        funAccountDetailCriteria.setOrderByClause(orderByClause);
+        critreia.andBillIdEqualTo(param.getBillID());
+//        List<FunAccountDetail> funAccountDetails = funAccountDetailAtomSV.queryFunAccountDetail(param);
+        PageInfo<FunAccountDetailResponse> pageInfo = new PageInfo<FunAccountDetailResponse>();
+        FunAccountDetailMapper mapper = MapperFactory.getFunAccountDetailMapper();
+        pageInfo.setCount(mapper.countByExample(funAccountDetailCriteria));
+        List<FunAccountDetail> funAccountDetails = mapper.selectByExample(funAccountDetailCriteria);
+        if (param.getPageInfo() == null) {
+            pageInfo.setPageNo(1);
+            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+        }else {
+            pageInfo.setPageNo(param.getPageInfo().getPageNo());
+            pageInfo.setPageSize(param.getPageInfo().getPageSize() == null ? 10
+                    : param.getPageInfo().getPageSize());
+            funAccountDetailCriteria.setLimitStart(param.getPageInfo()
+                    .getStartRowIndex());
+            funAccountDetailCriteria.setLimitEnd(param.getPageInfo().getPageSize());
+        }
         if (!CollectionUtil.isEmpty(funAccountDetails)){
             funAccountDetaiResponses = new ArrayList<FunAccountDetailResponse>();
             for (int i=0;i<funAccountDetails.size();i++){
@@ -325,10 +345,12 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
                 BeanUtils.copyProperties(funAccountDetailResponse,funAccountDetails.get(i));
                 funAccountDetaiResponses.add(funAccountDetailResponse);
             }
-        }else {
-            return null;
         }
-        return funAccountDetaiResponses;
+        pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
+        pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+        pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
+        pageInfo.setResult(funAccountDetaiResponses);
+        return pageInfo;
     }
 
     @Override

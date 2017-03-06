@@ -86,10 +86,34 @@ public class BillGenerateSVImpl implements IBillGenerateSV {
      * @throws SystemException
      */
     @Override
-    public List<FunAccountDetailResponse> queryFunAccountDetail(String param) throws BusinessException, SystemException {
+    public FunAccountDetailPageResponse queryFunAccountDetail(FunAccountDetailQueryRequest param) throws BusinessException, SystemException {
         log.debug("账单明细查询");
-        List<FunAccountDetailResponse> funAccountDetailResponse = iBillQuerySV.queryFunAccountDetail(param);
-        return funAccountDetailResponse;
+        if (param==null){
+            throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
+        }
+        if (StringUtil.isBlank(param.getBillID())){
+            throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数账户iD不能为空");
+        }
+
+        FunAccountDetailPageResponse funAccountDetailPageResponse = new FunAccountDetailPageResponse();
+        ResponseHeader responseHeader = new ResponseHeader();
+        try {
+            PageInfo<FunAccountDetailResponse> pageInfo = iBillQuerySV.queryFunAccountDetail(param);
+            funAccountDetailPageResponse.setPageInfo(pageInfo);
+            responseHeader.setIsSuccess(true);
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+            responseHeader.setResultMessage("账单查询成功");
+            funAccountDetailPageResponse.setResponseHeader(responseHeader);
+        }catch (BusinessException businessException){
+            responseHeader.setResultCode(businessException.getErrorCode());
+            responseHeader.setResultMessage(businessException.getErrorMessage());
+            funAccountDetailPageResponse.setResponseHeader(responseHeader);
+        }catch (Exception e){
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+            responseHeader.setResultMessage("账单查询失败");
+            funAccountDetailPageResponse.setResponseHeader(responseHeader);
+        }
+        return funAccountDetailPageResponse;
     }
 
     /***
@@ -102,7 +126,7 @@ public class BillGenerateSVImpl implements IBillGenerateSV {
     @Override
     public String settleBill(SettleParam param) throws BusinessException, SystemException {
         log.debug("开始结算账单");
-        log.debug("开始销账扣款服务");
+
         if (param == null) {
             throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
         }

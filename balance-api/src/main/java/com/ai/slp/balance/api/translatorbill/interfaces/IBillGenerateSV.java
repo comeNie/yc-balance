@@ -4,10 +4,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.incomeoutquery.param.FundBookQueryResponse;
 import com.ai.slp.balance.api.resquery.param.*;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountDetailResponse;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountQueryRequest;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountQueryResponse;
-import com.ai.slp.balance.api.translatorbill.param.SettleParam;
+import com.ai.slp.balance.api.translatorbill.param.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -72,7 +69,7 @@ public interface IBillGenerateSV {
      */
 	@POST
 	@Path("/queryFunAccountDetail")
-    public List<FunAccountDetailResponse> queryFunAccountDetail(String param) throws BusinessException,SystemException;
+    public FunAccountDetailPageResponse queryFunAccountDetail(FunAccountDetailQueryRequest param) throws BusinessException,SystemException;
 
     /**
      * 账单结算
