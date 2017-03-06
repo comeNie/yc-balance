@@ -160,5 +160,7 @@ public class MapperFactory {
     public static FunDiscountCouponMapper getFunDiscountCouponMapper(){
     	return sqlSessionTemplate.getMapper(FunDiscountCouponMapper.class);
     }
-    
+    public static FunCouponUseRuleMapper getFunCouponUseRuleMapper(){
+    	return sqlSessionTemplate.getMapper(FunCouponUseRuleMapper.class);
+    }
 }
