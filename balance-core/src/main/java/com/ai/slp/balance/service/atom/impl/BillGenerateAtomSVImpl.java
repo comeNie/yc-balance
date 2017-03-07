@@ -355,11 +355,14 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
 
     @Override
     public String settleBill(SettleParam param) throws BusinessException, SystemException {
-        FunAccount funAccount = new FunAccount();
+
+        FunAccountMapper mapper = MapperFactory.getFunAccountMapper();
+        FunAccount funAccount = mapper.selectByPrimaryKey(param.getBillID());
         funAccount.setBillId(param.getBillID());
         funAccount.setAccountAmout(param.getAccountAmount());
         funAccount.setSettleAccount(param.getSettleAccount());
-        funAccount.setTargetType(param.getSettleAccount());
+        funAccount.setAccountType(param.getAccountType());
+        funAccount.setActAccountTime(DateUtil.getSysDate());
         funAccountAtomSV.settleBill(funAccount);
         return funAccount.getBillId();
     }
