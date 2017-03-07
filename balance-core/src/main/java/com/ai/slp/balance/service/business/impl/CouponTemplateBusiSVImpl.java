@@ -13,7 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
+import com.ai.slp.balance.api.translatorbill.param.FunAccountResponse;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRule;
@@ -71,6 +75,16 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		
 		
 	}
+	/**
+	 * 模糊查询优惠券模板列表
+	 */
+	@Override
+	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
+        PageInfo<FunCouponTemplateResponse> funCouponTemplateResponsePageInfo = couponTemplateAtomSV.funCouponTemplateQueryRequest(funCouponTemplateQueryRequest);
+		return funCouponTemplateResponsePageInfo;
+	}
+
+	
 
 	
 }
