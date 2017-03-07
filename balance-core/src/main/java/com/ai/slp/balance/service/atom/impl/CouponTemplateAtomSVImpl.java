@@ -34,7 +34,8 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 		 List<FunCouponTemplateResponse> funCouponTemplateResponses =  new ArrayList<FunCouponTemplateResponse>();;
 		 FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
 		 FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
-		 
+		 String orderByClause = "CREATE_TIME desc";
+		 funCouponTemplateCriteria.setOrderByClause(orderByClause);
 		 	if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getCouponName())){
 	            criteria.andCouponNameLike("%"+funCouponTemplateQueryRequest.getCouponName().trim()+"%");
 	        }

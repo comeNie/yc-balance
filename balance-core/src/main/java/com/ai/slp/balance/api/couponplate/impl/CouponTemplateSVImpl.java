@@ -1,4 +1,6 @@
 package com.ai.slp.balance.api.couponplate.impl;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -6,13 +8,15 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
+import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
+import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
-import com.ai.slp.balance.api.translatorbill.param.FunAccountResponse;
+import com.ai.slp.balance.api.coupontemplate.param.FunDiscountCouponInfoVo;
+import com.ai.slp.balance.api.coupontemplate.param.ListDiscountCouponResponse;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
-import com.ai.slp.balance.service.business.interfaces.IBillGenerateBusiSV;
 import com.ai.slp.balance.service.business.interfaces.ICouponTemplateBusiSV;
 import com.alibaba.dubbo.config.annotation.Service;
 
@@ -46,5 +50,25 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
         }
 		return funCouponTemplateQueryResponse;
 	}
+	
+	/**
+	 * 根据优惠券模板ID查询优惠券明细
+	 */
+	@Override
+	public ListDiscountCouponResponse queryCouponByTemplateId(CouponParam templateId)
+			throws BusinessException, SystemException {
+		ListDiscountCouponResponse listDiscountCouponResponse = new ListDiscountCouponResponse();
+        ResponseHeader responseHeader = new ResponseHeader();
+        List<FunDiscountCouponInfoVo> funDiscountCouponInfoVoList = iCouponTemplateBusiSV.queryAccountInfoByCustId(templateId.getTemplateId());
+        listDiscountCouponResponse.setFunDiscountCouponInfoVoList(funDiscountCouponInfoVoList);
+        if(!CollectionUtil.isEmpty(funDiscountCouponInfoVoList)){
+        	responseHeader.setResultCode("0000");
+        	responseHeader.setResultMessage("成功");
+        	responseHeader.setIsSuccess(true);
+        	listDiscountCouponResponse.setResponseHeader(responseHeader);
+        }
+		return listDiscountCouponResponse;
+	}
+
    
 }
