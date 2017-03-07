@@ -21,6 +21,7 @@ import com.ai.yc.order.api.orderquery.param.OrdOrderVo;
 import com.ai.yc.order.api.orderquery.param.OrdProdExtendVo;
 import com.ai.yc.order.api.orderquery.param.QueryOrderRequest;
 import com.ai.yc.order.api.orderquery.param.QueryOrderRsponse;
+import com.alibaba.fastjson.JSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -362,6 +363,9 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         if (param.getState().equals(2)){
             funAccount.setState(1);
         }
+        log.info("====================+State="+funAccount.getState());
+
+        log.info("funAccount已创建，OK："+ JSON.toJSONString(funAccount));
         funAccount.setAccountAmout(param.getAccountAmount());
         funAccount.setSettleAccount(param.getSettleAccount());
         funAccount.setAccountType(param.getAccountType());
