@@ -20,7 +20,10 @@ public class SettleParam implements Serializable {
      * 结算账户(必填)
      */
     private String settleAccount;
-
+    /**
+     * 账单状态
+     */
+    private String state;
     /**
      * 账单ID(必填)
      */
@@ -56,5 +59,13 @@ public class SettleParam implements Serializable {
 
     public void setBillID(String billID) {
         this.billID = billID;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

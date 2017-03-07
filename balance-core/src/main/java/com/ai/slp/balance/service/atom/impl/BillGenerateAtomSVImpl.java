@@ -359,7 +359,9 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         FunAccountMapper mapper = MapperFactory.getFunAccountMapper();
         FunAccount funAccount = mapper.selectByPrimaryKey(param.getBillID());
         funAccount.setBillId(param.getBillID());
-        funAccount.setState(1);
+        if (param.getState().equals(2)){
+            funAccount.setState(1);
+        }
         funAccount.setAccountAmout(param.getAccountAmount());
         funAccount.setSettleAccount(param.getSettleAccount());
         funAccount.setAccountType(param.getAccountType());
