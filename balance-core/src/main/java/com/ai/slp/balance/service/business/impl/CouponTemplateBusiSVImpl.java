@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,11 +17,9 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.CollectionUtil;
-import com.ai.slp.balance.api.accountquery.param.AccountInfoVo;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunDiscountCouponInfoVo;
-import com.ai.slp.balance.dao.mapper.bo.FunAccountInfo;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRule;
@@ -105,6 +104,13 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	        	funDiscountCouponInfoVoList.add((FunDiscountCouponInfoVo) discountCouponList);
 	        }
 	        return funDiscountCouponInfoVoList;
+	}
+	/**
+	 * POI导出优惠券模板列表生成Excel
+	 */
+	@Override
+	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
+		return couponTemplateAtomSV.exportCouponTempletList(funCouponTemplateQueryRequest);
 	}
 
 	

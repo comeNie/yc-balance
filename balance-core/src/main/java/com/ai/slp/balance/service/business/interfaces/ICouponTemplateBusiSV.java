@@ -20,4 +20,6 @@ public interface ICouponTemplateBusiSV {
 	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
 	//根据优惠券模板iD查询优惠券明细
 	public List<FunDiscountCouponInfoVo> queryAccountInfoByCustId(Integer templateId);
+	//POI导出优惠券模板列表生成Excel
+	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
 }

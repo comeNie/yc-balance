@@ -1,6 +1,7 @@
 package com.ai.slp.balance.service.atom.impl;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 	 */
 	@Override
 	public PageInfo<FunCouponTemplateResponse> funCouponTemplateQueryRequest(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
-		 List<FunCouponTemplateResponse> funCouponTemplateResponses =  new ArrayList<FunCouponTemplateResponse>();;
+		 List<FunCouponTemplateResponse> funCouponTemplateResponses =  new ArrayList<FunCouponTemplateResponse>();
 		 FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
 		 FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
 		 String orderByClause = "CREATE_TIME desc";
@@ -85,5 +86,45 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 	        pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
 	        pageInfo.setResult(funCouponTemplateResponses);
 	        return pageInfo;
+	}
+	/**
+	 * POI导出优惠券模板列表生成Excel
+	 */
+	@Override
+	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
+		List<FunCouponTemplateResponse> funCouponTemplateResponses =  new ArrayList<FunCouponTemplateResponse>();
+		FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
+		FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
+		String orderByClause = "CREATE_TIME desc";
+		funCouponTemplateCriteria.setOrderByClause(orderByClause);
+		 	if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getCouponName())){
+	            criteria.andCouponNameLike("%"+funCouponTemplateQueryRequest.getCouponName().trim()+"%");
+	        }
+	        if (funCouponTemplateQueryRequest.getFaceValue()!=null){
+	            criteria.andFaceValueEqualTo(funCouponTemplateQueryRequest.getFaceValue());
+	        }
+	        if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getUsedScene())){
+	            criteria.andUsedSceneEqualTo(funCouponTemplateQueryRequest.getUsedScene());
+	        }
+	        if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getStatus())){
+	            criteria.andStatusEqualTo(funCouponTemplateQueryRequest.getStatus());
+	        }
+	        if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getCurrencyUnit())){
+	            criteria.andCurrencyUnitEqualTo(funCouponTemplateQueryRequest.getCurrencyUnit());
+	        }
+	        if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getCreateOperator())){
+	            criteria.andCreateOperatorLike("%"+funCouponTemplateQueryRequest.getCreateOperator().trim()+"%");
+	        }
+	        FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
+	        List<FunCouponTemplate> funCouponTemplates = mapper.selectByExample(funCouponTemplateCriteria);
+	        if (!CollectionUtil.isEmpty(funCouponTemplates)){
+
+	            for (int i=0;i<funCouponTemplates.size();i++){
+	            	FunCouponTemplateResponse funCouponTemplateResponse = new FunCouponTemplateResponse();
+	                BeanUtils.copyProperties(funCouponTemplateResponse,funCouponTemplates.get(i));
+	                funCouponTemplateResponses.add(funCouponTemplateResponse);
+	            }
+	        }
+		return funCouponTemplateResponses;
 	}
 }
