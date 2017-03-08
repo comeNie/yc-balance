@@ -3,11 +3,13 @@ package com.ai.slp.balance.service.atom.impl;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
+import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.translatorbill.param.*;
+import com.ai.slp.balance.constants.SeqConstants;
 import com.ai.slp.balance.dao.mapper.bo.*;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
 import com.ai.slp.balance.dao.mapper.interfaces.FunAccountDetailMapper;
@@ -108,7 +110,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
     private  void insertAccountDetail(OrdOrderVo ordOrderVo,String billId){
         FunAccountDetail funAccountDetail = new FunAccountDetail();
         //订单状态
-        funAccountDetail.setDetailId("1");
+        funAccountDetail.setDetailId(SeqUtil.getNewId(SeqConstants.FUN_ACCOUNT_DETAIL$DETAIL_ID).toString());
         funAccountDetail.setState(ordOrderVo.getState());
         //账单id
         funAccountDetail.setBillId(billId);
@@ -152,7 +154,8 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
                                       String beginTime,String endTime){
 //        Timestamp nowDate = new Timestamp(System.currentTimeMillis());
         FunAccount funAccount = new FunAccount();
-        funAccount.setBillId("21");
+        String billID = SeqUtil.getNewId(SeqConstants.FUN_ACCOUNT$BILL_ID).toString();
+        funAccount.setBillId(billID);
         //结算金额(结算账单的时候再填充)
         funAccount.setAccountAmout(ordOrderVo.getTotalFee());
         //结算账单类型 1，客户；2，译员；3、LSP；
