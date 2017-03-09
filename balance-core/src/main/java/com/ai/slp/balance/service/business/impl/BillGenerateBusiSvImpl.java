@@ -70,8 +70,10 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
             String begindate = year+"-"+lastMonth+"-"+day+" 00:00:00";
             //取出结算周期
             int accountPeriod = Integer.parseInt(tAccountParams.get(i).getAccountPeriod());
+            Integer tempday = Integer.parseInt(day)-1;
+            String temDate = year+"-"+lastMonth+"-"+tempday+" 00:00:00";
             //结算时间
-            String endDate = addMonth(begindate, accountPeriod)+" 23:59:59";
+            String endDate = addMonth(temDate, accountPeriod)+" 23:59:59";
             //统计每个译员（INTERPER_ID为结算目标ID）已完成的订单（STATE＝‘90’），完成时间（FINISH_TIME）在结算周期内全部的订单
             QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
             queryOrderRequest.setInterperId(tAccountParams.get(i).getTargetId());
