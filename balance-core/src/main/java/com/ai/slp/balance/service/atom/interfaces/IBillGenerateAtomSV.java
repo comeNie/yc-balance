@@ -4,6 +4,8 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.translatorbill.param.*;
+import com.ai.slp.balance.dao.mapper.bo.TAccountParam;
+import com.ai.yc.order.api.orderquery.param.OrdOrderVo;
 
 import java.util.List;
 
@@ -12,16 +14,25 @@ import java.util.List;
  */
 public interface IBillGenerateAtomSV {
 
+
     /**
-     * 账单生成
-     * @param param
+     * 插入账单信息表
+     * @param ordOrderVo
+     * @param tAccountParam
+     * @param billFee
+     * @param beginTime
+     * @param endTime
      * @return
-     * @throws BusinessException
-     * @throws SystemException
      */
+    public  String insertAccount(OrdOrderVo ordOrderVo, TAccountParam tAccountParam, long billFee,
+                                 String beginTime, String endTime);
 
-    public Boolean queryAccountParamByACCOUNT_CLS(String param) throws BusinessException, SystemException;
-
+    /**
+     * 插入账单明细表
+     * @param ordOrderVo
+     * @param billId
+     */
+    public  void insertAccountDetail(OrdOrderVo ordOrderVo,String billId);
     /**
      * 查询账单表
      * @param funAccountQueryRequest

@@ -48,7 +48,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
     private IFunAccountDetailAtomSV funAccountDetailAtomSV;
     @Autowired
     private IFunAccountAtomSV funAccountAtomSV;
-    @Override
+   /* @Override
     public Boolean queryAccountParamByACCOUNT_CLS(String param) throws BusinessException, SystemException {
         TAccountParamCriteria example = new TAccountParamCriteria();
         TAccountParamCriteria.Criteria criteria = example.createCriteria();
@@ -104,10 +104,10 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
             }
         }
         return true;
-    }
+    }*/
 
     //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表（FUN_ACCOUNT_DETAIL ）
-    private  void insertAccountDetail(OrdOrderVo ordOrderVo,String billId){
+    public  void insertAccountDetail(OrdOrderVo ordOrderVo,String billId){
         FunAccountDetail funAccountDetail = new FunAccountDetail();
         //订单状态
         funAccountDetail.setDetailId(SeqUtil.getNewId(SeqConstants.FUN_ACCOUNT_DETAIL$DETAIL_ID).toString());
@@ -150,7 +150,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         funAccountDetailAtomSV.insertFunAccountFundDetail(funAccountDetail);
     }
     //将全部订单的数据汇总插入到结算账单信息表（FUN_ACCOUNT)
-    private  String insertAccount(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long billFee,
+    public  String insertAccount(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long billFee,
                                       String beginTime,String endTime){
 //        Timestamp nowDate = new Timestamp(System.currentTimeMillis());
         FunAccount funAccount = new FunAccount();
@@ -203,7 +203,6 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         int i = funAccountAtomSV.insertFunAccountFund(funAccount);
         return funAccount.getBillId();
     }
-
     private static String addDay(String s, int n) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -217,35 +216,6 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    private static String addMonth(String s, int n) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-            Calendar cd = Calendar.getInstance();
-            cd.setTime(sdf.parse(s));
-            cd.add(Calendar.MONTH, n);//增加一个月
-
-            return sdf.format(cd.getTime());
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
-    //比较订单完成时间是否在结算周期内
-    private static boolean inTime(String beginTime,String endTime,Timestamp finishTime){
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-        Timestamp tbeginTime = Timestamp.valueOf(beginTime);
-        long btime = tbeginTime.getTime();
-        Timestamp tendTime = Timestamp.valueOf(endTime);
-        long etime = tendTime.getTime();
-        long lfinshTime = finishTime.getTime();
-        if (lfinshTime>=btime&&lfinshTime<=etime){
-            return true;
-        }
-        return false;
     }
 
     /**
