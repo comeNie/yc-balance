@@ -20,6 +20,13 @@ public interface ISendCouponSV {
 
     /**
      * 注册领取优惠券.<br>
+     * @param activityName,userId
+	 * @return 优惠券生成是否成功
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL sendCouponService/registerSendCoupon
      */
 	@POST
 	@Path("/registerSendCoupon")
@@ -27,7 +34,10 @@ public interface ISendCouponSV {
 	
 	/**
      * 线下发送/领取优惠券.<br>
-     *//*
+     * @throws BusinessException,SystemException
+     * @RestRelativeURL sendCouponService/offLineSendCoupon
+     */
+     /*
 	@POST
 	@Path("/offLineSendCoupon")
     public void offLineSendCoupon(int maxCount, String couponName, String userId) throws BusinessException,SystemException;*/

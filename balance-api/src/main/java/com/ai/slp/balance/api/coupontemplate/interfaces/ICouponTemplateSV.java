@@ -22,14 +22,30 @@ import com.ai.slp.balance.api.coupontemplate.param.ListDiscountCouponResponse;
 public interface ICouponTemplateSV {
 
 
-   /**
+	/**
      * 优惠券模板查询.<br>
+     * @param param
+     * @return 模板列表
+     * @throws BusinessException,SystemException
+     * @author shancc
+     * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL couponTemplateQueryService/queryFunCouponTemplate
      */
 	@POST
 	@Path("/queryFunCouponTemplate")
     public FunCouponTemplateQueryResponse queryFunCouponTemplate(FunCouponTemplateQueryRequest param) throws BusinessException,SystemException;
+	
+	
 	/**
 	 * 根据优惠券模板ID查询优惠券明细
+	 * @param templateId
+	 * @return 模板明细列表
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL couponTemplateQueryService/queryCouponByTemplateId
      */
 	@POST
 	@Path("/queryCouponByTemplateId")
