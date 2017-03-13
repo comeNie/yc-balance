@@ -994,6 +994,126 @@ public class FunAccountDetailCriteria {
             addCriterion("STATE not between", value1, value2, "state");
             return (Criteria) this;
         }
+
+        public Criteria andTranslatorFeeIsNull() {
+            addCriterion("TRANSLATOR_FEE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeIsNotNull() {
+            addCriterion("TRANSLATOR_FEE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE =", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeNotEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE <>", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeGreaterThan(Long value) {
+            addCriterion("TRANSLATOR_FEE >", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeGreaterThanOrEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE >=", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeLessThan(Long value) {
+            addCriterion("TRANSLATOR_FEE <", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeLessThanOrEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE <=", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeIn(List<Long> values) {
+            addCriterion("TRANSLATOR_FEE in", values, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeNotIn(List<Long> values) {
+            addCriterion("TRANSLATOR_FEE not in", values, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeBetween(Long value1, Long value2) {
+            addCriterion("TRANSLATOR_FEE between", value1, value2, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeNotBetween(Long value1, Long value2) {
+            addCriterion("TRANSLATOR_FEE not between", value1, value2, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeIsNull() {
+            addCriterion("LSP_FEE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeIsNotNull() {
+            addCriterion("LSP_FEE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeEqualTo(Long value) {
+            addCriterion("LSP_FEE =", value, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeNotEqualTo(Long value) {
+            addCriterion("LSP_FEE <>", value, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeGreaterThan(Long value) {
+            addCriterion("LSP_FEE >", value, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeGreaterThanOrEqualTo(Long value) {
+            addCriterion("LSP_FEE >=", value, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeLessThan(Long value) {
+            addCriterion("LSP_FEE <", value, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeLessThanOrEqualTo(Long value) {
+            addCriterion("LSP_FEE <=", value, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeIn(List<Long> values) {
+            addCriterion("LSP_FEE in", values, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeNotIn(List<Long> values) {
+            addCriterion("LSP_FEE not in", values, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeBetween(Long value1, Long value2) {
+            addCriterion("LSP_FEE between", value1, value2, "lspFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andLspFeeNotBetween(Long value1, Long value2) {
+            addCriterion("LSP_FEE not between", value1, value2, "lspFee");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
