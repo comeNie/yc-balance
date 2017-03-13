@@ -1,5 +1,6 @@
 package com.ai.slp.balance.util;
 
+import com.ai.yc.order.api.orderallocation.interfaces.IOrderAllocationSV;
 import com.ai.yc.order.api.orderquery.interfaces.IOrderQuerySV;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
@@ -41,6 +42,19 @@ public final class DubboUtil {
         IOrderQuerySV sv = null;
         try {
             sv = DubboConsumerFactory.getService("IOrderQuerySV", IOrderQuerySV.class);
+        } catch (NoSuchBeanDefinitionException ex) {
+            throw new SystemException("获取不到远程服务:[" + ex.getMessage() + "],请检查配置文件", ex);
+        }
+        if (sv == null) {
+            throw new SystemException("获取不到远程服务:" + IOrderQuerySV.class);
+        }
+        return sv;
+    }
+
+    public static IOrderAllocationSV getIOrderAllocationSV(){
+        IOrderAllocationSV sv = null;
+        try {
+            sv = DubboConsumerFactory.getService("IOrderAllocationSV", IOrderAllocationSV.class);
         } catch (NoSuchBeanDefinitionException ex) {
             throw new SystemException("获取不到远程服务:[" + ex.getMessage() + "],请检查配置文件", ex);
         }
