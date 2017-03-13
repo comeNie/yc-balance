@@ -866,72 +866,72 @@ public class FunAccountCriteria {
         }
 
         public Criteria andLspAdminIsNull() {
-            addCriterion("LSP_ADMIN is null");
+            addCriterion("lsp_admin is null");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminIsNotNull() {
-            addCriterion("LSP_ADMIN is not null");
+            addCriterion("lsp_admin is not null");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminEqualTo(String value) {
-            addCriterion("LSP_ADMIN =", value, "lspAdmin");
+            addCriterion("lsp_admin =", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminNotEqualTo(String value) {
-            addCriterion("LSP_ADMIN <>", value, "lspAdmin");
+            addCriterion("lsp_admin <>", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminGreaterThan(String value) {
-            addCriterion("LSP_ADMIN >", value, "lspAdmin");
+            addCriterion("lsp_admin >", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminGreaterThanOrEqualTo(String value) {
-            addCriterion("LSP_ADMIN >=", value, "lspAdmin");
+            addCriterion("lsp_admin >=", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminLessThan(String value) {
-            addCriterion("LSP_ADMIN <", value, "lspAdmin");
+            addCriterion("lsp_admin <", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminLessThanOrEqualTo(String value) {
-            addCriterion("LSP_ADMIN <=", value, "lspAdmin");
+            addCriterion("lsp_admin <=", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminLike(String value) {
-            addCriterion("LSP_ADMIN like", value, "lspAdmin");
+            addCriterion("lsp_admin like", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminNotLike(String value) {
-            addCriterion("LSP_ADMIN not like", value, "lspAdmin");
+            addCriterion("lsp_admin not like", value, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminIn(List<String> values) {
-            addCriterion("LSP_ADMIN in", values, "lspAdmin");
+            addCriterion("lsp_admin in", values, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminNotIn(List<String> values) {
-            addCriterion("LSP_ADMIN not in", values, "lspAdmin");
+            addCriterion("lsp_admin not in", values, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminBetween(String value1, String value2) {
-            addCriterion("LSP_ADMIN between", value1, value2, "lspAdmin");
+            addCriterion("lsp_admin between", value1, value2, "lspAdmin");
             return (Criteria) this;
         }
 
         public Criteria andLspAdminNotBetween(String value1, String value2) {
-            addCriterion("LSP_ADMIN not between", value1, value2, "lspAdmin");
+            addCriterion("lsp_admin not between", value1, value2, "lspAdmin");
             return (Criteria) this;
         }
 
@@ -1632,6 +1632,66 @@ public class FunAccountCriteria {
 
         public Criteria andFlagNotBetween(String value1, String value2) {
             addCriterion("FLAG not between", value1, value2, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeIsNull() {
+            addCriterion("TRANSLATOR_FEE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeIsNotNull() {
+            addCriterion("TRANSLATOR_FEE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE =", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeNotEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE <>", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeGreaterThan(Long value) {
+            addCriterion("TRANSLATOR_FEE >", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeGreaterThanOrEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE >=", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeLessThan(Long value) {
+            addCriterion("TRANSLATOR_FEE <", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeLessThanOrEqualTo(Long value) {
+            addCriterion("TRANSLATOR_FEE <=", value, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeIn(List<Long> values) {
+            addCriterion("TRANSLATOR_FEE in", values, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeNotIn(List<Long> values) {
+            addCriterion("TRANSLATOR_FEE not in", values, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeBetween(Long value1, Long value2) {
+            addCriterion("TRANSLATOR_FEE between", value1, value2, "translatorFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslatorFeeNotBetween(Long value1, Long value2) {
+            addCriterion("TRANSLATOR_FEE not between", value1, value2, "translatorFee");
             return (Criteria) this;
         }
     }

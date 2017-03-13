@@ -49,6 +49,8 @@ public class FunAccount {
 
     private String flag;
 
+    private Long translatorFee;
+
     public String getBillId() {
         return billId;
     }
@@ -231,5 +233,13 @@ public class FunAccount {
 
     public void setFlag(String flag) {
         this.flag = flag == null ? null : flag.trim();
+    }
+
+    public Long getTranslatorFee() {
+        return translatorFee;
+    }
+
+    public void setTranslatorFee(Long translatorFee) {
+        this.translatorFee = translatorFee;
     }
 }
