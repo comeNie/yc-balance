@@ -26,4 +26,5 @@
 	<dubbo:reference id="IGnSubjectQuerySV"
 		interface="com.ai.yc.common.api.subject.interfaces.IGnSubjectQuerySV" />
 	<dubbo:reference id="IOrderQuerySV" interface="com.ai.yc.order.api.orderquery.interfaces.IOrderQuerySV"/>
+	<dubbo:reference id="IOrderAllocationSV" interface="com.ai.yc.order.api.orderallocation.interfaces.IOrderAllocationSV"/>
 </beans>
