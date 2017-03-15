@@ -261,7 +261,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         //结算日
         funAccount.setAccountPeriodDay(tAccountParam.getAccountDay());
         //结算目标类型
-        funAccount.setTargetType(tAccountParam.getAccountType());
+        funAccount.setTargetType(tAccountParam.getTargetType());
         //实际结算时间,结算账单的时候再填充
 //        funAccount.setActAccountTime(DateUtil.getSysDate());
         //本期账单金额
