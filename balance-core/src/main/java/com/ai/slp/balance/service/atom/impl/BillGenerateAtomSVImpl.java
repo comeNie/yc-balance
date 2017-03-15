@@ -324,6 +324,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         List<FunAccountResponse> funAccountResponses =  new ArrayList<FunAccountResponse>();;
         FunAccountCriteria funAccountCriteria = new FunAccountCriteria();
         FunAccountCriteria.Criteria criteria= funAccountCriteria.createCriteria();
+        log.info("查询账单服务实现==============+"+JSON.toJSONString(funAccountQueryRequest));
         String orderByClause = "CREATE_TIME desc";
         funAccountCriteria.setOrderByClause(orderByClause);
         if (!StringUtil.isBlank(funAccountQueryRequest.getFlag())){
@@ -366,7 +367,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
             funAccountCriteria.setLimitEnd(funAccountQueryRequest.getPageInfo().getPageSize());
         }
         List<FunAccount> funAccounts = mapper.selectByExample(funAccountCriteria);
-
+        log.info("查询账单服务实现==============+"+JSON.toJSONString(funAccounts));
         if (!CollectionUtil.isEmpty(funAccounts)){
 
             for (int i=0;i<funAccounts.size();i++){

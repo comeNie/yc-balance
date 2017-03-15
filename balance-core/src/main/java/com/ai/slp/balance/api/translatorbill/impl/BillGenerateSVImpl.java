@@ -39,7 +39,7 @@ public class BillGenerateSVImpl implements IBillGenerateSV {
      */
     @Override
     public FunAccountQueryResponse queryFunAccount(FunAccountQueryRequest param) throws BusinessException, SystemException {
-        log.debug("账单查询");
+        log.info("账单查询");
         FunAccountQueryResponse funAccountQueryResponse = new FunAccountQueryResponse();
         ResponseHeader responseHeader = new ResponseHeader();
         if (param == null) {
