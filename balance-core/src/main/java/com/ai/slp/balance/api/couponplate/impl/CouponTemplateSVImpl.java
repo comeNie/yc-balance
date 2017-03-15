@@ -11,6 +11,7 @@ import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
+import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
@@ -59,7 +60,7 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 			throws BusinessException, SystemException {
 		ListDiscountCouponResponse listDiscountCouponResponse = new ListDiscountCouponResponse();
         ResponseHeader responseHeader = new ResponseHeader();
-        List<FunDiscountCouponInfoVo> funDiscountCouponInfoVoList = iCouponTemplateBusiSV.queryAccountInfoByCustId(templateId.getTemplateId());
+        List<FunDiscountCouponInfoVo> funDiscountCouponInfoVoList = iCouponTemplateBusiSV.queryCouponTempletByCustId(templateId.getTemplateId());
         listDiscountCouponResponse.setFunDiscountCouponInfoVoList(funDiscountCouponInfoVoList);
         if(!CollectionUtil.isEmpty(funDiscountCouponInfoVoList)){
         	responseHeader.setResultCode("0000");
@@ -68,6 +69,11 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
         	listDiscountCouponResponse.setResponseHeader(responseHeader);
         }
 		return listDiscountCouponResponse;
+	}
+
+	@Override
+	public Integer checkCouponByCouponName(CouponTemplateParam couponName) throws BusinessException, SystemException {
+		return iCouponTemplateBusiSV.checkCouponByCouponName(couponName.getCouponName());
 	}
 
    

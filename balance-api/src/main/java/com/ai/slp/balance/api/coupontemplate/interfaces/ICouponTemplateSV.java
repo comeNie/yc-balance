@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
+import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.coupontemplate.param.ListDiscountCouponResponse;
@@ -50,6 +51,20 @@ public interface ICouponTemplateSV {
 	@POST
 	@Path("/queryCouponByTemplateId")
     public ListDiscountCouponResponse queryCouponByTemplateId(CouponParam templateId) throws BusinessException,SystemException;
+	
+	
+	/**
+	 * 检测名称唯一
+	 * @param couponName
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL couponTemplateQueryService/checkCouponByCouponName
+     */
+	@POST
+	@Path("/checkCouponByCouponName")
+    public Integer checkCouponByCouponName(CouponTemplateParam couponName) throws BusinessException,SystemException;
 
 }
 

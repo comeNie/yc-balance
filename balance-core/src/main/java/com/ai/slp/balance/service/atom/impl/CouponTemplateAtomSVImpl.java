@@ -1,7 +1,6 @@
 package com.ai.slp.balance.service.atom.impl;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -126,5 +125,23 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 	            }
 	        }
 		return funCouponTemplateResponses;
+	}
+	/**
+	 * 检测名称唯一
+	 */
+	@Override
+	public Integer checkCouponByCouponName(String couponName) {
+		FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
+		FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
+		if (!StringUtil.isBlank(couponName)){
+            criteria.andCouponNameEqualTo(couponName);
+        }
+		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
+		int countByExample = mapper.countByExample(funCouponTemplateCriteria);
+		if(countByExample == 0){
+			return 1;
+		}else{
+			return 2;
+		}
 	}
 }
