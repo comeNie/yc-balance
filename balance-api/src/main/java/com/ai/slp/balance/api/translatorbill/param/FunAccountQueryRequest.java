@@ -16,6 +16,10 @@ public class FunAccountQueryRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 账单类型
+     */
+    String targetType;
+    /**
      * lsp名称
      */
     String lspName;
@@ -58,6 +62,14 @@ public class FunAccountQueryRequest implements Serializable {
      * 分页时必填
      */
     PageInfo<FunAccountResponse> pageInfo;
+
+    public String getTargetType() {
+        return targetType;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
 
     public String getLspName() {
         return lspName;
