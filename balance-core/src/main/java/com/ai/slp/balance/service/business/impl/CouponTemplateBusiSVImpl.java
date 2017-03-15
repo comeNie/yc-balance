@@ -94,7 +94,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	 * 根据优惠券模板iD查询优惠券明细
 	 */
 	@Override
-	public List<FunDiscountCouponInfoVo> queryAccountInfoByCustId(Integer templateId) {
+	public List<FunDiscountCouponInfoVo> queryCouponTempletByCustId(Integer templateId) {
 		
 		 List<FunDiscountCouponInfoVo> funDiscountCouponInfoVoList = new ArrayList<FunDiscountCouponInfoVo>();
 	     List<FunDiscountCoupon> discountCouponList = discountCouponAtomSV.getAccountInfoByCustId(templateId);
@@ -111,6 +111,10 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	@Override
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
 		return couponTemplateAtomSV.exportCouponTempletList(funCouponTemplateQueryRequest);
+	}
+	@Override
+	public Integer checkCouponByCouponName(String couponName) {
+		return couponTemplateAtomSV.checkCouponByCouponName(couponName);
 	}
 
 	

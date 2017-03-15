@@ -19,7 +19,9 @@ public interface ICouponTemplateBusiSV {
 	//模糊查询优惠券模板列表
 	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
 	//根据优惠券模板iD查询优惠券明细
-	public List<FunDiscountCouponInfoVo> queryAccountInfoByCustId(Integer templateId);
+	public List<FunDiscountCouponInfoVo> queryCouponTempletByCustId(Integer templateId);
 	//POI导出优惠券模板列表生成Excel
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
+	//检测名称唯一
+	public Integer checkCouponByCouponName(String couponName);
 }
