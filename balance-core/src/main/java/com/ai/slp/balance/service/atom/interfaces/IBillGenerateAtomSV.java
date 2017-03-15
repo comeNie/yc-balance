@@ -24,9 +24,28 @@ public interface IBillGenerateAtomSV {
      * @param endTime
      * @return
      */
-    public  String insertAccount(OrdOrderVo ordOrderVo, TAccountParam tAccountParam, long billFee,
+    public  String insertAccount(OrdOrderVo ordOrderVo, TAccountParam tAccountParam, long billFee,long accountAmount,long platFee,
                                  String beginTime, String endTime);
 
+    /**
+     * 插入账单明细表lsp信息
+     * @param ordOrderVo
+     * @param billId
+     */
+    public  void insertAccountLspDetail(OrdOrderVo ordOrderVo,String billId,long translatorFeeDetail,long lspFee);
+    /**
+     * 插入账单信息表lsp信息
+     * @param ordOrderVo
+     * @param tAccountParam
+     * @param billFee
+     * @param accountAmount0
+     * @param platFee0
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    public  String insertAccountLsp(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long accountAmount0,long billFee,long translator,long platFee0,
+                                    String beginTime,String endTime);
     /**
      * 插入账单明细表
      * @param ordOrderVo

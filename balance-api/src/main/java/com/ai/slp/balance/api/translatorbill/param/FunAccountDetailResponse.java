@@ -31,6 +31,10 @@ public class FunAccountDetailResponse implements Serializable {
 
     private String state;
 
+    private Long translatorFee;
+
+    private Long lspFee;
+
     public String getDetailId() {
         return detailId;
     }
@@ -133,5 +137,21 @@ public class FunAccountDetailResponse implements Serializable {
 
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
+    }
+
+    public Long getTranslatorFee() {
+        return translatorFee;
+    }
+
+    public void setTranslatorFee(Long translatorFee) {
+        this.translatorFee = translatorFee;
+    }
+
+    public Long getLspFee() {
+        return lspFee;
+    }
+
+    public void setLspFee(Long lspFee) {
+        this.lspFee = lspFee;
     }
 }

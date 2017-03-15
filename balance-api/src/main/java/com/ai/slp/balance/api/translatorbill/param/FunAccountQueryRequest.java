@@ -16,6 +16,14 @@ public class FunAccountQueryRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * lsp名称
+     */
+    String lspName;
+    /**
+     * lsp管理员
+     */
+    String lspAdmin;
+    /**
      * 昵称
      */
     String nickName;
@@ -51,6 +59,21 @@ public class FunAccountQueryRequest implements Serializable {
      */
     PageInfo<FunAccountResponse> pageInfo;
 
+    public String getLspName() {
+        return lspName;
+    }
+
+    public void setLspName(String lspName) {
+        this.lspName = lspName;
+    }
+
+    public String getLspAdmin() {
+        return lspAdmin;
+    }
+
+    public void setLspAdmin(String lspAdmin) {
+        this.lspAdmin = lspAdmin;
+    }
 
     public String getNickName() {
         return nickName;

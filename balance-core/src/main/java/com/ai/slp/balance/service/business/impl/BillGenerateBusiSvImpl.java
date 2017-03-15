@@ -2,6 +2,7 @@ package com.ai.slp.balance.service.business.impl;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.translatorbill.param.*;
 import com.ai.slp.balance.dao.mapper.bo.TAccountParam;
@@ -12,6 +13,9 @@ import com.ai.slp.balance.service.atom.interfaces.IFunAccountAtomSV;
 import com.ai.slp.balance.service.atom.interfaces.IFunAccountDetailAtomSV;
 import com.ai.slp.balance.service.business.interfaces.IBillGenerateBusiSV;
 import com.ai.slp.balance.util.DubboUtil;
+import com.ai.yc.order.api.orderallocation.interfaces.IOrderAllocationSV;
+import com.ai.yc.order.api.orderallocation.param.OrdAllocationePersonRequest;
+import com.ai.yc.order.api.orderallocation.param.OrdAllocationePersones;
 import com.ai.yc.order.api.orderquery.interfaces.IOrderQuerySV;
 import com.ai.yc.order.api.orderquery.param.OrdOrderVo;
 import com.ai.yc.order.api.orderquery.param.QueryOrderRequest;
@@ -24,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +41,7 @@ import java.util.List;
 public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
     private static final Logger LOG = LogManager.getLogger(BillGenerateBusiSvImpl.class);
     private static final IOrderQuerySV iOrderQuerySV = DubboUtil.getIOrderQuerySV();
-
+    private static final IOrderAllocationSV iOrderAllocationSV = DubboUtil.getIOrderAllocationSV();
     /*@Autowired
     private IFunAccountDetailAtomSV funAccountDetailAtomSV;
     @Autowired
@@ -49,7 +54,7 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
 
         TAccountParamCriteria example = new TAccountParamCriteria();
         TAccountParamCriteria.Criteria criteria = example.createCriteria();
-        criteria.andAccountClsEqualTo(param);
+        criteria.andTargetTypeEqualTo(param);
         List<TAccountParam> tAccountParams = MapperFactory.getTAccountParamMapper().selectByExample(example);
         for (int i = 0;i<tAccountParams.size();i++){
             AccountParamVo accountParamVo = new AccountParamVo();
@@ -85,22 +90,149 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
             queryOrderRequest.setPageSize(count);
             QueryOrderRsponse queryOrderRsponse = iOrderQuerySV.queryOrder(queryOrderRequest);
             List<OrdOrderVo> orderVos = queryOrderRsponse.getPageInfo().getResult();
-            Long billFee = 0l;
-            for (int j = 0;j<orderVos.size();j++){
-                boolean b = inTime(begindate, endDate, orderVos.get(j).getFinishTime());
-                if (b){
-                    //计算账单金额
-                    billFee+=orderVos.get(i).getTotalFee();
-                    try {
-                        //将全部订单的数据汇总插入到结算账单信息表（FUN_ACCOUNT）
-                        String billID = billGenerateAtomSV.insertAccount(orderVos.get(j), tAccountParams.get(i), billFee, begindate, endDate);
-                        //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
-                        billGenerateAtomSV.insertAccountDetail(orderVos.get(j),billID);
-                    } catch (Exception e) {
-                        System.out.println("出错：" + e.getMessage());
+            //国内账单flag=0
+            List<OrdOrderVo> orderVos0 = new ArrayList<>();
+            //国外账单flag=1
+            List<OrdOrderVo> orderVos1 = new ArrayList<>();
+            for (OrdOrderVo orderVo:orderVos){
+                if (orderVo.getFlag().equals("0")){
+                    orderVos0.add(orderVo);
+                }
+                if (orderVo.getFlag().equals("1")){
+                    orderVos1.add(orderVo);
+                }
+            }
+            if (orderVos0.size()>0){
+                Long billFee0 = 0l;
+                Long accountAmount0 = 0l;
+                Long platFee0 = 0l;
+                for (int j = 0;j<orderVos0.size();j++){
+                    boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
+                    if (b){
+                        //计算账单金额
+                        billFee0+=orderVos0.get(i).getTotalFee();
+                        //计算应结金额(译员佣金)
+                        accountAmount0+=orderVos0.get(i).getInterperFee();
+                        //平台佣金
+                        platFee0 += orderVos0.get(i).getPlatFee();
+                    }
+                }
+                //译员账单(targetType=3)   lsp账单(targetType=4)
+                if (param=="3"){
+                    //将全部订单的数据汇总插入到结算账单信息表（FUN_ACCOUNT）
+                    String billID = billGenerateAtomSV.insertAccount(orderVos0.get(0), tAccountParams.get(i), billFee0,accountAmount0,platFee0, begindate, endDate);
+                    for (int j = 0;j<orderVos0.size();j++){
+                        boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
+                        if (b){
+                            //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
+                            billGenerateAtomSV.insertAccountDetail(orderVos0.get(j),billID);
+                        }
+                    }
+
+                }else if (param=="4"){
+                    //lsp译员支出账单中的
+                    Long translatorFee = 0l;
+                    for (OrdOrderVo orderVo:orderVos0){
+                        OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
+                        ordAllocationePersonRequest.setOrderId(orderVo.getOrderId());
+                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                        if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
+                            List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
+                            for (OrdAllocationePersones ordAllocationePersones:result){
+                                translatorFee+=ordAllocationePersones.getInterperFee();
+                            }
+                        }
+                    }
+                    Long accountAmount = billFee0-platFee0-translatorFee;
+                    String billID = billGenerateAtomSV.insertAccountLsp(orderVos0.get(0), tAccountParams.get(i), accountAmount, billFee0, translatorFee, platFee0, begindate, endDate);
+                    for (int j = 0;j<orderVos0.size();j++){
+                        boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
+                        if (b){
+                            //lsp译员支出
+                            Long translatorFeeDetail = 0l;
+                            OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
+                            ordAllocationePersonRequest.setOrderId(orderVos0.get(j).getOrderId());
+                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                            if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
+                                List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
+                                for (OrdAllocationePersones ordAllocationePersones:result){
+                                    translatorFeeDetail+=ordAllocationePersones.getInterperFee();
+                                }
+                            }
+                            //lsp结余 = 订单金额-译员支出-平台佣金
+                            Long lspFee = orderVos0.get(j).getTotalFee()-orderVos0.get(j).getPlatFee()-translatorFeeDetail;
+                            //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
+                            billGenerateAtomSV.insertAccountLspDetail(orderVos0.get(0),billID,translatorFeeDetail,lspFee);
+                        }
                     }
                 }
             }
+            if (orderVos1.size()>0){
+                Long billFee1 = 0l;
+                Long accountAmount1 = 0l;
+                Long platFee1 = 0l;
+                for (int j = 0;j<orderVos1.size();j++){
+                    boolean b = inTime(begindate, endDate, orderVos1.get(j).getFinishTime());
+                    if (b){
+                        //计算账单金额
+                        billFee1+=orderVos1.get(i).getTotalFee();
+                        //计算应结金额(译员佣金)
+                        accountAmount1+=orderVos1.get(i).getInterperFee();
+                        //平台佣金
+                        platFee1 += orderVos1.get(i).getPlatFee();
+                    }
+                }
+                //译员账单(targetType=3)   lsp账单(targetType=4)
+                if (param=="3"){
+                    //将全部订单的数据汇总插入到结算账单信息表（FUN_ACCOUNT）
+                    String billID = billGenerateAtomSV.insertAccount(orderVos1.get(0), tAccountParams.get(i), billFee1,accountAmount1,platFee1, begindate, endDate);
+                    for (int j = 0;j<orderVos0.size();j++){
+                        boolean b = inTime(begindate, endDate, orderVos1.get(j).getFinishTime());
+                        if (b){
+                            //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
+                            billGenerateAtomSV.insertAccountDetail(orderVos1.get(j),billID);
+                        }
+                    }
+
+                }else if (param=="4"){
+                    //lsp译员支出账单中的
+                    Long translatorFee = 0l;
+                    for (OrdOrderVo orderVo:orderVos1){
+                        OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
+                        ordAllocationePersonRequest.setOrderId(orderVo.getOrderId());
+                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                        if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
+                            List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
+                            for (OrdAllocationePersones ordAllocationePersones:result){
+                                translatorFee+=ordAllocationePersones.getInterperFee();
+                            }
+                        }
+                    }
+                    Long accountAmount = billFee1-platFee1-translatorFee;
+                    String billID = billGenerateAtomSV.insertAccountLsp(orderVos1.get(0), tAccountParams.get(i), accountAmount, billFee1, translatorFee, platFee1, begindate, endDate);
+                    for (int j = 0;j<orderVos1.size();j++){
+                        boolean b = inTime(begindate, endDate, orderVos1.get(j).getFinishTime());
+                        if (b){
+                            //lsp译员支出
+                            Long translatorFeeDetail = 0l;
+                            OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
+                            ordAllocationePersonRequest.setOrderId(orderVos1.get(j).getOrderId());
+                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                            if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
+                                List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
+                                for (OrdAllocationePersones ordAllocationePersones:result){
+                                    translatorFeeDetail+=ordAllocationePersones.getInterperFee();
+                                }
+                            }
+                            //lsp结余 = 订单金额-译员支出-平台佣金
+                            Long lspFee = orderVos1.get(j).getTotalFee()-orderVos1.get(j).getPlatFee()-translatorFeeDetail;
+                            //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
+                            billGenerateAtomSV.insertAccountLspDetail(orderVos1.get(0),billID,translatorFeeDetail,lspFee);
+                        }
+                    }
+                }
+            }
+
         }
         return true;
     }

@@ -105,6 +105,51 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         }
         return true;
     }*/
+   //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表（FUN_ACCOUNT_DETAIL ）
+   public  void insertAccountLspDetail(OrdOrderVo ordOrderVo,String billId,long translatorFeeDetail,long lspFee) {
+       FunAccountDetail funAccountDetail = new FunAccountDetail();
+       //订单状态
+       funAccountDetail.setDetailId(SeqUtil.getNewId(SeqConstants.FUN_ACCOUNT_DETAIL$DETAIL_ID).toString());
+       funAccountDetail.setState(ordOrderVo.getState());
+       //账单id
+       funAccountDetail.setBillId(billId);
+       //lsp译员佣金
+       funAccountDetail.setTranslatorFee(translatorFeeDetail);
+       //LSP结余
+       funAccountDetail.setLspFee(lspFee);
+       //下单昵称(用户中心)
+       funAccountDetail.setNickname(ordOrderVo.getUserName());
+       //译员昵称
+       funAccountDetail.setNickname2(ordOrderVo.getInterperName());
+       //LSP团队
+       funAccountDetail.setLspId(ordOrderVo.getLspId());
+
+       //订单编号
+       funAccountDetail.setOrderId(ordOrderVo.getOrderId()+"");
+       //下单时间
+       funAccountDetail.setOrderTime(ordOrderVo.getOrderTime());
+       //语言方向(语言对 list)
+       String langungePairName="";
+       List<OrdProdExtendVo> ordProdExtendList = ordOrderVo.getOrdProdExtendList();
+       if (ordOrderVo.getCurrencyUnit().equals("1")){
+           for (OrdProdExtendVo ordProdExtendVo: ordProdExtendList) {
+               langungePairName = langungePairName + ordProdExtendVo.getLangungePairChName();
+           }
+       }else {{
+           for (OrdProdExtendVo ordProdExtendVo: ordProdExtendList) {
+               langungePairName = langungePairName + ordProdExtendVo.getLangungePairEnName();
+           }
+       }}
+
+       funAccountDetail.setLangungePairName(langungePairName);
+//        //币种
+       funAccountDetail.setCurrencyUnit(ordOrderVo.getCurrencyUnit());
+       //订单金额
+       funAccountDetail.setTotalFee(ordOrderVo.getTotalFee());
+       //平台佣金
+       funAccountDetail.setPlatFee(ordOrderVo.getPlatFee());
+       funAccountDetailAtomSV.insertFunAccountFundDetail(funAccountDetail);
+   }
 
     //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表（FUN_ACCOUNT_DETAIL ）
     public  void insertAccountDetail(OrdOrderVo ordOrderVo,String billId){
@@ -150,14 +195,13 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         funAccountDetailAtomSV.insertFunAccountFundDetail(funAccountDetail);
     }
     //将全部订单的数据汇总插入到结算账单信息表（FUN_ACCOUNT)
-    public  String insertAccount(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long billFee,
+    public  String insertAccount(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long billFee,long accountAmount0,long platFee0,
                                       String beginTime,String endTime){
-//        Timestamp nowDate = new Timestamp(System.currentTimeMillis());
         FunAccount funAccount = new FunAccount();
         String billID = SeqUtil.getNewId(SeqConstants.FUN_ACCOUNT$BILL_ID).toString();
         funAccount.setBillId(billID);
         //结算金额(结算账单的时候再填充)
-        funAccount.setAccountAmout(ordOrderVo.getTotalFee());
+        funAccount.setAccountAmout(accountAmount0);
         //结算账单类型 1，客户；2，译员；3、LSP；
         funAccount.setAccountCls(tAccountParam.getAccountCls());
         //结算周期（月)
@@ -171,7 +215,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         //本期账单金额
         funAccount.setBillFee(billFee);
         //平台佣金(订单获取)
-        funAccount.setPlatFee(ordOrderVo.getPlatFee());
+        funAccount.setPlatFee(platFee0);
         //账单生成时间
         funAccount.setCreateTime(DateUtil.getSysDate());
         //LSP管理员
@@ -190,8 +234,58 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         funAccount.setContent();*/
         //业务标识
         funAccount.setFlag(ordOrderVo.getFlag());
-        //付款时间
-        funAccount.setPayTime(ordOrderVo.getPayTime());
+        //展示页显示名(译员昵称)
+        funAccount.setNickname(ordOrderVo.getInterperName());
+        //应结算时间(本周期结束时间+1天)
+        funAccount.setPlanAccountTime(Timestamp.valueOf(addDay(endTime,1)+" 23:59:59"));
+        //用户ID
+        funAccount.setTargetId(ordOrderVo.getUserId());
+        //用户名称
+        funAccount.setTargetName(ordOrderVo.getUserName());
+        int i = funAccountAtomSV.insertFunAccountFund(funAccount);
+        return funAccount.getBillId();
+    }
+    //将全部订单的数据汇总插入到结算账单信息表（FUN_ACCOUNT)
+    public  String insertAccountLsp(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long accountAmount0,long billFee,long translatorFee,long platFee0,
+                                 String beginTime,String endTime){
+        FunAccount funAccount = new FunAccount();
+        String billID = SeqUtil.getNewId(SeqConstants.FUN_ACCOUNT$BILL_ID).toString();
+        funAccount.setBillId(billID);
+        //结算金额(结算账单的时候再填充)
+        funAccount.setAccountAmout(accountAmount0);
+        funAccount.setTranslatorFee(translatorFee);
+        //结算账单类型 1，客户；2，译员；3、LSP；
+        funAccount.setAccountCls(tAccountParam.getAccountCls());
+        //结算周期（月)
+        funAccount.setAccountPeriod(tAccountParam.getAccountPeriod());
+        //结算日
+        funAccount.setAccountPeriodDay(tAccountParam.getAccountDay());
+        //结算目标类型
+        funAccount.setTargetType(tAccountParam.getAccountType());
+        //实际结算时间,结算账单的时候再填充
+//        funAccount.setActAccountTime(DateUtil.getSysDate());
+        //本期账单金额
+        funAccount.setBillFee(billFee);
+        //平台佣金(订单获取)
+        funAccount.setPlatFee(platFee0);
+        //账单生成时间
+        funAccount.setCreateTime(DateUtil.getSysDate());
+        //LSP管理员
+        funAccount.setLspAdmin(ordOrderVo.getLspName());
+        //本周期开始时间
+        funAccount.setStartAccountTime(Timestamp.valueOf(beginTime));
+        //本周期结束时间
+        funAccount.setEndAccountTime(Timestamp.valueOf(endTime));
+        //结算方式,支付宝,微信等(结算的时候再填充)
+//        funAccount.setAccountType();
+        //结算状态(1:为=未结算)
+        funAccount.setState(1);
+        /*//结算账户结算的时候沉淀
+        funAccount.setSettleAccount();*/
+        /*//备注(写什么)结算的时候沉淀
+        funAccount.setContent();*/
+        //业务标识
+        funAccount.setFlag(ordOrderVo.getFlag());
         //展示页显示名(译员昵称)
         funAccount.setNickname(ordOrderVo.getInterperName());
         //应结算时间(本周期结束时间+1天)
@@ -237,6 +331,12 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         }
         if (funAccountQueryRequest.getState()!=null){
             criteria.andStateEqualTo(funAccountQueryRequest.getState());
+        }
+        if (!StringUtil.isBlank(funAccountQueryRequest.getLspName())){
+            criteria.andTargetNameLike("%"+funAccountQueryRequest.getLspName()+"%");
+        }
+        if (!StringUtil.isBlank(funAccountQueryRequest.getLspAdmin())){
+            criteria.andLspAdminLike("%"+funAccountQueryRequest.getLspAdmin()+"%");
         }
         if (!StringUtil.isBlank(funAccountQueryRequest.getNickName())){
             criteria.andNicknameLike("%"+funAccountQueryRequest.getNickName().trim()+"%");
