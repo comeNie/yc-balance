@@ -330,9 +330,9 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         if (!StringUtil.isBlank(funAccountQueryRequest.getFlag())){
             criteria.andFlagEqualTo(funAccountQueryRequest.getFlag());
         }
-        /*if (!StringUtil.isBlank(funAccountQueryRequest.getTargetType())){
+        if (!StringUtil.isBlank(funAccountQueryRequest.getTargetType())){
             criteria.andTargetTypeEqualTo(funAccountQueryRequest.getTargetType());
-        }*/
+        }
         if (funAccountQueryRequest.getState()!=null){
             criteria.andStateEqualTo(funAccountQueryRequest.getState());
         }
