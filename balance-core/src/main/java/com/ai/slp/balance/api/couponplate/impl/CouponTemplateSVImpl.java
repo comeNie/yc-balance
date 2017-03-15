@@ -72,8 +72,8 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 	}
 
 	@Override
-	public Integer checkCouponByCouponName(CouponTemplateParam couponName) throws BusinessException, SystemException {
-		return iCouponTemplateBusiSV.checkCouponByCouponName(couponName.getCouponName());
+	public Integer checkCouponTemplateName(CouponTemplateParam couponName) throws BusinessException, SystemException {
+		return iCouponTemplateBusiSV.checkCouponTemplateName(couponName.getCouponName());
 	}
 
    

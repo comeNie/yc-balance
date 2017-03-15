@@ -60,11 +60,11 @@ public interface ICouponTemplateSV {
 	 * @author shancc
 	 * @ApiDocMethod
      * @ApiCode
-     * @RestRelativeURL couponTemplateQueryService/checkCouponByCouponName
+     * @RestRelativeURL couponTemplateQueryService/checkCouponTemplateName
      */
 	@POST
-	@Path("/checkCouponByCouponName")
-    public Integer checkCouponByCouponName(CouponTemplateParam couponName) throws BusinessException,SystemException;
+	@Path("/checkCouponTemplateName")
+    public Integer checkCouponTemplateName(CouponTemplateParam couponName) throws BusinessException,SystemException;
 
 }
 

@@ -14,5 +14,5 @@ public interface ICouponTemplateAtomSV {
 	public PageInfo<FunCouponTemplateResponse> funCouponTemplateQueryRequest(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
 	//POI导出优惠券模板列表生成Excel
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
-	public Integer checkCouponByCouponName(String couponName);
+	public Integer checkCouponTemplateName(String couponName);
 }

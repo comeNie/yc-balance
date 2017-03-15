@@ -113,8 +113,8 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		return couponTemplateAtomSV.exportCouponTempletList(funCouponTemplateQueryRequest);
 	}
 	@Override
-	public Integer checkCouponByCouponName(String couponName) {
-		return couponTemplateAtomSV.checkCouponByCouponName(couponName);
+	public Integer checkCouponTemplateName(String couponName) {
+		return couponTemplateAtomSV.checkCouponTemplateName(couponName);
 	}
 
 	

@@ -130,7 +130,7 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 	 * 检测名称唯一
 	 */
 	@Override
-	public Integer checkCouponByCouponName(String couponName) {
+	public Integer checkCouponTemplateName(String couponName) {
 		FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
 		FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
 		if (!StringUtil.isBlank(couponName)){
@@ -138,7 +138,7 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
         }
 		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
 		int countByExample = mapper.countByExample(funCouponTemplateCriteria);
-		if(countByExample == 0){
+		if(countByExample != 0){
 			return 1;
 		}else{
 			return 2;

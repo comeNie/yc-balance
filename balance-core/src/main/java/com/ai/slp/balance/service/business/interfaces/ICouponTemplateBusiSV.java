@@ -23,5 +23,5 @@ public interface ICouponTemplateBusiSV {
 	//POI导出优惠券模板列表生成Excel
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
 	//检测名称唯一
-	public Integer checkCouponByCouponName(String couponName);
+	public Integer checkCouponTemplateName(String couponName);
 }
