@@ -135,7 +135,8 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                     for (OrdOrderVo orderVo:orderVos0){
                         OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
                         ordAllocationePersonRequest.setOrderId(orderVo.getOrderId());
-                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                        ordAllocationePersonRequest.setReceiveState("1");
+                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
                         if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
                             List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
                             for (OrdAllocationePersones ordAllocationePersones:result){
@@ -152,7 +153,8 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                             Long translatorFeeDetail = 0l;
                             OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
                             ordAllocationePersonRequest.setOrderId(orderVos0.get(j).getOrderId());
-                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                            ordAllocationePersonRequest.setReceiveState("1");
+                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
                             if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
                                 List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
                                 for (OrdAllocationePersones ordAllocationePersones:result){
@@ -200,7 +202,8 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                     for (OrdOrderVo orderVo:orderVos1){
                         OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
                         ordAllocationePersonRequest.setOrderId(orderVo.getOrderId());
-                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                        ordAllocationePersonRequest.setReceiveState("1");
+                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
                         if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
                             List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
                             for (OrdAllocationePersones ordAllocationePersones:result){
@@ -217,7 +220,8 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                             Long translatorFeeDetail = 0l;
                             OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
                             ordAllocationePersonRequest.setOrderId(orderVos1.get(j).getOrderId());
-                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfoByOrdId(ordAllocationePersonRequest);
+                            ordAllocationePersonRequest.setReceiveState("1");
+                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
                             if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
                                 List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
                                 for (OrdAllocationePersones ordAllocationePersones:result){
