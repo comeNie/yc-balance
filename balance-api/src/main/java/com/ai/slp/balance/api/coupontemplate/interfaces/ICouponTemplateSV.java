@@ -10,6 +10,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplate;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.coupontemplate.param.ListDiscountCouponResponse;
@@ -66,6 +67,18 @@ public interface ICouponTemplateSV {
 	@Path("/checkCouponTemplateName")
     public Integer checkCouponTemplateName(CouponTemplateParam couponName) throws BusinessException,SystemException;
 	
+	/**
+	 * 添加优惠券模板
+	 * @param couponName
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL couponTemplateQueryService/savaCouponTemplate
+     */
+	@POST
+	@Path("/updateOrderInfo")
+	public Integer  savaCouponTemplate(FunCouponTemplate req)throws BusinessException,SystemException;
 
 }
 
