@@ -65,6 +65,7 @@ public interface ICouponTemplateSV {
 	@POST
 	@Path("/checkCouponTemplateName")
     public Integer checkCouponTemplateName(CouponTemplateParam couponName) throws BusinessException,SystemException;
+	
 
 }
 
