@@ -17,5 +17,5 @@ public interface ICouponTemplateAtomSV {
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
 	public Integer checkCouponTemplateName(String couponName);
 	//生成优惠券模板
-	public Integer saveCouponTempletList(SaveFunCouponTemplate req);
+	public Integer saveCouponTempletList(FunCouponTemplate req);
 }

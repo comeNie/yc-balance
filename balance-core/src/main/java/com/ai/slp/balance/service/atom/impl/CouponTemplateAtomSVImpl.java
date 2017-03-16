@@ -142,7 +142,7 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 		return countByExample;
 	}
 	@Override
-	public Integer saveCouponTempletList(SaveFunCouponTemplate req) {
+	public Integer saveCouponTempletList(FunCouponTemplate req) {
 		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
 		int insert = mapper.insert(req);
 		return insert;

@@ -11,7 +11,6 @@ import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunDiscountCouponInfoVo;
-import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 
 public interface ICouponTemplateBusiSV {
@@ -25,5 +24,5 @@ public interface ICouponTemplateBusiSV {
 	//检测名称唯一
 	public Integer checkCouponTemplateName(String couponName);
 	//生成优惠券模板接口
-	public Integer saveCouponTempletList(SaveFunCouponTemplate req);
+	public Integer saveCouponTempletList();
 }
