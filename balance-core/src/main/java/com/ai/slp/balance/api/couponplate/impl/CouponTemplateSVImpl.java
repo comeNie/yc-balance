@@ -12,7 +12,7 @@ import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplate;
+import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
@@ -78,8 +78,8 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 	}
 
 	@Override
-	public Integer savaCouponTemplate(FunCouponTemplate req) throws BusinessException, SystemException {
-		return null;
+	public Integer savaCouponTemplate(SaveFunCouponTemplate req) throws BusinessException, SystemException {
+		return iCouponTemplateBusiSV.saveCouponTempletList(req);
 	}
 
 

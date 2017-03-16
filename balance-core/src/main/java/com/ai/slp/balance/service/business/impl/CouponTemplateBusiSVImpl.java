@@ -20,6 +20,7 @@ import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunDiscountCouponInfoVo;
+import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRule;
@@ -115,6 +116,31 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	@Override
 	public Integer checkCouponTemplateName(String couponName) {
 		return couponTemplateAtomSV.checkCouponTemplateName(couponName);
+	}
+	@Override
+	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException {
+		FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
+		FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
+		FunCouponTemplateMapper funCouponTemplateMapper = MapperFactory.getFunCouponTemplateMapper();
+		req.setCreateOperator("admin");
+		Date date=new Date();
+        DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        req.setCreateTime(Timestamp.valueOf(format.format(date)));
+        
+        if(req.getUsedScene()!= null){
+        	FunCouponUseRule funCouponUseRule = new FunCouponUseRule();
+        	funCouponUseRule.setCouponUserId("a1b2");
+        	funCouponUseRule.setFaceValue(null);
+        	funCouponUseRule.setRequiredMoneyAmount(null);
+        	funCouponUseRule.setCurrencyUnit(req.getCurrencyUnit());
+        	Date date1=new Date();
+            DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            funCouponUseRule.setCreateTime(Timestamp.valueOf(format1.format(date1)));
+            couponUseRuleAtomSV.insertBuildCouponUseRule(funCouponUseRule);
+        	couponTemplateAtomSV.saveCouponTempletList(req);
+        }
+        
+        	return	couponTemplateAtomSV.saveCouponTempletList(req);
 	}
 
 	

@@ -11,10 +11,10 @@ import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunDiscountCouponInfoVo;
+import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 
 public interface ICouponTemplateBusiSV {
-	//生成优惠券模板接口
 	public void BuildCouponTemplet(FunCouponTemplate couponTemplate,Integer requiredMoneyAmount,HttpSession session)throws BusinessException, SystemException;
 	//模糊查询优惠券模板列表
 	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
@@ -24,4 +24,6 @@ public interface ICouponTemplateBusiSV {
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
 	//检测名称唯一
 	public Integer checkCouponTemplateName(String couponName);
+	//生成优惠券模板接口
+	public Integer saveCouponTempletList(SaveFunCouponTemplate req);
 }

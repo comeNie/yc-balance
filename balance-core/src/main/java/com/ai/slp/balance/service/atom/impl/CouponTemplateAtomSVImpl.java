@@ -10,6 +10,7 @@ import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
+import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -139,5 +140,11 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
 		int countByExample = mapper.countByExample(funCouponTemplateCriteria);
 		return countByExample;
+	}
+	@Override
+	public Integer saveCouponTempletList(SaveFunCouponTemplate req) {
+		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
+		int insert = mapper.insert(req);
+		return insert;
 	}
 }
