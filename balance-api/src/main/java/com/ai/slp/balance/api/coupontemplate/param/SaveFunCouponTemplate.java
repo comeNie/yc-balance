@@ -2,7 +2,7 @@ package com.ai.slp.balance.api.coupontemplate.param;
 
 import java.sql.Timestamp;
 
-public class FunCouponTemplate {
+public class SaveFunCouponTemplate {
 	 private Integer templateId;
 
 	    private String couponName;

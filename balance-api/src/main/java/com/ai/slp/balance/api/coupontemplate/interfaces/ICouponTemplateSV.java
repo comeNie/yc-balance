@@ -10,7 +10,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplate;
+import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.coupontemplate.param.ListDiscountCouponResponse;
@@ -78,7 +78,7 @@ public interface ICouponTemplateSV {
      */
 	@POST
 	@Path("/updateOrderInfo")
-	public Integer  savaCouponTemplate(FunCouponTemplate req)throws BusinessException,SystemException;
+	public Integer  savaCouponTemplate(SaveFunCouponTemplate req)throws BusinessException,SystemException;
 
 }
 
