@@ -337,7 +337,7 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
             criteria.andStateEqualTo(funAccountQueryRequest.getState());
         }
         if (!StringUtil.isBlank(funAccountQueryRequest.getLspName())){
-            criteria.andTargetNameLike("%"+funAccountQueryRequest.getLspName()+"%");
+            criteria.andLspAdminLike("%"+funAccountQueryRequest.getLspName()+"%");
         }
         if (!StringUtil.isBlank(funAccountQueryRequest.getLspAdmin())){
             criteria.andLspAdminLike("%"+funAccountQueryRequest.getLspAdmin()+"%");
