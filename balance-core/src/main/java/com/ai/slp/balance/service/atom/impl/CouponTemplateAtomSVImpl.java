@@ -138,10 +138,6 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
         }
 		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
 		int countByExample = mapper.countByExample(funCouponTemplateCriteria);
-		if(countByExample != 0){
-			return 1;
-		}else{
-			return 2;
-		}
+		return countByExample;
 	}
 }
