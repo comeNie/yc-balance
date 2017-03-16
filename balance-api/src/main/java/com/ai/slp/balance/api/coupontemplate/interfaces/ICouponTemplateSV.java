@@ -78,7 +78,7 @@ public interface ICouponTemplateSV {
      */
 	@POST
 	@Path("/updateOrderInfo")
-	public Integer savaCouponTemplate()throws BusinessException,SystemException;
+	public Integer savaCouponTemplate(SaveFunCouponTemplate req)throws BusinessException,SystemException;
 
 }
 

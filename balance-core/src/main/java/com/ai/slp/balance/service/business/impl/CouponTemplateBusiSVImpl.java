@@ -118,17 +118,33 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		return couponTemplateAtomSV.checkCouponTemplateName(couponName);
 	}
 	@Override
-	public Integer saveCouponTempletList() throws BusinessException, SystemException {
+	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException {
 		
 		FunCouponTemplate funCouponTemplate = new FunCouponTemplate();
+		funCouponTemplate.setCouponName(req.getCouponName());
+		funCouponTemplate.setCouponDesc(req.getCouponDesc());
 		funCouponTemplate.setCreateOperator("admin");
 		Date date=new Date();
         DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         funCouponTemplate.setCreateTime(Timestamp.valueOf(format.format(date)));
-        
-        if(funCouponTemplate.getUsedScene()!= null){
+		funCouponTemplate.setCurrencyUnit(req.getCurrencyUnit());
+		
+		funCouponTemplate.setEffectiveEndTime(req.getEffectiveEndTime());
+		funCouponTemplate.setEffectiveEndTime(req.getEffectiveStartTime());
+		funCouponTemplate.setEffectiveTime(req.getEffectiveTime());
+		funCouponTemplate.setFaceValue(req.getFaceValue());
+		funCouponTemplate.setFaceValueDown(req.getFaceValueDown());
+		funCouponTemplate.setFaceValueUp(req.getFaceValueUp());
+		funCouponTemplate.setMaxCountIssue(req.getMaxCountIssue());
+		funCouponTemplate.setReceiveEndTime(req.getReceiveEndTime());
+		funCouponTemplate.setReceiveStartTime(req.getReceiveStartTime());
+		funCouponTemplate.setStatus(req.getStatus());
+		funCouponTemplate.setUsedScene(req.getUsedScene());
+		funCouponTemplate.setUseLimits(req.getUseLimits());
+		funCouponTemplate.setCouponUserId(req.getCouponUserId());
+        if(req.getCouponUserId()!= null){
         	FunCouponUseRule funCouponUseRule = new FunCouponUseRule();
-        	funCouponUseRule.setCouponUserId("a1b2");
+        	funCouponUseRule.setCouponUserId(req.getCouponUserId());
         	funCouponUseRule.setFaceValue(null);
         	funCouponUseRule.setRequiredMoneyAmount(null);
         	funCouponUseRule.setCurrencyUnit(funCouponTemplate.getCurrencyUnit());

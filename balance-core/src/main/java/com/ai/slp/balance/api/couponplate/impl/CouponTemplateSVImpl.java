@@ -78,8 +78,8 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 	}
 
 	@Override
-	public Integer savaCouponTemplate() throws BusinessException, SystemException {
-		return iCouponTemplateBusiSV.saveCouponTempletList();
+	public Integer savaCouponTemplate(SaveFunCouponTemplate req) throws BusinessException, SystemException {
+		return iCouponTemplateBusiSV.saveCouponTempletList(req);
 	}
 
 
