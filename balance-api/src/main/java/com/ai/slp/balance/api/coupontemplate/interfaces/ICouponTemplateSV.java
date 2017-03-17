@@ -47,7 +47,7 @@ public interface ICouponTemplateSV {
 	 * @author shancc
 	 * @ApiDocMethod
      * @ApiCode
-     * @RestRelativeURL couponTemplateQueryService/queryCouponByTemplateId
+     * @RestRelativeURL couponTemplateQueryService/queryCouponDetail
      */
 	@POST
 	@Path("/queryCouponDetail")
