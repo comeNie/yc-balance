@@ -1,5 +1,4 @@
 package com.ai.slp.balance.api.couponplate.impl;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,16 +7,15 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
-import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
-import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
 import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
-import com.ai.slp.balance.api.coupontemplate.param.FunDiscountCouponInfoVo;
-import com.ai.slp.balance.api.coupontemplate.param.ListDiscountCouponResponse;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.ICouponTemplateBusiSV;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -53,25 +51,6 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 		return funCouponTemplateQueryResponse;
 	}
 	
-	/**
-	 * 根据优惠券模板ID查询优惠券明细
-	 */
-	@Override
-	public ListDiscountCouponResponse queryCouponByTemplateId(CouponParam templateId)
-			throws BusinessException, SystemException {
-		ListDiscountCouponResponse listDiscountCouponResponse = new ListDiscountCouponResponse();
-        ResponseHeader responseHeader = new ResponseHeader();
-        List<FunDiscountCouponInfoVo> funDiscountCouponInfoVoList = iCouponTemplateBusiSV.queryCouponTempletByCustId(templateId.getTemplateId());
-        listDiscountCouponResponse.setFunDiscountCouponInfoVoList(funDiscountCouponInfoVoList);
-        if(!CollectionUtil.isEmpty(funDiscountCouponInfoVoList)){
-        	responseHeader.setResultCode("0000");
-        	responseHeader.setResultMessage("成功");
-        	responseHeader.setIsSuccess(true);
-        	listDiscountCouponResponse.setResponseHeader(responseHeader);
-        }
-		return listDiscountCouponResponse;
-	}
-
 	@Override
 	public Integer checkCouponTemplateName(CouponTemplateParam couponName) throws BusinessException, SystemException {
 		return iCouponTemplateBusiSV.checkCouponTemplateName(couponName.getCouponName());
@@ -80,6 +59,35 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 	@Override
 	public Integer savaCouponTemplate(SaveFunCouponTemplate req) throws BusinessException, SystemException {
 		return iCouponTemplateBusiSV.saveCouponTempletList(req);
+	}
+	/**
+	 * 根据优惠券模板ID查询优惠券明细
+	 */
+	@Override
+	public FunCouponDetailPageResponse queryCouponDetail(FunCouponDetailQueryRequest param)throws BusinessException, SystemException {
+        if (param==null){
+            throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
+        }
+        FunCouponDetailPageResponse funCouponDetailPageResponse = new FunCouponDetailPageResponse();
+        ResponseHeader responseHeader = new ResponseHeader();
+        
+        try {
+            PageInfo<FunCouponDetailResponse> pageInfo = iCouponTemplateBusiSV.queryFunCouponDetail(param);
+            funCouponDetailPageResponse.setPageInfo(pageInfo);
+            responseHeader.setIsSuccess(true);
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+            responseHeader.setResultMessage("账单查询成功");
+            funCouponDetailPageResponse.setResponseHeader(responseHeader);
+        }catch (BusinessException businessException){
+            responseHeader.setResultCode(businessException.getErrorCode());
+            responseHeader.setResultMessage(businessException.getErrorMessage());
+            funCouponDetailPageResponse.setResponseHeader(responseHeader);
+        }catch (Exception e){
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+            responseHeader.setResultMessage("账单查询失败");
+            funCouponDetailPageResponse.setResponseHeader(responseHeader);
+        }
+        return funCouponDetailPageResponse;
 	}
 
 

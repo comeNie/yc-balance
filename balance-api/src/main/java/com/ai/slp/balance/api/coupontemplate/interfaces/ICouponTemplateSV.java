@@ -8,12 +8,12 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
-import com.ai.slp.balance.api.coupontemplate.param.CouponParam;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
-import com.ai.slp.balance.api.coupontemplate.param.ListDiscountCouponResponse;
 
 /**
  * 优惠券模板接口
@@ -50,8 +50,8 @@ public interface ICouponTemplateSV {
      * @RestRelativeURL couponTemplateQueryService/queryCouponByTemplateId
      */
 	@POST
-	@Path("/queryCouponByTemplateId")
-    public ListDiscountCouponResponse queryCouponByTemplateId(CouponParam templateId) throws BusinessException,SystemException;
+	@Path("/queryCouponDetail")
+    public FunCouponDetailPageResponse queryCouponDetail(FunCouponDetailQueryRequest param) throws BusinessException,SystemException;
 	
 	
 	/**

@@ -2,10 +2,8 @@ package com.ai.slp.balance.service.business.impl;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,14 +15,14 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
-import com.ai.slp.balance.api.coupontemplate.param.FunDiscountCouponInfoVo;
 import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRule;
-import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
 import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
 import com.ai.slp.balance.service.atom.interfaces.ICouponTemplateAtomSV;
@@ -92,21 +90,6 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		return funCouponTemplateResponsePageInfo;
 	}
 	/**
-	 * 根据优惠券模板iD查询优惠券明细
-	 */
-	@Override
-	public List<FunDiscountCouponInfoVo> queryCouponTempletByCustId(Integer templateId) {
-		
-		 List<FunDiscountCouponInfoVo> funDiscountCouponInfoVoList = new ArrayList<FunDiscountCouponInfoVo>();
-	     List<FunDiscountCoupon> discountCouponList = discountCouponAtomSV.getAccountInfoByCustId(templateId);
-	     
-	        for (FunDiscountCoupon discountCoupon : discountCouponList) {
-	            // TODO 事务层不能互相调用；对象转换的convert方法是否也不能定义在事物层
-	        	funDiscountCouponInfoVoList.add((FunDiscountCouponInfoVo) discountCouponList);
-	        }
-	        return funDiscountCouponInfoVoList;
-	}
-	/**
 	 * POI导出优惠券模板列表生成Excel
 	 */
 	@Override
@@ -156,6 +139,13 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
         }else{
         	return	couponTemplateAtomSV.saveCouponTempletList(funCouponTemplate);
         }
+	}
+	/**
+	 * 根据优惠券模板iD查询优惠券明细
+	 */
+	@Override
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) {
+		return discountCouponAtomSV.getAccountInfoByCustId(param);
 	}
 
 	
