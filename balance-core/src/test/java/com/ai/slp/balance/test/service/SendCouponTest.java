@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
+import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 
 import junit.framework.TestCase;
@@ -22,7 +22,8 @@ public class SendCouponTest extends TestCase {
     @Autowired
     private ISendCouponSV sendCouponSV;
     @Autowired
-    private ICouponTemplateSV couponTemplateSV;
+    private ICouponUseRuleSV couponUseRuleSV;
+    
 
     @Test
     public void testSendCouponTest() {
@@ -31,7 +32,7 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void test() {
-    	couponTemplateSV.queryCouponDetail(1);
+    	couponUseRuleSV.queryFunCouponUseRule("1");
     }
     
     
