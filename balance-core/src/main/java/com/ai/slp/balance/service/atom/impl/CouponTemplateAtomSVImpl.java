@@ -147,4 +147,10 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 		int insert = mapper.insert(req);
 		return insert;
 	}
+	@Override
+	public Integer deleteCouponTemplate(Integer templateId) {
+		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
+		int deleteByPrimaryKey = mapper.deleteByPrimaryKey(templateId);
+		return deleteByPrimaryKey;
+	}
 }

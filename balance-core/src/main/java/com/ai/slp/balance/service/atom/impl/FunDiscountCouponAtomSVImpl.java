@@ -20,20 +20,20 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 
 
 	@Override
-	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(Integer templateId) {
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) {
 		 List<FunCouponDetailResponse> funCouponDetailResponses = new ArrayList<FunCouponDetailResponse>();
 		 
 		 	FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		 	FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 	        String orderByClause = "ORDER_TIME desc";
 	        funDiscountCouponCriteria.setOrderByClause(orderByClause);
-	        critreia.andTemplateIdEqualTo(templateId);
+	        critreia.andTemplateIdEqualTo(param.getTemplateId());
 	        PageInfo<FunCouponDetailResponse> pageInfo = new PageInfo<FunCouponDetailResponse>();
 	        FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 	        pageInfo.setCount(mapper.countByExample(funDiscountCouponCriteria));
 	        
 	        List<FunDiscountCoupon> funDiscountCoupon = mapper.selectByExample(funDiscountCouponCriteria);
-	        /*if (param.getPageInfo() == null) {
+	        if (param.getPageInfo() == null) {
 	            pageInfo.setPageNo(1);
 	            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
 	        }else {
@@ -43,7 +43,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	            funDiscountCouponCriteria.setLimitStart(param.getPageInfo()
 	                    .getStartRowIndex());
 	            funDiscountCouponCriteria.setLimitEnd(param.getPageInfo().getPageSize());
-	        }*/
+	        }
 	        if (!CollectionUtil.isEmpty(funDiscountCoupon)){
 	        	funCouponDetailResponses = new ArrayList<FunCouponDetailResponse>();
 	            for (int i=0;i<funDiscountCoupon.size();i++){

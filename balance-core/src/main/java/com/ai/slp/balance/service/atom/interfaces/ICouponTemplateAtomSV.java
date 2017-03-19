@@ -18,4 +18,5 @@ public interface ICouponTemplateAtomSV {
 	public Integer checkCouponTemplateName(String couponName);
 	//生成优惠券模板
 	public Integer saveCouponTempletList(FunCouponTemplate req);
+	public Integer deleteCouponTemplate(Integer templateId);
 }

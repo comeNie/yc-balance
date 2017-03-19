@@ -51,7 +51,7 @@ public interface ICouponTemplateSV {
      */
 	@POST
 	@Path("/queryCouponDetail")
-    public FunCouponDetailPageResponse queryCouponDetail(Integer templateId) throws BusinessException,SystemException;
+    public FunCouponDetailPageResponse queryCouponDetail(FunCouponDetailQueryRequest param) throws BusinessException,SystemException;
 	
 	
 	/**
@@ -77,8 +77,21 @@ public interface ICouponTemplateSV {
      * @RestRelativeURL couponTemplateQueryService/savaCouponTemplate
      */
 	@POST
-	@Path("/updateOrderInfo")
+	@Path("/savaCouponTemplate")
 	public Integer savaCouponTemplate(SaveFunCouponTemplate req)throws BusinessException,SystemException;
+	
+	/**
+	 * 删除优惠券模板
+	 * @param couponName
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL couponTemplateQueryService/deleteCouponTemplate
+     */
+	@POST
+	@Path("/deleteCouponTemplate")
+	public Integer deleteCouponTemplate(Integer templateId)throws BusinessException,SystemException;
 
 }
 
