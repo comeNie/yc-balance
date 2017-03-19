@@ -32,5 +32,5 @@ public interface ICouponTemplateBusiSV {
 	 * @param param
 	 * @return
 	 */
-	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param);
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(Integer templateId);
 }

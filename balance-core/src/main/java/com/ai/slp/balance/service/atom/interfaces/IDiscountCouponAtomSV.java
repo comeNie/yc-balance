@@ -8,6 +8,6 @@ import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
 
 public interface IDiscountCouponAtomSV {
 	//查询优惠券明细
-	public PageInfo<FunCouponDetailResponse> getAccountInfoByCustId(FunCouponDetailQueryRequest param);
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(Integer templateId);
 	
 }

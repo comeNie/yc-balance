@@ -64,15 +64,15 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 	 * 根据优惠券模板ID查询优惠券明细
 	 */
 	@Override
-	public FunCouponDetailPageResponse queryCouponDetail(FunCouponDetailQueryRequest param)throws BusinessException, SystemException {
-        if (param==null){
+	public FunCouponDetailPageResponse queryCouponDetail(Integer templateId)throws BusinessException, SystemException {
+        if (templateId==null){
             throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
         }
         FunCouponDetailPageResponse funCouponDetailPageResponse = new FunCouponDetailPageResponse();
         ResponseHeader responseHeader = new ResponseHeader();
         
         try {
-            PageInfo<FunCouponDetailResponse> pageInfo = iCouponTemplateBusiSV.queryFunCouponDetail(param);
+            PageInfo<FunCouponDetailResponse> pageInfo = iCouponTemplateBusiSV.queryFunCouponDetail(templateId);
             funCouponDetailPageResponse.setPageInfo(pageInfo);
             responseHeader.setIsSuccess(true);
             responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);

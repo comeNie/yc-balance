@@ -51,7 +51,7 @@ public interface ICouponTemplateSV {
      */
 	@POST
 	@Path("/queryCouponDetail")
-    public FunCouponDetailPageResponse queryCouponDetail(FunCouponDetailQueryRequest param) throws BusinessException,SystemException;
+    public FunCouponDetailPageResponse queryCouponDetail(Integer templateId) throws BusinessException,SystemException;
 	
 	
 	/**

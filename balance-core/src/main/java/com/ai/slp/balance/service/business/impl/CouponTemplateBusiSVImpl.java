@@ -144,8 +144,8 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	 * 根据优惠券模板iD查询优惠券明细
 	 */
 	@Override
-	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) {
-		return discountCouponAtomSV.getAccountInfoByCustId(param);
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(Integer templateId) {
+		return discountCouponAtomSV.queryFunCouponDetail(templateId);
 	}
 
 	
