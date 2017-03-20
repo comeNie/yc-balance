@@ -27,7 +27,6 @@ import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
 import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
 import com.ai.slp.balance.service.atom.interfaces.ICouponTemplateAtomSV;
 import com.ai.slp.balance.service.atom.interfaces.ICouponUseRuleAtomSV;
-import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 import com.ai.slp.balance.service.business.interfaces.ICouponTemplateBusiSV;
 @Service
 @Transactional

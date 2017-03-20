@@ -19,7 +19,7 @@ import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 
 
-	@Override
+	/*@Override
 	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) {
 		 List<FunCouponDetailResponse> funCouponDetailResponses = new ArrayList<FunCouponDetailResponse>();
 		 
@@ -57,5 +57,5 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	        pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
 	        pageInfo.setResult(funCouponDetailResponses);
 	        return pageInfo;
-	}
+	}*/
 }
