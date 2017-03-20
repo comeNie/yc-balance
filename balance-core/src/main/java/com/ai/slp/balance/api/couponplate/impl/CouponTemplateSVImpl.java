@@ -7,6 +7,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
+import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
@@ -68,6 +69,9 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
         if (param==null){
             throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
         }
+        if (param.getTemplateId()==null){
+            throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数优惠券模板iD不能为空");
+        }
         FunCouponDetailPageResponse funCouponDetailPageResponse = new FunCouponDetailPageResponse();
         ResponseHeader responseHeader = new ResponseHeader();
         
@@ -76,7 +80,7 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
             funCouponDetailPageResponse.setPageInfo(pageInfo);
             responseHeader.setIsSuccess(true);
             responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-            responseHeader.setResultMessage("账单查询成功");
+            responseHeader.setResultMessage("优惠券明细查询成功");
             funCouponDetailPageResponse.setResponseHeader(responseHeader);
         }catch (BusinessException businessException){
             responseHeader.setResultCode(businessException.getErrorCode());
@@ -84,7 +88,7 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
             funCouponDetailPageResponse.setResponseHeader(responseHeader);
         }catch (Exception e){
             responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-            responseHeader.setResultMessage("账单查询失败");
+            responseHeader.setResultMessage("优惠券明细查询失败");
             funCouponDetailPageResponse.setResponseHeader(responseHeader);
         }
         return funCouponDetailPageResponse;

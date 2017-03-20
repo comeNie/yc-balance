@@ -17,11 +17,23 @@ import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 
 public interface ICouponTemplateBusiSV {
 	public void BuildCouponTemplet(FunCouponTemplate couponTemplate,Integer requiredMoneyAmount,HttpSession session)throws BusinessException, SystemException;
-	//模糊查询优惠券模板列表
+	/**
+	 * 模糊查询优惠券模板列表
+	 * @param funCouponTemplateQueryRequest
+	 * @return
+	 */
 	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
-	//POI导出优惠券模板列表生成Excel
+	/**
+	 * POI导出优惠券模板列表生成Excel
+	 * @param funCouponTemplateQueryRequest
+	 * @return
+	 */
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
-	//检测名称唯一
+	/**
+	 * 检测名称唯一
+	 * @param couponName
+	 * @return
+	 */
 	public Integer checkCouponTemplateName(String couponName);
 	/**
 	 * 生成优惠券模板接口
@@ -32,7 +44,7 @@ public interface ICouponTemplateBusiSV {
 	 * @param param
 	 * @return
 	 */
-	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param);
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) throws BusinessException, SystemException;
 	/**
 	 * 删除优惠券模板
 	 * @param templateId

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 
@@ -23,6 +26,8 @@ public class SendCouponTest extends TestCase {
     private ISendCouponSV sendCouponSV;
     @Autowired
     private ICouponUseRuleSV couponUseRuleSV;
+    @Autowired
+    private ICouponTemplateSV couponTemplateSV;
     
 
     @Test
@@ -32,7 +37,10 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void test() {
-    	couponUseRuleSV.queryFunCouponUseRule("1");
+    	FunCouponDetailQueryRequest param = new FunCouponDetailQueryRequest();
+    	param.setTemplateId(1);
+    	FunCouponDetailPageResponse queryCouponDetail = couponTemplateSV.queryCouponDetail(param);
+    	System.out.println(queryCouponDetail);
     }
     
     

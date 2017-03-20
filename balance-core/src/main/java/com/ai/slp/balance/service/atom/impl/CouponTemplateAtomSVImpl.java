@@ -8,13 +8,17 @@ import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
-import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria;
+import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
+import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
 import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
 import com.ai.slp.balance.service.atom.interfaces.ICouponTemplateAtomSV;
 
 @Component
@@ -35,7 +39,7 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 		 List<FunCouponTemplateResponse> funCouponTemplateResponses =  new ArrayList<FunCouponTemplateResponse>();
 		 FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
 		 FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
-		 String orderByClause = "CREATE_TIME desc";
+		 String orderByClause = "template_id desc";
 		 funCouponTemplateCriteria.setOrderByClause(orderByClause);
 		 	if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getCouponName())){
 	            criteria.andCouponNameLike("%"+funCouponTemplateQueryRequest.getCouponName().trim()+"%");
@@ -95,7 +99,7 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 		List<FunCouponTemplateResponse> funCouponTemplateResponses =  new ArrayList<FunCouponTemplateResponse>();
 		FunCouponTemplateCriteria funCouponTemplateCriteria = new FunCouponTemplateCriteria();
 		FunCouponTemplateCriteria.Criteria criteria= funCouponTemplateCriteria.createCriteria();
-		String orderByClause = "CREATE_TIME desc";
+		String orderByClause = "template_id desc";
 		funCouponTemplateCriteria.setOrderByClause(orderByClause);
 		 	if (!StringUtil.isBlank(funCouponTemplateQueryRequest.getCouponName())){
 	            criteria.andCouponNameLike("%"+funCouponTemplateQueryRequest.getCouponName().trim()+"%");
@@ -141,16 +145,64 @@ public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 		int countByExample = mapper.countByExample(funCouponTemplateCriteria);
 		return countByExample;
 	}
+	/**
+	 * 保存优惠券模板
+	 */
 	@Override
 	public Integer saveCouponTempletList(FunCouponTemplate req) {
 		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
 		int insert = mapper.insert(req);
 		return insert;
 	}
+	/**
+	 * 删除优惠券模板
+	 */
 	@Override
 	public Integer deleteCouponTemplate(Integer templateId) {
 		FunCouponTemplateMapper mapper = MapperFactory.getFunCouponTemplateMapper();
 		int deleteByPrimaryKey = mapper.deleteByPrimaryKey(templateId);
 		return deleteByPrimaryKey;
+	}
+	/***
+	 * 查询优惠券模板明细
+	 */
+	@Override
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) {
+		
+		  List<FunCouponDetailResponse> funCouponDetailResponses = new ArrayList<FunCouponDetailResponse>();
+		  FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		  FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+	        critreia.andTemplateIdEqualTo(param.getTemplateId());
+	        PageInfo<FunCouponDetailResponse> pageInfo = new PageInfo<FunCouponDetailResponse>();
+	        FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+	        pageInfo.setCount(mapper.countByExample(funDiscountCouponCriteria));
+	        
+	        List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+	        
+	        
+	        if (param.getPageInfo() == null) {
+	            pageInfo.setPageNo(1);
+	            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+	        }else {
+	            pageInfo.setPageNo(param.getPageInfo().getPageNo());
+	            pageInfo.setPageSize(param.getPageInfo().getPageSize() == null ? 10
+	                    : param.getPageInfo().getPageSize());
+	            funDiscountCouponCriteria.setLimitStart(param.getPageInfo()
+	                    .getStartRowIndex());
+	            funDiscountCouponCriteria.setLimitEnd(param.getPageInfo().getPageSize());
+	        }
+	        if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+	        	funCouponDetailResponses = new ArrayList<FunCouponDetailResponse>();
+	            for (int i=0;i<funDiscountCoupons.size();i++){
+	            	FunCouponDetailResponse funCouponDetailResponse = new FunCouponDetailResponse();
+	                BeanUtils.copyProperties(funCouponDetailResponse,funDiscountCoupons.get(i));
+	                funCouponDetailResponses.add(funCouponDetailResponse);
+	            }
+	        }
+	        pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
+	        pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+	        pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
+	        pageInfo.setResult(funCouponDetailResponses);
+	        return pageInfo;
 	}
 }

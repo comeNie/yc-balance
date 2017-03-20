@@ -39,8 +39,8 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	@Autowired
 	private ICouponUseRuleAtomSV couponUseRuleAtomSV;
 	
-	@Autowired
-	private IDiscountCouponAtomSV discountCouponAtomSV;
+	/*@Autowired
+	private IDiscountCouponAtomSV discountCouponAtomSV;*/
 	
 	/**
 	 * 生成优惠券模板
@@ -96,10 +96,16 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
 		return couponTemplateAtomSV.exportCouponTempletList(funCouponTemplateQueryRequest);
 	}
+	/**
+	 * 检测名称唯一
+	 */
 	@Override
 	public Integer checkCouponTemplateName(String couponName) {
 		return couponTemplateAtomSV.checkCouponTemplateName(couponName);
 	}
+	/**
+	 * 添加优惠券模板
+	 */
 	@Override
 	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException {
 		
@@ -144,8 +150,8 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	 * 根据优惠券模板iD查询优惠券明细
 	 */
 	@Override
-	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) {
-		return discountCouponAtomSV.queryFunCouponDetail(param);
+	public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) throws BusinessException, SystemException  {
+		return couponTemplateAtomSV.queryFunCouponDetail(param);
 	}
 	/**
 	 * 删除优惠券模板
