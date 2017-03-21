@@ -89,5 +89,14 @@ public interface IBillGenerateAtomSV {
      */
     public String insertParam(AccountParam accountParam) throws BusinessException, SystemException;
 
+    /**
+     * 查询配置表信息
+     * @param paramId
+     * @return
+     * @throws BusinessException
+     * @throws SystemException
+     */
+    public TAccountParam queryTaccount(String paramId) throws BusinessException,SystemException;
+
 
 }

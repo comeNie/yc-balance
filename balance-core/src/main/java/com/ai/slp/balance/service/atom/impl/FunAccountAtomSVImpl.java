@@ -30,4 +30,9 @@ public class FunAccountAtomSVImpl implements IFunAccountAtomSV{
     public void insertParam(TAccountParam accountParam) throws BusinessException, SystemException {
         MapperFactory.getTAccountParamMapper().insert(accountParam);
     }
+
+    @Override
+    public TAccountParam queryTaccount(String paramId) throws BusinessException, SystemException {
+        return MapperFactory.getTAccountParamMapper().selectByPrimaryKey(paramId);
+    }
 }

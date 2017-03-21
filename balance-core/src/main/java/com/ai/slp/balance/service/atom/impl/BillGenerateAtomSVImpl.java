@@ -466,4 +466,9 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         funAccountAtomSV.insertParam(tAccountParam);
         return paramID;
     }
+
+    @Override
+    public TAccountParam queryTaccount(String paramId) throws BusinessException, SystemException {
+        return funAccountAtomSV.queryTaccount(paramId);
+    }
 }

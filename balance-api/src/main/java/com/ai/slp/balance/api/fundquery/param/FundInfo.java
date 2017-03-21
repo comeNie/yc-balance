@@ -1,6 +1,7 @@
 package com.ai.slp.balance.api.fundquery.param;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.ai.opt.base.vo.BaseResponse;
@@ -23,6 +24,11 @@ public class FundInfo extends BaseResponse implements Serializable {
      * 租户ID
      */
     private String tenantId;
+
+    /**
+     * 折扣,传小数,例如88折,返回0.88
+     */
+    private BigDecimal discount;
 
     /**
      * 账户ID
@@ -85,4 +91,11 @@ public class FundInfo extends BaseResponse implements Serializable {
         this.fundBooks = fundBooks;
     }
 
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
 }

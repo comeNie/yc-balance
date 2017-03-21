@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.ai.opt.sdk.util.StringUtil;
+import com.ai.slp.balance.dao.mapper.bo.TAccountParam;
+import com.ai.slp.balance.service.atom.interfaces.IBillGenerateAtomSV;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,8 @@ public class FundQueryBusiSVImpl implements IFundQueryBusiSV {
     @Autowired
     private IFunFundBookAtomSV funFundBookSV;
 
+    @Autowired
+    private IBillGenerateAtomSV billGenerateAtomSV;
     @Override
     public List<ForegiftInfo> queryForegift(ForegiftQuery param) throws BusinessException {
         log.debug("查询押金");
@@ -105,8 +110,13 @@ public class FundQueryBusiSVImpl implements IFundQueryBusiSV {
                 BalancesCostants.FunFundBook.FundType.GRANT });
         List<FunFundBook> funFundBookList = funFundBookSV.getBeans(accountId.getTenantId(),
                 accountId.getAccountId(), fundType, status);
-        return this.assemFundBook(accountId.getTenantId(), accountId.getAccountId(),
+        TAccountParam tAccountParam = billGenerateAtomSV.queryTaccount(accountId.getUserID());
+        FundInfo fundInfo = this.assemFundBook(accountId.getTenantId(), accountId.getAccountId(),
                 funFundBookList);
+        if (tAccountParam!=null&&tAccountParam.getDiscount()!=null){
+            fundInfo.setDiscount(tAccountParam.getDiscount());
+        }
+        return fundInfo;
     }
 
     @Override
@@ -167,8 +177,8 @@ public class FundQueryBusiSVImpl implements IFundQueryBusiSV {
      * 
      * @param tenantId
      * @param accountId
-     * @param status
-     * @param fundType
+     * @param tenantId
+     * @param
      * @return
      * @author lilg
      */

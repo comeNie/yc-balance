@@ -16,6 +16,11 @@ public class AccountIdParam extends BaseInfo{
      */
     private long accountId;
 
+    /**
+     * 用户id或者企业ID
+     */
+    private String userID;
+
     public long getAccountId() {
         return accountId;
     }
@@ -24,4 +29,11 @@ public class AccountIdParam extends BaseInfo{
         this.accountId = accountId;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 }
