@@ -33,13 +33,4 @@ public interface IFunAccountAtomSV {
      * @throws SystemException
      */
     public void insertParam(TAccountParam accountParam) throws BusinessException, SystemException;
-
-    /**
-     * 查询账单配置表
-     * @param paramId
-     * @return
-     * @throws BusinessException
-     * @throws SystemException
-     */
-    public TAccountParam queryTaccount(String paramId) throws BusinessException, SystemException;
 }

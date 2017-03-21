@@ -14,6 +14,7 @@ import com.ai.slp.balance.dao.mapper.bo.*;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
 import com.ai.slp.balance.dao.mapper.interfaces.FunAccountDetailMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunAccountMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.TAccountParamMapper;
 import com.ai.slp.balance.service.atom.interfaces.IBillGenerateAtomSV;
 import com.ai.slp.balance.service.atom.interfaces.IFunAccountAtomSV;
 import com.ai.slp.balance.service.atom.interfaces.IFunAccountDetailAtomSV;
@@ -469,6 +470,16 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
 
     @Override
     public TAccountParam queryTaccount(String paramId) throws BusinessException, SystemException {
-        return funAccountAtomSV.queryTaccount(paramId);
+
+        TAccountParamCriteria tAccountParamCriteria = new TAccountParamCriteria();
+        TAccountParamCriteria.Criteria critreia = tAccountParamCriteria.createCriteria();
+        critreia.andTargetIdEqualTo(paramId);
+        TAccountParamMapper mapper = MapperFactory.getTAccountParamMapper();
+        List<TAccountParam> tAccountParams = mapper.selectByExample(tAccountParamCriteria);
+        if (tAccountParams.size()>0){
+            return tAccountParams.get(0);
+        }else {
+            return null;
+        }
     }
 }
