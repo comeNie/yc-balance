@@ -130,20 +130,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		funCouponTemplate.setUsedScene(req.getUsedScene());
 		funCouponTemplate.setUseLimits(req.getUseLimits());
 		funCouponTemplate.setCouponUserId(req.getCouponUserId());
-        if(req.getCouponUserId()!= null){
-        	FunCouponUseRule funCouponUseRule = new FunCouponUseRule();
-        	funCouponUseRule.setCouponUserId(req.getCouponUserId());
-        	funCouponUseRule.setFaceValue(null);
-        	funCouponUseRule.setRequiredMoneyAmount(null);
-        	funCouponUseRule.setCurrencyUnit(funCouponTemplate.getCurrencyUnit());
-        	Date date1=new Date();
-            DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            funCouponUseRule.setCreateTime(Timestamp.valueOf(format1.format(date1)));
-            couponUseRuleAtomSV.insertBuildCouponUseRule(funCouponUseRule);
-            return couponTemplateAtomSV.saveCouponTempletList(funCouponTemplate);
-        }else{
-        	return	couponTemplateAtomSV.saveCouponTempletList(funCouponTemplate);
-        }
+        return couponTemplateAtomSV.saveCouponTempletList(funCouponTemplate);
 	}
 	/**
 	 * 根据优惠券模板iD查询优惠券明细

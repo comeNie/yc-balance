@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
+import com.ai.slp.balance.api.couponuserule.param.SaveCouponUseRule;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRule;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRuleCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -19,8 +20,9 @@ public class CouponUseRuleAtomSVImpl implements ICouponUseRuleAtomSV {
 	 * 优惠券使用规则表添加数据
 	 */
 	@Override
-	public void insertBuildCouponUseRule(FunCouponUseRule funCouponUseRule) {
-		MapperFactory.getFunCouponUseRuleMapper().insert(funCouponUseRule);
+	public Integer insertBuildCouponUseRule(FunCouponUseRule funCouponUseRule) {
+		FunCouponUseRuleMapper funCouponUseRuleMapper = MapperFactory.getFunCouponUseRuleMapper();
+		return funCouponUseRuleMapper.insert(funCouponUseRule);
 	}
 
 	@Override
@@ -42,6 +44,7 @@ public class CouponUseRuleAtomSVImpl implements ICouponUseRuleAtomSV {
 		
 		return funCouponUseRuleQueryResponses;
 	}
+
 
 	
 }

@@ -7,7 +7,7 @@ import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRule;
 
 public interface ICouponUseRuleAtomSV {
 	//生成优惠券使用规则
-	public void insertBuildCouponUseRule(FunCouponUseRule funCouponUseRule);
+	public Integer insertBuildCouponUseRule(FunCouponUseRule funCouponUseRule);
 
 	/**
 	 * 查询使用规则
@@ -15,5 +15,4 @@ public interface ICouponUseRuleAtomSV {
 	 * @return
 	 */
 	public List<FunCouponUseRuleQueryResponse> queryCouponUseRule(String couponUserId);
-	
 }

@@ -1,6 +1,11 @@
 package com.ai.slp.balance.test.service;
 
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
+import com.ai.slp.balance.api.couponuserule.param.SaveCouponUseRule;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 
 import junit.framework.TestCase;
@@ -37,10 +41,16 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void test() {
-    	FunCouponDetailQueryRequest param = new FunCouponDetailQueryRequest();
-    	param.setTemplateId(1);
-    	FunCouponDetailPageResponse queryCouponDetail = couponTemplateSV.queryCouponDetail(param);
-    	System.out.println(queryCouponDetail);
+    	SaveCouponUseRule param = new SaveCouponUseRule();
+    	param.setCouponUserId("7");
+    	param.setCurrencyUnit("2");
+    	param.setFaceValue(5);
+    	param.setRequiredMoneyAmount(10);
+    	Date date1=new Date();
+        DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	param.setCreateTime(Timestamp.valueOf(format1.format(date1)));
+    	Integer saveCouponUseRule = couponUseRuleSV.saveCouponUseRule(param);
+    	System.out.println(saveCouponUseRule);
     }
     
     

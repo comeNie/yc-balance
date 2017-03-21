@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
+import com.ai.slp.balance.api.couponuserule.param.SaveCouponUseRule;
 
 /**
  * 优惠券模板接口
@@ -34,5 +35,18 @@ public interface ICouponUseRuleSV {
 	@POST
 	@Path("/queryFunCouponUseRule")
     public List<FunCouponUseRuleQueryResponse> queryFunCouponUseRule(String couponUserId) throws BusinessException,SystemException;
+	
+	/**
+	 * 添加使用规则
+	 * @param couponName
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL couponTemplateQueryService/saveCouponUseRule
+     */
+	@POST
+	@Path("/saveCouponUseRule")
+	public Integer saveCouponUseRule(SaveCouponUseRule param)throws BusinessException,SystemException;
 }
 
