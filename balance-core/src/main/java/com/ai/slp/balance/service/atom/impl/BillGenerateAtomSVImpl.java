@@ -449,4 +449,21 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         funAccountAtomSV.settleBill(funAccount);
         return funAccount.getBillId();
     }
+
+    @Override
+    public String insertParam(AccountParam accountParam) throws BusinessException, SystemException {
+        TAccountParam tAccountParam = new TAccountParam();
+        tAccountParam.setAccountDay(accountParam.getAccountDay());
+        tAccountParam.setTargetId(accountParam.getTargetID());
+        tAccountParam.setTargetName(accountParam.getTargetName());
+        tAccountParam.setAccountPeriod(accountParam.getAccountPeriod());
+        tAccountParam.setCreateTime(DateUtil.getSysDate());
+        tAccountParam.setAccountType(accountParam.getAccountType());
+        String paramID = SeqUtil.getNewId(SeqConstants.T_ACCOUNT_PARAM$ID).toString();
+        tAccountParam.setId(paramID);
+        tAccountParam.setDiscount(accountParam.getDiscount());
+        tAccountParam.setTargetType(accountParam.getTargetType());
+        funAccountAtomSV.insertParam(tAccountParam);
+        return paramID;
+    }
 }

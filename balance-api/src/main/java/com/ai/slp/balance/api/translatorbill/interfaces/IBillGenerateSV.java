@@ -84,6 +84,18 @@ public interface IBillGenerateSV {
     @Path("/settleBill")
     public String settleBill(SettleParam param) throws BusinessException,SystemException;
 
+    /**
+     * 创建用户信息
+     *
+     * @param accountParam
+     * @return 创建用户信息
+     * @throws BusinessException,SystemException
+     * @author liquid
+     * @RestRelativeURL billQueryService/insertParam
+     */
+    @POST
+    @Path("/insertParam")
+    public String insertParam(AccountParam accountParam) throws BusinessException,SystemException;
 
 
 }

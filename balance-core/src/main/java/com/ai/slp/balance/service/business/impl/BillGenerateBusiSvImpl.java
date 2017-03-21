@@ -5,6 +5,7 @@ import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.translatorbill.param.*;
+import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.dao.mapper.bo.TAccountParam;
 import com.ai.slp.balance.dao.mapper.bo.TAccountParamCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -270,6 +271,16 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
         return false;
     }
 
+    @Override
+    public String insertParam(AccountParam accountParam) throws BusinessException, SystemException {
+        String id = null;
+        try {
+            id = billGenerateAtomSV.insertParam(accountParam);
+        }catch (Exception  e){
+            throw new SystemException(ExceptCodeConstants.Special.PARAM_IS_NULL,"0004-配置失败");
+        }
+        return id;
+    }
 
     @Override
     public PageInfo<FunAccountResponse> funAccountQuery(FunAccountQueryRequest funAccountQueryRequest) {

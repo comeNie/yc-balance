@@ -47,4 +47,13 @@ public interface IBillGenerateBusiSV {
      * @throws SystemException
      */
     public String settleBill(SettleParam param) throws BusinessException, SystemException;
+
+    /**
+     * 配置账户信息
+     * @param accountParam
+     * @return
+     * @throws BusinessException
+     * @throws SystemException
+     */
+    public String insertParam(AccountParam accountParam) throws BusinessException, SystemException;
 }

@@ -13,6 +13,7 @@ import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.dao.mapper.bo.FunAccount;
 import com.ai.slp.balance.service.business.interfaces.IBillGenerateBusiSV;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,5 +145,33 @@ public class BillGenerateSVImpl implements IBillGenerateSV {
         }
         String billID = iBillQuerySV.settleBill(param);
         return billID;
+    }
+
+    @Override
+    public String insertParam(AccountParam accountParam) throws BusinessException, SystemException {
+
+        log.info("传过来的参数============"+ JSON.toJSONString(accountParam));
+        log.debug("创建用户信息---开始");
+        String id = null;
+        try {
+            if (accountParam == null) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "获取参数失败:参数不能为空");
+            }
+            if (StringUtil.isBlank(accountParam.getTargetID())) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "获取参数失败:用户ID不能为空");
+            }
+            if (StringUtil.isBlank(accountParam.getTargetName())) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "获取参数失败:用户名不能为空");
+            }
+
+            id = iBillQuerySV.insertParam(accountParam);
+            if (id == null) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "0004-配置信息失败");
+            }
+            log.debug("创建账户---结束");
+        }catch (Exception e){
+            throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "0004-存储失败");
+        }
+        return id;
     }
 }

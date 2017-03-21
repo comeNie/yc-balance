@@ -12,6 +12,10 @@ public final class SeqConstants {
     }
 
     /**
+     * 账单配置表[T_ACCOUN_PARAM$ID]
+     */
+    public static final String T_ACCOUNT_PARAM$ID = "t_account_param$id";
+    /**
      * 账单信息表[FUN_ACCOUNT$BILL_ID]
      */
     public static final String FUN_ACCOUNT$BILL_ID = "fun_account$bill_id";
