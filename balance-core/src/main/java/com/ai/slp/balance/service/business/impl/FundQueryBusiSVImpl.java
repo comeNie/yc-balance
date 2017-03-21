@@ -110,7 +110,10 @@ public class FundQueryBusiSVImpl implements IFundQueryBusiSV {
                 BalancesCostants.FunFundBook.FundType.GRANT });
         List<FunFundBook> funFundBookList = funFundBookSV.getBeans(accountId.getTenantId(),
                 accountId.getAccountId(), fundType, status);
-        TAccountParam tAccountParam = billGenerateAtomSV.queryTaccount(accountId.getUserID());
+        TAccountParam tAccountParam = null;
+        if (accountId.getUserID()!=null){
+            tAccountParam  = billGenerateAtomSV.queryTaccount(accountId.getUserID());
+        }
         FundInfo fundInfo = this.assemFundBook(accountId.getTenantId(), accountId.getAccountId(),
                 funFundBookList);
         if (tAccountParam!=null&&tAccountParam.getDiscount()!=null){
