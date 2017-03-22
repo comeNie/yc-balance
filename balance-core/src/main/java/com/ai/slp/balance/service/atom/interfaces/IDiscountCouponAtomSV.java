@@ -2,12 +2,24 @@ package com.ai.slp.balance.service.atom.interfaces;
 
 
 
-import com.ai.opt.base.vo.PageInfo;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
+import java.util.List;
+
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 
 public interface IDiscountCouponAtomSV {
+
+	List<DeductionCouponResponse> deducionCoupon(String couponId);
 	//查询优惠券明细
 	/*public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param);*/
+
+	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
+
+	List<FunDiscountCouponResponse> queryCouponByUserId(String userId);
+
+	void updateStateThaw(String couponId);
+
+	void updateStateFreeze(String couponId);
 	
 }

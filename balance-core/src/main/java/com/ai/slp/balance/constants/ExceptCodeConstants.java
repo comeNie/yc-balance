@@ -60,6 +60,27 @@ public final class ExceptCodeConstants {
          * 
          */
         public static final String NO_DATA_OR_CACAE_ERROR = "000003";
+        
+        /**
+         * 优惠券不存在
+         */
+        public static final String NO_FIND_DISCOUNTCOUPON = "000004";
+        /**
+         * 优惠券不符合使用场景限制
+         */
+        public static final String NO_DISCOUNTCOUPON_USEDSCENE = "000001";
+        /**
+         * 优惠券不符合所消费面额限制
+         */
+        public static final String NO_REQYUIREDMONEYAMOUNT= "000002";
+        /**
+         * 优惠券不符合订单类型的使用规则限制
+         */
+        public static final String NO_DISCOUNTCOUPON_USELIMITS = "000003";
+        /**
+         * 优惠券已失效
+         */
+        public static final String DISCOUNTCOUPON_EFFECT = "000005";
     }
 
     public static final class Account {

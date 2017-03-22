@@ -18,7 +18,7 @@
     <result column="EFFECTIVE_END_TIME" property="effectiveEndTime" jdbcType="TIMESTAMP" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <result column="ACCOUNT_ID" property="accountId" jdbcType="INTEGER" />
-    <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+    <result column="ORDER_ID" property="orderId" jdbcType="BIGINT" />
     <result column="USE_TIME" property="useTime" jdbcType="TIMESTAMP" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -134,7 +134,7 @@
       #{currencyUnit,jdbcType=VARCHAR}, #{couponUserId,jdbcType=VARCHAR}, #{usedScene,jdbcType=VARCHAR}, 
       #{useLimits,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{effectiveTime,jdbcType=INTEGER}, 
       #{effectiveStartTime,jdbcType=TIMESTAMP}, #{effectiveEndTime,jdbcType=TIMESTAMP}, 
-      #{userId,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, #{orderId,jdbcType=BIGINT}, 
       #{useTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
@@ -252,7 +252,7 @@
         #{accountId,jdbcType=INTEGER},
       </if>
       <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
+        #{orderId,jdbcType=BIGINT},
       </if>
       <if test="useTime != null" >
         #{useTime,jdbcType=TIMESTAMP},
@@ -323,7 +323,7 @@
         ACCOUNT_ID = #{record.accountId,jdbcType=INTEGER},
       </if>
       <if test="record.orderId != null" >
-        ORDER_ID = #{record.orderId,jdbcType=INTEGER},
+        ORDER_ID = #{record.orderId,jdbcType=BIGINT},
       </if>
       <if test="record.useTime != null" >
         USE_TIME = #{record.useTime,jdbcType=TIMESTAMP},
@@ -357,7 +357,7 @@
       EFFECTIVE_END_TIME = #{record.effectiveEndTime,jdbcType=TIMESTAMP},
       USER_ID = #{record.userId,jdbcType=VARCHAR},
       ACCOUNT_ID = #{record.accountId,jdbcType=INTEGER},
-      ORDER_ID = #{record.orderId,jdbcType=INTEGER},
+      ORDER_ID = #{record.orderId,jdbcType=BIGINT},
       USE_TIME = #{record.useTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       remark = #{record.remark,jdbcType=VARCHAR}
@@ -414,7 +414,7 @@
         ACCOUNT_ID = #{accountId,jdbcType=INTEGER},
       </if>
       <if test="orderId != null" >
-        ORDER_ID = #{orderId,jdbcType=INTEGER},
+        ORDER_ID = #{orderId,jdbcType=BIGINT},
       </if>
       <if test="useTime != null" >
         USE_TIME = #{useTime,jdbcType=TIMESTAMP},
@@ -445,7 +445,7 @@
       EFFECTIVE_END_TIME = #{effectiveEndTime,jdbcType=TIMESTAMP},
       USER_ID = #{userId,jdbcType=VARCHAR},
       ACCOUNT_ID = #{accountId,jdbcType=INTEGER},
-      ORDER_ID = #{orderId,jdbcType=INTEGER},
+      ORDER_ID = #{orderId,jdbcType=BIGINT},
       USE_TIME = #{useTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}

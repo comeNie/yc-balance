@@ -1,14 +1,19 @@
 package com.ai.slp.balance.service.atom.impl;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import org.springframework.stereotype.Component;
 
-import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -17,6 +22,125 @@ import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 
 @Component
 public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
+
+	/**
+	 * 根据优惠券iD查询优惠券
+	 */
+	@Override
+	public List<DeductionCouponResponse> deducionCoupon(String couponId) {
+		
+		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andCouponIdEqualTo(couponId);
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		
+		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+		
+		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+			deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+            for (int i=0;i<funDiscountCoupons.size();i++){
+            	DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
+                BeanUtils.copyProperties(deductionCouponResponse,funDiscountCoupons.get(i));
+                deductionCouponResponses.add(deductionCouponResponse);
+            }
+        }
+		return deductionCouponResponses;
+	}
+
+	/**
+	 * 用户、订单、优惠券关联查询
+	 */
+	@Override
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
+		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andUserIdEqualTo(param.getUserId());
+		critreia.andOrderIdEqualTo(param.getOrderId());
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+			deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+            for (int i=0;i<funDiscountCoupons.size();i++){
+            	DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
+                BeanUtils.copyProperties(deductionCouponResponse,funDiscountCoupons.get(i));
+                deductionCouponResponse.setStatus("2");
+                Date date1=new Date();
+                DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                deductionCouponResponse.setUseTime(Timestamp.valueOf(format1.format(date1)));
+                deductionCouponResponses.add(deductionCouponResponse);
+            }
+        }
+		return deductionCouponResponses;
+	}
+	/**
+	 * 更改优惠券状态（解冻）
+	 */
+	@Override
+	public void updateStateThaw(String couponId) {
+		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andCouponIdEqualTo(couponId);
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+			funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
+            for (int i=0;i<funDiscountCoupons.size();i++){
+            	FunDiscountCouponResponse funDiscountCouponResponse = new FunDiscountCouponResponse();
+                BeanUtils.copyProperties(funDiscountCouponResponse,funDiscountCoupons.get(i));
+                funDiscountCouponResponse.setStatus("3");
+                funDiscountCouponResponses.add(funDiscountCouponResponse);
+            }
+        }
+	}
+	/**
+	 * 更改优惠券状态（冻结）
+	 */
+	@Override
+	public void updateStateFreeze(String couponId) {
+		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andCouponIdEqualTo(couponId);
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+			funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
+            for (int i=0;i<funDiscountCoupons.size();i++){
+            	FunDiscountCouponResponse funDiscountCouponResponse = new FunDiscountCouponResponse();
+                BeanUtils.copyProperties(funDiscountCouponResponse,funDiscountCoupons.get(i));
+                funDiscountCouponResponse.setStatus("1");
+                funDiscountCouponResponses.add(funDiscountCouponResponse);
+            }
+        }
+	}
+	/**
+	 * 根据用户ID查询优惠券
+	 */
+	@Override
+	public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) {
+		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andUserIdEqualTo(userId);
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		
+		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+		
+		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+			funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
+            for (int i=0;i<funDiscountCoupons.size();i++){
+            	FunDiscountCouponResponse funDiscountCouponResponse = new FunDiscountCouponResponse();
+                BeanUtils.copyProperties(funDiscountCouponResponse,funDiscountCoupons.get(i));
+                funDiscountCouponResponses.add(funDiscountCouponResponse);
+            }
+        }
+		return funDiscountCouponResponses;
+	}
+
+	
 
 
 	/*@Override

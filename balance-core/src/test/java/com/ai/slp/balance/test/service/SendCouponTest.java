@@ -36,7 +36,7 @@ public class SendCouponTest extends TestCase {
 
     @Test
     public void testSendCouponTest() {
-        sendCouponSV.registerSendCoupon("注册测", "1");
+    	sendCouponSV.queryCouponByUserId("1");
     }
     
     @Test

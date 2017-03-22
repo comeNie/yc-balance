@@ -35,7 +35,7 @@ public class FunDiscountCoupon {
 
     private Integer accountId;
 
-    private Integer orderId;
+    private Long orderId;
 
     private Timestamp useTime;
 
@@ -171,11 +171,11 @@ public class FunDiscountCoupon {
         this.accountId = accountId;
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

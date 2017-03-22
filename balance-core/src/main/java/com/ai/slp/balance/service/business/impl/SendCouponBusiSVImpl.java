@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.dao.mapper.bo.FunActivity;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRel;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRelCriteria;
@@ -30,11 +34,15 @@ import com.ai.slp.balance.dao.mapper.interfaces.FunActivityCouponRelMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunActivityMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
+import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
 @Service
 @Transactional
 public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	private static final Logger LOG = LogManager.getLogger(SendCouponBusiSVImpl.class);
+	
+	@Autowired
+	private IDiscountCouponAtomSV discountCouponAtomSV;
 	
 	/**
 	 * 新用户注册发送/领取优惠券
@@ -116,6 +124,40 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
         	}
         }
 	}
+
+	@Override
+	public List<DeductionCouponResponse> deducionCoupon(String couponId) {
+		return discountCouponAtomSV.deducionCoupon(couponId);
+	}
+	/**
+	 * 优惠码验证
+	 */
+	@Override
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
+		return discountCouponAtomSV.queryDeducionCoupon(param);
+	}
+	/**
+	 * 更改优惠券状态（解冻）
+	 */
+	@Override
+	public void updateStateThaw(String couponId) {
+		discountCouponAtomSV.updateStateThaw(couponId);
+	}
+	/**
+	 * 更改优惠券状态（冻结）
+	 */
+	@Override
+	public void updateStateFreeze(String couponId) {
+		discountCouponAtomSV.updateStateFreeze(couponId);
+	}
+	/**
+	 * 根据用户ID查询优惠券
+	 */
+	@Override
+	public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) {
+		return discountCouponAtomSV.queryCouponByUserId(userId);
+	}
+	
 	
 	
 	/**

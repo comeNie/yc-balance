@@ -71,7 +71,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/updateStateThaw")
-    public List<FunDiscountCouponResponse> updateStateThaw(String couponId) throws BusinessException,SystemException;
+    public void updateStateThaw(String couponId) throws BusinessException,SystemException;
 	
 	/**
 	 * 查询优惠券状态变为冻结
@@ -82,7 +82,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/updateStateFreeze")
-    public List<FunDiscountCouponResponse> updateStateFreeze(String couponId) throws BusinessException,SystemException;
+    public void updateStateFreeze(String couponId) throws BusinessException,SystemException;
 	
 	/**
 	 * 根据用户Id查询优惠券
