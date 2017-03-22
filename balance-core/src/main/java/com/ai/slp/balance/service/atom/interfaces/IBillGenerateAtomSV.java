@@ -52,6 +52,14 @@ public interface IBillGenerateAtomSV {
      * @param billId
      */
     public  void insertAccountDetail(OrdOrderVo ordOrderVo,String billId);
+
+    /**
+     * 企业账单明细
+     * @param ordOrderVo
+     * @param billId
+     * @param discountFee
+     */
+    public  void insertCompanyAccountDetail(OrdOrderVo ordOrderVo,String billId,Long discountFee);
     /**
      * 查询账单表
      * @param funAccountQueryRequest

@@ -107,15 +107,20 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                 Long billFee0 = 0l;
                 Long accountAmount0 = 0l;
                 Long platFee0 = 0l;
+                Long accountAmountCompany = 0l;
                 for (int j = 0;j<orderVos0.size();j++){
                     boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
                     if (b){
                         //计算账单金额
-                        billFee0+=orderVos0.get(i).getTotalFee();
+                        billFee0+=orderVos0.get(j).getTotalFee();
                         //计算应结金额(译员佣金)
-                        accountAmount0+=orderVos0.get(i).getInterperFee();
+                        accountAmount0+=orderVos0.get(j).getInterperFee();
                         //平台佣金
-                        platFee0 += orderVos0.get(i).getPlatFee();
+                        platFee0 += orderVos0.get(j).getPlatFee();
+                        //优惠金额
+                        if (tAccountParams.get(i).getDiscount()!=null){
+                            accountAmountCompany += (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
+                        }
                     }
                 }
                 //译员账单(targetType=3)   lsp账单(targetType=4)
@@ -168,12 +173,28 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                             billGenerateAtomSV.insertAccountLspDetail(orderVos0.get(0),billID,translatorFeeDetail,lspFee);
                         }
                     }
+                }//企业账单
+                else if (param=="1"){
+                    Long discountFee = billFee0-accountAmountCompany;
+                    String billID = billGenerateAtomSV.insertAccount(orderVos0.get(0), tAccountParams.get(i), billFee0,accountAmountCompany,discountFee, begindate, endDate);
+                    for (int j = 0;j<orderVos0.size();j++){
+                        boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
+                        Long discountFee1 = 0l;
+                        if (b){
+                            if (tAccountParams.get(i).getDiscount()!=null){
+                                discountFee1 = orderVos0.get(j).getTotalFee() - (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
+                            }
+                            //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
+                            billGenerateAtomSV.insertCompanyAccountDetail(orderVos0.get(j),billID,discountFee1);
+                        }
+                    }
                 }
             }
             if (orderVos1.size()>0){
                 Long billFee1 = 0l;
                 Long accountAmount1 = 0l;
                 Long platFee1 = 0l;
+                Long accountAmountCompany1 = 0l;
                 for (int j = 0;j<orderVos1.size();j++){
                     boolean b = inTime(begindate, endDate, orderVos1.get(j).getFinishTime());
                     if (b){
@@ -183,6 +204,9 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                         accountAmount1+=orderVos1.get(i).getInterperFee();
                         //平台佣金
                         platFee1 += orderVos1.get(i).getPlatFee();
+                        if (tAccountParams.get(i).getDiscount()!=null){
+                            accountAmountCompany1 += (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
+                        }
                     }
                 }
                 //译员账单(targetType=3)   lsp账单(targetType=4)
@@ -233,6 +257,20 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                             Long lspFee = orderVos1.get(j).getTotalFee()-orderVos1.get(j).getPlatFee()-translatorFeeDetail;
                             //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
                             billGenerateAtomSV.insertAccountLspDetail(orderVos1.get(0),billID,translatorFeeDetail,lspFee);
+                        }
+                    }
+                } else if (param=="1"){
+                    Long discountFee = billFee1-accountAmountCompany1;
+                    String billID = billGenerateAtomSV.insertAccount(orderVos0.get(0), tAccountParams.get(i), billFee1,accountAmountCompany1,discountFee, begindate, endDate);
+                    for (int j = 0;j<orderVos0.size();j++){
+                        boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
+                        Long discountFee2 = 0l;
+                        if (b){
+                            if (tAccountParams.get(i).getDiscount()!=null){
+                                discountFee2 = (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
+                            }
+                            //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
+                            billGenerateAtomSV.insertCompanyAccountDetail(orderVos0.get(j),billID,discountFee2);
                         }
                     }
                 }

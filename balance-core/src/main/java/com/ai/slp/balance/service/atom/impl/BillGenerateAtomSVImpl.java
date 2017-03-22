@@ -195,6 +195,50 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         funAccountDetail.setPlatFee(ordOrderVo.getPlatFee());
         funAccountDetailAtomSV.insertFunAccountFundDetail(funAccountDetail);
     }
+
+    //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表（FUN_ACCOUNT_DETAIL ）   企业账单
+    public  void insertCompanyAccountDetail(OrdOrderVo ordOrderVo,String billId,Long discountFee){
+        FunAccountDetail funAccountDetail = new FunAccountDetail();
+        //订单状态
+        funAccountDetail.setDetailId(SeqUtil.getNewId(SeqConstants.FUN_ACCOUNT_DETAIL$DETAIL_ID).toString());
+        funAccountDetail.setState(ordOrderVo.getState());
+        //账单id
+        funAccountDetail.setBillId(billId);
+        //译员佣金
+        funAccountDetail.setInterperFee(ordOrderVo.getInterperFee());
+        //下单昵称(用户中心)
+        funAccountDetail.setNickname(ordOrderVo.getUserName());
+        //译员昵称
+        funAccountDetail.setNickname2(ordOrderVo.getInterperName());
+        //LSP团队
+        funAccountDetail.setLspId(ordOrderVo.getLspId());
+
+        //订单编号
+        funAccountDetail.setOrderId(ordOrderVo.getOrderId()+"");
+        //下单时间
+        funAccountDetail.setOrderTime(ordOrderVo.getOrderTime());
+        //语言方向(语言对 list)
+        String langungePairName="";
+        List<OrdProdExtendVo> ordProdExtendList = ordOrderVo.getOrdProdExtendList();
+        if (ordOrderVo.getCurrencyUnit().equals("1")){
+            for (OrdProdExtendVo ordProdExtendVo: ordProdExtendList) {
+                langungePairName = langungePairName + ordProdExtendVo.getLangungePairChName();
+            }
+        }else {{
+            for (OrdProdExtendVo ordProdExtendVo: ordProdExtendList) {
+                langungePairName = langungePairName + ordProdExtendVo.getLangungePairEnName();
+            }
+        }}
+
+        funAccountDetail.setLangungePairName(langungePairName);
+//        //币种
+        funAccountDetail.setCurrencyUnit(ordOrderVo.getCurrencyUnit());
+        //订单金额
+        funAccountDetail.setTotalFee(ordOrderVo.getTotalFee());
+        //平台佣金
+        funAccountDetail.setPlatFee(discountFee);
+        funAccountDetailAtomSV.insertFunAccountFundDetail(funAccountDetail);
+    }
     //将全部订单的数据汇总插入到结算账单信息表（FUN_ACCOUNT)
     public  String insertAccount(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long billFee,long accountAmount0,long platFee0,
                                       String beginTime,String endTime){
