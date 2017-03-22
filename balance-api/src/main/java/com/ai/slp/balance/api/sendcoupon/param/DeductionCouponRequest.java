@@ -9,6 +9,16 @@ public class DeductionCouponRequest {
 	private Long orderId;
 	
 	private String usedScene;
+	
+	private long totalFee;
+	
+	public long getTotalFee() {
+		return totalFee;
+	}
+
+	public void setTotalFee(long totalFee) {
+		this.totalFee = totalFee;
+	}
 
 	public String getUserId() {
 		return userId;

@@ -12,6 +12,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 
 /**
  * 优惠券发放接口类 <br>
@@ -27,7 +28,6 @@ public interface ISendCouponSV {
      * @param activityName,userId
 	 * @return 优惠券生成是否成功
 	 * @throws BusinessException,SystemException
-	 * @author shancc
 	 * @ApiDocMethod
      * @ApiCode
      * @RestRelativeURL sendCouponService/registerSendCoupon
@@ -37,11 +37,10 @@ public interface ISendCouponSV {
     public void registerSendCoupon(String activityName, String userId) throws BusinessException,SystemException;
 	
 	/**
-	 * 根据优惠券ID查询优惠券
+	 * 查询可使用的优惠券
 	 * @param templateId
 	 * @return 优惠券
 	 * @throws BusinessException,SystemException
-	 * @author shancc
 	 * @ApiDocMethod
      * @ApiCode
      * @RestRelativeURL sendCouponService/deducionCoupon
@@ -52,10 +51,7 @@ public interface ISendCouponSV {
 	
 	/**
 	 * 更改状态
-	 * @param templateId
-	 * @return 优惠券
 	 * @throws BusinessException,SystemException
-	 * @author shancc
 	 * @ApiDocMethod
      * @ApiCode
      * @RestRelativeURL sendCouponService/updateState
@@ -63,6 +59,36 @@ public interface ISendCouponSV {
 	@POST
 	@Path("/updateState")
     public Integer updateState(String couponId) throws BusinessException,SystemException;
+	
+	/**
+	 * 根据用户Id查询优惠券
+	 * @param userId
+	 * @return 优惠券
+	 * @throws BusinessException,SystemException
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL sendCouponService/queryCouponByUserId
+     */
+	@POST
+	@Path("/queryCouponByUserId")
+    public FunDiscountCouponResponse queryCouponByUserId(String userId) throws BusinessException,SystemException;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
