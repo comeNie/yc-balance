@@ -6,7 +6,7 @@ public class DeductionCouponRequest {
 	
 	private String couponId;
 	
-	private Long orderId;
+	private long orderId;
 	
 	private String usedScene;
 	

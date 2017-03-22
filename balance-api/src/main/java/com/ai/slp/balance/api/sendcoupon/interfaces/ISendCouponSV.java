@@ -43,22 +43,46 @@ public interface ISendCouponSV {
 	 * @throws BusinessException,SystemException
 	 * @ApiDocMethod
      * @ApiCode
+     * @RestRelativeURL sendCouponService/queryDisCountCoupon
+     */
+	@POST
+	@Path("/queryDisCountCoupon")
+    public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
+	
+	/**
+	 * 抵用优惠券
+	 * @param templateId
+	 * @return 优惠券
+	 * @throws BusinessException,SystemException
+	 * @ApiDocMethod
+     * @ApiCode
      * @RestRelativeURL sendCouponService/deducionCoupon
      */
 	@POST
 	@Path("/deducionCoupon")
-    public List<DeductionCouponResponse> deducionCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
+    public void deducionCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
 	
 	/**
-	 * 更改状态
+	 * 查询优惠券状态变为解冻
 	 * @throws BusinessException,SystemException
 	 * @ApiDocMethod
      * @ApiCode
-     * @RestRelativeURL sendCouponService/updateState
+     * @RestRelativeURL sendCouponService/updateStateThaw
      */
 	@POST
-	@Path("/updateState")
-    public Integer updateState(String couponId) throws BusinessException,SystemException;
+	@Path("/updateStateThaw")
+    public List<FunDiscountCouponResponse> updateStateThaw(String couponId) throws BusinessException,SystemException;
+	
+	/**
+	 * 查询优惠券状态变为冻结
+	 * @throws BusinessException,SystemException
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL sendCouponService/updateStateFreeze
+     */
+	@POST
+	@Path("/updateStateFreeze")
+    public List<FunDiscountCouponResponse> updateStateFreeze(String couponId) throws BusinessException,SystemException;
 	
 	/**
 	 * 根据用户Id查询优惠券
@@ -71,7 +95,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/queryCouponByUserId")
-    public FunDiscountCouponResponse queryCouponByUserId(String userId) throws BusinessException,SystemException;
+    public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException,SystemException;
 	
 	
 	
