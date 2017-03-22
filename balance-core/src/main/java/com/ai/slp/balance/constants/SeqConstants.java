@@ -47,4 +47,8 @@ public final class SeqConstants {
      * 资源账本表[FUN_RES_BOOK$BOOK_ID]
      */
     public static final String FUN_RES_BOOK$BOOK_ID = "fun_res_book$book_id";
+    /**
+     * 优惠券使用规则表[FUN_COUPON_USE_RULE$COUPON_USER_ID]
+     */
+    public static final String FUN_COUPON_USE_RULE$COUPON_USER_ID = "fun_coupon_use_rule$COUPON_USER_ID";
 }

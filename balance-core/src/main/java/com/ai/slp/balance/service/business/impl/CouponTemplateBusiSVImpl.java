@@ -14,12 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
+import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
 import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
+import com.ai.slp.balance.constants.SeqConstants;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplateCriteria;
 import com.ai.slp.balance.dao.mapper.bo.FunCouponUseRule;
@@ -129,8 +131,21 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		funCouponTemplate.setStatus(req.getStatus());
 		funCouponTemplate.setUsedScene(req.getUsedScene());
 		funCouponTemplate.setUseLimits(req.getUseLimits());
-		funCouponTemplate.setCouponUserId(req.getCouponUserId());
-        return couponTemplateAtomSV.saveCouponTempletList(funCouponTemplate);
+		if(req.getCouponUserId() == "0"){
+			funCouponTemplate.setCouponUserId(req.getCouponUserId());
+		}else{
+			FunCouponUseRule funCouponUseRule = new FunCouponUseRule();
+	    	funCouponUseRule.setCouponUserId(SeqUtil.getNewId(SeqConstants.FUN_COUPON_USE_RULE$COUPON_USER_ID).toString());
+	    	funCouponUseRule.setFaceValue(req.getFaceValue());
+	    	funCouponUseRule.setRequiredMoneyAmount(null);
+	    	funCouponUseRule.setCurrencyUnit(funCouponTemplate.getCurrencyUnit());
+	    	Date date1=new Date();
+	        DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        funCouponUseRule.setCreateTime(Timestamp.valueOf(format1.format(date1)));
+	        couponUseRuleAtomSV.insertBuildCouponUseRule(funCouponUseRule);
+	        funCouponTemplate.setCouponUserId(SeqUtil.getNewId(SeqConstants.FUN_COUPON_USE_RULE$COUPON_USER_ID).toString());
+		}
+		return couponTemplateAtomSV.saveCouponTempletList(funCouponTemplate);
 	}
 	/**
 	 * 根据优惠券模板iD查询优惠券明细
