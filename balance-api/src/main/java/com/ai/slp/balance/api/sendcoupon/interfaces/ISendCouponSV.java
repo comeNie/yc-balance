@@ -1,5 +1,7 @@
 package com.ai.slp.balance.api.sendcoupon.interfaces;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -8,6 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 
 /**
  * 优惠券发放接口类 <br>
@@ -31,6 +35,36 @@ public interface ISendCouponSV {
 	@POST
 	@Path("/registerSendCoupon")
     public void registerSendCoupon(String activityName, String userId) throws BusinessException,SystemException;
+	
+	/**
+	 * 根据优惠券ID查询优惠券
+	 * @param templateId
+	 * @return 优惠券
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL sendCouponService/deducionCoupon
+     */
+	@POST
+	@Path("/deducionCoupon")
+    public List<DeductionCouponResponse> deducionCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
+	
+	/**
+	 * 更改状态
+	 * @param templateId
+	 * @return 优惠券
+	 * @throws BusinessException,SystemException
+	 * @author shancc
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL sendCouponService/updateState
+     */
+	@POST
+	@Path("/updateState")
+    public Integer updateState(String couponId) throws BusinessException,SystemException;
+	
+	
 	
 	/**
      * 线下发送/领取优惠券.<br>
