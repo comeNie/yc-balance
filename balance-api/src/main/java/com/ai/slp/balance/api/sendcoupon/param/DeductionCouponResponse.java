@@ -75,7 +75,7 @@ public class DeductionCouponResponse  implements Serializable {
     /**
 	 * 使用订单
 	 */
-    private Integer orderId;
+    private long orderId;
     /**
 	 * 使用时间
 	 */
@@ -216,11 +216,11 @@ public class DeductionCouponResponse  implements Serializable {
         this.accountId = accountId;
     }
 
-    public Integer getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
 

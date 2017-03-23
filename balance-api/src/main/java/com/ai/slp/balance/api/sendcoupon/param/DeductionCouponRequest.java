@@ -48,11 +48,11 @@ public class DeductionCouponRequest {
 	public void setCouponId(String couponId) {
 		this.couponId = couponId;
 	}
-	public Long getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Long orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 

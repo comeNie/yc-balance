@@ -1,7 +1,5 @@
 package com.ai.slp.balance.api.sendcoupon.interfaces;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -10,6 +8,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseListResponse;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
@@ -34,7 +34,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/registerSendCoupon")
-    public void registerSendCoupon(String activityName, String userId) throws BusinessException,SystemException;
+    public BaseResponse registerSendCoupon(String activityName, String userId) throws BusinessException,SystemException;
 	
 	/**
 	 * 查询可使用的优惠券
@@ -47,7 +47,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/queryDisCountCoupon")
-    public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
+    public BaseListResponse<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
 	
 	/**
 	 * 抵用优惠券
@@ -60,7 +60,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/deducionCoupon")
-    public void deducionCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
+    public BaseResponse deducionCoupon(DeductionCouponRequest param) throws BusinessException,SystemException;
 	
 	/**
 	 * 查询优惠券状态变为解冻
@@ -71,7 +71,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/updateStateThaw")
-    public void updateStateThaw(String couponId) throws BusinessException,SystemException;
+    public BaseResponse updateStateThaw(String couponId) throws BusinessException,SystemException;
 	
 	/**
 	 * 查询优惠券状态变为冻结
@@ -82,7 +82,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/updateStateFreeze")
-    public void updateStateFreeze(String couponId) throws BusinessException,SystemException;
+    public BaseResponse updateStateFreeze(String couponId) throws BusinessException,SystemException;
 	
 	/**
 	 * 根据用户Id查询优惠券
@@ -95,7 +95,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/queryCouponByUserId")
-    public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException,SystemException;
+    public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException,SystemException;
 	
 	
 	
