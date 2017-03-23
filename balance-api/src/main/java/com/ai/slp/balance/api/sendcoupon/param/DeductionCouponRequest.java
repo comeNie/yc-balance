@@ -24,6 +24,10 @@ public class DeductionCouponRequest {
 	 * 订单消费总金额
 	 */
 	private long totalFee;
+	/**
+	 * 币种
+	 */
+	private String currencyUnit;
 	
 	public long getTotalFee() {
 		return totalFee;
@@ -48,11 +52,11 @@ public class DeductionCouponRequest {
 	public void setCouponId(String couponId) {
 		this.couponId = couponId;
 	}
-	public Long getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Long orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 
@@ -62,5 +66,13 @@ public class DeductionCouponRequest {
 
 	public void setUsedScene(String usedScene) {
 		this.usedScene = usedScene;
+	}
+
+	public String getCurrencyUnit() {
+		return currencyUnit;
+	}
+
+	public void setCurrencyUnit(String currencyUnit) {
+		this.currencyUnit = currencyUnit;
 	}
 }

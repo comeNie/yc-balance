@@ -9,6 +9,8 @@ public class FreezeCouponRequest {
 	 */
 	private String couponId;
 	
+	private long orderId;
+	
 	public String getCouponId() {
 		return couponId;
 	}
@@ -17,4 +19,11 @@ public class FreezeCouponRequest {
 		this.couponId = couponId;
 	}
 
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
 }
