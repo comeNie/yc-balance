@@ -34,6 +34,15 @@ public class FunAccountDetailResponse implements Serializable {
     private Long translatorFee;
 
     private Long lspFee;
+    private Long discountFee;
+
+    public Long getDiscountFee() {
+        return discountFee;
+    }
+
+    public void setDiscountFee(Long discountFee) {
+        this.discountFee = discountFee;
+    }
 
     public String getDetailId() {
         return detailId;

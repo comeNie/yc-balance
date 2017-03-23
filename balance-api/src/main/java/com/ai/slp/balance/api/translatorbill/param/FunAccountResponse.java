@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class FunAccountResponse implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String billId;
 
     private String targetType;
@@ -51,6 +53,16 @@ public class FunAccountResponse implements Serializable {
     private String flag;
 
     private Long translatorFee;
+
+    private Long discountFee;
+
+    public Long getDiscountFee() {
+        return discountFee;
+    }
+
+    public void setDiscountFee(Long discountFee) {
+        this.discountFee = discountFee;
+    }
 
     public String getBillId() {
         return billId;
