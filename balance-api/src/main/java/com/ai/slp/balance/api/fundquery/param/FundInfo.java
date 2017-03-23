@@ -31,6 +31,11 @@ public class FundInfo extends BaseResponse implements Serializable {
     private BigDecimal discount;
 
     /**
+     * 结算方式  1：预付费2：后付费
+     */
+    private String accountType;
+
+    /**
      * 账户ID
      */
     private long accountId;
@@ -97,5 +102,13 @@ public class FundInfo extends BaseResponse implements Serializable {
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 }

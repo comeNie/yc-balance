@@ -119,6 +119,9 @@ public class FundQueryBusiSVImpl implements IFundQueryBusiSV {
         if (tAccountParam!=null&&tAccountParam.getDiscount()!=null){
             fundInfo.setDiscount(tAccountParam.getDiscount());
         }
+        if (tAccountParam!=null&&tAccountParam.getAccountType()!=null){
+            fundInfo.setAccountType(tAccountParam.getAccountType());
+        }
         return fundInfo;
     }
 
