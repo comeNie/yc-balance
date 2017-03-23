@@ -2,47 +2,90 @@ package com.ai.slp.balance.api.sendcoupon.param;
 
 import java.sql.Timestamp;
 
+/**
+ * 根据用户Id查询优惠券出参
+ */
 public class FunDiscountCouponResponse {
+	/**
+	 * 优惠券ID
+	 */
     private String couponId;
-
+    /**
+	 * 优惠券名称
+	 */
     private String couponName;
-
+    /**
+	 * 优惠券描述
+	 */
     private String couponDesc;
-
+    /**
+	 * 活动ID
+	 */
     private Integer activityId;
-
+    /**
+	 * 优惠券模板ID
+	 */
     private Integer templateId;
-
+    /**
+	 * 面值
+	 */
     private Integer faceValue;
-
+    /**
+	 * 币种
+	 */
     private String currencyUnit;
-
+    /**
+	 * 使用规则ID
+	 */
     private String couponUserId;
-
+    /**
+	 * 使用场景
+	 */
     private String usedScene;
-
+    /**
+	 * 使用限制
+	 */
     private String useLimits;
-
+    /**
+	 * 状态
+	 */
     private String status;
-
+    /**
+	 * 有效期
+	 */
     private Integer effectiveTime;
-
+    /**
+	 * 有效期开始时间
+	 */
     private Timestamp effectiveStartTime;
-
+    /**
+	 * 有效期结束时间
+	 */
     private Timestamp effectiveEndTime;
-
+    /**
+	 * 用户ID
+	 */
     private String userId;
-
+    /**
+	 * 账户ID
+	 */
     private Integer accountId;
-
-    private Integer orderId;
-
+    /**
+	 * 使用订单
+	 */
+    private long orderId;
+    /**
+	 * 使用时间
+	 */
     private Timestamp useTime;
-
+    /**
+	 * 创建时间
+	 */
     private Timestamp createTime;
-
+    /**
+	 * 类型\备注
+	 */
     private String remark;
-
     public String getCouponId() {
         return couponId;
     }
@@ -171,14 +214,6 @@ public class FunDiscountCouponResponse {
         this.accountId = accountId;
     }
 
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
     public Timestamp getUseTime() {
         return useTime;
     }
@@ -202,4 +237,13 @@ public class FunDiscountCouponResponse {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+    
 }

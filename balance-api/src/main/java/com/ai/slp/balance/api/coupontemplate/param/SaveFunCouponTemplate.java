@@ -2,43 +2,85 @@ package com.ai.slp.balance.api.coupontemplate.param;
 
 import java.sql.Timestamp;
 
+/**
+ * 添加优惠券模板入参
+ */
 public class SaveFunCouponTemplate {
-	 private Integer templateId;
-
+	 	/**
+	 	 * 模板ID
+	 	 */
+		private Integer templateId;
+		/**
+		 * 优惠券名称
+	 	 */
 	    private String couponName;
-
+	    /**
+	     * 优惠券描述
+	 	 */
 	    private String couponDesc;
-
+	    /**
+	     * 面值
+	 	 */
 	    private Integer faceValue;
-
+	    /**
+	     * 随机面值上限制
+	 	 */
 	    private Integer faceValueUp;
-
+	    /**
+	     * 随机面值下限
+	 	 */
 	    private Integer faceValueDown;
-
+	    /**
+	     * 币种
+	 	 */
 	    private String currencyUnit;
-
+	    /**
+	     * 发放数量
+	 	 */
 	    private String maxCountIssue;
-
+	    /**
+	     * 使用规则ID
+	 	 */
 	    private String couponUserId;
-
+	    /**
+	     * 使用场景
+	 	 */
 	    private String usedScene;
-
+	    /**
+	     * 使用限制
+	 	 */
 	    private String useLimits;
-
+	    /**
+	     * 状态
+	 	 */
 	    private String status;
-
+	    /**
+	     * 有效期
+	 	 */
 	    private Integer effectiveTime;
-
+	    /**
+	     * 有效期开始时间
+	 	 */
 	    private Timestamp effectiveStartTime;
-
+	    /**
+	     * 有效期结束时间
+	 	 */
 	    private Timestamp effectiveEndTime;
-
+	    /**
+	     * 领取开始时间
+	 	 */
 	    private Timestamp receiveStartTime;
-
+	    /**
+	     * 领取结束时间
+	 	 */
 	    private Timestamp receiveEndTime;
-
+	    /**
+	     * 创建人
+	 	 */
 	    private String createOperator;
-
+	    /**
+	     * 创建时间
+	 	 */
 	    private Timestamp createTime;
 
 	    public Integer getTemplateId() {

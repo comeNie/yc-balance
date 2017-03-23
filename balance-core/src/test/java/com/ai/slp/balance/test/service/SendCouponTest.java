@@ -30,8 +30,8 @@ public class SendCouponTest extends TestCase {
     private ISendCouponSV sendCouponSV;
     @Autowired
     private ICouponUseRuleSV couponUseRuleSV;
-    @Autowired
-    private ICouponTemplateSV couponTemplateSV;
+ /*   @Autowired
+    private ICouponTemplateSV couponTemplateSV;*/
     
 
     @Test
@@ -42,7 +42,7 @@ public class SendCouponTest extends TestCase {
     @Test
     public void test() {
     	SaveCouponUseRule param = new SaveCouponUseRule();
-    	param.setCouponUserId("8");
+    	param.setCouponUserId("10");
     	param.setCurrencyUnit("2");
     	param.setFaceValue(5);
     	param.setRequiredMoneyAmount(20);

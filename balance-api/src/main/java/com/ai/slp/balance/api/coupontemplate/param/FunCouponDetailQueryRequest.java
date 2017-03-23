@@ -5,17 +5,13 @@ import com.ai.opt.base.vo.PageInfo;
 import java.io.Serializable;
 
 /**
- * 账号查询请求参数
- * Date: 2015年8月4日 <br>
- * Copyright (c) 2015 asiainfo.com <br>
- * 
- * @author lilg
+ * 根据优惠券模板ID查询优惠券明细入参
  */
 public class FunCouponDetailQueryRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 账单ID
+     * 优惠前模板ID
      */
     Integer templateId;
 

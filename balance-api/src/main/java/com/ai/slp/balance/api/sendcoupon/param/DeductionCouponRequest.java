@@ -1,15 +1,28 @@
 package com.ai.slp.balance.api.sendcoupon.param;
 
+/**
+ * 查询可用优惠券/抵扣优惠券入参
+ */
 public class DeductionCouponRequest {
-
+	/**
+	 * 用户ID
+	 */
 	private String userId;
-	
+	/**
+	 * 优惠券ID
+	 */
 	private String couponId;
-	
+	/**
+	 * 订单ID
+	 */
 	private long orderId;
-	
+	/**
+	 * 优惠券使用场景
+	 */
 	private String usedScene;
-	
+	/**
+	 * 订单消费总金额
+	 */
 	private long totalFee;
 	
 	public long getTotalFee() {

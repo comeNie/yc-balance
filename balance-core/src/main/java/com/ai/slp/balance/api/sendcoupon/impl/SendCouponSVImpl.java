@@ -18,6 +18,7 @@ import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.ICouponUseRuleBusiSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
+import com.ai.slp.balance.util.DubboUtil;
 import com.ai.yc.order.api.orderquery.interfaces.IOrderQuerySV;
 import com.ai.yc.order.api.orderquery.param.QueryOrderRequest;
 import com.ai.yc.order.api.orderquery.param.QueryOrderRsponse;
@@ -26,13 +27,10 @@ import com.alibaba.dubbo.config.annotation.Service;
 @Service
 @Component
 public class SendCouponSVImpl implements ISendCouponSV {
-    
+	private static final IOrderQuerySV iOrderQuerySV = DubboUtil.getIOrderQuerySV();
     
     @Autowired
     private ISendCouponBusiSV sendCouponBusiSV;
-    
-    @Autowired
-    private IOrderQuerySV orderQuerySV;
     
     @Autowired
     private ICouponUseRuleBusiSV couponUseRuleBusiSV;
@@ -57,7 +55,7 @@ public class SendCouponSVImpl implements ISendCouponSV {
 			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDeducionCoupon(param);
 			QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
 			queryOrderRequest.setOrderId(param.getOrderId());
-			QueryOrderRsponse queryOrder = orderQuerySV.queryOrder(queryOrderRequest);
+			QueryOrderRsponse queryOrder = iOrderQuerySV.queryOrder(queryOrderRequest);
 			String couponUserId = queryDeducionCoupon.get(0).getCouponUserId();
 			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV.queryCouponUseRule(couponUserId);
 			
@@ -118,7 +116,7 @@ public class SendCouponSVImpl implements ISendCouponSV {
 			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDeducionCoupon(param);
 			QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
 			queryOrderRequest.setOrderId(param.getOrderId());
-			QueryOrderRsponse queryOrder = orderQuerySV.queryOrder(queryOrderRequest);
+			QueryOrderRsponse queryOrder = iOrderQuerySV.queryOrder(queryOrderRequest);
 			String couponUserId = queryDeducionCoupon.get(0).getCouponUserId();
 			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV.queryCouponUseRule(couponUserId);
 			
@@ -137,6 +135,8 @@ public class SendCouponSVImpl implements ISendCouponSV {
 					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效");
 				}else if (d1Number >= d2Number) {
 					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效");
+				}else{
+					throw new BusinessException(ExceptCodeConstants.Special.SYSTEM_SUCCESS, "抵扣成功");
 				}
 			}
 		}
