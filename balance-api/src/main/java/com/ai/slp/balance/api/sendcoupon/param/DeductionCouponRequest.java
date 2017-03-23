@@ -24,6 +24,10 @@ public class DeductionCouponRequest {
 	 * 订单消费总金额
 	 */
 	private long totalFee;
+	/**
+	 * 币种
+	 */
+	private String currencyUnit;
 	
 	public long getTotalFee() {
 		return totalFee;
@@ -62,5 +66,13 @@ public class DeductionCouponRequest {
 
 	public void setUsedScene(String usedScene) {
 		this.usedScene = usedScene;
+	}
+
+	public String getCurrencyUnit() {
+		return currencyUnit;
+	}
+
+	public void setCurrencyUnit(String currencyUnit) {
+		this.currencyUnit = currencyUnit;
 	}
 }

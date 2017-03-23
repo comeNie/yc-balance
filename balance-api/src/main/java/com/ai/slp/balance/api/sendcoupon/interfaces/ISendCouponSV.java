@@ -12,6 +12,7 @@ import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 
 /**
@@ -71,7 +72,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/updateStateThaw")
-    public BaseResponse updateStateThaw(String couponId) throws BusinessException,SystemException;
+    public BaseResponse updateStateThaw(FreezeCouponRequest param) throws BusinessException,SystemException;
 	
 	/**
 	 * 查询优惠券状态变为冻结
@@ -82,7 +83,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/updateStateFreeze")
-    public BaseResponse updateStateFreeze(String couponId) throws BusinessException,SystemException;
+    public BaseResponse updateStateFreeze(FreezeCouponRequest param) throws BusinessException,SystemException;
 	
 	/**
 	 * 根据用户Id查询优惠券
