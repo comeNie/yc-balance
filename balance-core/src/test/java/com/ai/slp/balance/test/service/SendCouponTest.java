@@ -13,9 +13,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
+import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.couponuserule.param.SaveCouponUseRule;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -30,26 +32,35 @@ public class SendCouponTest extends TestCase {
     private ISendCouponSV sendCouponSV;
     @Autowired
     private ICouponUseRuleSV couponUseRuleSV;
- /*   @Autowired
-    private ICouponTemplateSV couponTemplateSV;*/
+   @Autowired
+    private ICouponTemplateSV couponTemplateSV;
     
 
     @Test
     public void testSendCouponTest() {
-    	sendCouponSV.queryCouponByUserId("1");
+    	DeductionCouponRequest param = new DeductionCouponRequest();
+    	param.setCouponId("a1");
+    	param.setOrderId(1);
+    	param.setTotalFee(200);
+    	param.setUsedScene("1");
+    	param.setUserId("1");
+    	sendCouponSV.queryDisCountCoupon(param);
     }
     
     @Test
     public void test() {
-    	SaveCouponUseRule param = new SaveCouponUseRule();
-    	param.setCouponUserId("10");
-    	param.setCurrencyUnit("2");
-    	param.setFaceValue(5);
-    	param.setRequiredMoneyAmount(20);
-    	Date date1=new Date();
-        DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	param.setCreateTime(Timestamp.valueOf(format1.format(date1)));
-    	Integer saveCouponUseRule = couponUseRuleSV.saveCouponUseRule(param);
+    	SaveFunCouponTemplate req = new SaveFunCouponTemplate();
+    	req.setCouponDesc("Q币");
+    	req.setCouponName("腾讯");
+    	req.setCouponUserId("2");
+    	req.setCurrencyUnit("1");
+    	req.setEffectiveTime(4);
+    	req.setFaceValue(10);
+    	req.setMaxCountIssue("5");
+    	req.setStatus("1");
+    	req.setUsedScene("2");
+    	req.setUseLimits("1");
+    	Integer saveCouponUseRule = couponTemplateSV.savaCouponTemplate(req);
     	System.out.println(saveCouponUseRule);
     }
     

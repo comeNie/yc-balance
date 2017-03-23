@@ -13,6 +13,7 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
@@ -78,11 +79,11 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 更改优惠券状态（解冻）
 	 */
 	@Override
-	public void updateStateThaw(String couponId) {
+	public void updateStateThaw(FreezeCouponRequest param) {
 		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
-		critreia.andCouponIdEqualTo(couponId);
+		critreia.andCouponIdEqualTo(param.getCouponId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
@@ -99,11 +100,11 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 更改优惠券状态（冻结）
 	 */
 	@Override
-	public void updateStateFreeze(String couponId) {
+	public void updateStateFreeze(FreezeCouponRequest param) {
 		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
-		critreia.andCouponIdEqualTo(couponId);
+		critreia.andCouponIdEqualTo(param.getCouponId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){

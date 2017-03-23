@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 
 public interface IDiscountCouponAtomSV {
@@ -18,8 +19,8 @@ public interface IDiscountCouponAtomSV {
 
 	List<FunDiscountCouponResponse> queryCouponByUserId(String userId);
 
-	void updateStateThaw(String couponId);
+	void updateStateThaw(FreezeCouponRequest param);
 
-	void updateStateFreeze(String couponId);
+	void updateStateFreeze(FreezeCouponRequest param);
 	
 }

@@ -21,6 +21,7 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.dao.mapper.bo.FunActivity;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRel;
@@ -140,15 +141,15 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	 * 更改优惠券状态（解冻）
 	 */
 	@Override
-	public void updateStateThaw(String couponId) {
-		discountCouponAtomSV.updateStateThaw(couponId);
+	public void updateStateThaw(FreezeCouponRequest param) {
+		discountCouponAtomSV.updateStateThaw(param);
 	}
 	/**
 	 * 更改优惠券状态（冻结）
 	 */
 	@Override
-	public void updateStateFreeze(String couponId) {
-		discountCouponAtomSV.updateStateFreeze(couponId);
+	public void updateStateFreeze(FreezeCouponRequest param) {
+		discountCouponAtomSV.updateStateFreeze(param);
 	}
 	/**
 	 * 根据用户ID查询优惠券

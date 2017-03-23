@@ -6,6 +6,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 
 public interface ISendCouponBusiSV {
@@ -32,11 +33,11 @@ public interface ISendCouponBusiSV {
 	/**
 	 * 查询优惠券状态变为解冻
 	 */
-	public void updateStateThaw(String couponId);
+	public void updateStateThaw(FreezeCouponRequest param);
 	
 	
 	/**
 	 * 查询优惠券状态变为冻结
 	 */
-	public void updateStateFreeze(String couponId);
+	public void updateStateFreeze(FreezeCouponRequest param);
 }

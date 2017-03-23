@@ -10,10 +10,14 @@ import org.springframework.stereotype.Component;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseListResponse;
+import com.ai.opt.base.vo.BaseResponse;
+import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.ICouponUseRuleBusiSV;
@@ -38,15 +42,27 @@ public class SendCouponSVImpl implements ISendCouponSV {
      * 注册领取优惠券.<br>
      */
 	@Override
-	public void registerSendCoupon(String activityName, String userId) throws BusinessException, SystemException {
-		sendCouponBusiSV.registerSendCoupon(activityName, userId);
+	public BaseResponse registerSendCoupon(String activityName, String userId) throws BusinessException, SystemException {
+		BaseResponse response = new BaseResponse();
+		ResponseHeader responseHeader = new ResponseHeader();
+		try {
+			sendCouponBusiSV.registerSendCoupon(activityName, userId);
+			//
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("注册领取优惠券成功");
+			response.setResponseHeader(responseHeader);
+		}catch (Exception e) {
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"注册领取优惠券失败");
+		}
+		return response;
 	}
 
 	/**
 	 * 查询可使用的优惠券
 	 */
 	@Override
-	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)throws BusinessException, SystemException {
+	public BaseListResponse<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)throws BusinessException, SystemException {
 		String couponId = param.getCouponId();
 		List<DeductionCouponResponse> deducionCoupon = sendCouponBusiSV.deducionCoupon(couponId);
 		if(deducionCoupon == null){
@@ -76,7 +92,9 @@ public class SendCouponSVImpl implements ISendCouponSV {
 					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效");
 				}
 			}
-			return queryDeducionCoupon;
+			BaseListResponse<DeductionCouponResponse> queryDeducionCoupons = new BaseListResponse<>();
+			queryDeducionCoupons.setResult(queryDeducionCoupon);
+			return queryDeducionCoupons;
 		}
 	}
 
@@ -84,30 +102,60 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	 * 查询优惠券状态变为解冻
 	 */
 	@Override
-	public void updateStateThaw(String couponId) throws BusinessException, SystemException {
-		sendCouponBusiSV.updateStateThaw(couponId);
+	public BaseResponse updateStateThaw(FreezeCouponRequest param) throws BusinessException, SystemException {
+		BaseResponse response = new BaseResponse();
+		ResponseHeader responseHeader = new ResponseHeader();
+		
+		try {
+			sendCouponBusiSV.updateStateThaw(param);
+			//
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("状态更改成功");
+			response.setResponseHeader(responseHeader);
+		}catch (Exception e) {
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"状态更改失败");
+		}
+		return response;
 	}
 	/**
 	 * 查询优惠券状态变为冻结
 	 */
 	@Override
-	public void updateStateFreeze(String couponId)throws BusinessException, SystemException {
-		sendCouponBusiSV.updateStateFreeze(couponId);
+	public BaseResponse updateStateFreeze(FreezeCouponRequest param)throws BusinessException, SystemException {
+		BaseResponse response = new BaseResponse();
+		ResponseHeader responseHeader = new ResponseHeader();
+		
+		try {
+			sendCouponBusiSV.updateStateFreeze(param);
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("状态更改成功");
+			response.setResponseHeader(responseHeader);
+		}catch (Exception e) {
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"状态更改失败");
+		}
+		return response;
 	}
 	
 	/**
 	 * 根据用户ID查询优惠券
 	 */
 	@Override
-	public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException, SystemException {
-		return sendCouponBusiSV.queryCouponByUserId(userId);
+	public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException, SystemException {
+		BaseListResponse<FunDiscountCouponResponse> queryCouponByUserIds = new BaseListResponse<>();
+		List<FunDiscountCouponResponse> queryCouponByUserId = sendCouponBusiSV.queryCouponByUserId(userId);
+		queryCouponByUserIds.setResult(queryCouponByUserId);
+		return queryCouponByUserIds;
 	}
 
 	/**
 	 * 抵扣优惠券
 	 */
 	@Override
-	public void deducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
+	public BaseResponse deducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
+		BaseResponse response = new BaseResponse();
+		ResponseHeader responseHeader = new ResponseHeader();
 		String couponId = param.getCouponId();
 		List<DeductionCouponResponse> deducionCoupon = sendCouponBusiSV.deducionCoupon(couponId);
 		if(deducionCoupon == null){
@@ -135,10 +183,17 @@ public class SendCouponSVImpl implements ISendCouponSV {
 					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效");
 				}else if (d1Number >= d2Number) {
 					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效");
-				}else{
-					throw new BusinessException(ExceptCodeConstants.Special.SYSTEM_SUCCESS, "抵扣成功");
 				}
 			}
+			try {
+				responseHeader.setIsSuccess(true);
+				responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+				responseHeader.setResultMessage("抵扣成功");
+				response.setResponseHeader(responseHeader);
+			}catch (Exception e) {
+				throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"抵扣成功");
+			}
+			return response;
 		}
 	}
 
