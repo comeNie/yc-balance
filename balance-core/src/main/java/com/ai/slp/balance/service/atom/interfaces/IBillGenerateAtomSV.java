@@ -28,6 +28,19 @@ public interface IBillGenerateAtomSV {
                                  String beginTime, String endTime);
 
     /**
+     * 企业账单
+     * @param ordOrderVo
+     * @param tAccountParam
+     * @param billFee
+     * @param accountAmount0
+     * @param discountFee
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    public  String insertCompanyAccount(OrdOrderVo ordOrderVo,TAccountParam tAccountParam,long billFee,long accountAmount0,long discountFee,
+                                        String beginTime,String endTime);
+    /**
      * 插入账单明细表lsp信息
      * @param ordOrderVo
      * @param billId
@@ -53,13 +66,6 @@ public interface IBillGenerateAtomSV {
      */
     public  void insertAccountDetail(OrdOrderVo ordOrderVo,String billId);
 
-    /**
-     * 企业账单明细
-     * @param ordOrderVo
-     * @param billId
-     * @param discountFee
-     */
-    public  void insertCompanyAccountDetail(OrdOrderVo ordOrderVo,String billId,Long discountFee);
     /**
      * 查询账单表
      * @param funAccountQueryRequest

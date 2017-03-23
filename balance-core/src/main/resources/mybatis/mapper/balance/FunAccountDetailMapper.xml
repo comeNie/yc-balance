@@ -17,6 +17,7 @@
     <result column="STATE" property="state" jdbcType="VARCHAR" />
     <result column="TRANSLATOR_FEE" property="translatorFee" jdbcType="BIGINT" />
     <result column="LSP_FEE" property="lspFee" jdbcType="BIGINT" />
+    <result column="DISCOUNT_FEE" property="discountFee" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,7 +79,8 @@
   </sql>
   <sql id="Base_Column_List" >
     DETAIL_ID, BILL_ID, ORDER_ID, ORDER_TIME, LANGUNGE_PAIR_NAME, nickname, CURRENCY_UNIT, 
-    TOTAL_FEE, PLAT_FEE, INTERPER_FEE, nickname2, LSP_ID, STATE, TRANSLATOR_FEE, LSP_FEE
+    TOTAL_FEE, PLAT_FEE, INTERPER_FEE, nickname2, LSP_ID, STATE, TRANSLATOR_FEE, LSP_FEE, 
+    DISCOUNT_FEE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetailCriteria" >
     select
@@ -119,14 +121,14 @@
       ORDER_TIME, LANGUNGE_PAIR_NAME, nickname, 
       CURRENCY_UNIT, TOTAL_FEE, PLAT_FEE, 
       INTERPER_FEE, nickname2, LSP_ID, 
-      STATE, TRANSLATOR_FEE, LSP_FEE
-      )
+      STATE, TRANSLATOR_FEE, LSP_FEE, 
+      DISCOUNT_FEE)
     values (#{detailId,jdbcType=VARCHAR}, #{billId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
       #{orderTime,jdbcType=TIMESTAMP}, #{langungePairName,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{currencyUnit,jdbcType=VARCHAR}, #{totalFee,jdbcType=BIGINT}, #{platFee,jdbcType=BIGINT}, 
       #{interperFee,jdbcType=BIGINT}, #{nickname2,jdbcType=VARCHAR}, #{lspId,jdbcType=VARCHAR}, 
-      #{state,jdbcType=VARCHAR}, #{translatorFee,jdbcType=BIGINT}, #{lspFee,jdbcType=BIGINT}
-      )
+      #{state,jdbcType=VARCHAR}, #{translatorFee,jdbcType=BIGINT}, #{lspFee,jdbcType=BIGINT}, 
+      #{discountFee,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountDetail" >
     insert into fun_account_detail
@@ -176,6 +178,9 @@
       <if test="lspFee != null" >
         LSP_FEE,
       </if>
+      <if test="discountFee != null" >
+        DISCOUNT_FEE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="detailId != null" >
@@ -222,6 +227,9 @@
       </if>
       <if test="lspFee != null" >
         #{lspFee,jdbcType=BIGINT},
+      </if>
+      <if test="discountFee != null" >
+        #{discountFee,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -279,6 +287,9 @@
       <if test="record.lspFee != null" >
         LSP_FEE = #{record.lspFee,jdbcType=BIGINT},
       </if>
+      <if test="record.discountFee != null" >
+        DISCOUNT_FEE = #{record.discountFee,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -300,7 +311,8 @@
       LSP_ID = #{record.lspId,jdbcType=VARCHAR},
       STATE = #{record.state,jdbcType=VARCHAR},
       TRANSLATOR_FEE = #{record.translatorFee,jdbcType=BIGINT},
-      LSP_FEE = #{record.lspFee,jdbcType=BIGINT}
+      LSP_FEE = #{record.lspFee,jdbcType=BIGINT},
+      DISCOUNT_FEE = #{record.discountFee,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -350,6 +362,9 @@
       <if test="lspFee != null" >
         LSP_FEE = #{lspFee,jdbcType=BIGINT},
       </if>
+      <if test="discountFee != null" >
+        DISCOUNT_FEE = #{discountFee,jdbcType=BIGINT},
+      </if>
     </set>
     where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
   </update>
@@ -368,7 +383,8 @@
       LSP_ID = #{lspId,jdbcType=VARCHAR},
       STATE = #{state,jdbcType=VARCHAR},
       TRANSLATOR_FEE = #{translatorFee,jdbcType=BIGINT},
-      LSP_FEE = #{lspFee,jdbcType=BIGINT}
+      LSP_FEE = #{lspFee,jdbcType=BIGINT},
+      DISCOUNT_FEE = #{discountFee,jdbcType=BIGINT}
     where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
   </update>
 </mapper>

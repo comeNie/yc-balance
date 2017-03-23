@@ -46,7 +46,7 @@ public class FundInfo extends BaseResponse implements Serializable {
     private long balance;
 
     /**
-     * 币种 RMB:人民币 USD：美元
+     * 币种 1:人民币   2：美元
      */
 
     private String currencyUnit;

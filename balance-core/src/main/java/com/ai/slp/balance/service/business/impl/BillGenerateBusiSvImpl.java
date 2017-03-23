@@ -107,7 +107,7 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                 Long billFee0 = 0l;
                 Long accountAmount0 = 0l;
                 Long platFee0 = 0l;
-                Long accountAmountCompany = 0l;
+                Long discountFee0 = 0l;
                 for (int j = 0;j<orderVos0.size();j++){
                     boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
                     if (b){
@@ -118,9 +118,7 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                         //平台佣金
                         platFee0 += orderVos0.get(j).getPlatFee();
                         //优惠金额
-                        if (tAccountParams.get(i).getDiscount()!=null){
-                            accountAmountCompany += (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
-                        }
+                        discountFee0+=orderVos0.get(j).getDiscountFee();
                     }
                 }
                 //译员账单(targetType=3)   lsp账单(targetType=4)
@@ -175,17 +173,13 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                     }
                 }//企业账单
                 else if (param=="1"){
-                    Long discountFee = billFee0-accountAmountCompany;
-                    String billID = billGenerateAtomSV.insertAccount(orderVos0.get(0), tAccountParams.get(i), billFee0,accountAmountCompany,discountFee, begindate, endDate);
+                    Long accountAmountCompany = billFee0-discountFee0;
+                    String billID = billGenerateAtomSV.insertCompanyAccount(orderVos0.get(0), tAccountParams.get(i), billFee0,accountAmountCompany,discountFee0, begindate, endDate);
                     for (int j = 0;j<orderVos0.size();j++){
                         boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
-                        Long discountFee1 = 0l;
                         if (b){
-                            if (tAccountParams.get(i).getDiscount()!=null){
-                                discountFee1 = orderVos0.get(j).getTotalFee() - (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
-                            }
                             //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
-                            billGenerateAtomSV.insertCompanyAccountDetail(orderVos0.get(j),billID,discountFee1);
+                            billGenerateAtomSV.insertAccountDetail(orderVos0.get(j),billID);
                         }
                     }
                 }
@@ -194,7 +188,7 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                 Long billFee1 = 0l;
                 Long accountAmount1 = 0l;
                 Long platFee1 = 0l;
-                Long accountAmountCompany1 = 0l;
+                Long discountFee1 = 0l;
                 for (int j = 0;j<orderVos1.size();j++){
                     boolean b = inTime(begindate, endDate, orderVos1.get(j).getFinishTime());
                     if (b){
@@ -204,9 +198,7 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                         accountAmount1+=orderVos1.get(i).getInterperFee();
                         //平台佣金
                         platFee1 += orderVos1.get(i).getPlatFee();
-                        if (tAccountParams.get(i).getDiscount()!=null){
-                            accountAmountCompany1 += (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
-                        }
+                        discountFee1+=orderVos1.get(j).getDiscountFee();
                     }
                 }
                 //译员账单(targetType=3)   lsp账单(targetType=4)
@@ -260,17 +252,13 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                         }
                     }
                 } else if (param=="1"){
-                    Long discountFee = billFee1-accountAmountCompany1;
-                    String billID = billGenerateAtomSV.insertAccount(orderVos0.get(0), tAccountParams.get(i), billFee1,accountAmountCompany1,discountFee, begindate, endDate);
+                    Long accountAmountCompany1 = billFee1-discountFee1;
+                    String billID = billGenerateAtomSV.insertCompanyAccount(orderVos0.get(0), tAccountParams.get(i), billFee1,accountAmountCompany1,discountFee1, begindate, endDate);
                     for (int j = 0;j<orderVos0.size();j++){
                         boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
-                        Long discountFee2 = 0l;
                         if (b){
-                            if (tAccountParams.get(i).getDiscount()!=null){
-                                discountFee2 = (orderVos0.get(j).getTotalFee()*new Double(tAccountParams.get(i).getDiscount().doubleValue()*100.00).longValue())/100;
-                            }
                             //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
-                            billGenerateAtomSV.insertCompanyAccountDetail(orderVos0.get(j),billID,discountFee2);
+                            billGenerateAtomSV.insertAccountDetail(orderVos0.get(j),billID);
                         }
                     }
                 }

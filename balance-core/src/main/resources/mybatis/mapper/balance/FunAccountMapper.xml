@@ -26,6 +26,7 @@
     <result column="CONTENT" property="content" jdbcType="VARCHAR" />
     <result column="FLAG" property="flag" jdbcType="VARCHAR" />
     <result column="TRANSLATOR_FEE" property="translatorFee" jdbcType="BIGINT" />
+    <result column="DISCOUNT_FEE" property="discountFee" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -89,7 +90,7 @@
     BILL_ID, TARGET_TYPE, TARGET_ID, TARGET_NAME, ACCOUNT_CLS, ACCOUNT_PERIOD, ACCOUNT_PERIOD_DAY, 
     PLAN_ACCOUNT_TIME, ACT_ACCOUNT_TIME, PAY_TIME, nickname, lsp_admin, BILL_FEE, PLAT_FEE, 
     ACCOUNT_AMOUT, CREATE_TIME, START_ACCOUNT_TIME, END_ACCOUNT_TIME, STATE, ACCOUNT_TYPE, 
-    SETTLE_ACCOUNT, CONTENT, FLAG, TRANSLATOR_FEE
+    SETTLE_ACCOUNT, CONTENT, FLAG, TRANSLATOR_FEE, DISCOUNT_FEE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccountCriteria" >
     select
@@ -133,8 +134,8 @@
       BILL_FEE, PLAT_FEE, ACCOUNT_AMOUT, 
       CREATE_TIME, START_ACCOUNT_TIME, END_ACCOUNT_TIME, 
       STATE, ACCOUNT_TYPE, SETTLE_ACCOUNT, 
-      CONTENT, FLAG, TRANSLATOR_FEE
-      )
+      CONTENT, FLAG, TRANSLATOR_FEE, 
+      DISCOUNT_FEE)
     values (#{billId,jdbcType=VARCHAR}, #{targetType,jdbcType=VARCHAR}, #{targetId,jdbcType=VARCHAR}, 
       #{targetName,jdbcType=VARCHAR}, #{accountCls,jdbcType=VARCHAR}, #{accountPeriod,jdbcType=VARCHAR}, 
       #{accountPeriodDay,jdbcType=VARCHAR}, #{planAccountTime,jdbcType=TIMESTAMP}, #{actAccountTime,jdbcType=TIMESTAMP}, 
@@ -142,8 +143,8 @@
       #{billFee,jdbcType=BIGINT}, #{platFee,jdbcType=BIGINT}, #{accountAmout,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{startAccountTime,jdbcType=TIMESTAMP}, #{endAccountTime,jdbcType=TIMESTAMP}, 
       #{state,jdbcType=INTEGER}, #{accountType,jdbcType=VARCHAR}, #{settleAccount,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{translatorFee,jdbcType=BIGINT}
-      )
+      #{content,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{translatorFee,jdbcType=BIGINT}, 
+      #{discountFee,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunAccount" >
     insert into fun_account
@@ -220,6 +221,9 @@
       <if test="translatorFee != null" >
         TRANSLATOR_FEE,
       </if>
+      <if test="discountFee != null" >
+        DISCOUNT_FEE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="billId != null" >
@@ -293,6 +297,9 @@
       </if>
       <if test="translatorFee != null" >
         #{translatorFee,jdbcType=BIGINT},
+      </if>
+      <if test="discountFee != null" >
+        #{discountFee,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -377,6 +384,9 @@
       <if test="record.translatorFee != null" >
         TRANSLATOR_FEE = #{record.translatorFee,jdbcType=BIGINT},
       </if>
+      <if test="record.discountFee != null" >
+        DISCOUNT_FEE = #{record.discountFee,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -407,7 +417,8 @@
       SETTLE_ACCOUNT = #{record.settleAccount,jdbcType=VARCHAR},
       CONTENT = #{record.content,jdbcType=VARCHAR},
       FLAG = #{record.flag,jdbcType=VARCHAR},
-      TRANSLATOR_FEE = #{record.translatorFee,jdbcType=BIGINT}
+      TRANSLATOR_FEE = #{record.translatorFee,jdbcType=BIGINT},
+      DISCOUNT_FEE = #{record.discountFee,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -484,6 +495,9 @@
       <if test="translatorFee != null" >
         TRANSLATOR_FEE = #{translatorFee,jdbcType=BIGINT},
       </if>
+      <if test="discountFee != null" >
+        DISCOUNT_FEE = #{discountFee,jdbcType=BIGINT},
+      </if>
     </set>
     where BILL_ID = #{billId,jdbcType=VARCHAR}
   </update>
@@ -511,7 +525,8 @@
       SETTLE_ACCOUNT = #{settleAccount,jdbcType=VARCHAR},
       CONTENT = #{content,jdbcType=VARCHAR},
       FLAG = #{flag,jdbcType=VARCHAR},
-      TRANSLATOR_FEE = #{translatorFee,jdbcType=BIGINT}
+      TRANSLATOR_FEE = #{translatorFee,jdbcType=BIGINT},
+      DISCOUNT_FEE = #{discountFee,jdbcType=BIGINT}
     where BILL_ID = #{billId,jdbcType=VARCHAR}
   </update>
 </mapper>

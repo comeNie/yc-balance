@@ -1694,6 +1694,66 @@ public class FunAccountCriteria {
             addCriterion("TRANSLATOR_FEE not between", value1, value2, "translatorFee");
             return (Criteria) this;
         }
+
+        public Criteria andDiscountFeeIsNull() {
+            addCriterion("DISCOUNT_FEE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeIsNotNull() {
+            addCriterion("DISCOUNT_FEE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeEqualTo(Long value) {
+            addCriterion("DISCOUNT_FEE =", value, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeNotEqualTo(Long value) {
+            addCriterion("DISCOUNT_FEE <>", value, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeGreaterThan(Long value) {
+            addCriterion("DISCOUNT_FEE >", value, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeGreaterThanOrEqualTo(Long value) {
+            addCriterion("DISCOUNT_FEE >=", value, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeLessThan(Long value) {
+            addCriterion("DISCOUNT_FEE <", value, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeLessThanOrEqualTo(Long value) {
+            addCriterion("DISCOUNT_FEE <=", value, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeIn(List<Long> values) {
+            addCriterion("DISCOUNT_FEE in", values, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeNotIn(List<Long> values) {
+            addCriterion("DISCOUNT_FEE not in", values, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeBetween(Long value1, Long value2) {
+            addCriterion("DISCOUNT_FEE between", value1, value2, "discountFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andDiscountFeeNotBetween(Long value1, Long value2) {
+            addCriterion("DISCOUNT_FEE not between", value1, value2, "discountFee");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

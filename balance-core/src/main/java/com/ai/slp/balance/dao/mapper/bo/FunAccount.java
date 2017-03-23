@@ -51,6 +51,8 @@ public class FunAccount {
 
     private Long translatorFee;
 
+    private Long discountFee;
+
     public String getBillId() {
         return billId;
     }
@@ -241,5 +243,13 @@ public class FunAccount {
 
     public void setTranslatorFee(Long translatorFee) {
         this.translatorFee = translatorFee;
+    }
+
+    public Long getDiscountFee() {
+        return discountFee;
+    }
+
+    public void setDiscountFee(Long discountFee) {
+        this.discountFee = discountFee;
     }
 }

@@ -33,6 +33,8 @@ public class FunAccountDetail {
 
     private Long lspFee;
 
+    private Long discountFee;
+
     public String getDetailId() {
         return detailId;
     }
@@ -151,5 +153,13 @@ public class FunAccountDetail {
 
     public void setLspFee(Long lspFee) {
         this.lspFee = lspFee;
+    }
+
+    public Long getDiscountFee() {
+        return discountFee;
+    }
+
+    public void setDiscountFee(Long discountFee) {
+        this.discountFee = discountFee;
     }
 }
