@@ -53,12 +53,16 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 用户、订单、优惠券关联查询
 	 */
 	@Override
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param,String orderType) {
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andUserIdEqualTo(param.getUserId());
 		critreia.andOrderIdEqualTo(param.getOrderId());
+		critreia.andUsedSceneEqualTo(param.getUsedScene());
+		critreia.andCurrencyUnitEqualTo(param.getCurrencyUnit());
+		critreia.andUseLimitsEqualTo(orderType);
+		critreia.andStatusEqualTo("2");
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
@@ -66,10 +70,6 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
             for (int i=0;i<funDiscountCoupons.size();i++){
             	DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
                 BeanUtils.copyProperties(deductionCouponResponse,funDiscountCoupons.get(i));
-                deductionCouponResponse.setStatus("2");
-                Date date1=new Date();
-                DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                deductionCouponResponse.setUseTime(Timestamp.valueOf(format1.format(date1)));
                 deductionCouponResponses.add(deductionCouponResponse);
             }
         }
@@ -84,6 +84,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andCouponIdEqualTo(param.getCouponId());
+		critreia.andOrderIdEqualTo(param.getOrderId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
@@ -139,6 +140,33 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
             }
         }
 		return funDiscountCouponResponses;
+	}
+
+	/**
+	 * 抵扣优惠券
+	 */
+	@Override
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
+		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andUserIdEqualTo(param.getUserId());
+		critreia.andOrderIdEqualTo(param.getOrderId());
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+			deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+            for (int i=0;i<funDiscountCoupons.size();i++){
+            	DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
+                BeanUtils.copyProperties(deductionCouponResponse,funDiscountCoupons.get(i));
+                deductionCouponResponse.setStatus("3");
+                Date date=new Date();
+                DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                deductionCouponResponse.setUseTime(Timestamp.valueOf(format.format(date)));
+                deductionCouponResponses.add(deductionCouponResponse);
+            }
+        }
+		return deductionCouponResponses;
 	}
 
 	

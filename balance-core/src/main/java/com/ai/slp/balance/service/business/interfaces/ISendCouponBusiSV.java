@@ -20,8 +20,9 @@ public interface ISendCouponBusiSV {
 	
 	/**
 	 * 查询可使用的优惠券
+	 * @param orderType 
 	 */
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param, String orderType);
 
 	
 	/**
@@ -40,4 +41,8 @@ public interface ISendCouponBusiSV {
 	 * 查询优惠券状态变为冻结
 	 */
 	public void updateStateFreeze(FreezeCouponRequest param);
+	/**
+	 * 抵扣优惠券
+	 */
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
 }

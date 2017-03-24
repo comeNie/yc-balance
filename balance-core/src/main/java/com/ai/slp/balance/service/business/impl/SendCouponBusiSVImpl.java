@@ -134,8 +134,8 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	 * 优惠码验证
 	 */
 	@Override
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
-		return discountCouponAtomSV.queryDeducionCoupon(param);
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param,String orderType) {
+		return discountCouponAtomSV.queryDeducionCoupon(param,orderType);
 	}
 	/**
 	 * 更改优惠券状态（解冻）
@@ -157,6 +157,11 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	@Override
 	public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) {
 		return discountCouponAtomSV.queryCouponByUserId(userId);
+	}
+
+	@Override
+	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
+		return discountCouponAtomSV.queryDeducionCoupon(param);
 	}
 	
 	

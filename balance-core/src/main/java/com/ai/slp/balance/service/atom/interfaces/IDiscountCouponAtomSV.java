@@ -15,12 +15,14 @@ public interface IDiscountCouponAtomSV {
 	//查询优惠券明细
 	/*public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param);*/
 
-	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
+	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param, String orderType);
 
 	List<FunDiscountCouponResponse> queryCouponByUserId(String userId);
 
 	void updateStateThaw(FreezeCouponRequest param);
 
 	void updateStateFreeze(FreezeCouponRequest param);
+
+	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
 	
 }
