@@ -1,6 +1,8 @@
 package com.ai.slp.balance.test.service;
 
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
-import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
+import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
@@ -34,31 +38,17 @@ public class SendCouponTest extends TestCase {
 
     @Test
     public void testSendCouponTest() {
-    	DeductionCouponRequest param = new DeductionCouponRequest();
-    	param.setCurrencyUnit("1");
-    	param.setOrderId(Long.parseLong("2000000024195005"));
-    	param.setTotalFee(200);
-    	param.setUsedScene("1");
-    	param.setUserId("1");
-    	BaseListResponse<DeductionCouponResponse> queryDisCountCoupon = sendCouponSV.queryDisCountCoupon(param);
-    	System.out.println(queryDisCountCoupon);
+    	
+    	List<FunCouponUseRuleQueryResponse> queryFunCouponUseRule = couponUseRuleSV.queryFunCouponUseRule("1");
+    	System.out.println(queryFunCouponUseRule);
     }
     
     @Test
     public void test() {
-    	SaveFunCouponTemplate req = new SaveFunCouponTemplate();
-    	req.setCouponDesc("Q币");
-    	req.setCouponName("腾讯");
-    	req.setCouponUserId("2");
-    	req.setCurrencyUnit("1");
-    	req.setEffectiveTime(4);
-    	req.setFaceValue(10);
-    	req.setMaxCountIssue("5");
-    	req.setStatus("1");
-    	req.setUsedScene("2");
-    	req.setUseLimits("1");
-    	Integer saveCouponUseRule = couponTemplateSV.savaCouponTemplate(req);
-    	System.out.println(saveCouponUseRule);
+    	FunCouponTemplateQueryRequest param = new FunCouponTemplateQueryRequest();
+    	param.setCouponName("注册");
+    	FunCouponTemplateQueryResponse queryFunCouponTemplate = couponTemplateSV.queryFunCouponTemplate(param);
+    	System.out.println(queryFunCouponTemplate);
     }
     
     

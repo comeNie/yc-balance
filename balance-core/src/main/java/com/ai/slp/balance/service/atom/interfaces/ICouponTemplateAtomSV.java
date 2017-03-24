@@ -11,7 +11,6 @@ import com.ai.slp.balance.dao.mapper.bo.FunCouponTemplate;
 
 public interface ICouponTemplateAtomSV {
      
-	public void insertBuildCouponTemplet(FunCouponTemplate couponTemplate);
 	/**
 	 * 模糊查询优惠券模板列表
 	 * @param funCouponTemplateQueryRequest

@@ -25,13 +25,6 @@ import com.ai.slp.balance.service.atom.interfaces.ICouponTemplateAtomSV;
 public class CouponTemplateAtomSVImpl implements ICouponTemplateAtomSV {
 
 	/**
-	 * 优惠券模板表添加数据
-	 */
-	@Override
-	public void insertBuildCouponTemplet(FunCouponTemplate couponTemplate) {
-		MapperFactory.getFunCouponTemplateMapper().insert(couponTemplate);
-	}
-	/**
 	 *模糊查询优惠券模板列表
 	 */
 	@Override

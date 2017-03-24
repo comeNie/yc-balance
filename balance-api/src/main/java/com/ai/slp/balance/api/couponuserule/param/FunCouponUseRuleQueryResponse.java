@@ -1,8 +1,10 @@
 package com.ai.slp.balance.api.couponuserule.param;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class FunCouponUseRuleQueryResponse {
+public class FunCouponUseRuleQueryResponse implements Serializable{
+	private static final long serialVersionUID = 1L;
     private String couponUserId;
 
     private Integer faceValue;
