@@ -1,12 +1,17 @@
 package com.ai.slp.balance.api.coupontemplate.param;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * 添加优惠券模板入参
  */
-public class SaveFunCouponTemplate {
+public class SaveFunCouponTemplate implements Serializable {
 	 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		/**
 	 	 * 模板ID
 	 	 */
 		private Integer templateId;
