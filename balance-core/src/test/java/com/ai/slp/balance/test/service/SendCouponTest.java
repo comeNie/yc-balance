@@ -13,6 +13,7 @@ import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
+import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
@@ -52,10 +53,21 @@ public class SendCouponTest extends TestCase {
     }
     
     
-    /*@Test
+    @Test
     public void testDepositForegift() {
-        sendCouponSV.offLineSendCoupon(3, "注册", "1");
-    }*/
+    	SaveFunCouponTemplate req = new SaveFunCouponTemplate();
+    	req.setCouponDesc("迅雷活动");
+    	req.setCouponName("迅雷活动");
+    	req.setCouponUserId("0");
+    	req.setCurrencyUnit("2");
+    	req.setFaceValue(100);
+    	req.setFaceValueDown(80);
+    	req.setStatus("1");
+    	req.setMaxCountIssue("20");
+    	req.setUsedScene("2");
+    	req.setUseLimits("1");
+        couponTemplateSV.savaCouponTemplate(req);
+    }
     
     
     /*public static void main(String[] args) throws ParseException {

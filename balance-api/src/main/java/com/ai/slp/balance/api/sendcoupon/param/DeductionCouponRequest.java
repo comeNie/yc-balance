@@ -18,6 +18,14 @@ public class DeductionCouponRequest {
 	private long orderId;
 	/**
 	 * 优惠券使用场景
+	 *	1译云-中文站
+	 *	2译云-英文站
+	 *	3百度
+	 *	4金山
+	 *	5wap-中文
+	 *	6wap-英文
+	 *	7找翻译
+	 *	8微信助手
 	 */
 	private String usedScene;
 	/**
