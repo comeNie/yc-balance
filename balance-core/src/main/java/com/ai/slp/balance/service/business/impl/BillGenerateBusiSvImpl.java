@@ -10,13 +10,12 @@ import com.ai.slp.balance.dao.mapper.bo.TAccountParam;
 import com.ai.slp.balance.dao.mapper.bo.TAccountParamCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
 import com.ai.slp.balance.service.atom.interfaces.IBillGenerateAtomSV;
-import com.ai.slp.balance.service.atom.interfaces.IFunAccountAtomSV;
-import com.ai.slp.balance.service.atom.interfaces.IFunAccountDetailAtomSV;
 import com.ai.slp.balance.service.business.interfaces.IBillGenerateBusiSV;
 import com.ai.slp.balance.util.DubboUtil;
 import com.ai.yc.order.api.orderallocation.interfaces.IOrderAllocationSV;
-import com.ai.yc.order.api.orderallocation.param.OrdAllocationePersonRequest;
-import com.ai.yc.order.api.orderallocation.param.OrdAllocationePersones;
+import com.ai.yc.order.api.orderallocation.param.OrdAlloInterperFeeInfoResponse;
+import com.ai.yc.order.api.orderallocation.param.OrdAlloInterperFeeRequest;
+
 import com.ai.yc.order.api.orderquery.interfaces.IOrderQuerySV;
 import com.ai.yc.order.api.orderquery.param.OrdOrderVo;
 import com.ai.yc.order.api.orderquery.param.QueryOrderRequest;
@@ -137,15 +136,12 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                     //lsp译员支出账单中的
                     Long translatorFee = 0l;
                     for (OrdOrderVo orderVo:orderVos0){
-                        OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
-                        ordAllocationePersonRequest.setOrderId(orderVo.getOrderId());
-                        ordAllocationePersonRequest.setReceiveState("1");
-                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
-                        if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
-                            List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
-                            for (OrdAllocationePersones ordAllocationePersones:result){
-                                translatorFee+=ordAllocationePersones.getInterperFee();
-                            }
+                        OrdAlloInterperFeeRequest ordAlloInterperFeeRequest = new OrdAlloInterperFeeRequest();
+                        ordAlloInterperFeeRequest.setOrderId(orderVo.getOrderId());
+                        OrdAlloInterperFeeInfoResponse ordAlloInterperFeeInfoResponse = iOrderAllocationSV.queryAlloInterperFee(ordAlloInterperFeeRequest);
+                        if (ordAlloInterperFeeInfoResponse!=null&&ordAlloInterperFeeInfoResponse.getResponseHeader().getResultCode().equals("000000")){
+                            long interperFee = ordAlloInterperFeeInfoResponse.getInterperFee();
+                            translatorFee+=interperFee;
                         }
                     }
                     Long accountAmount = billFee0-platFee0-translatorFee;
@@ -155,15 +151,11 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                         if (b){
                             //lsp译员支出
                             Long translatorFeeDetail = 0l;
-                            OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
-                            ordAllocationePersonRequest.setOrderId(orderVos0.get(j).getOrderId());
-                            ordAllocationePersonRequest.setReceiveState("1");
-                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
-                            if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
-                                List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
-                                for (OrdAllocationePersones ordAllocationePersones:result){
-                                    translatorFeeDetail+=ordAllocationePersones.getInterperFee();
-                                }
+                            OrdAlloInterperFeeRequest ordAlloInterperFeeRequest = new OrdAlloInterperFeeRequest();
+                            ordAlloInterperFeeRequest.setOrderId(orderVos0.get(j).getOrderId());
+                            OrdAlloInterperFeeInfoResponse ordAlloInterperFeeInfoResponse = iOrderAllocationSV.queryAlloInterperFee(ordAlloInterperFeeRequest);
+                            if (ordAlloInterperFeeInfoResponse!=null&&ordAlloInterperFeeInfoResponse.getResponseHeader().getResultCode().equals("000000")){
+                                translatorFeeDetail = ordAlloInterperFeeInfoResponse.getInterperFee();
                             }
                             //lsp结余 = 订单金额-译员支出-平台佣金
                             Long lspFee = orderVos0.get(j).getTotalFee()-orderVos0.get(j).getPlatFee()-translatorFeeDetail;
@@ -217,15 +209,12 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                     //lsp译员支出账单中的
                     Long translatorFee = 0l;
                     for (OrdOrderVo orderVo:orderVos1){
-                        OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
-                        ordAllocationePersonRequest.setOrderId(orderVo.getOrderId());
-                        ordAllocationePersonRequest.setReceiveState("1");
-                        BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
-                        if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
-                            List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
-                            for (OrdAllocationePersones ordAllocationePersones:result){
-                                translatorFee+=ordAllocationePersones.getInterperFee();
-                            }
+                        OrdAlloInterperFeeRequest ordAlloInterperFeeRequest = new OrdAlloInterperFeeRequest();
+                        ordAlloInterperFeeRequest.setOrderId(orderVo.getOrderId());
+                        OrdAlloInterperFeeInfoResponse ordAlloInterperFeeInfoResponse = iOrderAllocationSV.queryAlloInterperFee(ordAlloInterperFeeRequest);
+                        if (ordAlloInterperFeeInfoResponse!=null&&ordAlloInterperFeeInfoResponse.getResponseHeader().getResultCode().equals("000000")){
+                            long interperFee = ordAlloInterperFeeInfoResponse.getInterperFee();
+                            translatorFee+=interperFee;
                         }
                     }
                     Long accountAmount = billFee1-platFee1-translatorFee;
@@ -235,15 +224,11 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                         if (b){
                             //lsp译员支出
                             Long translatorFeeDetail = 0l;
-                            OrdAllocationePersonRequest ordAllocationePersonRequest = new OrdAllocationePersonRequest();
-                            ordAllocationePersonRequest.setOrderId(orderVos1.get(j).getOrderId());
-                            ordAllocationePersonRequest.setReceiveState("1");
-                            BaseListResponse<OrdAllocationePersones> ordAllocationePersonesBaseListResponse = iOrderAllocationSV.queryAllocationPersonInfo(ordAllocationePersonRequest);
-                            if (ordAllocationePersonesBaseListResponse!=null&&ordAllocationePersonesBaseListResponse.getResponseHeader().getResultCode().equals("000000")){
-                                List<OrdAllocationePersones> result = ordAllocationePersonesBaseListResponse.getResult();
-                                for (OrdAllocationePersones ordAllocationePersones:result){
-                                    translatorFeeDetail+=ordAllocationePersones.getInterperFee();
-                                }
+                            OrdAlloInterperFeeRequest ordAlloInterperFeeRequest = new OrdAlloInterperFeeRequest();
+                            ordAlloInterperFeeRequest.setOrderId(orderVos1.get(j).getOrderId());
+                            OrdAlloInterperFeeInfoResponse ordAlloInterperFeeInfoResponse = iOrderAllocationSV.queryAlloInterperFee(ordAlloInterperFeeRequest);
+                            if (ordAlloInterperFeeInfoResponse!=null&&ordAlloInterperFeeInfoResponse.getResponseHeader().getResultCode().equals("000000")){
+                                translatorFeeDetail = ordAlloInterperFeeInfoResponse.getInterperFee();
                             }
                             //lsp结余 = 订单金额-译员支出-平台佣金
                             Long lspFee = orderVos1.get(j).getTotalFee()-orderVos1.get(j).getPlatFee()-translatorFeeDetail;
@@ -253,12 +238,12 @@ public class BillGenerateBusiSvImpl implements IBillGenerateBusiSV {
                     }
                 } else if (param=="1"){
                     Long accountAmountCompany1 = billFee1-discountFee1;
-                    String billID = billGenerateAtomSV.insertCompanyAccount(orderVos0.get(0), tAccountParams.get(i), billFee1,accountAmountCompany1,discountFee1, begindate, endDate);
-                    for (int j = 0;j<orderVos0.size();j++){
-                        boolean b = inTime(begindate, endDate, orderVos0.get(j).getFinishTime());
+                    String billID = billGenerateAtomSV.insertCompanyAccount(orderVos1.get(0), tAccountParams.get(i), billFee1,accountAmountCompany1,discountFee1, begindate, endDate);
+                    for (int j = 0;j<orderVos1.size();j++){
+                        boolean b = inTime(begindate, endDate, orderVos1.get(j).getFinishTime());
                         if (b){
                             //订单ID查询订单中心的搜索引擎获取到每个订单的信息，插入到账单明细表
-                            billGenerateAtomSV.insertAccountDetail(orderVos0.get(j),billID);
+                            billGenerateAtomSV.insertAccountDetail(orderVos1.get(j),billID);
                         }
                     }
                 }
