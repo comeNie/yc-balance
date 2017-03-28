@@ -74,17 +74,16 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		Date date=new Date();
         DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         funCouponTemplate.setCreateTime(Timestamp.valueOf(format.format(date)));
-		funCouponTemplate.setCurrencyUnit(req.getCurrencyUnit());
-		
-		funCouponTemplate.setEffectiveEndTime(req.getEffectiveEndTime());
-		funCouponTemplate.setEffectiveEndTime(req.getEffectiveStartTime());
+		funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(req.getEffectiveEndTime()));
+		funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(req.getEffectiveStartTime()));
 		funCouponTemplate.setEffectiveTime(req.getEffectiveTime());
 		funCouponTemplate.setFaceValue(req.getFaceValue());
 		funCouponTemplate.setFaceValueDown(req.getFaceValueDown());
 		funCouponTemplate.setFaceValueUp(req.getFaceValueUp());
 		funCouponTemplate.setMaxCountIssue(req.getMaxCountIssue());
-		funCouponTemplate.setReceiveEndTime(req.getReceiveEndTime());
-		funCouponTemplate.setReceiveStartTime(req.getReceiveStartTime());
+		funCouponTemplate.setReceiveEndTime(Timestamp.valueOf(req.getReceiveEndTime()));
+		funCouponTemplate.setReceiveStartTime(Timestamp.valueOf(req.getReceiveStartTime()));
+		funCouponTemplate.setCurrencyUnit(req.getCurrencyUnit());
 		funCouponTemplate.setStatus(req.getStatus());
 		funCouponTemplate.setUsedScene(req.getUsedScene());
 		funCouponTemplate.setUseLimits(req.getUseLimits());

@@ -66,19 +66,19 @@ public class SaveFunCouponTemplate implements Serializable {
 	    /**
 	     * 有效期开始时间
 	 	 */
-	    private Timestamp effectiveStartTime;
+	    private String effectiveStartTime;
 	    /**
 	     * 有效期结束时间
 	 	 */
-	    private Timestamp effectiveEndTime;
+	    private String effectiveEndTime;
 	    /**
 	     * 领取开始时间
 	 	 */
-	    private Timestamp receiveStartTime;
+	    private String receiveStartTime;
 	    /**
 	     * 领取结束时间
 	 	 */
-	    private Timestamp receiveEndTime;
+	    private String receiveEndTime;
 	    /**
 	     * 创建人
 	 	 */
@@ -191,40 +191,39 @@ public class SaveFunCouponTemplate implements Serializable {
 	    public void setEffectiveTime(Integer effectiveTime) {
 	        this.effectiveTime = effectiveTime;
 	    }
+	    public String getEffectiveStartTime() {
+			return effectiveStartTime;
+		}
 
-	    public Timestamp getEffectiveStartTime() {
-	        return effectiveStartTime;
-	    }
+		public void setEffectiveStartTime(String effectiveStartTime) {
+			this.effectiveStartTime = effectiveStartTime;
+		}
 
-	    public void setEffectiveStartTime(Timestamp effectiveStartTime) {
-	        this.effectiveStartTime = effectiveStartTime;
-	    }
+		public String getEffectiveEndTime() {
+			return effectiveEndTime;
+		}
 
-	    public Timestamp getEffectiveEndTime() {
-	        return effectiveEndTime;
-	    }
+		public void setEffectiveEndTime(String effectiveEndTime) {
+			this.effectiveEndTime = effectiveEndTime;
+		}
 
-	    public void setEffectiveEndTime(Timestamp effectiveEndTime) {
-	        this.effectiveEndTime = effectiveEndTime;
-	    }
+		public String getReceiveStartTime() {
+			return receiveStartTime;
+		}
 
-	    public Timestamp getReceiveStartTime() {
-	        return receiveStartTime;
-	    }
+		public void setReceiveStartTime(String receiveStartTime) {
+			this.receiveStartTime = receiveStartTime;
+		}
 
-	    public void setReceiveStartTime(Timestamp receiveStartTime) {
-	        this.receiveStartTime = receiveStartTime;
-	    }
+		public String getReceiveEndTime() {
+			return receiveEndTime;
+		}
 
-	    public Timestamp getReceiveEndTime() {
-	        return receiveEndTime;
-	    }
+		public void setReceiveEndTime(String receiveEndTime) {
+			this.receiveEndTime = receiveEndTime;
+		}
 
-	    public void setReceiveEndTime(Timestamp receiveEndTime) {
-	        this.receiveEndTime = receiveEndTime;
-	    }
-
-	    public String getCreateOperator() {
+		public String getCreateOperator() {
 	        return createOperator;
 	    }
 
