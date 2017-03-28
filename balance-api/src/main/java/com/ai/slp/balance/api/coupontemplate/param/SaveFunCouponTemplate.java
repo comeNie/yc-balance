@@ -1,7 +1,6 @@
 package com.ai.slp.balance.api.coupontemplate.param;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * 添加优惠券模板入参
@@ -83,10 +82,6 @@ public class SaveFunCouponTemplate implements Serializable {
 	     * 创建人
 	 	 */
 	    private String createOperator;
-	    /**
-	     * 创建时间
-	 	 */
-	    private Timestamp createTime;
 
 	    public Integer getTemplateId() {
 	        return templateId;
@@ -231,11 +226,4 @@ public class SaveFunCouponTemplate implements Serializable {
 	        this.createOperator = createOperator == null ? null : createOperator.trim();
 	    }
 
-	    public Timestamp getCreateTime() {
-	        return createTime;
-	    }
-
-	    public void setCreateTime(Timestamp createTime) {
-	        this.createTime = createTime;
-	    }
 }
