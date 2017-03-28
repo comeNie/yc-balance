@@ -57,7 +57,7 @@ public class SendCouponTest extends TestCase {
     public void testDepositForegift() {
     	SaveFunCouponTemplate req = new SaveFunCouponTemplate();
     	req.setCouponDesc("迅雷活动");
-    	req.setCouponName("迅雷活动");
+    	req.setCouponName("移动公");
     	req.setCouponUserId("0");
     	req.setCurrencyUnit("2");
     	req.setFaceValue(100);
@@ -66,6 +66,10 @@ public class SendCouponTest extends TestCase {
     	req.setMaxCountIssue("20");
     	req.setUsedScene("2");
     	req.setUseLimits("1");
+    	req.setEffectiveEndTime("2017-3-31 13:34:00");
+    	req.setEffectiveStartTime("2017-3-29 13:34:00");
+    	req.setReceiveEndTime("2017-3-31 13:34:00");
+    	req.setReceiveStartTime("2017-3-29 13:34:00");
         couponTemplateSV.savaCouponTemplate(req);
     }
     

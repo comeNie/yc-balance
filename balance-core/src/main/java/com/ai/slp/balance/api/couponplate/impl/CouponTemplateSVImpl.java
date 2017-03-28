@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
-import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
@@ -58,8 +58,19 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 	}
 
 	@Override
-	public Integer savaCouponTemplate(SaveFunCouponTemplate req) throws BusinessException, SystemException {
-		return iCouponTemplateBusiSV.saveCouponTempletList(req);
+	public BaseResponse savaCouponTemplate(SaveFunCouponTemplate req) throws BusinessException, SystemException {
+		BaseResponse response = new BaseResponse();
+		ResponseHeader responseHeader = new ResponseHeader();
+		try {
+			iCouponTemplateBusiSV.saveCouponTempletList(req);
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("添加优惠券模板成功");
+			response.setResponseHeader(responseHeader);
+		}catch (Exception e) {
+			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"添加优惠券模板失败");
+		}
+		return response;
 	}
 	/**
 	 * 根据优惠券模板ID查询优惠券明细
