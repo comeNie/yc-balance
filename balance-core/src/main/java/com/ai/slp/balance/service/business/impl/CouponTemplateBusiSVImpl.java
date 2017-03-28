@@ -74,9 +74,11 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 		Date date=new Date();
         DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         funCouponTemplate.setCreateTime(Timestamp.valueOf(format.format(date)));
+        
 		funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(req.getEffectiveEndTime()));
 		funCouponTemplate.setEffectiveStartTime(Timestamp.valueOf(req.getEffectiveStartTime()));
 		funCouponTemplate.setEffectiveTime(req.getEffectiveTime());
+		
 		funCouponTemplate.setFaceValue(req.getFaceValue());
 		funCouponTemplate.setFaceValueDown(req.getFaceValueDown());
 		funCouponTemplate.setFaceValueUp(req.getFaceValueUp());
