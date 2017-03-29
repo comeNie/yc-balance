@@ -39,6 +39,8 @@ public class DeductAtomSVImpl implements IDeductAtomSV {
     private static final Logger log = LogManager.getLogger(DepositAtomSVImpl.class);
 
     @Autowired
+    private IFunAccountInfoAtomSV funAccountInfoSV;
+    @Autowired
     private IFunFundBookAtomSV funFundBookSV;
 
     @Autowired
@@ -191,7 +193,8 @@ public class DeductAtomSVImpl implements IDeductAtomSV {
         funFundSerial.setPeerSerialCode(vo.getExternalId());
         funFundSerial.setTotalAmount(vo.getTotalAmount());
         funFundSerial.setAcctId1(vo.getAccountId());
-        // funFundSerial.setAcctName1(vo.getAccountInfo().getAcctName());// TODO 是否要保存账户姓名
+        FunAccountInfo funAccountInfo = funAccountInfoSV.getBeanByPrimaryKey(vo.getAccountId());
+         funFundSerial.setAcctName1(funAccountInfo.getAcctName());// TODO 是否要保存账户姓名
         funFundSerial.setRemark(vo.getBusiDesc());
         funFundSerial.setOptType(BalancesCostants.FunFundSerial.OptType.DEDUCT);
         funFundSerial.setPayStatus(BalancesCostants.FunFundSerial.PayStatus.SUCCESS);// TODO 成功？
