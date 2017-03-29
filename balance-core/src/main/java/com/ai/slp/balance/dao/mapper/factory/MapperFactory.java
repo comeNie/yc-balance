@@ -27,9 +27,9 @@ public class MapperFactory {
         MapperFactory.sqlSessionTemplate = st;
     }
 
-    public static IncomeOutQueryAttachMapper getIncomeOutQueryAttachMapper() {
+    /*public static IncomeOutQueryAttachMapper getIncomeOutQueryAttachMapper() {
         return sqlSessionTemplate.getMapper(IncomeOutQueryAttachMapper.class);
-    }
+    }*/
     public static FunSubjectMapper getFunSubjectMapper() {
         return sqlSessionTemplate.getMapper(FunSubjectMapper.class);
     }
