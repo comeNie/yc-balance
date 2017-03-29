@@ -39,7 +39,8 @@ import com.alibaba.fastjson.JSON;
 public class DepositAtomSVImpl implements IDepositAtomSV {
 
     private static final Logger log = LogManager.getLogger(DepositAtomSVImpl.class);
-
+    @Autowired
+    private IFunAccountInfoAtomSV funAccountInfoSV;
     @Autowired
     private IFunFundBookAtomSV funFundBookSV;
 
@@ -228,6 +229,8 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
         funFundSerial.setPeerSerialCode(vo.getBusiSerialNo());
         funFundSerial.setTotalAmount(vo.getTotalAmount());
         funFundSerial.setAcctId1(vo.getAccountId());
+        FunAccountInfo funAccountInfo = funAccountInfoSV.getBeanByPrimaryKey(vo.getAccountId());
+        funFundSerial.setAcctName1(funAccountInfo.getAcctName());
         // funFundSerial.setAcctName1(vo.getAccountInfo().getAcctName());// TODO 是否要保存账户姓名
         funFundSerial.setRemark(vo.getBusiDesc());
         funFundSerial.setOptType(BalancesCostants.FunFundSerial.OptType.DEPOSIT);
