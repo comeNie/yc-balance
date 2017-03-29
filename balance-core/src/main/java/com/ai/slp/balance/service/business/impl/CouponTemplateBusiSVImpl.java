@@ -95,7 +95,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 			FunCouponUseRule funCouponUseRule = new FunCouponUseRule();
 	    	funCouponUseRule.setCouponUserId(SeqUtil.getNewId(SeqConstants.FUN_COUPON_USE_RULE$COUPON_USER_ID).toString());
 	    	funCouponUseRule.setFaceValue(req.getFaceValue());
-	    	funCouponUseRule.setRequiredMoneyAmount(null);
+	    	funCouponUseRule.setRequiredMoneyAmount(req.getRequiredMoneyAmount());
 	    	funCouponUseRule.setCurrencyUnit(funCouponTemplate.getCurrencyUnit());
 	    	Date date1=new Date();
 	        DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -82,7 +82,11 @@ public class SaveFunCouponTemplate implements Serializable {
 	     * 创建人
 	 	 */
 	    private String createOperator;
-
+	    
+	    /**
+		 *满..可用
+	     */
+	    public Integer requiredMoneyAmount;
 	    public Integer getTemplateId() {
 	        return templateId;
 	    }
@@ -225,5 +229,13 @@ public class SaveFunCouponTemplate implements Serializable {
 	    public void setCreateOperator(String createOperator) {
 	        this.createOperator = createOperator == null ? null : createOperator.trim();
 	    }
+
+		public Integer getRequiredMoneyAmount() {
+			return requiredMoneyAmount;
+		}
+
+		public void setRequiredMoneyAmount(Integer requiredMoneyAmount) {
+			this.requiredMoneyAmount = requiredMoneyAmount;
+		}
 
 }

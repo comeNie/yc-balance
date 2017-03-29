@@ -59,7 +59,7 @@ public class SendCouponTest extends TestCase {
     	SaveFunCouponTemplate req = new SaveFunCouponTemplate();
     	req.setCouponDesc("迅雷活动");
     	req.setCouponName("百度");
-    	req.setCouponUserId("1");
+    	req.setCouponUserId("0");
     	req.setCurrencyUnit("2");
     	req.setFaceValue(100);
     	req.setFaceValueDown(80);
