@@ -10,7 +10,7 @@ import com.ai.slp.balance.service.atom.interfaces.IActivityAtomSV;
 import com.ai.slp.balance.service.business.interfaces.IActivityBusiSV;
 @Service
 @Transactional
-public class ActivitySVImpl implements IActivityBusiSV {
+public class ActivityBusiSVImpl implements IActivityBusiSV {
 	
 	@Autowired
 	private IActivityAtomSV activityAtomSV;
