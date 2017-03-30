@@ -3,8 +3,13 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,11 +71,13 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	 */
 	@Override
 	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException {
-		
 		FunCouponTemplate funCouponTemplate = new FunCouponTemplate();
 		funCouponTemplate.setCouponName(req.getCouponName());
 		funCouponTemplate.setCouponDesc(req.getCouponDesc());
-		funCouponTemplate.setCreateOperator("admin");
+		HttpServletRequest request=null;
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		funCouponTemplate.setCreateOperator(username);
 		Date date=new Date();
         DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         funCouponTemplate.setCreateTime(Timestamp.valueOf(format.format(date)));
@@ -93,7 +100,8 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 			funCouponTemplate.setCouponUserId(req.getCouponUserId());
 		}else{
 			FunCouponUseRule funCouponUseRule = new FunCouponUseRule();
-	    	funCouponUseRule.setCouponUserId(SeqUtil.getNewId(SeqConstants.FUN_COUPON_USE_RULE$COUPON_USER_ID).toString());
+			String couponUserId = SeqUtil.getNewId(SeqConstants.FUN_COUPON_USE_RULE$COUPON_USER_ID).toString();
+	    	funCouponUseRule.setCouponUserId(couponUserId);
 	    	funCouponUseRule.setFaceValue(req.getFaceValue());
 	    	funCouponUseRule.setRequiredMoneyAmount(req.getRequiredMoneyAmount());
 	    	funCouponUseRule.setCurrencyUnit(funCouponTemplate.getCurrencyUnit());
@@ -101,7 +109,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	        DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        funCouponUseRule.setCreateTime(Timestamp.valueOf(format1.format(date1)));
 	        couponUseRuleAtomSV.insertBuildCouponUseRule(funCouponUseRule);
-	        funCouponTemplate.setCouponUserId(SeqUtil.getNewId(SeqConstants.FUN_COUPON_USE_RULE$COUPON_USER_ID).toString());
+	        funCouponTemplate.setCouponUserId(couponUserId);
 		}
 		return couponTemplateAtomSV.saveCouponTempletList(funCouponTemplate);
 	}

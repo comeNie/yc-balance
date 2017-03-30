@@ -59,18 +59,19 @@ public class SendCouponTest extends TestCase {
     	SaveFunCouponTemplate req = new SaveFunCouponTemplate();
     	req.setCouponDesc("迅雷活动");
     	req.setCouponName("百度");
-    	req.setCouponUserId("0");
+    	req.setCouponUserId("1");
     	req.setCurrencyUnit("2");
     	req.setFaceValue(100);
     	req.setFaceValueDown(80);
     	req.setStatus("1");
     	req.setMaxCountIssue("20");
-    	req.setUsedScene("2,3,4");
+    	req.setUsedScene("4");
     	req.setUseLimits("1");
     	req.setEffectiveEndTime("2017-3-31 13:34:00");
     	req.setEffectiveStartTime("2017-3-29 13:34:00");
     	req.setReceiveEndTime("2017-3-31 13:34:00");
     	req.setReceiveStartTime("2017-3-29 13:34:00");
+    	req.setRequiredMoneyAmount(3);
         BaseResponse savaCouponTemplate = couponTemplateSV.savaCouponTemplate(req);
         
         System.out.println(savaCouponTemplate);
