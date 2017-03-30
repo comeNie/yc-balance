@@ -7,9 +7,7 @@ import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.fundquery.impl.FundQuerySVImpl;
 import com.ai.slp.balance.api.incomeoutquery.interfaces.IncomeOutQuerySV;
-import com.ai.slp.balance.api.incomeoutquery.param.FundBookQueryResponse;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetail;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequest;
+import com.ai.slp.balance.api.incomeoutquery.param.*;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.IincomeOutQueryBusiSV;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -57,5 +55,29 @@ public class IncomeOutQuerySVImpl implements IncomeOutQuerySV{
         FundBookQueryResponse fundBookQueryResponse = new FundBookQueryResponse();
         fundBookQueryResponse.setPageInfo(pageInfo);
         return fundBookQueryResponse;
+    }
+
+    @Override
+    public FundBookQueryResponseAll incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException, SystemException {
+        FundBookQueryResponseAll fundBookQueryResponseAll = new FundBookQueryResponseAll();
+        ResponseHeader responseHeader = new ResponseHeader();
+        try {
+            PageInfo<IncomeDetailAll> pageInfo = iincomeOutQueryBusiSV.incomeOutQueryAll(param);
+            fundBookQueryResponseAll.setPageInfo(pageInfo);
+            responseHeader.setIsSuccess(true);
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+            responseHeader.setResultMessage("收支查询成功!");
+            fundBookQueryResponseAll.setResponseHeader(responseHeader);
+        }catch (BusinessException businessException){
+            responseHeader.setResultCode(businessException.getErrorCode());
+            responseHeader.setResultMessage(businessException.getErrorMessage());
+            fundBookQueryResponseAll.setResponseHeader(responseHeader);
+        }catch (Exception e){
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+            responseHeader.setResultMessage("账单查询失败");
+            fundBookQueryResponseAll.setResponseHeader(responseHeader);
+        }
+
+        return fundBookQueryResponseAll;
     }
 }

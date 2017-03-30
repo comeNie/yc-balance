@@ -4,7 +4,9 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetail;
+import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetailAll;
 import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequest;
+import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequestAll;
 
 
 /**
@@ -22,4 +24,13 @@ public interface IincomeOutQueryBusiSV {
 
     public PageInfo<IncomeDetail> incomeOutQuery(IncomeQueryRequest accountId) throws BusinessException,SystemException;
 
+    /**
+     *为用户提供查询账户余额及指定时间段内全部账户收入和支付的记录。
+     * @param param
+     * @return
+     * @throws BusinessException
+     * @throws SystemException
+     */
+
+    public PageInfo<IncomeDetailAll> incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException,SystemException;
 }

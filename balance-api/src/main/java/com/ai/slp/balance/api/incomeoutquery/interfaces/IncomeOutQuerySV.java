@@ -3,7 +3,9 @@ package com.ai.slp.balance.api.incomeoutquery.interfaces;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.incomeoutquery.param.FundBookQueryResponse;
+import com.ai.slp.balance.api.incomeoutquery.param.FundBookQueryResponseAll;
 import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequest;
+import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequestAll;
 
 
 import javax.ws.rs.Consumes;
@@ -36,4 +38,17 @@ public interface IncomeOutQuerySV {
     @POST
     @Path("/incomeOutQuery")
     public FundBookQueryResponse incomeOutQuery(IncomeQueryRequest accountId) throws BusinessException,SystemException;
+
+    /**
+     *为运营后台提供查询账户余额及指定时间段内全部账户收入和支付的记录。
+     * @param param
+     * @return
+     * @throws BusinessException
+     * @throws SystemException
+     * @ApiDocMethod
+     * @RestRelativeURL incomeOutQueryService/incomeOutQuery
+     */
+    @POST
+    @Path("/incomeOutQuery")
+    public FundBookQueryResponseAll incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException,SystemException;
 }

@@ -7,9 +7,7 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.fundquery.param.AccountIdParam;
-import com.ai.slp.balance.api.incomeoutquery.param.FundBookQueryResponse;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetail;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequest;
+import com.ai.slp.balance.api.incomeoutquery.param.*;
 import com.ai.slp.balance.dao.mapper.bo.FunFundDetail;
 import com.ai.slp.balance.dao.mapper.bo.FunFundDetailCriteria;
 import com.ai.slp.balance.dao.mapper.bo.FunFundSerial;
@@ -19,6 +17,7 @@ import com.ai.slp.balance.dao.mapper.interfaces.FunFundDetailMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunFundSerialMapper;
 import com.ai.slp.balance.service.atom.impl.IncomeOutQueryAtomSVImpl;
 import com.ai.slp.balance.service.atom.interfaces.IFunFundSerialAtomSV;
+import com.ai.slp.balance.service.atom.interfaces.IincomeOutQueryAtomSV;
 import com.ai.slp.balance.service.business.interfaces.IincomeOutQueryBusiSV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +34,8 @@ import java.util.List;
 @Transactional
 public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
 
+    @Autowired
+    private IincomeOutQueryAtomSV incomeOutQueryAtomSV;
     @Override
     public PageInfo<IncomeDetail> incomeOutQuery(IncomeQueryRequest accountId) throws BusinessException, SystemException {
         //从serial中取出需要的字段
@@ -85,7 +86,6 @@ public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
         }else {
             return null;
         }
-
         if(!CollectionUtil.isEmpty(incomeDetails)){
             pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
             pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
@@ -94,9 +94,42 @@ public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
         }else {
             return null;
         }
+        //将两张表中的字段放在IncomeDetail中
+        return pageInfo;
+    }
 
-
-
+    @Override
+    public PageInfo<IncomeDetailAll> incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException, SystemException {
+        PageInfo<IncomeDetailAll> pageInfo = new PageInfo<IncomeDetailAll>();
+        List<IncomeDetailAll> allIncomeOut = null;
+        if (param.getPageInfo() == null) {
+            pageInfo.setPageNo(1);
+            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+            allIncomeOut = incomeOutQueryAtomSV.getAllIncomeOut(param.getSerialCode(), param.getNickName(),
+                    param.getBeginDate(), param.getEndDate(),
+                    param.getChannel(), param.getState(),
+                    param.getCurrencyUnit(), param.getBeginAmount(),
+                    param.getEndAmount(), param.getIncomeFlag(),
+                    param.getOptType(),pageInfo.getPageNo(),pageInfo.getPageSize());
+        }else {
+            pageInfo.setPageNo(param.getPageInfo().getPageNo());
+            pageInfo.setPageSize(param.getPageInfo().getPageSize() == null ? 10
+                    : param.getPageInfo().getPageSize());
+            allIncomeOut = incomeOutQueryAtomSV.getAllIncomeOut(param.getSerialCode(), param.getNickName(),
+                    param.getBeginDate(), param.getEndDate(),
+                    param.getChannel(), param.getState(),
+                    param.getCurrencyUnit(), param.getBeginAmount(),
+                    param.getEndAmount(), param.getIncomeFlag(),
+                    param.getOptType(),pageInfo.getPageNo(),pageInfo.getPageSize());
+        }
+        if(!CollectionUtil.isEmpty(allIncomeOut)){
+            pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
+            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
+            pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
+            pageInfo.setResult(allIncomeOut);
+        }else {
+            return null;
+        }
         //将两张表中的字段放在IncomeDetail中
         return pageInfo;
     }
