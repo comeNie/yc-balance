@@ -5,11 +5,13 @@ import java.util.Map;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 public interface ISendCouponBusiSV {
@@ -52,4 +54,8 @@ public interface ISendCouponBusiSV {
 	 * 查询优惠券数量
 	 */
 	public Map<String, Integer> findCouponCount(QueryCouCountRequest request);
+	/**
+	 * 根据用户ID、状态查询优惠券
+	 */
+	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest);
 }

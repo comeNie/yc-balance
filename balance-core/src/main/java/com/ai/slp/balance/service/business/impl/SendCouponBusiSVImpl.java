@@ -18,13 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 import com.ai.slp.balance.dao.mapper.bo.FunActivity;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRel;
@@ -238,6 +241,12 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
              fudMapper.insertSelective(funDiscountCoupon);
 		}
 	}*/
+
+	@Override
+	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest) {
+		PageInfo<DeductionCouponResponse> deductionCouponResponse = discountCouponAtomSV.queryCouponPage(queryCouponRequest);
+		return deductionCouponResponse;
+	}
 	
 	
 	

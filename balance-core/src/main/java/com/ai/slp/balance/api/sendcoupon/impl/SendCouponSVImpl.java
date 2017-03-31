@@ -13,6 +13,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
+import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
@@ -22,6 +23,8 @@ import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.ICouponUseRuleBusiSV;
@@ -276,6 +279,32 @@ public class SendCouponSVImpl implements ISendCouponSV {
 		ResponseHeader responseHeader = new ResponseHeader(true, ExceptCodeConstants.Special.SYSTEM_SUCCESS, "查询优惠券数量成功");
 		response.setResponseHeader(responseHeader);
 		return response;
+	}
+
+	/**
+	 * 根据用户ID、状态查询优惠券
+	 */
+	@Override
+	public QueryCouponRsponse queryCouponPage(QueryCouponRequest queryCouponRequest)throws BusinessException, SystemException {
+		QueryCouponRsponse queryCouponRsponse = new QueryCouponRsponse();
+		ResponseHeader responseHeader = new ResponseHeader();
+		try {
+            PageInfo<DeductionCouponResponse> pageInfo = sendCouponBusiSV.queryCouponPage(queryCouponRequest);
+            queryCouponRsponse.setPageInfo(pageInfo);
+            responseHeader.setIsSuccess(true);
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+            responseHeader.setResultMessage("优惠券模板查询成功");
+            queryCouponRsponse.setResponseHeader(responseHeader);
+        }catch (BusinessException businessException){
+            responseHeader.setResultCode(businessException.getErrorCode());
+            responseHeader.setResultMessage(businessException.getErrorMessage());
+            queryCouponRsponse.setResponseHeader(responseHeader);
+        }catch (Exception e){
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+            responseHeader.setResultMessage("优惠券模板查询失败");
+            queryCouponRsponse.setResponseHeader(responseHeader);
+        }
+		return queryCouponRsponse;
 	}
 	
 	/*@Override

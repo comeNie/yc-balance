@@ -11,13 +11,16 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
@@ -180,6 +183,50 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		Map<String, Integer> countMap = new HashMap<String, Integer>();
 		countMap.put(request.getStatus(), countByExample);
 		return countMap;
+	}
+
+	@Override
+	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest) {
+		 List<DeductionCouponResponse> deductionCouponResponses =  new ArrayList<DeductionCouponResponse>();
+		 FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		 FunDiscountCouponCriteria.Criteria criteria= funDiscountCouponCriteria.createCriteria();
+	        if (!StringUtil.isBlank(queryCouponRequest.getStatus())){
+	            criteria.andCurrencyUnitEqualTo(queryCouponRequest.getStatus());
+	        }
+	        if (!StringUtil.isBlank(queryCouponRequest.getUserId())){
+	            criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
+	        }
+	        PageInfo<DeductionCouponResponse> pageInfo = new PageInfo<DeductionCouponResponse>();
+	        FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+	        
+	        pageInfo.setCount(mapper.countByExample(funDiscountCouponCriteria));
+	        
+	        if (queryCouponRequest.getPageInfo() == null) {
+	            pageInfo.setPageNo(1);
+	            pageInfo.setPageSize(pageInfo.getPageSize() == null ? 20 : pageInfo.getPageSize());
+	        }else {
+	            pageInfo.setPageNo(queryCouponRequest.getPageInfo().getPageNo());
+	            pageInfo.setPageSize(queryCouponRequest.getPageInfo().getPageSize() == null ? 20
+	                    : queryCouponRequest.getPageInfo().getPageSize());
+	            funDiscountCouponCriteria.setLimitStart(queryCouponRequest.getPageInfo()
+	                    .getStartRowIndex());
+	            funDiscountCouponCriteria.setLimitEnd(queryCouponRequest.getPageInfo().getPageSize());
+	        }
+	        List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+
+	        if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+
+	            for (int i=0;i<funDiscountCoupons.size();i++){
+	            	DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
+	                BeanUtils.copyProperties(deductionCouponResponse,funDiscountCoupons.get(i));
+	                deductionCouponResponses.add(deductionCouponResponse);
+	            }
+	        }
+	        pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
+	        pageInfo.setPageSize(pageInfo.getPageSize() == null ? 20 : pageInfo.getPageSize());
+	        pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
+	        pageInfo.setResult(deductionCouponResponses);
+	        return pageInfo;
 	}
 
 	
