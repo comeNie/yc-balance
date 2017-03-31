@@ -5,7 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,7 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -80,7 +83,6 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 */
 	@Override
 	public void updateStateThaw(FreezeCouponRequest param) {
-		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andCouponIdEqualTo(param.getCouponId());
@@ -88,34 +90,28 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
-			funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
-            for (int i=0;i<funDiscountCoupons.size();i++){
-            	FunDiscountCouponResponse funDiscountCouponResponse = new FunDiscountCouponResponse();
-                BeanUtils.copyProperties(funDiscountCouponResponse,funDiscountCoupons.get(i));
-                funDiscountCouponResponse.setStatus("3");
-                funDiscountCouponResponses.add(funDiscountCouponResponse);
-            }
+            for (FunDiscountCoupon funDiscountCoupon : funDiscountCoupons) {
+    			funDiscountCoupon.setStatus("4");
+    			mapper.updateByExample(funDiscountCoupon, funDiscountCouponCriteria);
+    		}
         }
+		
 	}
 	/**
 	 * 更改优惠券状态（冻结）
 	 */
 	@Override
 	public void updateStateFreeze(FreezeCouponRequest param) {
-		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andCouponIdEqualTo(param.getCouponId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
-			funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
-            for (int i=0;i<funDiscountCoupons.size();i++){
-            	FunDiscountCouponResponse funDiscountCouponResponse = new FunDiscountCouponResponse();
-                BeanUtils.copyProperties(funDiscountCouponResponse,funDiscountCoupons.get(i));
-                funDiscountCouponResponse.setStatus("1");
-                funDiscountCouponResponses.add(funDiscountCouponResponse);
-            }
+            for (FunDiscountCoupon funDiscountCoupon : funDiscountCoupons) {
+    			funDiscountCoupon.setStatus("3");
+    			mapper.updateByExample(funDiscountCoupon, funDiscountCouponCriteria);
+    		}
         }
 	}
 	/**
@@ -167,6 +163,19 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
             }
         }
 		return deductionCouponResponses;
+	}
+
+	@Override
+	public Map<String, Integer> findCouponCount(QueryCouCountRequest request) {
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andStatusEqualTo(request.getStatus());
+		critreia.andUserIdEqualTo(request.getUserId());
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		int countByExample = mapper.countByExample(funDiscountCouponCriteria);
+		Map<String, Integer> countMap = new HashMap<String, Integer>();
+		countMap.put(request.getStatus(), countByExample);
+		return countMap;
 	}
 
 	

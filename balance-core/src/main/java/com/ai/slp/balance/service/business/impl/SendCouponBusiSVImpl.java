@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +24,7 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.dao.mapper.bo.FunActivity;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRel;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRelCriteria;
@@ -37,6 +39,7 @@ import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
 import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
+import com.ai.yc.order.api.orderquery.param.QueryOrdCountRequest;
 @Service
 @Transactional
 public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
@@ -163,9 +166,11 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
 		return discountCouponAtomSV.queryDeducionCoupon(param);
 	}
-	
-	
-	
+
+	@Override
+	public Map<String, Integer> findCouponCount(QueryCouCountRequest request) {
+		return discountCouponAtomSV.findCouponCount(request);
+	}
 	/**
 	 * 线下发送/领取优惠券
 	 *//*

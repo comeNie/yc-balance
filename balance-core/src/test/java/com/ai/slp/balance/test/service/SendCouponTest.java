@@ -9,17 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
-import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
-import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
-import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -56,25 +53,11 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void testDepositForegift() {
-    	SaveFunCouponTemplate req = new SaveFunCouponTemplate();
-    	req.setCouponDesc("迅雷活动");
-    	req.setCouponName("百度");
-    	req.setCouponUserId("1");
-    	req.setCurrencyUnit("2");
-    	req.setFaceValue(100);
-    	req.setFaceValueDown(80);
-    	req.setStatus("1");
-    	req.setMaxCountIssue("20");
-    	req.setUsedScene("4");
-    	req.setUseLimits("1");
-    	req.setEffectiveEndTime("2017-3-31 13:34:00");
-    	req.setEffectiveStartTime("2017-3-29 13:34:00");
-    	req.setReceiveEndTime("2017-3-31 13:34:00");
-    	req.setReceiveStartTime("2017-3-29 13:34:00");
-    	req.setRequiredMoneyAmount(3);
-        BaseResponse savaCouponTemplate = couponTemplateSV.savaCouponTemplate(req);
-        
-        System.out.println(savaCouponTemplate);
+    	FreezeCouponRequest param = new FreezeCouponRequest();
+    	param.setCouponId("a1");
+    	param.setOrderId(Long.parseLong("2000000024195005"));
+        BaseResponse deducionCoupon = sendCouponSV.updateStateFreeze(param);
+        System.out.println(deducionCoupon);
     }
     
     

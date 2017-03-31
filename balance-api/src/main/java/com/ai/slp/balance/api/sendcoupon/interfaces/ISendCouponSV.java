@@ -14,6 +14,8 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
 
 /**
  * 优惠券发放接口类 <br>
@@ -98,7 +100,19 @@ public interface ISendCouponSV {
 	@Path("/queryCouponByUserId")
     public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException,SystemException;
 	
-	
+	/**
+	 * 优惠券数量查询
+	 * @param request
+	 * @return
+	 * @throws BusinessException
+	 * @throws SystemException
+	 * @ApiDocMethod
+	 * @ApiCode
+	 * @RestRelativeURL sendCouponService/queryCouponCount
+	 */
+	@POST
+	@Path("/queryCouponCount")
+	QueryCouCountResponse queryCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException;
 	
 	
 	

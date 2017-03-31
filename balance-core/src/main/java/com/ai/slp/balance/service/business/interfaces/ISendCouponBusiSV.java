@@ -1,6 +1,7 @@
 package com.ai.slp.balance.service.business.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
@@ -8,6 +9,7 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 
 public interface ISendCouponBusiSV {
 	public void registerSendCoupon(String activityName,String userId) throws BusinessException,SystemException;
@@ -45,4 +47,8 @@ public interface ISendCouponBusiSV {
 	 * 抵扣优惠券
 	 */
 	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
+	/**
+	 * 查询优惠券数量
+	 */
+	public Map<String, Integer> findCouponCount(QueryCouCountRequest request);
 }

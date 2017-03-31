@@ -3,11 +3,13 @@ package com.ai.slp.balance.service.atom.interfaces;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 
 public interface IDiscountCouponAtomSV {
 
@@ -24,5 +26,7 @@ public interface IDiscountCouponAtomSV {
 	void updateStateFreeze(FreezeCouponRequest param);
 
 	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
+
+	Map<String, Integer> findCouponCount(QueryCouCountRequest request);
 	
 }

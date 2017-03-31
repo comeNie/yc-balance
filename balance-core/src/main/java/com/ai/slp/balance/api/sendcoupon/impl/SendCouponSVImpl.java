@@ -14,14 +14,15 @@ import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.ResponseHeader;
-import com.ai.opt.sdk.util.BeanUtils;
-import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
+import com.ai.slp.balance.constants.CouponsConstants;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.ICouponUseRuleBusiSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
@@ -265,7 +266,18 @@ public class SendCouponSVImpl implements ISendCouponSV {
 			return response;
 		}
 	}
-
+	/**
+	 * 优惠券数量查询
+	 */
+	@Override
+	public QueryCouCountResponse queryCouponCount(QueryCouCountRequest request)throws BusinessException, SystemException {
+		QueryCouCountResponse response = new QueryCouCountResponse();
+		response.setCountMap(sendCouponBusiSV.findCouponCount(request));
+		ResponseHeader responseHeader = new ResponseHeader(true, ExceptCodeConstants.Special.SYSTEM_SUCCESS, "查询优惠券数量成功");
+		response.setResponseHeader(responseHeader);
+		return response;
+	}
+	
 	/*@Override
 	public void offLineSendCoupon(int maxCount, String couponName, String userId)
 			throws BusinessException, SystemException {
