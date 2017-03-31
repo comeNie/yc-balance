@@ -1,4 +1,7 @@
 package com.ai.slp.balance.api.sendcoupon.param;
+
+import java.io.Serializable;
+
 /**
  * 下线发放优惠券入参.<br>
  * Date: 2015年7月27日 <br>
@@ -6,7 +9,7 @@ package com.ai.slp.balance.api.sendcoupon.param;
  * 
  * @author fanpw
  */
-public class OffLineSendCoupon {
+public class OffLineSendCoupon implements Serializable {
 	 private static final long serialVersionUID = 1L;
 
 	 	private int maxCount;

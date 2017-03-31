@@ -16,6 +16,7 @@ import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
+import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 /**
  * 优惠券发放接口类 <br>
@@ -37,7 +38,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/registerSendCoupon")
-    public BaseResponse registerSendCoupon(String activityName, String userId) throws BusinessException,SystemException;
+    public BaseResponse registerSendCoupon(SendCouponRequest param) throws BusinessException,SystemException;
 	
 	/**
 	 * 查询可使用的优惠券
@@ -98,7 +99,7 @@ public interface ISendCouponSV {
      */
 	@POST
 	@Path("/queryCouponByUserId")
-    public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException,SystemException;
+    public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param) throws BusinessException,SystemException;
 	
 	/**
 	 * 优惠券数量查询

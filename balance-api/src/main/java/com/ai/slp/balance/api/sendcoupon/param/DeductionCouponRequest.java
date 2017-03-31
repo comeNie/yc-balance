@@ -1,9 +1,12 @@
 package com.ai.slp.balance.api.sendcoupon.param;
 
+import java.io.Serializable;
+
 /**
  * 查询可用优惠券/抵扣优惠券入参
  */
-public class DeductionCouponRequest {
+public class DeductionCouponRequest  implements Serializable {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 用户ID
 	 */

@@ -10,9 +10,10 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 public interface ISendCouponBusiSV {
-	public void registerSendCoupon(String activityName,String userId) throws BusinessException,SystemException;
+	public void registerSendCoupon(SendCouponRequest param)throws BusinessException,SystemException;
 	/*public void offLineSendCoupon(int maxCount,String couponName,String userId) throws BusinessException,SystemException;*/
 	/**
 	 * 查询优惠券
@@ -30,7 +31,7 @@ public interface ISendCouponBusiSV {
 	/**
 	 * 根据用户ID查询优惠券
 	 */
-	public List<FunDiscountCouponResponse> queryCouponByUserId(String userId);
+	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param);
 	
 	
 	/**

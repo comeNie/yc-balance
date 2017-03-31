@@ -1,9 +1,14 @@
 package com.ai.slp.balance.api.sendcoupon.param;
+
+import java.io.Serializable;
+
 /**
  * 解冻/冻结入参
  *
  */
-public class FreezeCouponRequest {
+public class FreezeCouponRequest implements Serializable {
+	private static final long serialVersionUID = -3795050733122224474L;
+
 	/**
 	 * 优惠券ID
 	 */

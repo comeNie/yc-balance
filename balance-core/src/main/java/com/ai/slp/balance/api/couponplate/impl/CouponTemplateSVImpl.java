@@ -10,6 +10,7 @@ import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
+import com.ai.slp.balance.api.coupontemplate.param.DeleteFunCouponTemplate;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
@@ -108,8 +109,8 @@ public class CouponTemplateSVImpl implements ICouponTemplateSV {
 	 * 删除优惠券模板
 	 */
 	@Override
-	public Integer deleteCouponTemplate(Integer templateId) throws BusinessException, SystemException {
-		return iCouponTemplateBusiSV.deleteCouponTemplate(templateId);
+	public Integer deleteCouponTemplate(DeleteFunCouponTemplate param) throws BusinessException, SystemException {
+		return iCouponTemplateBusiSV.deleteCouponTemplate(param.getTemplateId());
 	}
 
 

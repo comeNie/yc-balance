@@ -16,7 +16,7 @@ import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRespons
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
-import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -53,10 +53,10 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void testDepositForegift() {
-    	FreezeCouponRequest param = new FreezeCouponRequest();
-    	param.setCouponId("a1");
-    	param.setOrderId(Long.parseLong("2000000024195005"));
-        BaseResponse deducionCoupon = sendCouponSV.updateStateFreeze(param);
+    	QueryCouCountRequest param = new QueryCouCountRequest();
+    	param.setStatus("3");
+    	param.setUserId("1");
+        BaseResponse deducionCoupon = sendCouponSV.queryCouponCount(param);
         System.out.println(deducionCoupon);
     }
     

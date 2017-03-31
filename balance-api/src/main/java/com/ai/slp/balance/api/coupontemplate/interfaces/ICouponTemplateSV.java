@@ -10,6 +10,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.coupontemplate.param.CouponTemplateParam;
+import com.ai.slp.balance.api.coupontemplate.param.DeleteFunCouponTemplate;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
@@ -92,7 +93,7 @@ public interface ICouponTemplateSV {
      */
 	@POST
 	@Path("/deleteCouponTemplate")
-	public Integer deleteCouponTemplate(Integer templateId)throws BusinessException,SystemException;
+	public Integer deleteCouponTemplate(DeleteFunCouponTemplate param)throws BusinessException,SystemException;
 
 }
 

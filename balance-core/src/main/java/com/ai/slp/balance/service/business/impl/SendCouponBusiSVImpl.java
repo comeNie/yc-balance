@@ -25,6 +25,7 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 import com.ai.slp.balance.dao.mapper.bo.FunActivity;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRel;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRelCriteria;
@@ -39,7 +40,6 @@ import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
 import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
-import com.ai.yc.order.api.orderquery.param.QueryOrdCountRequest;
 @Service
 @Transactional
 public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
@@ -52,12 +52,12 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	 * 新用户注册发送/领取优惠券
 	 */
 	@Override
-	public void registerSendCoupon(String activityName, String userId) throws BusinessException, SystemException {
+	public void registerSendCoupon(SendCouponRequest param) throws BusinessException, SystemException {
 		 LOG.debug("注册发送优惠券"); 
 		//从serial中取出需要的字段
 		FunActivityCriteria funActivityCriteria = new FunActivityCriteria();
 		FunActivityCriteria.Criteria faCriteria = funActivityCriteria.createCriteria();
-		faCriteria.andActivityNameLike("%"+activityName+"%");
+		faCriteria.andActivityNameLike("%"+param.getActivityName()+"%");
 		FunActivityMapper fcMapper = MapperFactory.getFunActivityMapper();
         List<FunActivity> funActivitys = fcMapper.selectByExample(funActivityCriteria);
         if (!CollectionUtil.isEmpty(funActivitys)){
@@ -115,7 +115,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                     funDiscountCoupon.setEffectiveEndTime(funCouponTemplate.getEffectiveEndTime());
                 }
                 
-                funDiscountCoupon.setUserId(userId);
+                funDiscountCoupon.setUserId(param.getUserId());
                 /*funDiscountCoupon.setAccountId();
                 funDiscountCoupon.setOrderId();
                 funDiscountCoupon.setUseTime();*/
@@ -158,15 +158,17 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	 * 根据用户ID查询优惠券
 	 */
 	@Override
-	public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) {
-		return discountCouponAtomSV.queryCouponByUserId(userId);
+	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param) {
+		return discountCouponAtomSV.queryCouponByUserId(param);
 	}
 
 	@Override
 	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
 		return discountCouponAtomSV.queryDeducionCoupon(param);
 	}
-
+	/**
+	 * 根据状态查询数量
+	 */
 	@Override
 	public Map<String, Integer> findCouponCount(QueryCouCountRequest request) {
 		return discountCouponAtomSV.findCouponCount(request);

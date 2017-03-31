@@ -22,7 +22,7 @@ import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
-import com.ai.slp.balance.constants.CouponsConstants;
+import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.ICouponUseRuleBusiSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
@@ -46,11 +46,11 @@ public class SendCouponSVImpl implements ISendCouponSV {
      * 注册领取优惠券.<br>
      */
 	@Override
-	public BaseResponse registerSendCoupon(String activityName, String userId) throws BusinessException, SystemException {
+	public BaseResponse registerSendCoupon(SendCouponRequest param) throws BusinessException, SystemException {
 		BaseResponse response = new BaseResponse();
 		ResponseHeader responseHeader = new ResponseHeader();
 		try {
-			sendCouponBusiSV.registerSendCoupon(activityName, userId);
+			sendCouponBusiSV.registerSendCoupon(param);
 			//
 			responseHeader.setIsSuccess(true);
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
@@ -210,9 +210,9 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	 * 根据用户ID查询优惠券
 	 */
 	@Override
-	public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(String userId) throws BusinessException, SystemException {
+	public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param) throws BusinessException, SystemException {
 		BaseListResponse<FunDiscountCouponResponse> queryCouponByUserIds = new BaseListResponse<>();
-		List<FunDiscountCouponResponse> queryCouponByUserId = sendCouponBusiSV.queryCouponByUserId(userId);
+		List<FunDiscountCouponResponse> queryCouponByUserId = sendCouponBusiSV.queryCouponByUserId(param);
 		queryCouponByUserIds.setResult(queryCouponByUserId);
 		return queryCouponByUserIds;
 	}

@@ -1,11 +1,13 @@
 package com.ai.slp.balance.api.sendcoupon.param;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * 根据用户Id查询优惠券出参
  */
-public class FunDiscountCouponResponse {
+public class FunDiscountCouponResponse implements Serializable {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 优惠券ID
 	 */

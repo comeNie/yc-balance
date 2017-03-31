@@ -18,6 +18,7 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -118,11 +119,11 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 根据用户ID查询优惠券
 	 */
 	@Override
-	public List<FunDiscountCouponResponse> queryCouponByUserId(String userId) {
+	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param) {
 		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
-		critreia.andUserIdEqualTo(userId);
+		critreia.andUserIdEqualTo(param.getUserId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
@@ -165,6 +166,9 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		return deductionCouponResponses;
 	}
 
+	/**
+	 * 根据状态查询数量
+	 */
 	@Override
 	public Map<String, Integer> findCouponCount(QueryCouCountRequest request) {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
