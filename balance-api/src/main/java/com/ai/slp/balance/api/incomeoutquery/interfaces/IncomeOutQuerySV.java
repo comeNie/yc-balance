@@ -46,9 +46,9 @@ public interface IncomeOutQuerySV {
      * @throws BusinessException
      * @throws SystemException
      * @ApiDocMethod
-     * @RestRelativeURL incomeOutQueryService/incomeOutQuery
+     * @RestRelativeURL incomeOutQueryService/incomeOutQueryAll
      */
     @POST
-    @Path("/incomeOutQuery")
+    @Path("/incomeOutQueryAll")
     public FundBookQueryResponseAll incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException,SystemException;
 }
