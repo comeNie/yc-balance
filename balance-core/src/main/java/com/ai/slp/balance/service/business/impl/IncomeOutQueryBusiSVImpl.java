@@ -102,6 +102,13 @@ public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
     public PageInfo<IncomeDetailAll> incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException, SystemException {
         PageInfo<IncomeDetailAll> pageInfo = new PageInfo<IncomeDetailAll>();
         List<IncomeDetailAll> allIncomeOut = null;
+        List<IncomeDetailAll> allIncomeOut1 = incomeOutQueryAtomSV.getAllIncomeOut(param.getSerialCode(), param.getNickName(),
+                param.getBeginDate(), param.getEndDate(),
+                param.getChannel(), param.getState(),
+                param.getCurrencyUnit(), param.getBeginAmount(),
+                param.getEndAmount(), param.getIncomeFlag(),
+                param.getOptType(), null, null);
+        pageInfo.setCount(allIncomeOut1.size());
         if (param.getPageInfo() == null) {
             pageInfo.setPageNo(1);
             pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
