@@ -16,6 +16,8 @@ import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 /**
@@ -29,7 +31,7 @@ public interface ISendCouponSV {
 
     /**
      * 注册领取优惠券.<br>
-     * @param activityName,userId
+     * @param param
 	 * @return 优惠券生成是否成功
 	 * @throws BusinessException,SystemException
 	 * @ApiDocMethod
@@ -42,7 +44,7 @@ public interface ISendCouponSV {
 	
 	/**
 	 * 查询可使用的优惠券
-	 * @param templateId
+	 * @param param
 	 * @return 优惠券
 	 * @throws BusinessException,SystemException
 	 * @ApiDocMethod
@@ -55,7 +57,7 @@ public interface ISendCouponSV {
 	
 	/**
 	 * 抵用优惠券
-	 * @param templateId
+	 * @param param
 	 * @return 优惠券
 	 * @throws BusinessException,SystemException
 	 * @ApiDocMethod
@@ -90,7 +92,7 @@ public interface ISendCouponSV {
 	
 	/**
 	 * 根据用户Id查询优惠券
-	 * @param userId
+	 * @param param
 	 * @return 优惠券
 	 * @throws BusinessException,SystemException
 	 * @ApiDocMethod
@@ -114,10 +116,20 @@ public interface ISendCouponSV {
 	@POST
 	@Path("/queryCouponCount")
 	QueryCouCountResponse queryCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException;
-	
-	
-	
-	
+	/**
+	 * 查询优惠券列表
+	 * @param queryOrderRequest
+	 * @return
+	 * @throws BusinessException
+	 * @throws SystemException
+	 * @author zhanglh
+	 * @ApiCode ORD_2006
+	 * @ApiDocMethod
+     * @RestRelativeURL sendCouponService/queryCouponPage
+	 */
+	@POST
+	@Path("/queryCouponPage")
+	QueryCouponRsponse queryCouponPage(QueryCouponRequest queryCouponRequest) throws BusinessException, SystemException;
 	
 	
 	
