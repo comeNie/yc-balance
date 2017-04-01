@@ -19,7 +19,7 @@ public interface IDiscountCouponAtomSV {
 	//查询优惠券明细
 	/*public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param);*/
 
-	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param, String orderType);
+	List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param);
 
 	List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param);
 

@@ -30,14 +30,12 @@ import com.ai.slp.balance.service.business.interfaces.ICouponUseRuleBusiSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
 import com.ai.slp.balance.util.DubboUtil;
 import com.ai.yc.order.api.orderquery.interfaces.IOrderQuerySV;
-import com.ai.yc.order.api.orderquery.param.QueryOrderRequest;
-import com.ai.yc.order.api.orderquery.param.QueryOrderRsponse;
 import com.alibaba.dubbo.config.annotation.Service;
 
 @Service
 @Component
 public class SendCouponSVImpl implements ISendCouponSV {
-	private static final IOrderQuerySV iOrderQuerySV = DubboUtil.getIOrderQuerySV();
+	/*private static final IOrderQuerySV iOrderQuerySV = DubboUtil.getIOrderQuerySV();*/
     
     @Autowired
     private ISendCouponBusiSV sendCouponBusiSV;
@@ -70,13 +68,7 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	@Override
 	public BaseListResponse<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)throws BusinessException, SystemException {
 			List<DeductionCouponResponse> deductionCouponResponse = new ArrayList<DeductionCouponResponse>();
-			QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
-			queryOrderRequest.setOrderId(param.getOrderId());
-			queryOrderRequest.setPageNo(1);
-			queryOrderRequest.setPageSize(1);
-			QueryOrderRsponse queryOrder = iOrderQuerySV.queryOrder(queryOrderRequest);
-			String orderType = queryOrder.getPageInfo().getResult().get(0).getOrderType();
-			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDeducionCoupon(param,orderType);
+			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDisCountCoupon(param);
 				for (int i = 0; i < queryDeducionCoupon.size(); i++) {
 					Date date1=new Date();
 					SimpleDateFormat f = new SimpleDateFormat("hhmmss"); 
@@ -231,12 +223,7 @@ public class SendCouponSVImpl implements ISendCouponSV {
 		if(deducionCoupon == null){
 			throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券抵扣失败，优惠券不存在");
 		}else{
-			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDeducionCoupon(param);
-			QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
-			queryOrderRequest.setOrderId(param.getOrderId());
-			queryOrderRequest.setPageNo(1);
-			queryOrderRequest.setPageSize(1);
-			QueryOrderRsponse queryOrder = iOrderQuerySV.queryOrder(queryOrderRequest);
+			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDisCountCoupon(param);
 			String couponUserId = queryDeducionCoupon.get(0).getCouponUserId();
 			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV.queryCouponUseRule(couponUserId);
 			
@@ -249,7 +236,7 @@ public class SendCouponSVImpl implements ISendCouponSV {
 					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USEDSCENE, "优惠券抵扣失败，此优惠券不符合使用场景限制");
 				}else if (param.getTotalFee() != queryCouponUseRule.get(0).getRequiredMoneyAmount()) {
 					throw new BusinessException(ExceptCodeConstants.Special.NO_REQYUIREDMONEYAMOUNT, "优惠券抵扣失败，此优惠券不符合所消费面额限制");
-				}else if (queryOrder.getPageInfo().getResult().get(0).getOrderType() != queryDeducionCoupon.get(i).getUseLimits()) {
+				}else if (param.getOrderType() != queryDeducionCoupon.get(i).getUseLimits()) {
 					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USELIMITS, "优惠券抵扣失败，此优惠券不符合订单类型的使用规则限制");
 				}else if (queryDeducionCoupon.get(i).getStatus()=="3") {
 					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效");

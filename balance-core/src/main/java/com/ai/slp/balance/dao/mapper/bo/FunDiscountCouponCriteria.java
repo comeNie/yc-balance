@@ -1424,6 +1424,76 @@ public class FunDiscountCouponCriteria {
             addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
+
+        public Criteria andMaxCountIssueIsNull() {
+            addCriterion("MAX_COUNT_ISSUE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueIsNotNull() {
+            addCriterion("MAX_COUNT_ISSUE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueEqualTo(String value) {
+            addCriterion("MAX_COUNT_ISSUE =", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueNotEqualTo(String value) {
+            addCriterion("MAX_COUNT_ISSUE <>", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueGreaterThan(String value) {
+            addCriterion("MAX_COUNT_ISSUE >", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueGreaterThanOrEqualTo(String value) {
+            addCriterion("MAX_COUNT_ISSUE >=", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueLessThan(String value) {
+            addCriterion("MAX_COUNT_ISSUE <", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueLessThanOrEqualTo(String value) {
+            addCriterion("MAX_COUNT_ISSUE <=", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueLike(String value) {
+            addCriterion("MAX_COUNT_ISSUE like", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueNotLike(String value) {
+            addCriterion("MAX_COUNT_ISSUE not like", value, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueIn(List<String> values) {
+            addCriterion("MAX_COUNT_ISSUE in", values, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueNotIn(List<String> values) {
+            addCriterion("MAX_COUNT_ISSUE not in", values, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueBetween(String value1, String value2) {
+            addCriterion("MAX_COUNT_ISSUE between", value1, value2, "maxCountIssue");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxCountIssueNotBetween(String value1, String value2) {
+            addCriterion("MAX_COUNT_ISSUE not between", value1, value2, "maxCountIssue");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

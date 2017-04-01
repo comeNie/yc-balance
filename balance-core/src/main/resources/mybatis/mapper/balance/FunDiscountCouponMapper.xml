@@ -22,6 +22,7 @@
     <result column="USE_TIME" property="useTime" jdbcType="TIMESTAMP" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="MAX_COUNT_ISSUE" property="maxCountIssue" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -84,7 +85,8 @@
   <sql id="Base_Column_List" >
     COUPON_ID, COUPON_NAME, COUPON_DESC, ACTIVITY_ID, template_id, FACE_VALUE, CURRENCY_UNIT, 
     COUPON_USER_ID, used_scene, USE_LIMITS, STATUS, EFFECTIVE_TIME, EFFECTIVE_START_TIME, 
-    EFFECTIVE_END_TIME, USER_ID, ACCOUNT_ID, ORDER_ID, USE_TIME, CREATE_TIME, remark
+    EFFECTIVE_END_TIME, USER_ID, ACCOUNT_ID, ORDER_ID, USE_TIME, CREATE_TIME, remark, 
+    MAX_COUNT_ISSUE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria" >
     select
@@ -127,16 +129,16 @@
       USE_LIMITS, STATUS, EFFECTIVE_TIME, 
       EFFECTIVE_START_TIME, EFFECTIVE_END_TIME, 
       USER_ID, ACCOUNT_ID, ORDER_ID, 
-      USE_TIME, CREATE_TIME, remark
-      )
+      USE_TIME, CREATE_TIME, remark, 
+      MAX_COUNT_ISSUE)
     values (#{couponId,jdbcType=VARCHAR}, #{couponName,jdbcType=VARCHAR}, #{couponDesc,jdbcType=VARCHAR}, 
       #{activityId,jdbcType=INTEGER}, #{templateId,jdbcType=INTEGER}, #{faceValue,jdbcType=INTEGER}, 
       #{currencyUnit,jdbcType=VARCHAR}, #{couponUserId,jdbcType=VARCHAR}, #{usedScene,jdbcType=VARCHAR}, 
       #{useLimits,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{effectiveTime,jdbcType=INTEGER}, 
       #{effectiveStartTime,jdbcType=TIMESTAMP}, #{effectiveEndTime,jdbcType=TIMESTAMP}, 
       #{userId,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, #{orderId,jdbcType=BIGINT}, 
-      #{useTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
-      )
+      #{useTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{maxCountIssue,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon" >
     insert into fun_discount_coupon
@@ -201,6 +203,9 @@
       <if test="remark != null" >
         remark,
       </if>
+      <if test="maxCountIssue != null" >
+        MAX_COUNT_ISSUE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="couponId != null" >
@@ -262,6 +267,9 @@
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="maxCountIssue != null" >
+        #{maxCountIssue,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -334,6 +342,9 @@
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
+      <if test="record.maxCountIssue != null" >
+        MAX_COUNT_ISSUE = #{record.maxCountIssue,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -360,7 +371,8 @@
       ORDER_ID = #{record.orderId,jdbcType=BIGINT},
       USE_TIME = #{record.useTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      remark = #{record.remark,jdbcType=VARCHAR}
+      remark = #{record.remark,jdbcType=VARCHAR},
+      MAX_COUNT_ISSUE = #{record.maxCountIssue,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -425,6 +437,9 @@
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="maxCountIssue != null" >
+        MAX_COUNT_ISSUE = #{maxCountIssue,jdbcType=VARCHAR},
+      </if>
     </set>
     where COUPON_ID = #{couponId,jdbcType=VARCHAR}
   </update>
@@ -448,7 +463,8 @@
       ORDER_ID = #{orderId,jdbcType=BIGINT},
       USE_TIME = #{useTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      MAX_COUNT_ISSUE = #{maxCountIssue,jdbcType=VARCHAR}
     where COUPON_ID = #{couponId,jdbcType=VARCHAR}
   </update>
 </mapper>

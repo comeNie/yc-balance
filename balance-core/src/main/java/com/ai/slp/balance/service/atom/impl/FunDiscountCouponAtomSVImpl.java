@@ -58,7 +58,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 用户、订单、优惠券关联查询
 	 */
 	@Override
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param,String orderType) {
+	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param) {
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
@@ -66,7 +66,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		critreia.andOrderIdEqualTo(param.getOrderId());
 		critreia.andUsedSceneEqualTo(param.getUsedScene());
 		critreia.andCurrencyUnitEqualTo(param.getCurrencyUnit());
-		critreia.andUseLimitsEqualTo(orderType);
+		critreia.andUseLimitsEqualTo(param.getOrderType());
 		critreia.andStatusEqualTo("2");
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);

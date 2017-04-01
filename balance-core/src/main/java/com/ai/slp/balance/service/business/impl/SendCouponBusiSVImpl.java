@@ -98,6 +98,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                 funDiscountCoupon.setCouponUserId(funCouponTemplate.getCouponUserId());
                 funDiscountCoupon.setUsedScene(funCouponTemplate.getUsedScene());
                 funDiscountCoupon.setStatus("1");
+                funDiscountCoupon.setMaxCountIssue(funCouponTemplate.getMaxCountIssue());
                 funDiscountCoupon.setEffectiveTime(funCouponTemplate.getEffectiveTime());
                 
                 //有效期开始时间=领取时的系统时间＋获得时间
@@ -142,8 +143,8 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	 * 优惠码验证
 	 */
 	@Override
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param,String orderType) {
-		return discountCouponAtomSV.queryDeducionCoupon(param,orderType);
+	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param) {
+		return discountCouponAtomSV.queryDisCountCoupon(param);
 	}
 	/**
 	 * 更改优惠券状态（解冻）
@@ -167,8 +168,11 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 		return discountCouponAtomSV.queryCouponByUserId(param);
 	}
 
+	/**
+	 * 抵扣优惠券
+	 */
 	@Override
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
+	public List<DeductionCouponResponse> deducionCoupon(DeductionCouponRequest param) {
 		return discountCouponAtomSV.queryDeducionCoupon(param);
 	}
 	/**

@@ -26,7 +26,7 @@ public interface ISendCouponBusiSV {
 	 * 查询可使用的优惠券
 	 * @param orderType 
 	 */
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param, String orderType);
+	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param);
 
 	
 	/**
@@ -48,7 +48,7 @@ public interface ISendCouponBusiSV {
 	/**
 	 * 抵扣优惠券
 	 */
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
+	public List<DeductionCouponResponse> deducionCoupon(DeductionCouponRequest param);
 	/**
 	 * 查询优惠券数量
 	 */

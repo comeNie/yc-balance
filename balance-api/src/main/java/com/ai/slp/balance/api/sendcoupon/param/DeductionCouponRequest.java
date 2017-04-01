@@ -36,6 +36,10 @@ public class DeductionCouponRequest  implements Serializable {
 	 */
 	private long totalFee;
 	/**
+	 * 订单类型
+	 */
+	private String orderType;
+	/**
 	 * 币种
 	 */
 	private String currencyUnit;
@@ -85,5 +89,13 @@ public class DeductionCouponRequest  implements Serializable {
 
 	public void setCurrencyUnit(String currencyUnit) {
 		this.currencyUnit = currencyUnit;
+	}
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
 	}
 }

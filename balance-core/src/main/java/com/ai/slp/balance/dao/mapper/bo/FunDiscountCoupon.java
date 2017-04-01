@@ -43,6 +43,8 @@ public class FunDiscountCoupon {
 
     private String remark;
 
+    private String maxCountIssue;
+
     public String getCouponId() {
         return couponId;
     }
@@ -201,5 +203,13 @@ public class FunDiscountCoupon {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public String getMaxCountIssue() {
+        return maxCountIssue;
+    }
+
+    public void setMaxCountIssue(String maxCountIssue) {
+        this.maxCountIssue = maxCountIssue == null ? null : maxCountIssue.trim();
     }
 }
