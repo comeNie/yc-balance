@@ -1,7 +1,6 @@
 package com.ai.slp.balance.service.business.interfaces;
 
 import java.util.List;
-import java.util.Map;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
@@ -53,7 +52,7 @@ public interface ISendCouponBusiSV {
 	/**
 	 * 查询优惠券数量
 	 */
-	public Map<String, Integer> findCouponCount(QueryCouCountRequest request);
+	public Integer findCouponCount(QueryCouCountRequest request);
 	/**
 	 * 根据用户ID、状态查询优惠券
 	 */

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
@@ -16,7 +17,9 @@ import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRespons
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
+import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
+import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -53,11 +56,10 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void testDepositForegift() {
-    	QueryCouCountRequest param = new QueryCouCountRequest();
-    	param.setStatus("3");
+    	SendCouponRequest param = new SendCouponRequest();
     	param.setUserId("1");
-        BaseResponse deducionCoupon = sendCouponSV.queryCouponCount(param);
-        System.out.println(deducionCoupon);
+        BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId = sendCouponSV.queryCouponByUserId(param);
+        System.out.println(queryCouponByUserId);
     }
     
     

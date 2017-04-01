@@ -22,7 +22,6 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
-import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
@@ -273,12 +272,9 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	 * 优惠券数量查询
 	 */
 	@Override
-	public QueryCouCountResponse queryCouponCount(QueryCouCountRequest request)throws BusinessException, SystemException {
-		QueryCouCountResponse response = new QueryCouCountResponse();
-		response.setCountMap(sendCouponBusiSV.findCouponCount(request));
-		ResponseHeader responseHeader = new ResponseHeader(true, ExceptCodeConstants.Special.SYSTEM_SUCCESS, "查询优惠券数量成功");
-		response.setResponseHeader(responseHeader);
-		return response;
+	public Integer queryCouponCount(QueryCouCountRequest request)throws BusinessException, SystemException {
+		Integer findCouponCount = sendCouponBusiSV.findCouponCount(request);
+		return findCouponCount;
 	}
 
 	/**

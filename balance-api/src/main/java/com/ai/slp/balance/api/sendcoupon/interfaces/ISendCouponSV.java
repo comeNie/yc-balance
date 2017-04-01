@@ -15,7 +15,6 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
-import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
@@ -115,7 +114,7 @@ public interface ISendCouponSV {
 	 */
 	@POST
 	@Path("/queryCouponCount")
-	QueryCouCountResponse queryCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException;
+	public Integer queryCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException;
 	/**
 	 * 查询优惠券列表
 	 * @param queryOrderRequest

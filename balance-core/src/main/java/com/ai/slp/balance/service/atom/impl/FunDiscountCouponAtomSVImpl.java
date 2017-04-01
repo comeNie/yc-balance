@@ -5,9 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -173,16 +171,13 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 根据状态查询数量
 	 */
 	@Override
-	public Map<String, Integer> findCouponCount(QueryCouCountRequest request) {
+	public Integer findCouponCount(QueryCouCountRequest request) {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andStatusEqualTo(request.getStatus());
-		critreia.andUserIdEqualTo(request.getUserId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		int countByExample = mapper.countByExample(funDiscountCouponCriteria);
-		Map<String, Integer> countMap = new HashMap<String, Integer>();
-		countMap.put(request.getStatus(), countByExample);
-		return countMap;
+		return countByExample;
 	}
 
 	@Override

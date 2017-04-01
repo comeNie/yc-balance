@@ -3,7 +3,6 @@ package com.ai.slp.balance.service.atom.interfaces;
 
 
 import java.util.List;
-import java.util.Map;
 
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
@@ -30,7 +29,7 @@ public interface IDiscountCouponAtomSV {
 
 	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
 
-	Map<String, Integer> findCouponCount(QueryCouCountRequest request);
+	Integer findCouponCount(QueryCouCountRequest request);
 
 	PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest);
 	

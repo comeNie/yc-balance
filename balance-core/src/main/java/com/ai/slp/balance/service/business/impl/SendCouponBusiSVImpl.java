@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +20,6 @@ import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateResponse;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
@@ -173,7 +171,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	 * 根据状态查询数量
 	 */
 	@Override
-	public Map<String, Integer> findCouponCount(QueryCouCountRequest request) {
+	public Integer findCouponCount(QueryCouCountRequest request) {
 		return discountCouponAtomSV.findCouponCount(request);
 	}
 	/**
