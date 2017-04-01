@@ -3,6 +3,7 @@ package com.ai.slp.balance.api.accountparam.interfaces;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.accountparam.param.AccParamReq;
+import com.ai.slp.balance.api.accountparam.param.AccountParamQueryResponse;
 import com.ai.slp.balance.api.accountparam.param.AccountParamUpdateParam;
 
 import javax.ws.rs.Consumes;
@@ -35,7 +36,7 @@ public interface IAccountParamSV {
      */
 	@POST
 	@Path("/queryAccountParamById")
-    public long queryAccountParam(AccParamReq paramReq) throws BusinessException,SystemException;
+    public AccountParamQueryResponse queryAccountParam(AccParamReq paramReq) throws BusinessException,SystemException;
 
     /**
      * 账户资料修改.<br>
