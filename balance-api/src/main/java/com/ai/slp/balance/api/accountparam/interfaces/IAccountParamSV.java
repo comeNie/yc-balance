@@ -5,6 +5,7 @@ import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.accountparam.param.AccParamReq;
 import com.ai.slp.balance.api.accountparam.param.AccountParamQueryResponse;
 import com.ai.slp.balance.api.accountparam.param.AccountParamUpdateParam;
+import com.ai.slp.balance.api.accountparam.param.AccountParamUpdateResponse;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -51,6 +52,6 @@ public interface IAccountParamSV {
      */
 	@POST
 	@Path("/updateAccountParam")
-    public void updateAccountParam(AccountParamUpdateParam param) throws BusinessException,SystemException;
+    public AccountParamUpdateResponse updateAccountParam(AccountParamUpdateParam param) throws BusinessException,SystemException;
 
 }
