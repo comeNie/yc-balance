@@ -68,6 +68,17 @@ public class DeductionCouponResponse  implements Serializable {
 	 * 使用时间
 	 */
     private Timestamp useTime;
+    /**
+     * 优惠券数量
+     */
+    private Integer count;
+    
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 	public String getCouponId() {
 		return couponId;
 	}
