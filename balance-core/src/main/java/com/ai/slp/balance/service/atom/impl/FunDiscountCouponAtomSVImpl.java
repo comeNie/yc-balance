@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
@@ -63,11 +64,15 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andUserIdEqualTo(param.getUserId());
-		critreia.andOrderIdEqualTo(param.getOrderId());
 		critreia.andUsedSceneEqualTo(param.getUsedScene());
 		critreia.andCurrencyUnitEqualTo(param.getCurrencyUnit());
-		critreia.andUseLimitsEqualTo(param.getOrderType());
-		critreia.andStatusEqualTo("2");
+		List<String> list = new ArrayList<String>();
+		list.add(param.getOrderType());
+		list.add("0");
+		critreia.andUseLimitsIn(list);
+		critreia.andStatusEqualTo("4");
+		critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
+		
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
@@ -157,7 +162,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
             for (int i=0;i<funDiscountCoupons.size();i++){
             	DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
                 BeanUtils.copyProperties(deductionCouponResponse,funDiscountCoupons.get(i));
-                deductionCouponResponse.setStatus("3");
+                deductionCouponResponse.setStatus("2");
                 Date date=new Date();
                 DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 deductionCouponResponse.setUseTime(Timestamp.valueOf(format.format(date)));

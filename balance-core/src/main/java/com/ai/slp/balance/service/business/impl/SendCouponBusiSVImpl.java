@@ -98,6 +98,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                 funDiscountCoupon.setCouponUserId(funCouponTemplate.getCouponUserId());
                 funDiscountCoupon.setUsedScene(funCouponTemplate.getUsedScene());
                 funDiscountCoupon.setStatus("1");
+                funDiscountCoupon.setUseLimits(funCouponTemplate.getUseLimits());
                 funDiscountCoupon.setMaxCountIssue(funCouponTemplate.getMaxCountIssue());
                 funDiscountCoupon.setEffectiveTime(funCouponTemplate.getEffectiveTime());
                 

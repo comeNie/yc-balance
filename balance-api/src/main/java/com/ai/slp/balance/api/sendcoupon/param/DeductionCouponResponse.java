@@ -42,6 +42,9 @@ public class DeductionCouponResponse  implements Serializable {
     private String useLimits;
     /**
 	 * 状态
+	 * 4 未使用
+	 * 5 已使用
+	 * 6 已过期
 	 */
     private String status;
     /**

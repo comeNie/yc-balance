@@ -9,17 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
-import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryResponse;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
-import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
-import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
-import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -45,31 +40,25 @@ public class SendCouponTest extends TestCase {
     	System.out.println(queryFunCouponUseRule);
     }
     
-    @Test
+    /*@Test
     public void test() {
     	SendCouponRequest param = new SendCouponRequest();
     	param.setActivityName("注册测试");
     	param.setUserId("53355");
     	BaseResponse registerSendCoupon = sendCouponSV.registerSendCoupon(param);
     	System.out.println(registerSendCoupon);
-    }
-    
-    
+    }*/
+    //查询可用
     @Test
-    public void testDepositForegift() {
-    	QueryCouCountRequest param = new QueryCouCountRequest();
-    	param.setStatus("4");
-        Integer queryCouponCount = sendCouponSV.queryCouponCount(param);
-        System.out.println(queryCouponCount);
+    public void test() {
+    	DeductionCouponRequest param = new DeductionCouponRequest();
+    	param.setCurrencyUnit("1");
+    	param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
+    	param.setOrderType("1");
+    	param.setUsedScene("1");
+    	param.setTotalFee(200000000);
+    	BaseResponse registerSendCoupon = sendCouponSV.queryDisCountCoupon(param);
+    	System.out.println(registerSendCoupon);
     }
     
-    
-    /*public static void main(String[] args) throws ParseException {
-    	Calendar c = Calendar.getInstance();
-	     c.add(Calendar.SATURDAY, 2);
-	     c.add(Calendar.SATURDAY, 2);
-	     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String sDate=sdf.format(c.getTime());
-			System.out.println(Timestamp.valueOf(sDate));
-     }*/
 }

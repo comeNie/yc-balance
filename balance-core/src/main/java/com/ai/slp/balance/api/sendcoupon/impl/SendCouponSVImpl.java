@@ -1,11 +1,14 @@
 package com.ai.slp.balance.api.sendcoupon.impl;
 
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +18,7 @@ import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
+import com.ai.opt.sdk.util.DateUtil;
 import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
@@ -67,98 +71,31 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	 */
 	@Override
 	public BaseListResponse<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)throws BusinessException, SystemException {
-			List<DeductionCouponResponse> deductionCouponResponse = new ArrayList<DeductionCouponResponse>();
+		BaseListResponse<DeductionCouponResponse> queryDeducionCoupons = new BaseListResponse<>();
+		ResponseHeader responseHeader = new ResponseHeader();	
+		
+		List<DeductionCouponResponse> deductionCouponResponse = new ArrayList<DeductionCouponResponse>();
 			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDisCountCoupon(param);
 				for (int i = 0; i < queryDeducionCoupon.size(); i++) {
-					Date date1=new Date();
-					SimpleDateFormat f = new SimpleDateFormat("hhmmss"); 
-					int d1Number = Integer.parseInt(f.format(date1).toString());
-					int d2Number = Integer.parseInt(f.format(queryDeducionCoupon.get(i).getEffectiveEndTime()).toString());
-					
 					String couponUserId = queryDeducionCoupon.get(i).getCouponUserId();
 					List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV.queryCouponUseRule(couponUserId);
 					for (int j = 0; j < queryCouponUseRule.size(); j++) {
 						Integer requiredMoneyAmount = queryCouponUseRule.get(j).getRequiredMoneyAmount();
-						if(param.getTotalFee()>=requiredMoneyAmount && d2Number>=d1Number){
+						if(param.getTotalFee()>=requiredMoneyAmount){
 							DeductionCouponResponse deductionCouponResponse2 = new DeductionCouponResponse();
-							deductionCouponResponse2.setCouponId(queryDeducionCoupon.get(i).getCouponId());
-							deductionCouponResponse2.setCouponName(queryDeducionCoupon.get(i).getCouponName());
-							deductionCouponResponse2.setCouponDesc(queryDeducionCoupon.get(i).getCouponDesc());
-							deductionCouponResponse2.setFaceValue(queryDeducionCoupon.get(i).getFaceValue());
-							deductionCouponResponse2.setCurrencyUnit(queryDeducionCoupon.get(i).getCurrencyUnit());
-							deductionCouponResponse2.setCouponUserId(queryDeducionCoupon.get(i).getCouponUserId());
-							deductionCouponResponse2.setUsedScene(queryDeducionCoupon.get(i).getUsedScene());
-							deductionCouponResponse2.setUseLimits(queryDeducionCoupon.get(i).getUseLimits());
-							deductionCouponResponse2.setStatus(queryDeducionCoupon.get(i).getStatus());
-							deductionCouponResponse2.setEffectiveTime(queryDeducionCoupon.get(i).getEffectiveTime());
-							deductionCouponResponse2.setEffectiveStartTime(queryDeducionCoupon.get(i).getEffectiveStartTime());
-							deductionCouponResponse2.setEffectiveEndTime(queryDeducionCoupon.get(i).getEffectiveEndTime());
-							deductionCouponResponse2.setUserId(queryDeducionCoupon.get(i).getUserId());
-							deductionCouponResponse2.setOrderId(queryDeducionCoupon.get(i).getOrderId());
-							deductionCouponResponse2.setUseTime(queryDeducionCoupon.get(i).getUseTime());
+							BeanUtils.copyProperties(queryDeducionCoupon.get(i),deductionCouponResponse2);
 							deductionCouponResponse.add(deductionCouponResponse2);
-						}
+							responseHeader.setIsSuccess(true);
+							responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+							responseHeader.setResultMessage("查询可用优惠券成功");
+							queryDeducionCoupons.setResponseHeader(responseHeader);
 					}
 				}
-			BaseListResponse<DeductionCouponResponse> queryDeducionCoupons = new BaseListResponse<>();
-			ResponseHeader responseHeader = new ResponseHeader();
-			responseHeader.setIsSuccess(true);
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-			responseHeader.setResultMessage("查询可用优惠券成功");
-			queryDeducionCoupons.setResponseHeader(responseHeader);
-			queryDeducionCoupons.setResult(deductionCouponResponse);
-			return queryDeducionCoupons;
-			
-			
-			
-			
-			
-			
-		
-		
-		/*
-			String couponId = param.getCouponId();
-			List<DeductionCouponResponse> deducionCoupon = sendCouponBusiSV.deducionCoupon(couponId);
-			if(deducionCoupon == null){
-				throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券不存在");
-			}else{
-					
-			QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
-			queryOrderRequest.setOrderId(param.getOrderId());
-			queryOrderRequest.setPageNo(1);
-			queryOrderRequest.setPageSize(1);
-			QueryOrderRsponse queryOrder = iOrderQuerySV.queryOrder(queryOrderRequest);
-			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDeducionCoupon(param);
-			String couponUserId = queryDeducionCoupon.get(0).getCouponUserId();
-			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV.queryCouponUseRule(couponUserId);
-			
-			for (int i = 0; i < queryDeducionCoupon.size(); i++) {
-				Date date1=new Date();
-				SimpleDateFormat f = new SimpleDateFormat("hhmmss"); 
-				int d1Number = Integer.parseInt(f.format(date1).toString());
-				int d2Number = Integer.parseInt(f.format(queryDeducionCoupon.get(i).getEffectiveEndTime()).toString());
-				if (param.getUsedScene() != queryDeducionCoupon.get(i).getUsedScene()) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USEDSCENE, "此优惠券不符合使用场景限制");
-				}else if (param.getTotalFee() != queryCouponUseRule.get(0).getRequiredMoneyAmount()) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_REQYUIREDMONEYAMOUNT, "此优惠券不符合所消费面额限制");
-				}else if (queryOrder.getPageInfo().getResult().get(0).getOrderType() != queryDeducionCoupon.get(i).getUseLimits()) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USELIMITS, "此优惠券不符合订单类型的使用规则限制");
-				}else if (queryDeducionCoupon.get(i).getStatus()=="3") {
-					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券已失效");
-				}else if (d1Number >= d2Number) {
-					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券已失效");
+				queryDeducionCoupons.setResponseHeader(responseHeader);
+				queryDeducionCoupons.setResult(deductionCouponResponse);
 				}
-			}
-			BaseListResponse<DeductionCouponResponse> queryDeducionCoupons = new BaseListResponse<>();
-			ResponseHeader responseHeader = new ResponseHeader();
-			responseHeader.setIsSuccess(true);
-			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-			responseHeader.setResultMessage("查询可用优惠券成功");
-			queryDeducionCoupons.setResponseHeader(responseHeader);
-			queryDeducionCoupons.setResult(queryDeducionCoupon);
-			return queryDeducionCoupons;*/
-		}
-	//}
+				return queryDeducionCoupons;
+	}
 
 	/**
 	 * 查询优惠券状态变为解冻
