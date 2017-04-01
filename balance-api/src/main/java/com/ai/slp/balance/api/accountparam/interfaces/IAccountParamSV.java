@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/accountParamService")
 @Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
-public interface IAccountMaintainSV {
+public interface IAccountParamSV {
 
     /**
      * 查询帐户配置.<br>
@@ -50,6 +50,6 @@ public interface IAccountMaintainSV {
      */
 	@POST
 	@Path("/updateAccountParam")
-    public void updateAccount(AccountParamUpdateParam param) throws BusinessException,SystemException;
+    public void updateAccountParam(AccountParamUpdateParam param) throws BusinessException,SystemException;
 
 }
