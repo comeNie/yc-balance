@@ -29,6 +29,14 @@ public class FundBookQueryResponseAll extends BaseResponse {
      * 人民币支出
      */
     private Long outAmountRMB;
+    /**
+     * 收入记录条数
+     */
+    private Integer incomeNum;
+    /**
+     * 支出记录条数
+     */
+    private Integer outNum;
 
     PageInfo<IncomeDetailAll> pageInfo;
 
@@ -70,5 +78,21 @@ public class FundBookQueryResponseAll extends BaseResponse {
 
     public void setOutAmountRMB(Long outAmountRMB) {
         this.outAmountRMB = outAmountRMB;
+    }
+
+    public Integer getIncomeNum() {
+        return incomeNum;
+    }
+
+    public void setIncomeNum(Integer incomeNum) {
+        this.incomeNum = incomeNum;
+    }
+
+    public Integer getOutNum() {
+        return outNum;
+    }
+
+    public void setOutNum(Integer outNum) {
+        this.outNum = outNum;
     }
 }

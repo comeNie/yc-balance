@@ -62,8 +62,7 @@ public class IncomeOutQuerySVImpl implements IncomeOutQuerySV{
         FundBookQueryResponseAll fundBookQueryResponseAll = new FundBookQueryResponseAll();
         ResponseHeader responseHeader = new ResponseHeader();
         try {
-            PageInfo<IncomeDetailAll> pageInfo = iincomeOutQueryBusiSV.incomeOutQueryAll(param);
-            fundBookQueryResponseAll.setPageInfo(pageInfo);
+            fundBookQueryResponseAll = iincomeOutQueryBusiSV.incomeOutQueryAll(param);
             responseHeader.setIsSuccess(true);
             responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
             responseHeader.setResultMessage("收支查询成功!");
@@ -74,7 +73,7 @@ public class IncomeOutQuerySVImpl implements IncomeOutQuerySV{
             fundBookQueryResponseAll.setResponseHeader(responseHeader);
         }catch (Exception e){
             responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-            responseHeader.setResultMessage("账单查询失败");
+            responseHeader.setResultMessage("收支查询失败");
             fundBookQueryResponseAll.setResponseHeader(responseHeader);
         }
 

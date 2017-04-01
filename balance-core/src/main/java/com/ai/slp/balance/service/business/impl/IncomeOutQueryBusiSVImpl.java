@@ -3,11 +3,13 @@ package com.ai.slp.balance.service.business.impl;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
+import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.fundquery.param.AccountIdParam;
 import com.ai.slp.balance.api.incomeoutquery.param.*;
+import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.dao.mapper.bo.FunFundDetail;
 import com.ai.slp.balance.dao.mapper.bo.FunFundDetailCriteria;
 import com.ai.slp.balance.dao.mapper.bo.FunFundSerial;
@@ -99,7 +101,8 @@ public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
     }
 
     @Override
-    public PageInfo<IncomeDetailAll> incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException, SystemException {
+    public FundBookQueryResponseAll incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException, SystemException {
+        FundBookQueryResponseAll fundBookQueryResponseAll = new FundBookQueryResponseAll();
         PageInfo<IncomeDetailAll> pageInfo = new PageInfo<IncomeDetailAll>();
         List<IncomeDetailAll> allIncomeOut = null;
         List<IncomeDetailAll> allIncomeOut1 = incomeOutQueryAtomSV.getAllIncomeOut(param.getSerialCode(), param.getNickName(),
@@ -109,6 +112,76 @@ public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
                 param.getEndAmount(), param.getIncomeFlag(),
                 param.getOptType(), null, null);
         pageInfo.setCount(allIncomeOut1.size());
+
+        Integer incomeNum =0;
+        Long incomeAmountUSD = 0l;
+        Long incomeAmountRMB = 0l;
+        Integer outNum =0;
+        Long outAmountUSD = 0l;
+        Long outAmountRMB = 0l;
+        //充值记录 incomeFlag = "1";  optType  = "1";
+        if (param.getIncomeFlag().equals("1")&&param.getOptType().equals("1")) {
+            fundBookQueryResponseAll.setIncomeNum(allIncomeOut1.size());
+            fundBookQueryResponseAll.setOutNum(0);
+            for (IncomeDetailAll incomeDetailAll : allIncomeOut1) {
+                if (incomeDetailAll.getCurrencyUnit().equals("1")){
+                    incomeAmountRMB+=incomeDetailAll.getTotalAmount();
+                }
+                if (incomeDetailAll.getCurrencyUnit().equals("2")){
+                    incomeAmountUSD+=incomeDetailAll.getTotalAmount();
+                }
+            }
+            fundBookQueryResponseAll.setIncomeAmountRMB(incomeAmountRMB);
+            fundBookQueryResponseAll.setIncomeAmountUSD(incomeAmountUSD);
+        }
+        //支出记录 incomeFlag = "0";
+        if (param.getIncomeFlag().equals("0")&&param.getOptType()==null){
+            fundBookQueryResponseAll.setOutNum(allIncomeOut1.size());
+            fundBookQueryResponseAll.setIncomeNum(0);
+            for (IncomeDetailAll incomeDetailAll:allIncomeOut1) {
+                //支出条数和支出金额计算
+                if (incomeDetailAll.getIncomeFlag().equals("0")){
+                    if (incomeDetailAll.getCurrencyUnit().equals("1")){
+                        outAmountRMB+=incomeDetailAll.getTotalAmount();
+                    }
+                    if (incomeDetailAll.getCurrencyUnit().equals("2")){
+                        outAmountUSD+=incomeDetailAll.getTotalAmount();
+                    }
+                }
+            }
+            fundBookQueryResponseAll.setOutAmountRMB(outAmountRMB);
+            fundBookQueryResponseAll.setOutAmountUSD(outAmountUSD);
+        }
+        if (param.getIncomeFlag()==null&&param.getOptType()==null){
+            for (IncomeDetailAll incomeDetailAll:allIncomeOut1){
+                //充值条数和充值金额计算
+                if (incomeDetailAll.getIncomeFlag().equals("1")&&incomeDetailAll.getOptType().equals("1")){
+                    incomeNum+=1;
+                    if (incomeDetailAll.getCurrencyUnit().equals("1")){
+                        incomeAmountRMB+=incomeDetailAll.getTotalAmount();
+                    }
+                    if (incomeDetailAll.getCurrencyUnit().equals("2")){
+                        incomeAmountUSD+=incomeDetailAll.getTotalAmount();
+                    }
+                }
+                //支出条数和支出金额计算
+                if (incomeDetailAll.getIncomeFlag().equals("0")){
+                    outNum+=1;
+                    if (incomeDetailAll.getCurrencyUnit().equals("1")){
+                        outAmountRMB+=incomeDetailAll.getTotalAmount();
+                    }
+                    if (incomeDetailAll.getCurrencyUnit().equals("2")){
+                        outAmountUSD+=incomeDetailAll.getTotalAmount();
+                    }
+                }
+            }
+            fundBookQueryResponseAll.setIncomeNum(incomeNum);
+            fundBookQueryResponseAll.setIncomeAmountRMB(incomeAmountRMB);
+            fundBookQueryResponseAll.setIncomeAmountUSD(incomeAmountUSD);
+            fundBookQueryResponseAll.setOutNum(outNum);
+            fundBookQueryResponseAll.setOutAmountRMB(outAmountRMB);
+            fundBookQueryResponseAll.setOutAmountUSD(outAmountUSD);
+        }
         if (param.getPageInfo() == null) {
             pageInfo.setPageNo(1);
             pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
@@ -134,10 +207,10 @@ public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
             pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
             pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
             pageInfo.setResult(allIncomeOut);
+            fundBookQueryResponseAll.setPageInfo(pageInfo);
         }else {
             return null;
         }
-        //将两张表中的字段放在IncomeDetail中
-        return pageInfo;
+        return fundBookQueryResponseAll;
     }
 }

@@ -3,10 +3,7 @@ package com.ai.slp.balance.service.business.interfaces;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetail;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetailAll;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequest;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeQueryRequestAll;
+import com.ai.slp.balance.api.incomeoutquery.param.*;
 
 
 /**
@@ -32,5 +29,5 @@ public interface IincomeOutQueryBusiSV {
      * @throws SystemException
      */
 
-    public PageInfo<IncomeDetailAll> incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException,SystemException;
+    public FundBookQueryResponseAll incomeOutQueryAll(IncomeQueryRequestAll param) throws BusinessException,SystemException;
 }

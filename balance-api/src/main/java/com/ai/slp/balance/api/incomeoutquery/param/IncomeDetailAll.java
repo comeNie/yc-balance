@@ -56,7 +56,7 @@ public class IncomeDetailAll extends BaseInfo {
      */
     private String remark;
     /**
-     *币种：人民币,美元
+     *币种：1 人民币, 2 美元
      */
     private String currencyUnit;
 
