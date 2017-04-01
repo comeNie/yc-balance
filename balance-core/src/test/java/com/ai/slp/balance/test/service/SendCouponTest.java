@@ -47,19 +47,20 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void test() {
-    	FunCouponTemplateQueryRequest param = new FunCouponTemplateQueryRequest();
-    	param.setCouponName("注册");
-    	FunCouponTemplateQueryResponse queryFunCouponTemplate = couponTemplateSV.queryFunCouponTemplate(param);
-    	System.out.println(queryFunCouponTemplate);
+    	SendCouponRequest param = new SendCouponRequest();
+    	param.setActivityName("注册测试");
+    	param.setUserId("53355");
+    	BaseResponse registerSendCoupon = sendCouponSV.registerSendCoupon(param);
+    	System.out.println(registerSendCoupon);
     }
     
     
     @Test
     public void testDepositForegift() {
-    	SendCouponRequest param = new SendCouponRequest();
-    	param.setUserId("1");
-        BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId = sendCouponSV.queryCouponByUserId(param);
-        System.out.println(queryCouponByUserId);
+    	QueryCouCountRequest param = new QueryCouCountRequest();
+    	param.setStatus("4");
+        Integer queryCouponCount = sendCouponSV.queryCouponCount(param);
+        System.out.println(queryCouponCount);
     }
     
     

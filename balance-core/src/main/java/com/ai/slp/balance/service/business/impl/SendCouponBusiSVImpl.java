@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
+import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
@@ -27,6 +28,7 @@ import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
+import com.ai.slp.balance.constants.SeqConstants;
 import com.ai.slp.balance.dao.mapper.bo.FunActivity;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRel;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRelCriteria;
@@ -58,7 +60,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 		//从serial中取出需要的字段
 		FunActivityCriteria funActivityCriteria = new FunActivityCriteria();
 		FunActivityCriteria.Criteria faCriteria = funActivityCriteria.createCriteria();
-		faCriteria.andActivityNameLike("%"+param.getActivityName()+"%");
+		faCriteria.andActivityNameEqualTo(param.getActivityName());
 		FunActivityMapper fcMapper = MapperFactory.getFunActivityMapper();
         List<FunActivity> funActivitys = fcMapper.selectByExample(funActivityCriteria);
         if (!CollectionUtil.isEmpty(funActivitys)){
@@ -78,13 +80,15 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                 FunCouponTemplateCriteria.Criteria fatCriteria = funCouponTemplateCriteria.createCriteria();
                 fatCriteria.andTemplateIdEqualTo(funActivityCouponRel.getTemplateId());
                 FunCouponTemplateMapper fctMapper = MapperFactory.getFunCouponTemplateMapper();
-                List<FunCouponTemplate> FunCouponTemplates = fctMapper.selectByExample(funCouponTemplateCriteria);
+                List<FunCouponTemplate> funCouponTemplates = fctMapper.selectByExample(funCouponTemplateCriteria);
                 FunCouponTemplate funCouponTemplate=new FunCouponTemplate();
-                BeanUtils.copyProperties(funCouponTemplate,FunCouponTemplates.get(0));
+                BeanUtils.copyProperties(funCouponTemplate,funCouponTemplates.get(0));
                 
                 FunDiscountCoupon funDiscountCoupon = new FunDiscountCoupon();
                 //funActivity;funCouponTemplate
-                funDiscountCoupon.setCouponId("a1");
+                
+                String couponId = SeqUtil.getNewId(SeqConstants.FUN_DISCOUNT_COUPON$COUPON_ID).toString();
+                funDiscountCoupon.setCouponId(couponId);
                 funDiscountCoupon.setAccountId(funActivity.getActivityId());
                 funDiscountCoupon.setCouponName(funCouponTemplate.getCouponName());
                 funDiscountCoupon.setCouponDesc(funCouponTemplate.getCouponDesc());

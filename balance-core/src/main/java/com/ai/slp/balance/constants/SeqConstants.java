@@ -51,4 +51,8 @@ public final class SeqConstants {
      * 优惠券使用规则表[FUN_COUPON_USE_RULE$COUPON_USER_ID]
      */
     public static final String FUN_COUPON_USE_RULE$COUPON_USER_ID = "fun_coupon_use_rule$COUPON_USER_ID";
+    /**
+     * 优惠券表[FUN_DISCOUNT_COUPON$COUPON_ID]
+     */
+    public static final String FUN_DISCOUNT_COUPON$COUPON_ID = "fun_discount_coupon$COUPON_ID";
 }
