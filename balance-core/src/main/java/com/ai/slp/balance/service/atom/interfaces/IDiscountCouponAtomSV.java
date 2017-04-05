@@ -15,7 +15,7 @@ import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 public interface IDiscountCouponAtomSV {
 
-	List<DeductionCouponResponse> deducionCoupon(String couponId);
+	List<DeductionCouponResponse> deducionCouponCheck(String couponId);
 	//查询优惠券明细
 	/*public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param);*/
 
@@ -27,10 +27,12 @@ public interface IDiscountCouponAtomSV {
 
 	void updateStateFreeze(FreezeCouponRequest param);
 
-	List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param);
+	void queryDeducionCoupon(DeductionCouponRequest param);
 
 	Integer findCouponCount(QueryCouCountRequest request);
 
 	PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest);
+
+	List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param);
 	
 }

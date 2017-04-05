@@ -19,36 +19,32 @@ public interface ISendCouponBusiSV {
 	/**
 	 * 查询优惠券
 	 */
-	public List<DeductionCouponResponse> deducionCoupon(String couponId);
-
-	
+	public List<DeductionCouponResponse> deducionCouponCheck(String couponId);
 	/**
 	 * 查询可使用的优惠券
 	 * @param orderType 
 	 */
 	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param);
-
-	
 	/**
 	 * 根据用户ID查询优惠券
 	 */
 	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param);
-	
-	
 	/**
 	 * 查询优惠券状态变为解冻
 	 */
 	public void updateStateThaw(FreezeCouponRequest param);
-	
-	
 	/**
 	 * 查询优惠券状态变为冻结
 	 */
 	public void updateStateFreeze(FreezeCouponRequest param);
 	/**
+	 * 抵扣查询优惠券
+	 */
+	public List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param);
+	/**
 	 * 抵扣优惠券
 	 */
-	public List<DeductionCouponResponse> deducionCoupon(DeductionCouponRequest param);
+	public void deducionCoupon(DeductionCouponRequest param);
 	/**
 	 * 查询优惠券数量
 	 */

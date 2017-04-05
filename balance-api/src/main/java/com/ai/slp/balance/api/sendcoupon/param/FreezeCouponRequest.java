@@ -14,7 +14,7 @@ public class FreezeCouponRequest implements Serializable {
 	 */
 	private String couponId;
 	
-	private long orderId;
+	private Long orderId;
 	
 	public String getCouponId() {
 		return couponId;
@@ -24,11 +24,13 @@ public class FreezeCouponRequest implements Serializable {
 		this.couponId = couponId;
 	}
 
-	public long getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
+
+	
 }

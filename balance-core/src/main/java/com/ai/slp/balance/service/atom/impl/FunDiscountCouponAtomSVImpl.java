@@ -1,10 +1,6 @@
 package com.ai.slp.balance.service.atom.impl;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -34,7 +30,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 根据优惠券iD查询优惠券
 	 */
 	@Override
-	public List<DeductionCouponResponse> deducionCoupon(String couponId) {
+	public List<DeductionCouponResponse> deducionCouponCheck(String couponId) {
 		
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
@@ -146,15 +142,14 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	}
 
 	/**
-	 * 抵扣优惠券
+	 * 抵扣优惠券查询
 	 */
 	@Override
-	public List<DeductionCouponResponse> queryDeducionCoupon(DeductionCouponRequest param) {
+	public List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param) {
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
-		critreia.andUserIdEqualTo(param.getUserId());
-		critreia.andOrderIdEqualTo(param.getOrderId());
+		critreia.andCouponIdEqualTo(param.getCouponId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
@@ -162,14 +157,32 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
             for (int i=0;i<funDiscountCoupons.size();i++){
             	DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
                 BeanUtils.copyProperties(deductionCouponResponse,funDiscountCoupons.get(i));
-                deductionCouponResponse.setStatus("2");
-                Date date=new Date();
-                DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                deductionCouponResponse.setUseTime(Timestamp.valueOf(format.format(date)));
                 deductionCouponResponses.add(deductionCouponResponse);
             }
         }
 		return deductionCouponResponses;
+	}
+	
+	/**
+	 * 抵扣优惠券
+	 */
+	@Override
+	public void queryDeducionCoupon(DeductionCouponRequest param) {
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andCouponIdEqualTo(param.getCouponId());
+		critreia.andUserIdEqualTo(param.getUserId());
+		critreia.andOrderIdEqualTo(param.getOrderId());
+		critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
+		if (!CollectionUtil.isEmpty(funDiscountCoupons)){
+			for (FunDiscountCoupon funDiscountCoupon : funDiscountCoupons) {
+				funDiscountCoupon.setStatus("2");
+				funDiscountCoupon.setCreateTime(DateUtil.getSysDate());
+				mapper.updateByExample(funDiscountCoupon, funDiscountCouponCriteria);
+			}
+        }
 	}
 
 	/**
@@ -228,6 +241,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	        pageInfo.setResult(deductionCouponResponses);
 	        return pageInfo;
 	}
+
 
 	
 
