@@ -18,11 +18,11 @@ public class QueryCouCountRequest extends BaseInfo  {
 	 * 用户ID
 	 */
     private String userId;
-    
     /**
-	 * 有效期结束时间
-	 */
+   	 * 有效期结束时间
+   	 */
     private Timestamp effectiveEndTime;
+    
     
 	public Timestamp getEffectiveEndTime() {
 		return effectiveEndTime;
