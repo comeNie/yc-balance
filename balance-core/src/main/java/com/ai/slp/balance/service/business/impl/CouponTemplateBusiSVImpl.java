@@ -2,6 +2,7 @@ package com.ai.slp.balance.service.business.impl;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
@@ -19,6 +20,7 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.components.sequence.util.SeqUtil;
+import com.ai.opt.sdk.util.DateUtil;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponTemplateQueryRequest;
@@ -72,20 +74,23 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	@Override
 	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException {
 		FunCouponTemplate funCouponTemplate = new FunCouponTemplate();
-		funCouponTemplate.setCouponName(req.getCouponName());
 		funCouponTemplate.setCouponDesc(req.getCouponDesc());
 		HttpServletRequest request=null;
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		funCouponTemplate.setCreateOperator(username);
-		Date date=new Date();
-        DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        funCouponTemplate.setCreateTime(Timestamp.valueOf(format.format(date)));
-        
-		funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(req.getEffectiveEndTime()));
-		funCouponTemplate.setEffectiveStartTime(Timestamp.valueOf(req.getEffectiveStartTime()));
-		funCouponTemplate.setEffectiveTime(req.getEffectiveTime());
-		
+        funCouponTemplate.setCreateTime(DateUtil.getSysDate());
+        if(req.getEffectiveTime() != null){
+            DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        	funCouponTemplate.setEffectiveTime(req.getEffectiveTime());
+        	Calendar c = Calendar.getInstance();
+        	c.add(Calendar.DAY_OF_MONTH, req.getEffectiveTime());
+        	funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(format.format(c.getTime())));
+        	funCouponTemplate.setEffectiveStartTime(DateUtil.getSysDate());
+        }else{
+        	funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(req.getEffectiveEndTime()));
+        	funCouponTemplate.setEffectiveStartTime(Timestamp.valueOf(req.getEffectiveStartTime()));
+        }
 		funCouponTemplate.setFaceValue(req.getFaceValue());
 		funCouponTemplate.setFaceValueDown(req.getFaceValueDown());
 		funCouponTemplate.setFaceValueUp(req.getFaceValueUp());
