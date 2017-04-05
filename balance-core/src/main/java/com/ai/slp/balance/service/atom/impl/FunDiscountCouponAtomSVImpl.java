@@ -193,6 +193,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andStatusEqualTo(request.getStatus());
+		critreia.andEffectiveEndTimeLessThan(request.getEffectiveEndTime());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		int countByExample = mapper.countByExample(funDiscountCouponCriteria);
 		return countByExample;
