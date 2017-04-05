@@ -12,6 +12,8 @@ import com.ai.slp.balance.api.accountquery.param.AccountIdParam;
 import com.ai.slp.balance.api.accountquery.param.AccountInfoVo;
 import com.ai.slp.balance.api.accountquery.param.CustIdParam;
 import com.ai.slp.balance.api.translatorbill.interfaces.IBillGenerateSV;
+import com.ai.slp.balance.api.translatorbill.param.FunAccountDetailPageResponse;
+import com.ai.slp.balance.api.translatorbill.param.FunAccountDetailQueryRequest;
 import com.ai.slp.balance.api.translatorbill.param.FunAccountDetailResponse;
 import com.ai.slp.balance.service.business.interfaces.IBillGenerateBusiSV;
 import com.alibaba.fastjson.JSON;
@@ -54,9 +56,11 @@ public class tranlatorBillSVImplTest extends TestCase {
 
     @Test
     public void testqueryFunAccountDetail()throws Exception{
-        List<FunAccountDetailResponse> funAccountDetailResponses = billGenerateSV.queryFunAccountDetail("21");
+        FunAccountDetailQueryRequest request = new FunAccountDetailQueryRequest();
+        request.setBillID("21");
+        FunAccountDetailPageResponse funAccountDetailResponses = billGenerateSV.queryFunAccountDetail(request);
 
-        System.out.print(funAccountDetailResponses.get(0));
+        System.out.print(funAccountDetailResponses);
     }
 
 
