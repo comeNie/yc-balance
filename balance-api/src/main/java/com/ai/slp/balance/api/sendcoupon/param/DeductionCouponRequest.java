@@ -18,7 +18,7 @@ public class DeductionCouponRequest  implements Serializable {
 	/**
 	 * 订单ID
 	 */
-	private long orderId;
+	private Long orderId;
 	/**
 	 * 优惠券使用场景
 	 *	1译云-中文站
@@ -34,7 +34,7 @@ public class DeductionCouponRequest  implements Serializable {
 	/**
 	 * 订单消费总金额
 	 */
-	private long totalFee;
+	private Long totalFee;
 	/**
 	 * 订单类型
 	 */
@@ -67,12 +67,18 @@ public class DeductionCouponRequest  implements Serializable {
 	public void setCouponId(String couponId) {
 		this.couponId = couponId;
 	}
-	public long getOrderId() {
+	
+
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+
+	public void setTotalFee(Long totalFee) {
+		this.totalFee = totalFee;
 	}
 
 	public String getUsedScene() {

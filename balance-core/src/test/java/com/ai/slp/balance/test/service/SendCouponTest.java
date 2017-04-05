@@ -52,8 +52,9 @@ public class SendCouponTest extends TestCase {
     @Test
     public void test() {
     	DeductionCouponRequest param = new DeductionCouponRequest();
+    	param.setUserId("4444914");
     	param.setCurrencyUnit("1");
-    	param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
+    	//param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
     	param.setOrderType("1");
     	param.setUsedScene("1");
     	param.setTotalFee(200000000);

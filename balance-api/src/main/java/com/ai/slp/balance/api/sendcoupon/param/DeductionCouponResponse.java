@@ -42,9 +42,6 @@ public class DeductionCouponResponse  implements Serializable {
     private String useLimits;
     /**
 	 * 状态
-	 * 4 未使用
-	 * 5 已使用
-	 * 6 已过期
 	 */
     private String status;
     /**
@@ -66,7 +63,7 @@ public class DeductionCouponResponse  implements Serializable {
     /**
 	 * 使用订单
 	 */
-    private long orderId;
+    private Long orderId;
     /**
 	 * 使用时间
 	 */
@@ -160,10 +157,10 @@ public class DeductionCouponResponse  implements Serializable {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public long getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 	public Timestamp getUseTime() {
