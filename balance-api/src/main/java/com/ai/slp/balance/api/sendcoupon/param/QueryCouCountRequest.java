@@ -1,7 +1,6 @@
 package com.ai.slp.balance.api.sendcoupon.param;
 
 
-import java.sql.Timestamp;
 
 import com.ai.opt.base.vo.BaseInfo;
 
@@ -18,18 +17,8 @@ public class QueryCouCountRequest extends BaseInfo  {
 	 * 用户ID
 	 */
     private String userId;
-    /**
-   	 * 有效期结束时间
-   	 */
-    private Timestamp effectiveEndTime;
     
     
-	public Timestamp getEffectiveEndTime() {
-		return effectiveEndTime;
-	}
-	public void setEffectiveEndTime(Timestamp effectiveEndTime) {
-		this.effectiveEndTime = effectiveEndTime;
-	}
 	public String getStatus() {
 		return status;
 	}
