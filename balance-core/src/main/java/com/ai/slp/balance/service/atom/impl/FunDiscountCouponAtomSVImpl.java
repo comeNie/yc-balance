@@ -205,7 +205,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		 FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		 FunDiscountCouponCriteria.Criteria criteria= funDiscountCouponCriteria.createCriteria();
 	        if (!StringUtil.isBlank(queryCouponRequest.getStatus())){
-	            criteria.andCurrencyUnitEqualTo(queryCouponRequest.getStatus());
+	            criteria.andStatusEqualTo(queryCouponRequest.getStatus());
 	        }
 	        if (!StringUtil.isBlank(queryCouponRequest.getUserId())){
 	            criteria.andUserIdEqualTo(queryCouponRequest.getUserId());

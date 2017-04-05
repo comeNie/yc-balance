@@ -1,8 +1,6 @@
 package com.ai.slp.balance.test.service;
 
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +10,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
-import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -37,8 +36,11 @@ public class SendCouponTest extends TestCase {
     @Test
     public void testSendCouponTest() {
     	
-    	List<FunCouponUseRuleQueryResponse> queryFunCouponUseRule = couponUseRuleSV.queryFunCouponUseRule("1");
-    	System.out.println(queryFunCouponUseRule);
+    	QueryCouponRequest queryCouCountRequest = new QueryCouponRequest();
+		queryCouCountRequest.setStatus("1");
+		queryCouCountRequest.setUserId("525335");
+		QueryCouponRsponse queryCouponPage = sendCouponSV.queryCouponPage(queryCouCountRequest);
+		System.out.println(queryCouponPage);
     }
     
     /*@Test
