@@ -44,7 +44,7 @@ public class DeductionCouponRequest  implements Serializable {
 	 */
 	private String currencyUnit;
 	
-	public long getTotalFee() {
+	public Long getTotalFee() {
 		return totalFee;
 	}
 
