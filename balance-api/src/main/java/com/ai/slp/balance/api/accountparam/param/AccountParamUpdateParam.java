@@ -6,21 +6,21 @@ import java.math.BigDecimal;
 
 /**
  * 账户设置入参.<br>
- * Date: 2015年7月27日 <br>
- * Copyright (c) 2015 asiainfo.com <br>
+ * Date: 2017年4月1日 <br>
+ * Copyright (c) 2017 asiainfo.com <br>
  * 
- * @author fanpw
+ * @author liquid
  */
 public class AccountParamUpdateParam extends BaseInfo {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户ID(必填)
+     * 用户ID(必填)如果用户不是企业用户,传入用户ID,如果用户是企业用户,需要传入企业ID
      */
     private String targetID;
     /**
-     *用户名(必填) 如果用户不是企业用户,传入用户ID,如果用户是企业用户,需要传入企业ID
+     *用户名(必填)
      */
     private String targetName;
     /**
