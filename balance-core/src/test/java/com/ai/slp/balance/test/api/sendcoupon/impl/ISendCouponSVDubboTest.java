@@ -16,23 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * Created by liutong on 2017/4/1.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "/context/core-context.xml" })
-public class ISendCouponSVTest {
-    @Autowired
-    ISendCouponSV sendCouponSV;
+public class ISendCouponSVDubboTest {
 
     @Test
-    public void registerSendCouponTest(){
-        SendCouponRequest request = new SendCouponRequest();
-        request.setActivityName("注册测试");
-        request.setUserId("4444914");
-        BaseResponse response = sendCouponSV.registerSendCoupon(request);
-        System.out.println(response.getResponseHeader().getResultCode());
-    }
-
-    @Test
-    public void queryDisCountCouponTest(){
+    public void queryDisCountCouponDTest(){
+        ISendCouponSV sendCouponSV = DubboConsumerFactory.getService(ISendCouponSV.class);
         DeductionCouponRequest couponRequest = new DeductionCouponRequest();
         couponRequest.setCurrencyUnit("1");//币种:人民币
         couponRequest.setUserId("525335");//用户
@@ -43,6 +31,4 @@ public class ISendCouponSVTest {
         BaseListResponse<DeductionCouponResponse> resList = sendCouponSV.queryDisCountCoupon(couponRequest);
         System.out.println(resList.getResult().size());
     }
-
-
 }

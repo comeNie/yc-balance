@@ -13,7 +13,6 @@ import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
-import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
 
@@ -46,14 +45,14 @@ public class SendCouponTest extends TestCase {
     
     @Test
     public void queryCouponOveCount() {
-    	
+
     	QueryCouCountRequest queryCouCountRequest = new QueryCouCountRequest();
 		queryCouCountRequest.setUserId("525335");
 		Integer queryCouponOveCount = sendCouponSV.queryCouponOveCount(queryCouCountRequest);
 		System.out.println(queryCouponOveCount);
     }
-    
-    
+
+
     /*@Test
     public void test() {
     	SendCouponRequest param = new SendCouponRequest();
@@ -71,7 +70,7 @@ public class SendCouponTest extends TestCase {
     	//param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
     	param.setOrderType("1");
     	param.setUsedScene("1");
-    	param.setTotalFee(Long.parseLong("200000000"));
+    	param.setTotalFee(200000000l);
     	BaseResponse registerSendCoupon = sendCouponSV.queryDisCountCoupon(param);
     	System.out.println(registerSendCoupon);
     }
@@ -95,7 +94,7 @@ public class SendCouponTest extends TestCase {
     	param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
     	param.setOrderType("1");
     	param.setUsedScene("1");
-    	param.setTotalFee(Long.parseLong("200000000"));
+    	param.setTotalFee(900000000l);
     	BaseResponse registerSendCoupon = sendCouponSV.deducionCoupon(param);
     	System.out.println(registerSendCoupon);
     }
