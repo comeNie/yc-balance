@@ -48,10 +48,6 @@ public class DeductionCouponRequest  implements Serializable {
 		return totalFee;
 	}
 
-	public void setTotalFee(long totalFee) {
-		this.totalFee = totalFee;
-	}
-
 	public String getUserId() {
 		return userId;
 	}
