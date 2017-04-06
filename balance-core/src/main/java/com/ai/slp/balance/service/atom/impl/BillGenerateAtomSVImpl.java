@@ -341,8 +341,10 @@ public class BillGenerateAtomSVImpl implements IBillGenerateAtomSV {
         if (!StringUtil.isBlank(funAccountQueryRequest.getAcountType())){
             criteria.andAccountTypeEqualTo(funAccountQueryRequest.getAcountType());
         }
-        if (!(StringUtil.isBlank(funAccountQueryRequest.getBeginDate())&&StringUtil.isBlank(funAccountQueryRequest.getEndDate()))){
+        if (!StringUtil.isBlank(funAccountQueryRequest.getBeginDate())){
             criteria.andCreateTimeGreaterThanOrEqualTo(Timestamp.valueOf(funAccountQueryRequest.getBeginDate()));
+        }
+        if (!StringUtil.isBlank(funAccountQueryRequest.getEndDate())) {
             criteria.andCreateTimeLessThanOrEqualTo(Timestamp.valueOf(funAccountQueryRequest.getEndDate()));
         }
         PageInfo<FunAccountResponse> pageInfo = new PageInfo<FunAccountResponse>();
