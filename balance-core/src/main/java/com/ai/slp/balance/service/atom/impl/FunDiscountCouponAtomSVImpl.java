@@ -242,6 +242,19 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	        pageInfo.setResult(deductionCouponResponses);
 	        return pageInfo;
 	}
+	/**
+	 * 根据过期时间查询数量
+	 */
+	@Override
+	public Integer queryCouponOveCount(QueryCouCountRequest request) {
+		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
+		critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
+		critreia.andUserIdEqualTo(request.getUserId());
+		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+		int countByExample = mapper.countByExample(funDiscountCouponCriteria);
+		return countByExample;
+	}
 
 
 	

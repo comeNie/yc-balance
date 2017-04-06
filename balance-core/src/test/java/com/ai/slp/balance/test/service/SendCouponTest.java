@@ -43,6 +43,16 @@ public class SendCouponTest extends TestCase {
 		System.out.println(queryCouponPage);
     }
     
+    @Test
+    public void queryCouponOveCount() {
+
+    	QueryCouCountRequest queryCouCountRequest = new QueryCouCountRequest();
+		queryCouCountRequest.setUserId("525335");
+		Integer queryCouponOveCount = sendCouponSV.queryCouponOveCount(queryCouCountRequest);
+		System.out.println(queryCouponOveCount);
+    }
+
+
     /*@Test
     public void test() {
     	SendCouponRequest param = new SendCouponRequest();

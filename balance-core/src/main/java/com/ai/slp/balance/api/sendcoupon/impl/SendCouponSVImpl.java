@@ -51,10 +51,13 @@ public class SendCouponSVImpl implements ISendCouponSV {
 			//
 			responseHeader.setIsSuccess(true);
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-			responseHeader.setResultMessage("注册领取优惠券成功");
+			responseHeader.setResultMessage("注册领取优惠券成功!");
 			response.setResponseHeader(responseHeader);
 		}catch (Exception e) {
-			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"注册领取优惠券失败");
+			responseHeader.setIsSuccess(false);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+			responseHeader.setResultMessage("注册领取优惠券失败!");
+			response.setResponseHeader(responseHeader);
 		}
 		return response;
 	}
@@ -63,31 +66,31 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	 * 查询可使用的优惠券
 	 */
 	@Override
-	public BaseListResponse<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)throws BusinessException, SystemException {
+	public BaseListResponse<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)
+			throws BusinessException, SystemException {
 		BaseListResponse<DeductionCouponResponse> queryDeducionCoupons = new BaseListResponse<>();
-		ResponseHeader responseHeader = new ResponseHeader();	
-		
+		ResponseHeader responseHeader = new ResponseHeader();
 		List<DeductionCouponResponse> deductionCouponResponse = new ArrayList<DeductionCouponResponse>();
-			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDisCountCoupon(param);
-				for (int i = 0; i < queryDeducionCoupon.size(); i++) {
-					String couponUserId = queryDeducionCoupon.get(i).getCouponUserId();
-					List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV.queryCouponUseRule(couponUserId);
-					for (int j = 0; j < queryCouponUseRule.size(); j++) {
-						Integer requiredMoneyAmount = queryCouponUseRule.get(j).getRequiredMoneyAmount();
-						if(param.getTotalFee()>=requiredMoneyAmount){
-							DeductionCouponResponse deductionCouponResponse2 = new DeductionCouponResponse();
-							BeanUtils.copyProperties(queryDeducionCoupon.get(i),deductionCouponResponse2);
-							deductionCouponResponse.add(deductionCouponResponse2);
-							responseHeader.setIsSuccess(true);
-							responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-							responseHeader.setResultMessage("查询可用优惠券成功");
-							queryDeducionCoupons.setResponseHeader(responseHeader);
-					}
+		List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDisCountCoupon(param);
+		for (int i = 0; i < queryDeducionCoupon.size(); i++) {
+			String couponUserId = queryDeducionCoupon.get(i).getCouponUserId();
+			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV
+					.queryCouponUseRule(couponUserId);
+			for (int j = 0; j < queryCouponUseRule.size(); j++) {
+				Integer requiredMoneyAmount = queryCouponUseRule.get(j).getRequiredMoneyAmount();
+				if (param.getTotalFee() >= requiredMoneyAmount) {
+					DeductionCouponResponse deductionCouponResponse2 = new DeductionCouponResponse();
+					BeanUtils.copyProperties(queryDeducionCoupon.get(i), deductionCouponResponse2);
+					deductionCouponResponse.add(deductionCouponResponse2);
 				}
-				queryDeducionCoupons.setResponseHeader(responseHeader);
-				queryDeducionCoupons.setResult(deductionCouponResponse);
-				}
-				return queryDeducionCoupons;
+			}
+		}
+		responseHeader.setIsSuccess(true);
+		responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+		responseHeader.setResultMessage("查询可用优惠券成功!");
+		queryDeducionCoupons.setResponseHeader(responseHeader);
+		queryDeducionCoupons.setResult(deductionCouponResponse);
+		return queryDeducionCoupons;
 	}
 
 	/**
@@ -103,10 +106,13 @@ public class SendCouponSVImpl implements ISendCouponSV {
 			//
 			responseHeader.setIsSuccess(true);
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-			responseHeader.setResultMessage("状态更改成功");
+			responseHeader.setResultMessage("状态更改成功!");
 			response.setResponseHeader(responseHeader);
 		}catch (Exception e) {
-			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"状态更改失败");
+			responseHeader.setIsSuccess(false);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+			responseHeader.setResultMessage("状态更改失败!");
+			response.setResponseHeader(responseHeader);
 		}
 		return response;
 	}
@@ -122,10 +128,13 @@ public class SendCouponSVImpl implements ISendCouponSV {
 			sendCouponBusiSV.updateStateFreeze(param);
 			responseHeader.setIsSuccess(true);
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-			responseHeader.setResultMessage("状态更改成功");
+			responseHeader.setResultMessage("状态更改成功!");
 			response.setResponseHeader(responseHeader);
 		}catch (Exception e) {
-			throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"状态更改失败");
+			responseHeader.setIsSuccess(false);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+			responseHeader.setResultMessage("状态更改失败!");
+			response.setResponseHeader(responseHeader);
 		}
 		return response;
 	}
@@ -136,8 +145,20 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	@Override
 	public BaseListResponse<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param) throws BusinessException, SystemException {
 		BaseListResponse<FunDiscountCouponResponse> queryCouponByUserIds = new BaseListResponse<>();
-		List<FunDiscountCouponResponse> queryCouponByUserId = sendCouponBusiSV.queryCouponByUserId(param);
-		queryCouponByUserIds.setResult(queryCouponByUserId);
+		ResponseHeader responseHeader = new ResponseHeader();
+		try{
+			List<FunDiscountCouponResponse> queryCouponByUserId = sendCouponBusiSV.queryCouponByUserId(param);
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("查询优惠券成功!");
+			queryCouponByUserIds.setResponseHeader(responseHeader);
+			queryCouponByUserIds.setResult(queryCouponByUserId);
+		}catch(Exception e){
+			responseHeader.setIsSuccess(false);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+			responseHeader.setResultMessage("查询优惠券失败!");
+			queryCouponByUserIds.setResponseHeader(responseHeader);
+		}
 		return queryCouponByUserIds;
 	}
 
@@ -151,7 +172,7 @@ public class SendCouponSVImpl implements ISendCouponSV {
 		String couponId = param.getCouponId();
 		List<DeductionCouponResponse> deducionCoupon = sendCouponBusiSV.deducionCouponCheck(couponId);
 		if(deducionCoupon == null){
-			throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券抵扣失败，优惠券不存在");
+			throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券抵扣失败，优惠券不存在!");
 		}else{
 			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDisCountCouponOnly(param);
 			String couponUserId = queryDeducionCoupon.get(0).getCouponUserId();
@@ -159,23 +180,23 @@ public class SendCouponSVImpl implements ISendCouponSV {
 			Integer requiredMoneyAmount = queryCouponUseRule.get(0).getRequiredMoneyAmount();
 			for (int i = 0; i < queryDeducionCoupon.size(); i++) {
 				if (!param.getUsedScene().equals(queryDeducionCoupon.get(i).getUsedScene())) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USEDSCENE, "优惠券抵扣失败，此优惠券不符合使用场景限制");
+					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USEDSCENE, "优惠券抵扣失败，此优惠券不符合使用场景限制!");
 				}else if (param.getTotalFee() <= requiredMoneyAmount) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_REQYUIREDMONEYAMOUNT, "优惠券抵扣失败，此优惠券不符合所消费面额限制");
+					throw new BusinessException(ExceptCodeConstants.Special.NO_REQYUIREDMONEYAMOUNT, "优惠券抵扣失败，此优惠券不符合所消费面额限制!");
 				}else if (!param.getOrderType().equals(queryDeducionCoupon.get(i).getUseLimits()) && !queryDeducionCoupon.get(i).getUseLimits().equals("0")) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USELIMITS, "优惠券抵扣失败，此优惠券不符合订单类型的使用规则限制");
+					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USELIMITS, "优惠券抵扣失败，此优惠券不符合订单类型的使用规则限制!");
 				}else if (queryDeducionCoupon.get(i).getStatus().equals("3")) {
-					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效");
+					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效!");
 				}
 			}
 			try {
 				sendCouponBusiSV.deducionCoupon(param);
 				responseHeader.setIsSuccess(true);
 				responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-				responseHeader.setResultMessage("抵扣成功");
+				responseHeader.setResultMessage("抵扣成功!");
 				response.setResponseHeader(responseHeader);
 			}catch (Exception e) {
-				throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"抵扣失败");
+				throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"抵扣失败!");
 			}
 			return response;
 		}
@@ -186,6 +207,12 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	@Override
 	public Integer queryCouponCount(QueryCouCountRequest request)throws BusinessException, SystemException {
 		Integer findCouponCount = sendCouponBusiSV.findCouponCount(request);
+		ResponseHeader responseHeader = new ResponseHeader();
+		if(findCouponCount != null){
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("数量查询成功!");
+		}
 		return findCouponCount;
 	}
 
@@ -213,6 +240,20 @@ public class SendCouponSVImpl implements ISendCouponSV {
             queryCouponRsponse.setResponseHeader(responseHeader);
         }
 		return queryCouponRsponse;
+	}
+	/**
+	 * 查询过期的优惠券数量
+	 */
+	@Override
+	public Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException {
+		Integer findCouponCount = sendCouponBusiSV.queryCouponOveCount(request);
+		ResponseHeader responseHeader = new ResponseHeader();
+		if(findCouponCount != null){
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("数量查询成功!");
+		}
+		return findCouponCount;
 	}
 	
 	/*@Override

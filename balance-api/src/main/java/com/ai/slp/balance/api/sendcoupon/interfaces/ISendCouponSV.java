@@ -116,6 +116,19 @@ public interface ISendCouponSV {
 	@Path("/queryCouponCount")
 	public Integer queryCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException;
 	/**
+	 * 查询已过期的优惠券数量
+	 * @param request
+	 * @return
+	 * @throws BusinessException
+	 * @throws SystemException
+	 * @ApiDocMethod
+	 * @ApiCode
+	 * @RestRelativeURL sendCouponService/queryCouponOveCount
+	 */
+	@POST
+	@Path("/queryCouponOveCount")
+	public Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException;
+	/**
 	 * 查询优惠券列表
 	 * @param queryOrderRequest
 	 * @return
