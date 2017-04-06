@@ -79,7 +79,7 @@ public class SendCouponTest extends TestCase {
     @Test
     public void test1() {
     	FreezeCouponRequest	 param = new FreezeCouponRequest();
-    	param.setCouponId("a2");
+    	param.setCouponId("71");
     	param.setOrderId(Long.parseLong("2000000024195005"));
     	BaseResponse registerSendCoupon = sendCouponSV.updateStateThaw(param);
     	System.out.println(registerSendCoupon);

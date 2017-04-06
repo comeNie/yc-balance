@@ -21,6 +21,7 @@ import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.slp.balance.api.couponuserule.param.FunCouponUseRuleQueryResponse;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
@@ -28,6 +29,7 @@ import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
+import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.constants.SeqConstants;
 import com.ai.slp.balance.dao.mapper.bo.FunActivity;
 import com.ai.slp.balance.dao.mapper.bo.FunActivityCouponRel;
@@ -42,6 +44,7 @@ import com.ai.slp.balance.dao.mapper.interfaces.FunActivityMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
 import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
 import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
+import com.ai.slp.balance.service.business.interfaces.ICouponUseRuleBusiSV;
 import com.ai.slp.balance.service.business.interfaces.ISendCouponBusiSV;
 @Service
 @Transactional
@@ -50,7 +53,8 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	
 	@Autowired
 	private IDiscountCouponAtomSV discountCouponAtomSV;
-	
+	@Autowired
+    private ICouponUseRuleBusiSV couponUseRuleBusiSV;
 	/**
 	 * 新用户注册发送/领取优惠券
 	 */
@@ -168,20 +172,38 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param) throws BusinessException, SystemException {
 		return discountCouponAtomSV.queryCouponByUserId(param);
 	}
-	/**
-	 * 抵扣优惠券查询
-	 */
-	@Override
-	public List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param) throws BusinessException, SystemException {
-		return discountCouponAtomSV.queryDisCountCouponOnly(param);
-	}
 
 	/**
 	 * 抵扣优惠券
 	 */
 	@Override
 	public void deducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
-		 discountCouponAtomSV.queryDeducionCoupon(param);
+		String couponId = param.getCouponId();
+		List<DeductionCouponResponse> deducionCoupon = discountCouponAtomSV.deducionCouponCheck(couponId);
+		if (deducionCoupon == null) {
+			throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券抵扣失败，优惠券不存在!");
+		}else{
+			String couponUserId = deducionCoupon.get(0).getCouponUserId();
+			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV
+					.queryCouponUseRule(couponUserId);
+			Integer requiredMoneyAmount = queryCouponUseRule.get(0).getRequiredMoneyAmount();
+			if (!param.getUsedScene().equals(deducionCoupon.get(0).getUsedScene())) {
+				throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USEDSCENE,
+						"优惠券抵扣失败，此优惠券不符合使用场景限制!");
+			} else if (param.getTotalFee() <= requiredMoneyAmount) {
+				throw new BusinessException(ExceptCodeConstants.Special.NO_REQYUIREDMONEYAMOUNT,
+						"优惠券抵扣失败，此优惠券不符合所消费面额限制!");
+			} else if (!param.getOrderType().equals(deducionCoupon.get(0).getUseLimits())
+					&& !deducionCoupon.get(0).getUseLimits().equals("0")) {
+				throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USELIMITS,
+						"优惠券抵扣失败，此优惠券不符合订单类型的使用规则限制!");
+			} else if (deducionCoupon.get(0).getStatus().equals("2")) {
+				throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效!");
+			}
+		}
+		// 订单下所有优惠券解冻
+		discountCouponAtomSV.updateStateByOrderId(param);
+		discountCouponAtomSV.queryDeducionCoupon(param);
 	}
 	/**
 	 * 根据状态查询数量
@@ -202,6 +224,11 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	@Override
 	public Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException {
 		return discountCouponAtomSV.queryCouponOveCount(request);
+	}
+
+	@Override
+	public void updateStateByOrderId(DeductionCouponRequest param) throws BusinessException, SystemException {
+		discountCouponAtomSV.updateStateByOrderId(param);
 	}
 	/**
 	 * 线下发送/领取优惠券
@@ -268,4 +295,6 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
              fudMapper.insertSelective(funDiscountCoupon);
 		}
 	}*/
+
+	
 }

@@ -169,38 +169,43 @@ public class SendCouponSVImpl implements ISendCouponSV {
 	public BaseResponse deducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
 		BaseResponse response = new BaseResponse();
 		ResponseHeader responseHeader = new ResponseHeader();
-		String couponId = param.getCouponId();
-		List<DeductionCouponResponse> deducionCoupon = sendCouponBusiSV.deducionCouponCheck(couponId);
-		if(deducionCoupon == null){
-			throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券抵扣失败，优惠券不存在!");
-		}else{
-			List<DeductionCouponResponse> queryDeducionCoupon = sendCouponBusiSV.queryDisCountCouponOnly(param);
-			String couponUserId = queryDeducionCoupon.get(0).getCouponUserId();
-			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV.queryCouponUseRule(couponUserId);
-			Integer requiredMoneyAmount = queryCouponUseRule.get(0).getRequiredMoneyAmount();
-			for (int i = 0; i < queryDeducionCoupon.size(); i++) {
-				if (!param.getUsedScene().equals(queryDeducionCoupon.get(i).getUsedScene())) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USEDSCENE, "优惠券抵扣失败，此优惠券不符合使用场景限制!");
-				}else if (param.getTotalFee() <= requiredMoneyAmount) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_REQYUIREDMONEYAMOUNT, "优惠券抵扣失败，此优惠券不符合所消费面额限制!");
-				}else if (!param.getOrderType().equals(queryDeducionCoupon.get(i).getUseLimits()) && !queryDeducionCoupon.get(i).getUseLimits().equals("0")) {
-					throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USELIMITS, "优惠券抵扣失败，此优惠券不符合订单类型的使用规则限制!");
-				}else if (queryDeducionCoupon.get(i).getStatus().equals("3")) {
-					throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效!");
-				}
-			}
-			try {
-				sendCouponBusiSV.deducionCoupon(param);
-				responseHeader.setIsSuccess(true);
-				responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-				responseHeader.setResultMessage("抵扣成功!");
-				response.setResponseHeader(responseHeader);
-			}catch (Exception e) {
-				throw new SystemException(ExceptCodeConstants.Special.SYSTEM_ERROR,"抵扣失败!");
-			}
-			return response;
+		try {
+			sendCouponBusiSV.deducionCoupon(param);
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("抵扣成功!");
+			response.setResponseHeader(responseHeader);
+		} catch (Exception e) {
+			responseHeader.setIsSuccess(false);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+			responseHeader.setResultMessage("抵扣失败!");
+			response.setResponseHeader(responseHeader);
 		}
+		return response;
 	}
+		/*String couponId = param.getCouponId();
+		List<DeductionCouponResponse> deducionCoupon = sendCouponBusiSV.deducionCouponCheck(couponId);
+		if (deducionCoupon == null) {
+			throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券抵扣失败，优惠券不存在!");
+		} else {
+			String couponUserId = deducionCoupon.get(0).getCouponUserId();
+			List<FunCouponUseRuleQueryResponse> queryCouponUseRule = couponUseRuleBusiSV
+					.queryCouponUseRule(couponUserId);
+			Integer requiredMoneyAmount = queryCouponUseRule.get(0).getRequiredMoneyAmount();
+			if (!param.getUsedScene().equals(deducionCoupon.get(0).getUsedScene())) {
+				throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USEDSCENE,
+						"优惠券抵扣失败，此优惠券不符合使用场景限制!");
+			} else if (param.getTotalFee() <= requiredMoneyAmount) {
+				throw new BusinessException(ExceptCodeConstants.Special.NO_REQYUIREDMONEYAMOUNT,
+						"优惠券抵扣失败，此优惠券不符合所消费面额限制!");
+			} else if (!param.getOrderType().equals(deducionCoupon.get(0).getUseLimits())
+					&& !deducionCoupon.get(0).getUseLimits().equals("0")) {
+				throw new BusinessException(ExceptCodeConstants.Special.NO_DISCOUNTCOUPON_USELIMITS,
+						"优惠券抵扣失败，此优惠券不符合订单类型的使用规则限制!");
+			} else if (deducionCoupon.get(0).getStatus().equals("2")) {
+				throw new BusinessException(ExceptCodeConstants.Special.DISCOUNTCOUPON_EFFECT, "优惠券抵扣失败，优惠券已失效!");
+			}*/
+	/*	}*/
 	/**
 	 * 优惠券数量查询
 	 */

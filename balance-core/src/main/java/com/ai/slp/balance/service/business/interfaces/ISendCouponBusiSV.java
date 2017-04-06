@@ -38,10 +38,6 @@ public interface ISendCouponBusiSV {
 	 */
 	public void updateStateFreeze(FreezeCouponRequest param)throws BusinessException,SystemException;
 	/**
-	 * 抵扣查询优惠券
-	 */
-	public List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param)throws BusinessException,SystemException;
-	/**
 	 * 抵扣优惠券
 	 */
 	public void deducionCoupon(DeductionCouponRequest param)throws BusinessException,SystemException;
@@ -57,4 +53,5 @@ public interface ISendCouponBusiSV {
 	 * 查询过期的优惠券数量
 	 */
 	public Integer queryCouponOveCount(QueryCouCountRequest request)throws BusinessException,SystemException;
+	public void updateStateByOrderId(DeductionCouponRequest param)throws BusinessException,SystemException;
 }
