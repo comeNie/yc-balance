@@ -241,6 +241,20 @@ public class SendCouponSVImpl implements ISendCouponSV {
         }
 		return queryCouponRsponse;
 	}
+	/**
+	 * 查询过期的优惠券数量
+	 */
+	@Override
+	public Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException {
+		Integer findCouponCount = sendCouponBusiSV.queryCouponOveCount(request);
+		ResponseHeader responseHeader = new ResponseHeader();
+		if(findCouponCount != null){
+			responseHeader.setIsSuccess(true);
+			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+			responseHeader.setResultMessage("数量查询成功!");
+		}
+		return findCouponCount;
+	}
 	
 	/*@Override
 	public void offLineSendCoupon(int maxCount, String couponName, String userId)

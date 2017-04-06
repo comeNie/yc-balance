@@ -34,5 +34,7 @@ public interface IDiscountCouponAtomSV {
 	PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest);
 
 	List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param);
+
+	Integer queryCouponOveCount(QueryCouCountRequest request);
 	
 }

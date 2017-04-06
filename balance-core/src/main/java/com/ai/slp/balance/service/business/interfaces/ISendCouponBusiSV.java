@@ -19,38 +19,42 @@ public interface ISendCouponBusiSV {
 	/**
 	 * 查询优惠券
 	 */
-	public List<DeductionCouponResponse> deducionCouponCheck(String couponId);
+	public List<DeductionCouponResponse> deducionCouponCheck(String couponId)throws BusinessException,SystemException;
 	/**
 	 * 查询可使用的优惠券
 	 * @param orderType 
 	 */
-	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param);
+	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)throws BusinessException,SystemException;
 	/**
 	 * 根据用户ID查询优惠券
 	 */
-	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param);
+	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param)throws BusinessException,SystemException;
 	/**
 	 * 查询优惠券状态变为解冻
 	 */
-	public void updateStateThaw(FreezeCouponRequest param);
+	public void updateStateThaw(FreezeCouponRequest param)throws BusinessException,SystemException;
 	/**
 	 * 查询优惠券状态变为冻结
 	 */
-	public void updateStateFreeze(FreezeCouponRequest param);
+	public void updateStateFreeze(FreezeCouponRequest param)throws BusinessException,SystemException;
 	/**
 	 * 抵扣查询优惠券
 	 */
-	public List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param);
+	public List<DeductionCouponResponse> queryDisCountCouponOnly(DeductionCouponRequest param)throws BusinessException,SystemException;
 	/**
 	 * 抵扣优惠券
 	 */
-	public void deducionCoupon(DeductionCouponRequest param);
+	public void deducionCoupon(DeductionCouponRequest param)throws BusinessException,SystemException;
 	/**
 	 * 查询优惠券数量
 	 */
-	public Integer findCouponCount(QueryCouCountRequest request);
+	public Integer findCouponCount(QueryCouCountRequest request)throws BusinessException,SystemException;
 	/**
 	 * 根据用户ID、状态查询优惠券
 	 */
-	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest);
+	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest)throws BusinessException,SystemException;
+	/**
+	 * 查询过期的优惠券数量
+	 */
+	public Integer queryCouponOveCount(QueryCouCountRequest request)throws BusinessException,SystemException;
 }

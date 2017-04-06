@@ -190,6 +190,19 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	public Integer findCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException {
 		return discountCouponAtomSV.findCouponCount(request);
 	}
+
+	@Override
+	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest) throws BusinessException, SystemException {
+		PageInfo<DeductionCouponResponse> deductionCouponResponse = discountCouponAtomSV.queryCouponPage(queryCouponRequest);
+		return deductionCouponResponse;
+	}
+	/**
+	 * 根据过期时间查询数量
+	 */
+	@Override
+	public Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException {
+		return discountCouponAtomSV.queryCouponOveCount(request);
+	}
 	/**
 	 * 线下发送/领取优惠券
 	 *//*
@@ -255,19 +268,4 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
              fudMapper.insertSelective(funDiscountCoupon);
 		}
 	}*/
-
-	@Override
-	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest) throws BusinessException, SystemException {
-		PageInfo<DeductionCouponResponse> deductionCouponResponse = discountCouponAtomSV.queryCouponPage(queryCouponRequest);
-		return deductionCouponResponse;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
