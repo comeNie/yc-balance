@@ -60,7 +60,7 @@ public class SendCouponTest extends TestCase {
     	//param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
     	param.setOrderType("1");
     	param.setUsedScene("1");
-    	param.setTotalFee(200000000);
+    	param.setTotalFee(200000000l);
     	BaseResponse registerSendCoupon = sendCouponSV.queryDisCountCoupon(param);
     	System.out.println(registerSendCoupon);
     }
@@ -84,7 +84,7 @@ public class SendCouponTest extends TestCase {
     	param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
     	param.setOrderType("1");
     	param.setUsedScene("1");
-    	param.setTotalFee(900000000);
+    	param.setTotalFee(900000000l);
     	BaseResponse registerSendCoupon = sendCouponSV.deducionCoupon(param);
     	System.out.println(registerSendCoupon);
     }
