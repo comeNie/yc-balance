@@ -64,13 +64,12 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		critreia.andUserIdEqualTo(param.getUserId());
 		critreia.andUsedSceneEqualTo(param.getUsedScene());
 		critreia.andCurrencyUnitEqualTo(param.getCurrencyUnit());
+		critreia.andStatusEqualTo("1");
 		List<String> list = new ArrayList<String>();
 		list.add(param.getOrderType());
 		list.add("0");
 		critreia.andUseLimitsIn(list);
-		critreia.andStatusEqualTo("1");
 		critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
-
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
 		if (!CollectionUtil.isEmpty(funDiscountCoupons)) {
@@ -108,7 +107,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		critreia.andCouponIdEqualTo(param.getCouponId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		FunDiscountCoupon coupon = new FunDiscountCoupon();
-		if(param.getOrderId() == null){
+		if(param.getOrderId() != null){
 			coupon.setOrderId(param.getOrderId());
 		}
 		coupon.setStatus("3");

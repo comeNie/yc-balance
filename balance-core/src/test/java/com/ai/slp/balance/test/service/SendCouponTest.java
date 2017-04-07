@@ -55,9 +55,9 @@ public class SendCouponTest extends TestCase {
     @Test
     public void test() {
     	DeductionCouponRequest param = new DeductionCouponRequest();
-    	param.setUserId("4444914");
+    	param.setUserId("525335");
     	param.setCurrencyUnit("1");
-    	//param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
+    	param.setOrderId(Long.parseLong("2000000024195004")); //Long.parseLong()
     	param.setOrderType("1");
     	param.setUsedScene("1");
     	param.setTotalFee(200000000l);
@@ -67,10 +67,10 @@ public class SendCouponTest extends TestCase {
     //冻结、解冻
     @Test
     public void test1() {
-    	FreezeCouponRequest	 param = new FreezeCouponRequest();
+    	FreezeCouponRequest	param = new FreezeCouponRequest();
     	param.setCouponId("71");
     	param.setOrderId(Long.parseLong("2000000024195005"));
-    	BaseResponse registerSendCoupon = sendCouponSV.updateStateThaw(param);
+    	BaseResponse registerSendCoupon = sendCouponSV.updateStateFreeze(param);
     	System.out.println(registerSendCoupon);
     }
     
