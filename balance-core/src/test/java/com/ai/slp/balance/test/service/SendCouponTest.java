@@ -13,7 +13,7 @@ import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
-import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
 
 import junit.framework.TestCase;
@@ -33,16 +33,6 @@ public class SendCouponTest extends TestCase {
     private ICouponTemplateSV couponTemplateSV;
     
 
-    @Test
-    public void testSendCouponTest() {
-    	
-    	QueryCouponRequest queryCouCountRequest = new QueryCouponRequest();
-		queryCouCountRequest.setStatus("1");
-		queryCouCountRequest.setUserId("525335");
-		QueryCouponRsponse queryCouponPage = sendCouponSV.queryCouponPage(queryCouCountRequest);
-		System.out.println(queryCouponPage);
-    }
-    
     @Test
     public void queryCouponOveCount() {
 

@@ -230,7 +230,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	public Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
-		critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
+		critreia.andEffectiveEndTimeLessThanOrEqualTo(DateUtil.getSysDate());
 		critreia.andUserIdEqualTo(request.getUserId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		int countByExample = mapper.countByExample(funDiscountCouponCriteria);
