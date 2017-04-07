@@ -191,11 +191,12 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		if (!StringUtil.isBlank(queryCouponRequest.getUserId())) {
 			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
 		}
+		if (queryCouponRequest.getEffectiveEndTime() != null) {
+			criteria.andEffectiveEndTimeLessThanOrEqualTo(DateUtil.getSysDate());
+		}
 		PageInfo<DeductionCouponResponse> pageInfo = new PageInfo<DeductionCouponResponse>();
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
-
 		pageInfo.setCount(mapper.countByExample(funDiscountCouponCriteria));
-
 		if (queryCouponRequest.getPageInfo() == null) {
 			pageInfo.setPageNo(1);
 			pageInfo.setPageSize(pageInfo.getPageSize() == null ? 20 : pageInfo.getPageSize());
