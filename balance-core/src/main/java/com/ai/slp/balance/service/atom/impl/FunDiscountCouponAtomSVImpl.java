@@ -185,14 +185,21 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria criteria = funDiscountCouponCriteria.createCriteria();
-		if (!StringUtil.isBlank(queryCouponRequest.getStatus())) {
+		//状态为1  未使用
+		if(!StringUtil.isBlank(queryCouponRequest.getStatus()) && queryCouponRequest.getStatus().equals("1")){
 			criteria.andStatusEqualTo(queryCouponRequest.getStatus());
+			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
+			criteria.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
 		}
-		if (!StringUtil.isBlank(queryCouponRequest.getUserId())) {
+		//状态为2 已使用
+		if(!StringUtil.isBlank(queryCouponRequest.getStatus()) && queryCouponRequest.getStatus().equals("2")){
+			criteria.andStatusEqualTo(queryCouponRequest.getStatus());
 			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
 		}
-		if (queryCouponRequest.getEffectiveEndTime() != null) {
+		//已过期
+		if(StringUtil.isBlank(queryCouponRequest.getStatus())){
 			criteria.andEffectiveEndTimeLessThanOrEqualTo(DateUtil.getSysDate());
+			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
 		}
 		PageInfo<DeductionCouponResponse> pageInfo = new PageInfo<DeductionCouponResponse>();
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
