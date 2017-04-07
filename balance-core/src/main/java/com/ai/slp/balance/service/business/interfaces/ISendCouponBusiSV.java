@@ -17,10 +17,6 @@ public interface ISendCouponBusiSV {
 	public void registerSendCoupon(SendCouponRequest param)throws BusinessException,SystemException;
 	/*public void offLineSendCoupon(int maxCount,String couponName,String userId) throws BusinessException,SystemException;*/
 	/**
-	 * 查询优惠券
-	 */
-	public List<DeductionCouponResponse> deducionCouponCheck(String couponId)throws BusinessException,SystemException;
-	/**
 	 * 查询可使用的优惠券
 	 * @param orderType 
 	 */
@@ -53,5 +49,4 @@ public interface ISendCouponBusiSV {
 	 * 查询过期的优惠券数量
 	 */
 	public Integer queryCouponOveCount(QueryCouCountRequest request)throws BusinessException,SystemException;
-	public void updateStateByOrderId(DeductionCouponRequest param)throws BusinessException,SystemException;
 }

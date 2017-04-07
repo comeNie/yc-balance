@@ -17,7 +17,6 @@ import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 public interface IDiscountCouponAtomSV {
 
-	List<DeductionCouponResponse> deducionCouponCheck(String couponId) throws BusinessException, SystemException ;
 	//查询优惠券明细
 	/*public PageInfo<FunCouponDetailResponse> queryFunCouponDetail(FunCouponDetailQueryRequest param) throws BusinessException, SystemException ;*/
 
@@ -29,8 +28,6 @@ public interface IDiscountCouponAtomSV {
 
 	void updateStateFreeze(FreezeCouponRequest param) throws BusinessException, SystemException ;
 
-	void queryDeducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException ;
-
 	Integer findCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException ;
 
 	PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest) throws BusinessException, SystemException ;
@@ -38,5 +35,9 @@ public interface IDiscountCouponAtomSV {
 	Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException ;
 
 	void updateStateByOrderId(DeductionCouponRequest param) throws BusinessException, SystemException ;
+
+	void toDeducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException ;
+
+	List<DeductionCouponResponse> checkCouponExist(String couponId) throws BusinessException, SystemException ;
 	
 }

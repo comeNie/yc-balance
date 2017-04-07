@@ -140,10 +140,6 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
         }
 	}
 
-	@Override
-	public List<DeductionCouponResponse> deducionCouponCheck(String couponId) throws BusinessException, SystemException {
-		return discountCouponAtomSV.deducionCouponCheck(couponId);
-	}
 	/**
 	 * 优惠码验证
 	 */
@@ -179,7 +175,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	@Override
 	public void deducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
 		String couponId = param.getCouponId();
-		List<DeductionCouponResponse> deducionCoupon = discountCouponAtomSV.deducionCouponCheck(couponId);
+		List<DeductionCouponResponse> deducionCoupon = discountCouponAtomSV.checkCouponExist(couponId);
 		if (deducionCoupon == null) {
 			throw new BusinessException(ExceptCodeConstants.Special.NO_FIND_DISCOUNTCOUPON, "优惠券抵扣失败，优惠券不存在!");
 		}else{
@@ -203,7 +199,7 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 		}
 		// 订单下所有优惠券解冻
 		discountCouponAtomSV.updateStateByOrderId(param);
-		discountCouponAtomSV.queryDeducionCoupon(param);
+		discountCouponAtomSV.toDeducionCoupon(param);
 	}
 	/**
 	 * 根据状态查询数量
@@ -213,6 +209,9 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 		return discountCouponAtomSV.findCouponCount(request);
 	}
 
+	/**
+	 * 前台查询列表
+	 */
 	@Override
 	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest) throws BusinessException, SystemException {
 		PageInfo<DeductionCouponResponse> deductionCouponResponse = discountCouponAtomSV.queryCouponPage(queryCouponRequest);
@@ -224,11 +223,6 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	@Override
 	public Integer queryCouponOveCount(QueryCouCountRequest request) throws BusinessException, SystemException {
 		return discountCouponAtomSV.queryCouponOveCount(request);
-	}
-
-	@Override
-	public void updateStateByOrderId(DeductionCouponRequest param) throws BusinessException, SystemException {
-		discountCouponAtomSV.updateStateByOrderId(param);
 	}
 	/**
 	 * 线下发送/领取优惠券

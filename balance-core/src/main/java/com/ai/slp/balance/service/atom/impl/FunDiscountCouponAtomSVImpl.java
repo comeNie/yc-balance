@@ -32,7 +32,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 根据优惠券iD查询优惠券
 	 */
 	@Override
-	public List<DeductionCouponResponse> deducionCouponCheck(String couponId) throws BusinessException, SystemException {
+	public List<DeductionCouponResponse> checkCouponExist(String couponId) throws BusinessException, SystemException {
 
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
@@ -108,6 +108,9 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		critreia.andCouponIdEqualTo(param.getCouponId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		FunDiscountCoupon coupon = new FunDiscountCoupon();
+		if(param.getOrderId() == null){
+			coupon.setOrderId(param.getOrderId());
+		}
 		coupon.setStatus("3");
 		mapper.updateByExampleSelective(coupon, funDiscountCouponCriteria);
 	}
@@ -137,7 +140,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 抵扣优惠券
 	 */
 	@Override
-	public void queryDeducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
+	public void toDeducionCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andCouponIdEqualTo(param.getCouponId());
