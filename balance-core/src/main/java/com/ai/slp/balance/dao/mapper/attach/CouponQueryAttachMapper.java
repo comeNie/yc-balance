@@ -9,7 +9,7 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 public interface CouponQueryAttachMapper {
 
    
-	@Select("SELECT * FROM fun_discount_coupon WHERE `STATUS` = '1' AND USER_ID = #{userId} AND CURRENCY_UNIT = #{currencyUnit} AND EFFECTIVE_END_TIME > NOW() or (ORDER_ID=#{orderId} AND `STATUS` = '3') AND used_scene = #{usedScene} AND USE_LIMITS IN('0',#{orderType})")
+	@Select("SELECT * FROM fun_discount_coupon WHERE `STATUS` = '1' AND USER_ID = #{userId} AND CURRENCY_UNIT = #{currencyUnit} AND EFFECTIVE_END_TIME > NOW() or (ORDER_ID=#{orderId} AND `STATUS` = '3') AND used_scene = #{usedScene} AND USE_LIMITS IN('0',#{orderType}) order by FACE_VALUE desc,EFFECTIVE_END_TIME")
 	@ResultMap("com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper.BaseResultMap")
 	public List<DeductionCouponResponse> getCoupon(@Param("orderType") String orderType,@Param("orderId") Long orderId,
 		@Param("currencyUnit") String currencyUnit,@Param("couponId") String couponId,@Param("usedScene") String usedScene,@Param("userId") String userId);
