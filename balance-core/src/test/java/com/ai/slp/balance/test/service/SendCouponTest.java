@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.couponuserule.interfaces.ICouponUseRuleSV;
 import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
@@ -57,12 +59,12 @@ public class SendCouponTest extends TestCase {
     	DeductionCouponRequest param = new DeductionCouponRequest();
     	param.setUserId("525335");
     	param.setCurrencyUnit("1");
-    	param.setOrderId(Long.parseLong("2000000024195004")); //Long.parseLong()
+    	param.setOrderId(Long.parseLong("2000000024195005")); //Long.parseLong()
     	param.setOrderType("1");
     	param.setUsedScene("1");
-    	param.setTotalFee(200000000l);
-    	BaseResponse registerSendCoupon = sendCouponSV.queryDisCountCoupon(param);
-    	System.out.println(registerSendCoupon);
+    	param.setTotalFee(900000000l);
+    	BaseListResponse<DeductionCouponResponse> queryDisCountCoupon = sendCouponSV.queryDisCountCoupon(param);
+    	System.out.println(queryDisCountCoupon);
     }
     //冻结、解冻
     @Test

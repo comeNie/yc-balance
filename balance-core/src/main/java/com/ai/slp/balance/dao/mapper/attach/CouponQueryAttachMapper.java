@@ -1,39 +1,16 @@
 package com.ai.slp.balance.dao.mapper.attach;
 
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetailAll;
-import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
-
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
+import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 public interface CouponQueryAttachMapper {
 
-    @Results({@Result(property = "serialCode", column = "pay_serial_code"),
-            @Result(property = "payTime", column = "pay_time"),
-            @Result(property = "optType", column = "opt_type"),
-            @Result(property = "incomeFlag", column = "INCOME_FLAG"),
-            @Result(property = "accountName", column = "acct_name1"),
-            @Result(property = "totalAmount", column = "total_amount"),
-            @Result(property = "balancePre", column = "balance_pre"),
-            @Result(property = "channel", column = "channel"),
-            @Result(property = "payStatus", column = "pay_status"),
-            @Result(property = "remark", column = "receive_state"),
-            @Result(property = "currencyUnit", column = "CURRENCY_UNIT")})
-    @SelectProvider(type = IncomeOutQueryAttachSqlProvider.class, method = "incomeOutQueryAttachSqlProvider")
-    public List<IncomeDetailAll> getAllIncomeOut(@Param("serialCode") String serialCode,
-                                                @Param("nickName") String nickName,
-                                                 @Param("beginDate") String beginDate,
-                                                 @Param("endDate") String endDate,
-                                                 @Param("channel") String channel,
-                                                 @Param("state") String state,
-                                                 @Param("currencyUnit") String currencyUnit,
-                                                 @Param("beginAmount") Long beginAmount,
-                                                 @Param("endAmount") Long endAmount,
-                                                 @Param("incomeFlag") String incomeFlag,
-                                                 @Param("optType") String optType,
-                                                 @Param("pageNo") Integer pageNo,
-                                                 @Param("pageSize") Integer pageSize);
-
+   
+	@Select("SELECT * FROM fun_discount_coupon WHERE `STATUS` = '1' AND USER_ID = #{userId} AND CURRENCY_UNIT = #{currencyUnit} AND EFFECTIVE_END_TIME > NOW() or (ORDER_ID=#{orderId} AND `STATUS` = '3') AND used_scene = #{usedScene} AND USE_LIMITS IN('0',#{orderType})")
+	@ResultMap("com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper.BaseResultMap")
+	public List<DeductionCouponResponse> getCoupon(@Param("orderType") String orderType,@Param("orderId") Long orderId,
+		@Param("currencyUnit") String currencyUnit,@Param("couponId") String couponId,@Param("usedScene") String usedScene,@Param("userId") String userId);
 }

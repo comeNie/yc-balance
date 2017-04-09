@@ -3,6 +3,7 @@ package com.ai.slp.balance.service.atom.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.opt.base.exception.BusinessException;
@@ -12,6 +13,7 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
+import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetailAll;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
@@ -19,6 +21,8 @@ import com.ai.slp.balance.api.sendcoupon.param.FunDiscountCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
+import com.ai.slp.balance.dao.mapper.attach.CouponQueryAttachMapper;
+import com.ai.slp.balance.dao.mapper.attach.IncomeOutQueryAttachMapper;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -28,6 +32,10 @@ import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 @Component
 public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 
+    @Autowired
+    private CouponQueryAttachMapper couponQueryAttachMapper;
+
+	
 	/**
 	 * 根据优惠券iD查询优惠券
 	 */
@@ -59,6 +67,24 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	@Override
 	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+		String userId = param.getUserId();
+		String usedScene = param.getUsedScene();
+		String couponId = param.getCouponId();
+		String currencyUnit = param.getCurrencyUnit();
+		Long orderId = param.getOrderId();
+		String orderType = param.getOrderType();
+		List<DeductionCouponResponse> queryDisCountCoupon = couponQueryAttachMapper.getCoupon(orderType,orderId,currencyUnit,couponId,usedScene,userId);
+		if(!CollectionUtil.isEmpty(queryDisCountCoupon)){
+			deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+			for (int i = 0; i < queryDisCountCoupon.size(); i++) {
+				DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
+				BeanUtils.copyProperties(deductionCouponResponse, queryDisCountCoupon.get(i));
+				deductionCouponResponses.add(deductionCouponResponse);
+			}
+		}
+		return deductionCouponResponses;
+		
+		/*List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
 		critreia.andUserIdEqualTo(param.getUserId());
@@ -80,7 +106,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 				deductionCouponResponses.add(deductionCouponResponse);
 			}
 		}
-		return deductionCouponResponses;
+		return deductionCouponResponses;*/
 	}
 
 	/**
