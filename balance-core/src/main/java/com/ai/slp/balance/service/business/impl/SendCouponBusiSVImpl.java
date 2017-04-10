@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -91,7 +92,9 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
                 FunDiscountCoupon funDiscountCoupon = new FunDiscountCoupon();
                 //funActivity;funCouponTemplate
                 
-                String couponId = SeqUtil.getNewId(SeqConstants.FUN_DISCOUNT_COUPON$COUPON_ID).toString();
+                UUID uuid=UUID.randomUUID();
+                String uuidStr=uuid.toString().replace("-", "");
+                String couponId = uuidStr.substring(0, 12);
                 funDiscountCoupon.setCouponId(couponId);
                 funDiscountCoupon.setAccountId(funActivity.getActivityId());
                 funDiscountCoupon.setCouponName(funCouponTemplate.getCouponName());
