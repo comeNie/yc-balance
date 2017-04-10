@@ -53,7 +53,7 @@ public class SendCouponTest extends TestCase {
     public void test7() {
     	SendCouponRequest param = new SendCouponRequest();
     	param.setActivityName("注册测试");
-    	param.setUserId("53355");
+    	param.setUserId("525355");
     	BaseResponse registerSendCoupon = sendCouponSV.registerSendCoupon(param);
     	System.out.println(registerSendCoupon);
     }

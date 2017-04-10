@@ -119,11 +119,11 @@ public class SendCouponBusiSVImpl implements ISendCouponBusiSV {
 	 			String format = sdf.format(c.getTime());
                 funDiscountCoupon.setEffectiveStartTime(Timestamp.valueOf(format));
                 
-                if(funCouponTemplate.getEffectiveEndTime() != null){
+                if(funCouponTemplate.getEffectiveTime() != null){
                 	//有效期结束时间＝领取时的系统时间＋获得时间＋优惠券模版表中的有效期
                 	Calendar e = Calendar.getInstance();
-	   	             c.add(Calendar.SATURDAY, funActivityCouponRel.getAcquireDays());
-	   	             c.add(Calendar.SATURDAY, funCouponTemplate.getEffectiveTime());
+	   	             e.add(Calendar.SATURDAY, funActivityCouponRel.getAcquireDays());
+	   	             e.add(Calendar.SATURDAY, funCouponTemplate.getEffectiveTime());
 	   	             SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	   	 			String sDate = sdf1.format(e.getTime());
                 	funDiscountCoupon.setEffectiveEndTime(Timestamp.valueOf(sDate));
