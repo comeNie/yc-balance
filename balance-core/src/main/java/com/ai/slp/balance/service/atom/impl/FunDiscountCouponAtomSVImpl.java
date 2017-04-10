@@ -13,7 +13,6 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetailAll;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
@@ -22,7 +21,6 @@ import com.ai.slp.balance.api.sendcoupon.param.QueryCouCountRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 import com.ai.slp.balance.dao.mapper.attach.CouponQueryAttachMapper;
-import com.ai.slp.balance.dao.mapper.attach.IncomeOutQueryAttachMapper;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCoupon;
 import com.ai.slp.balance.dao.mapper.bo.FunDiscountCouponCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
@@ -32,10 +30,9 @@ import com.ai.slp.balance.service.atom.interfaces.IDiscountCouponAtomSV;
 @Component
 public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 
-    @Autowired
-    private CouponQueryAttachMapper couponQueryAttachMapper;
+	@Autowired
+	private CouponQueryAttachMapper couponQueryAttachMapper;
 
-	
 	/**
 	 * 根据优惠券iD查询优惠券
 	 */
@@ -65,7 +62,8 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 用户、订单、优惠券关联查询
 	 */
 	@Override
-	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param) throws BusinessException, SystemException {
+	public List<DeductionCouponResponse> queryDisCountCoupon(DeductionCouponRequest param)
+			throws BusinessException, SystemException {
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		String userId = param.getUserId();
 		String usedScene = param.getUsedScene();
@@ -73,8 +71,9 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		String currencyUnit = param.getCurrencyUnit();
 		Long orderId = param.getOrderId();
 		String orderType = param.getOrderType();
-		List<DeductionCouponResponse> queryDisCountCoupon = couponQueryAttachMapper.getCoupon(orderType,orderId,currencyUnit,couponId,usedScene,userId);
-		if(!CollectionUtil.isEmpty(queryDisCountCoupon)){
+		List<DeductionCouponResponse> queryDisCountCoupon = couponQueryAttachMapper.getCoupon(orderType, orderId,
+				currencyUnit, couponId, usedScene, userId);
+		if (!CollectionUtil.isEmpty(queryDisCountCoupon)) {
 			deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 			for (int i = 0; i < queryDisCountCoupon.size(); i++) {
 				DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
@@ -83,30 +82,34 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 			}
 		}
 		return deductionCouponResponses;
-		
-		/*List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
-		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
-		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
-		critreia.andUserIdEqualTo(param.getUserId());
-		critreia.andUsedSceneEqualTo(param.getUsedScene());
-		critreia.andCurrencyUnitEqualTo(param.getCurrencyUnit());
-		critreia.andStatusEqualTo("1");
-		List<String> list = new ArrayList<String>();
-		list.add(param.getOrderType());
-		list.add("0");
-		critreia.andUseLimitsIn(list);
-		critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
-		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
-		List<FunDiscountCoupon> funDiscountCoupons = mapper.selectByExample(funDiscountCouponCriteria);
-		if (!CollectionUtil.isEmpty(funDiscountCoupons)) {
-			deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
-			for (int i = 0; i < funDiscountCoupons.size(); i++) {
-				DeductionCouponResponse deductionCouponResponse = new DeductionCouponResponse();
-				BeanUtils.copyProperties(deductionCouponResponse, funDiscountCoupons.get(i));
-				deductionCouponResponses.add(deductionCouponResponse);
-			}
-		}
-		return deductionCouponResponses;*/
+
+		/*
+		 * List<DeductionCouponResponse> deductionCouponResponses = new
+		 * ArrayList<DeductionCouponResponse>(); FunDiscountCouponCriteria
+		 * funDiscountCouponCriteria = new FunDiscountCouponCriteria();
+		 * FunDiscountCouponCriteria.Criteria critreia =
+		 * funDiscountCouponCriteria.createCriteria();
+		 * critreia.andUserIdEqualTo(param.getUserId());
+		 * critreia.andUsedSceneEqualTo(param.getUsedScene());
+		 * critreia.andCurrencyUnitEqualTo(param.getCurrencyUnit());
+		 * critreia.andStatusEqualTo("1"); List<String> list = new
+		 * ArrayList<String>(); list.add(param.getOrderType()); list.add("0");
+		 * critreia.andUseLimitsIn(list);
+		 * critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate(
+		 * )); FunDiscountCouponMapper mapper =
+		 * MapperFactory.getFunDiscountCouponMapper(); List<FunDiscountCoupon>
+		 * funDiscountCoupons =
+		 * mapper.selectByExample(funDiscountCouponCriteria); if
+		 * (!CollectionUtil.isEmpty(funDiscountCoupons)) {
+		 * deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
+		 * for (int i = 0; i < funDiscountCoupons.size(); i++) {
+		 * DeductionCouponResponse deductionCouponResponse = new
+		 * DeductionCouponResponse();
+		 * BeanUtils.copyProperties(deductionCouponResponse,
+		 * funDiscountCoupons.get(i));
+		 * deductionCouponResponses.add(deductionCouponResponse); } } return
+		 * deductionCouponResponses;
+		 */
 	}
 
 	/**
@@ -123,6 +126,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		coupon.setStatus("1");
 		mapper.updateByExampleSelective(coupon, funDiscountCouponCriteria);
 	}
+
 	/**
 	 * 更改优惠券状态（冻结）
 	 */
@@ -133,7 +137,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		critreia.andCouponIdEqualTo(param.getCouponId());
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		FunDiscountCoupon coupon = new FunDiscountCoupon();
-		if(param.getOrderId() != null){
+		if (param.getOrderId() != null) {
 			coupon.setOrderId(param.getOrderId());
 		}
 		coupon.setStatus("3");
@@ -144,7 +148,8 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	 * 根据用户ID查询优惠券
 	 */
 	@Override
-	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param) throws BusinessException, SystemException {
+	public List<FunDiscountCouponResponse> queryCouponByUserId(SendCouponRequest param)
+			throws BusinessException, SystemException {
 		List<FunDiscountCouponResponse> funDiscountCouponResponses = new ArrayList<FunDiscountCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
@@ -161,6 +166,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		}
 		return funDiscountCouponResponses;
 	}
+
 	/**
 	 * 抵扣优惠券
 	 */
@@ -178,6 +184,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		coupon.setCreateTime(DateUtil.getSysDate());
 		mapper.updateByExampleSelective(coupon, funDiscountCouponCriteria);
 	}
+
 	/**
 	 * 更改订单下所有优惠券状态
 	 */
@@ -192,8 +199,7 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		coupon.setStatus("1");
 		mapper.updateByExampleSelective(coupon, funDiscountCouponCriteria);
 	}
-	
-	
+
 	/**
 	 * 根据状态查询数量
 	 */
@@ -201,32 +207,41 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 	public Integer findCouponCount(QueryCouCountRequest request) throws BusinessException, SystemException {
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria critreia = funDiscountCouponCriteria.createCriteria();
-		critreia.andStatusEqualTo(request.getStatus());
-		critreia.andUserIdEqualTo(request.getUserId());
-		critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
+		// 状态为1 未使用
+		if (!StringUtil.isBlank(request.getStatus()) && request.getStatus().equals("1")) {
+			critreia.andStatusEqualTo(request.getStatus());
+			critreia.andUserIdEqualTo(request.getUserId());
+			critreia.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
+		}
+		// 状态为2 已使用
+		if (!StringUtil.isBlank(request.getStatus()) && request.getStatus().equals("2")) {
+			critreia.andStatusEqualTo(request.getStatus());
+			critreia.andUserIdEqualTo(request.getUserId());
+		}
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
 		int countByExample = mapper.countByExample(funDiscountCouponCriteria);
 		return countByExample;
 	}
 
 	@Override
-	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest) throws BusinessException, SystemException {
+	public PageInfo<DeductionCouponResponse> queryCouponPage(QueryCouponRequest queryCouponRequest)
+			throws BusinessException, SystemException {
 		List<DeductionCouponResponse> deductionCouponResponses = new ArrayList<DeductionCouponResponse>();
 		FunDiscountCouponCriteria funDiscountCouponCriteria = new FunDiscountCouponCriteria();
 		FunDiscountCouponCriteria.Criteria criteria = funDiscountCouponCriteria.createCriteria();
-		//状态为1  未使用
-		if(!StringUtil.isBlank(queryCouponRequest.getStatus()) && queryCouponRequest.getStatus().equals("1")){
+		// 状态为1 未使用
+		if (!StringUtil.isBlank(queryCouponRequest.getStatus()) && queryCouponRequest.getStatus().equals("1")) {
 			criteria.andStatusEqualTo(queryCouponRequest.getStatus());
 			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
 			criteria.andEffectiveEndTimeGreaterThanOrEqualTo(DateUtil.getSysDate());
 		}
-		//状态为2 已使用
-		if(!StringUtil.isBlank(queryCouponRequest.getStatus()) && queryCouponRequest.getStatus().equals("2")){
+		// 状态为2 已使用
+		if (!StringUtil.isBlank(queryCouponRequest.getStatus()) && queryCouponRequest.getStatus().equals("2")) {
 			criteria.andStatusEqualTo(queryCouponRequest.getStatus());
 			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
 		}
-		//已过期
-		if(StringUtil.isBlank(queryCouponRequest.getStatus())){
+		// 已过期
+		if (StringUtil.isBlank(queryCouponRequest.getStatus())) {
 			criteria.andEffectiveEndTimeLessThanOrEqualTo(DateUtil.getSysDate());
 			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
 		}
