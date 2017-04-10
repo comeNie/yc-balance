@@ -1,6 +1,9 @@
 package com.ai.slp.balance.test.service;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.FreezeCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.QueryCouponRsponse;
+import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
 
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
@@ -45,14 +49,14 @@ public class SendCouponTest extends TestCase {
     }
 
 
-    /*@Test
-    public void test() {
+    @Test
+    public void test7() {
     	SendCouponRequest param = new SendCouponRequest();
     	param.setActivityName("注册测试");
     	param.setUserId("53355");
     	BaseResponse registerSendCoupon = sendCouponSV.registerSendCoupon(param);
     	System.out.println(registerSendCoupon);
-    }*/
+    }
     //查询可用
     @Test
     public void test() {
@@ -90,5 +94,38 @@ public class SendCouponTest extends TestCase {
     	BaseResponse registerSendCoupon = sendCouponSV.deducionCoupon(param);
     	System.out.println(registerSendCoupon);
     }
+    @Test
+    public void random2(){  
+        String random = "";  
+        /*随机数函数*/  
+        java.util.Random r=new java.util.Random();  
+        System.out.println(r);
+        for(int i = 0;i<12;i++){  
+            /*生成36以内的随机数，不含36，并转化为36位*/  
+            random += Integer.toString(r.nextInt(36), 36);  
+        }  
+        System.out.println(random);
+    }
+    public static String random3(){  
+        String random = "";  
+        /*随机数函数*/  
+        java.util.Random r=new java.util.Random();  
+        for(int i = 0;i<12;i++){  
+            /*生成36以内的随机数，不含36，并转化为36位*/  
+            random += Integer.toString(r.nextInt(36), 36);  
+        }  
+        return random;  
+    }
+    @Test
+    public void main(){  
+        Set<String> set = new HashSet<String>();  
+        int times = 10000000;  
+        for(int i = 0 ;i<times;i++){  
+            String random = random3();
+            set.add(random);  
+        }  
+        System.out.println("重复了："+(times-set.size())+"次");  
+    }  
+    
     
 }
