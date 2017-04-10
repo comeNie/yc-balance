@@ -91,7 +91,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
         	funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(req.getEffectiveEndTime()));
         	funCouponTemplate.setEffectiveStartTime(Timestamp.valueOf(req.getEffectiveStartTime()));
         }
-		funCouponTemplate.setFaceValue(req.getFaceValue());
+		funCouponTemplate.setFaceValue(req.getFaceValue()*1000);
 		funCouponTemplate.setFaceValueDown(req.getFaceValueDown());
 		funCouponTemplate.setFaceValueUp(req.getFaceValueUp());
 		funCouponTemplate.setMaxCountIssue(req.getMaxCountIssue());

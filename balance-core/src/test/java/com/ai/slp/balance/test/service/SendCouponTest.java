@@ -44,6 +44,7 @@ public class SendCouponTest extends TestCase {
 
     	QueryCouponRequest queryCouponRequest = new QueryCouponRequest();
     	queryCouponRequest.setUserId("525335");
+    	queryCouponRequest.setStatus("1");
 		QueryCouponRsponse queryCouponPage = sendCouponSV.queryCouponPage(queryCouponRequest);
 		System.out.println(queryCouponPage);
     }
