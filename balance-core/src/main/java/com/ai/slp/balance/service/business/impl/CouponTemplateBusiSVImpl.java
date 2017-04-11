@@ -75,10 +75,6 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException {
 		FunCouponTemplate funCouponTemplate = new FunCouponTemplate();
 		funCouponTemplate.setCouponDesc(req.getCouponDesc());
-		HttpServletRequest request=null;
-		HttpSession session = request.getSession();
-		String username = (String) session.getAttribute("username");
-		funCouponTemplate.setCreateOperator(username);
         funCouponTemplate.setCreateTime(DateUtil.getSysDate());
         if(req.getEffectiveTime() != null){
             DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
