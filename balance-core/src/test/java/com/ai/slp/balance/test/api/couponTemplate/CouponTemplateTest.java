@@ -11,8 +11,6 @@ import com.ai.slp.balance.api.coupontemplate.interfaces.ICouponTemplateSV;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailPageResponse;
 import com.ai.slp.balance.api.coupontemplate.param.FunCouponDetailQueryRequest;
 import com.ai.slp.balance.api.coupontemplate.param.SaveFunCouponTemplate;
-import com.ai.yc.op.web.model.sso.client.GeneralSSOClientUser;
-import com.ai.yc.op.web.utils.LoginUtil;
 
 /**
  * Created by shancc on 2017/4/1.
@@ -34,22 +32,20 @@ public class CouponTemplateTest {
 	@Test
 	public void savaCouponTemplate() {
 		SaveFunCouponTemplate saveFunCouponTemplate = new SaveFunCouponTemplate();
-		saveFunCouponTemplate.setCouponDesc("大减价");
-		saveFunCouponTemplate.setCouponName("大减价");
-		saveFunCouponTemplate.setCouponUserId("2");
+		saveFunCouponTemplate.setCouponDesc("五一");
+		saveFunCouponTemplate.setCouponName("迎五一");
+		saveFunCouponTemplate.setCouponUserId("1");
 		saveFunCouponTemplate.setCurrencyUnit("1");
-		/*saveFunCouponTemplate.setEffectiveEndTime(effectiveEndTime);
-		saveFunCouponTemplate.setEffectiveStartTime(effectiveStartTime);*/
-		saveFunCouponTemplate.setEffectiveTime(5);
-		saveFunCouponTemplate.setFaceValue(10);
-		saveFunCouponTemplate.setMaxCountIssue("100");
-		/*saveFunCouponTemplate.setReceiveEndTime(receiveEndTime);
-		saveFunCouponTemplate.setReceiveStartTime(receiveStartTime);*/
-		/*saveFunCouponTemplate.setRequiredMoneyAmount(requiredMoneyAmount);*/
+		saveFunCouponTemplate.setEffectiveEndTime("2017-04-11 14:36:19");
+		saveFunCouponTemplate.setEffectiveStartTime("2017-04-28 14:36:19");
+		saveFunCouponTemplate.setFaceValue(12);
+		saveFunCouponTemplate.setMaxCountIssue("10");
+		saveFunCouponTemplate.setReceiveEndTime("2017-04-11 14:36:19");
+		saveFunCouponTemplate.setReceiveStartTime("2017-04-28 14:36:19");
+		saveFunCouponTemplate.setRequiredMoneyAmount(30);
 		saveFunCouponTemplate.setStatus("1");
-		/*saveFunCouponTemplate.setTemplateId(templateId);*/
 		saveFunCouponTemplate.setUsedScene("1");
-		saveFunCouponTemplate.setUseLimits("1");
+		saveFunCouponTemplate.setUseLimits("4");
 		BaseResponse savaCouponTemplate = couponTemplateSV.savaCouponTemplate(saveFunCouponTemplate);
 		System.out.println(savaCouponTemplate);
 	}

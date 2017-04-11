@@ -74,6 +74,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	@Override
 	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException {
 		FunCouponTemplate funCouponTemplate = new FunCouponTemplate();
+		funCouponTemplate.setCouponName(req.getCouponName());
 		funCouponTemplate.setCouponDesc(req.getCouponDesc());
         funCouponTemplate.setCreateTime(DateUtil.getSysDate());
         if(req.getEffectiveTime() != null){
@@ -87,6 +88,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
         	funCouponTemplate.setEffectiveEndTime(Timestamp.valueOf(req.getEffectiveEndTime()));
         	funCouponTemplate.setEffectiveStartTime(Timestamp.valueOf(req.getEffectiveStartTime()));
         }
+        funCouponTemplate.setCreateOperator(req.getCreateOperator());
 		funCouponTemplate.setFaceValue(req.getFaceValue()*1000);
 		funCouponTemplate.setFaceValueDown(req.getFaceValueDown());
 		funCouponTemplate.setFaceValueUp(req.getFaceValueUp());
@@ -104,7 +106,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 			String couponUserId = SeqUtil.getNewId(SeqConstants.FUN_COUPON_USE_RULE$COUPON_USER_ID).toString();
 	    	funCouponUseRule.setCouponUserId(couponUserId);
 	    	funCouponUseRule.setFaceValue(req.getFaceValue());
-	    	funCouponUseRule.setRequiredMoneyAmount(req.getRequiredMoneyAmount());
+	    	funCouponUseRule.setRequiredMoneyAmount(req.getRequiredMoneyAmount()*1000);
 	    	funCouponUseRule.setCurrencyUnit(funCouponTemplate.getCurrencyUnit());
 	    	Date date1=new Date();
 	        DateFormat format1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
