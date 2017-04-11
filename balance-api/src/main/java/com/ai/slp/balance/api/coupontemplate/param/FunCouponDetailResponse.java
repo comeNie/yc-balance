@@ -74,7 +74,7 @@ public class FunCouponDetailResponse implements Serializable {
     /**
 	 * 使用订单
 	 */
-    private long orderId;
+    private Long orderId;
     /**
 	 * 使用时间
 	 */
@@ -87,6 +87,8 @@ public class FunCouponDetailResponse implements Serializable {
 	 * 类型\备注
 	 */
     private String remark;
+    
+    private String maxCountIssue;
     public String getCouponId() {
         return couponId;
     }
@@ -239,11 +241,19 @@ public class FunCouponDetailResponse implements Serializable {
         this.remark = remark == null ? null : remark.trim();
     }
 
-	public long getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+
+	public String getMaxCountIssue() {
+		return maxCountIssue;
+	}
+
+	public void setMaxCountIssue(String maxCountIssue) {
+		this.maxCountIssue = maxCountIssue;
 	}
 }

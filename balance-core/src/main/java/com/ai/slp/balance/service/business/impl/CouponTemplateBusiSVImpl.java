@@ -50,7 +50,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	 * 模糊查询优惠券模板列表
 	 */
 	@Override
-	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
+	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) throws BusinessException, SystemException{
         PageInfo<FunCouponTemplateResponse> funCouponTemplateResponsePageInfo = couponTemplateAtomSV.funCouponTemplateQueryRequest(funCouponTemplateQueryRequest);
 		return funCouponTemplateResponsePageInfo;
 	}
@@ -58,14 +58,14 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	 * POI导出优惠券模板列表生成Excel
 	 */
 	@Override
-	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) {
+	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) throws BusinessException, SystemException{
 		return couponTemplateAtomSV.exportCouponTempletList(funCouponTemplateQueryRequest);
 	}
 	/**
 	 * 检测名称唯一
 	 */
 	@Override
-	public Integer checkCouponTemplateName(String couponName) {
+	public Integer checkCouponTemplateName(String couponName) throws BusinessException, SystemException{
 		return couponTemplateAtomSV.checkCouponTemplateName(couponName);
 	}
 	/**
@@ -129,7 +129,7 @@ public class CouponTemplateBusiSVImpl implements ICouponTemplateBusiSV {
 	 * 删除优惠券模板
 	 */
 	@Override
-	public Integer deleteCouponTemplate(Integer templateId) {
+	public Integer deleteCouponTemplate(Integer templateId) throws BusinessException, SystemException{
 		return couponTemplateAtomSV.deleteCouponTemplate(templateId);
 	}
 	

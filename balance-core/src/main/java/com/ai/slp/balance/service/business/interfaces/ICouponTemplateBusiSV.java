@@ -19,23 +19,23 @@ public interface ICouponTemplateBusiSV {
 	 * @param funCouponTemplateQueryRequest
 	 * @return
 	 */
-	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
+	public PageInfo<FunCouponTemplateResponse> queryCouponTemplet(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) throws BusinessException, SystemException;
 	/**
 	 * POI导出优惠券模板列表生成Excel
 	 * @param funCouponTemplateQueryRequest
 	 * @return
 	 */
-	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest);
+	public List<FunCouponTemplateResponse> exportCouponTempletList(FunCouponTemplateQueryRequest funCouponTemplateQueryRequest) throws BusinessException, SystemException;
 	/**
 	 * 检测名称唯一
 	 * @param couponName
 	 * @return
 	 */
-	public Integer checkCouponTemplateName(String couponName);
+	public Integer checkCouponTemplateName(String couponName) throws BusinessException, SystemException;
 	/**
 	 * 生成优惠券模板接口
 	 */
-	public Integer saveCouponTempletList(SaveFunCouponTemplate req);
+	public Integer saveCouponTempletList(SaveFunCouponTemplate req) throws BusinessException, SystemException;
 	/**
 	 * 根据优惠券模板iD查询优惠券明细
 	 * @param param
@@ -47,5 +47,5 @@ public interface ICouponTemplateBusiSV {
 	 * @param templateId
 	 * @return
 	 */
-	public Integer deleteCouponTemplate(Integer templateId);
+	public Integer deleteCouponTemplate(Integer templateId) throws BusinessException, SystemException;
 }
