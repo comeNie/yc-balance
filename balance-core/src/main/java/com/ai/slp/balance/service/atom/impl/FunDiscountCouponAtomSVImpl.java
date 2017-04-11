@@ -244,6 +244,10 @@ public class FunDiscountCouponAtomSVImpl implements IDiscountCouponAtomSV {
 		if (StringUtil.isBlank(queryCouponRequest.getStatus())) {
 			criteria.andEffectiveEndTimeLessThanOrEqualTo(DateUtil.getSysDate());
 			criteria.andUserIdEqualTo(queryCouponRequest.getUserId());
+			FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();
+			FunDiscountCoupon coupon = new FunDiscountCoupon();
+			coupon.setStatus("6");
+			mapper.updateByExampleSelective(coupon, funDiscountCouponCriteria);
 		}
 		PageInfo<DeductionCouponResponse> pageInfo = new PageInfo<DeductionCouponResponse>();
 		FunDiscountCouponMapper mapper = MapperFactory.getFunDiscountCouponMapper();

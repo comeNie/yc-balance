@@ -11,6 +11,9 @@ public class QueryCouponRequest extends BaseInfo {
 	private static final long serialVersionUID = 1L;
 	 /**
 	 * 状态
+	 * 1  未使用
+	 * 2 已使用
+	 * 6 已过期
 	 */
     private String status;
     /**
