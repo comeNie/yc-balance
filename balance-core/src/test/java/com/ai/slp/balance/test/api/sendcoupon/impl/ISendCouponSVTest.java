@@ -7,6 +7,7 @@ import com.ai.slp.balance.api.sendcoupon.interfaces.ISendCouponSV;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponRequest;
 import com.ai.slp.balance.api.sendcoupon.param.DeductionCouponResponse;
 import com.ai.slp.balance.api.sendcoupon.param.SendCouponRequest;
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,22 @@ public class ISendCouponSVTest {
         couponRequest.setUsedScene("1");
         BaseListResponse<DeductionCouponResponse> resList = sendCouponSV.queryDisCountCoupon(couponRequest);
         System.out.println(resList.getResult().size());
+    }
+
+    @Test
+    public void deducionCouponTest(){
+        DeductionCouponRequest request = new DeductionCouponRequest();
+        request.setUserId("4444914");
+        request.setOrderId(2000000059033233l);
+        request.setTotalFee(221560l);
+        request.setCouponId("61");
+        request.setCurrencyUnit("1");
+        request.setUsedScene("1");
+        BaseResponse response = sendCouponSV.deducionCoupon(request);
+        //若操作不成功，则抛出异常
+        if(response==null || !response.getResponseHeader().isSuccess()){
+            System.out.println(JSON.toJSONString(response));
+        }
     }
 
 

@@ -95,37 +95,37 @@ public class SendCouponTest extends TestCase {
     	System.out.println(registerSendCoupon);
     }
     @Test
-    public void random2(){  
-        String random = "";  
-        /*随机数函数*/  
-        java.util.Random r=new java.util.Random();  
+    public void random2(){
+        String random = "";
+        /*随机数函数*/
+        java.util.Random r=new java.util.Random();
         System.out.println(r);
-        for(int i = 0;i<12;i++){  
-            /*生成36以内的随机数，不含36，并转化为36位*/  
-            random += Integer.toString(r.nextInt(36), 36);  
-        }  
+        for(int i = 0;i<12;i++){
+            /*生成36以内的随机数，不含36，并转化为36位*/
+            random += Integer.toString(r.nextInt(36), 36);
+        }
         System.out.println(random);
     }
-    public static String random3(){  
-        String random = "";  
-        /*随机数函数*/  
-        java.util.Random r=new java.util.Random();  
-        for(int i = 0;i<12;i++){  
-            /*生成36以内的随机数，不含36，并转化为36位*/  
-            random += Integer.toString(r.nextInt(36), 36);  
-        }  
-        return random;  
+    public static String random3(){
+        String random = "";
+        /*随机数函数*/
+        java.util.Random r=new java.util.Random();
+        for(int i = 0;i<12;i++){
+            /*生成36以内的随机数，不含36，并转化为36位*/
+            random += Integer.toString(r.nextInt(36), 36);
+        }
+        return random;
     }
     @Test
-    public void main(){  
-        Set<String> set = new HashSet<String>();  
-        int times = 10000000;  
-        for(int i = 0 ;i<times;i++){  
+    public void main(){
+        Set<String> set = new HashSet<String>();
+        int times = 10000000;
+        for(int i = 0 ;i<times;i++){
             String random = random3();
-            set.add(random);  
-        }  
-        System.out.println("重复了："+(times-set.size())+"次");  
-    }  
-    
-    
+            set.add(random);
+        }
+        System.out.println("重复了："+(times-set.size())+"次");
+    }
+
+
 }
