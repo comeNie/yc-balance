@@ -206,15 +206,13 @@ public class IncomeOutQueryBusiSVImpl implements IincomeOutQueryBusiSV{
                     param.getEndAmount(), param.getIncomeFlag(),
                     param.getOptType(),pageInfo.getPageNo(),pageInfo.getPageSize());
         }
-        if(!CollectionUtil.isEmpty(allIncomeOut)){
+//        if(!CollectionUtil.isEmpty(allIncomeOut)){
             pageInfo.setPageNo(pageInfo.getPageNo() == null?1:pageInfo.getPageNo());
             pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
             pageInfo.setPageCount((pageInfo.getCount()+pageInfo.getPageSize()-1)/pageInfo.getPageSize());
             pageInfo.setResult(allIncomeOut);
             fundBookQueryResponseAll.setPageInfo(pageInfo);
-        }else {
-            return null;
-        }
+//        }
         return fundBookQueryResponseAll;
     }
 }
