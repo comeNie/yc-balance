@@ -32,8 +32,8 @@ public class CouponTemplateTest {
 	@Test
 	public void savaCouponTemplate() {
 		SaveFunCouponTemplate saveFunCouponTemplate = new SaveFunCouponTemplate();
-		saveFunCouponTemplate.setCouponDesc("五一");
-		saveFunCouponTemplate.setCouponName("迎五一");
+		saveFunCouponTemplate.setCouponDesc("国庆");
+		saveFunCouponTemplate.setCouponName("迎国庆");
 		saveFunCouponTemplate.setCouponUserId("1");
 		saveFunCouponTemplate.setCurrencyUnit("1");
 		saveFunCouponTemplate.setEffectiveEndTime("2017-04-11 14:36:19");
@@ -44,7 +44,7 @@ public class CouponTemplateTest {
 		saveFunCouponTemplate.setReceiveStartTime("2017-04-28 14:36:19");
 		saveFunCouponTemplate.setRequiredMoneyAmount(30);
 		saveFunCouponTemplate.setStatus("1");
-		saveFunCouponTemplate.setUsedScene("1");
+		saveFunCouponTemplate.setUsedScene("1,2");
 		saveFunCouponTemplate.setUseLimits("4");
 		BaseResponse savaCouponTemplate = couponTemplateSV.savaCouponTemplate(saveFunCouponTemplate);
 		System.out.println(savaCouponTemplate);
