@@ -83,7 +83,6 @@ public interface ICouponTemplateSV {
 	public BaseResponse savaCouponTemplate(SaveFunCouponTemplate req)throws BusinessException,SystemException;
 	
 	/**
-	 * 删除优惠券模板
 	 * @param couponName
 	 * @throws BusinessException,SystemException
 	 * @author shancc
