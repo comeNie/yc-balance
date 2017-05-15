@@ -162,4 +162,10 @@ public class MapperFactory {
     public static FunCouponUseRuleMapper getFunCouponUseRuleMapper(){
     	return sqlSessionTemplate.getMapper(FunCouponUseRuleMapper.class);
     }
+    public static IntegralsMapper getIntegralsMapper(){
+        return sqlSessionTemplate.getMapper(IntegralsMapper.class);
+    }
+    public static IntegralsLogMapper getIntegralsLogMapper(){
+        return sqlSessionTemplate.getMapper(IntegralsLogMapper.class);
+    }
 }

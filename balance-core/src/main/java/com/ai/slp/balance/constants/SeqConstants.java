@@ -10,7 +10,14 @@ public final class SeqConstants {
 
     private SeqConstants() {
     }
-
+    /**
+     * 积分变更记录表[INTEGRALS_LOG$INTEGRAL_LOG_ID]
+     */
+    public static final String INTEGRALS_LOG$INTEGRAL_LOG_ID = "integrals_log$integral_log_id";
+    /**
+     * 积分表[INTEGRALS$ID]
+     */
+    public static final String INTEGRALS$ID = "integrals$id";
     /**
      * 账单配置表[T_ACCOUN_PARAM$ID]
      */

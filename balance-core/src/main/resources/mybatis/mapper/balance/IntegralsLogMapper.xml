@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.IntegralsLogMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.IntegralsLog" >
+    <id column="integral_log_id" property="integralLogId" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="integral_source" property="integralSource" jdbcType="VARCHAR" />
+    <result column="system_source" property="systemSource" jdbcType="VARCHAR" />
+    <result column="integral_value" property="integralValue" jdbcType="INTEGER" />
+    <result column="log_time" property="logTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    integral_log_id, ID, user_id, integral_source, system_source, integral_value, log_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.IntegralsLogCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from integrals_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from integrals_log
+    where integral_log_id = #{integralLogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from integrals_log
+    where integral_log_id = #{integralLogId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.IntegralsLogCriteria" >
+    delete from integrals_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.IntegralsLog" >
+    insert into integrals_log (integral_log_id, ID, user_id, 
+      integral_source, system_source, integral_value, 
+      log_time)
+    values (#{integralLogId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{integralSource,jdbcType=VARCHAR}, #{systemSource,jdbcType=VARCHAR}, #{integralValue,jdbcType=INTEGER}, 
+      #{logTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.IntegralsLog" >
+    insert into integrals_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="integralLogId != null" >
+        integral_log_id,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="integralSource != null" >
+        integral_source,
+      </if>
+      <if test="systemSource != null" >
+        system_source,
+      </if>
+      <if test="integralValue != null" >
+        integral_value,
+      </if>
+      <if test="logTime != null" >
+        log_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="integralLogId != null" >
+        #{integralLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="integralSource != null" >
+        #{integralSource,jdbcType=VARCHAR},
+      </if>
+      <if test="systemSource != null" >
+        #{systemSource,jdbcType=VARCHAR},
+      </if>
+      <if test="integralValue != null" >
+        #{integralValue,jdbcType=INTEGER},
+      </if>
+      <if test="logTime != null" >
+        #{logTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.IntegralsLogCriteria" resultType="java.lang.Integer" >
+    select count(*) from integrals_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update integrals_log
+    <set >
+      <if test="record.integralLogId != null" >
+        integral_log_id = #{record.integralLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.integralSource != null" >
+        integral_source = #{record.integralSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemSource != null" >
+        system_source = #{record.systemSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.integralValue != null" >
+        integral_value = #{record.integralValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.logTime != null" >
+        log_time = #{record.logTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update integrals_log
+    set integral_log_id = #{record.integralLogId,jdbcType=VARCHAR},
+      ID = #{record.id,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      integral_source = #{record.integralSource,jdbcType=VARCHAR},
+      system_source = #{record.systemSource,jdbcType=VARCHAR},
+      integral_value = #{record.integralValue,jdbcType=INTEGER},
+      log_time = #{record.logTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.IntegralsLog" >
+    update integrals_log
+    <set >
+      <if test="id != null" >
+        ID = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="integralSource != null" >
+        integral_source = #{integralSource,jdbcType=VARCHAR},
+      </if>
+      <if test="systemSource != null" >
+        system_source = #{systemSource,jdbcType=VARCHAR},
+      </if>
+      <if test="integralValue != null" >
+        integral_value = #{integralValue,jdbcType=INTEGER},
+      </if>
+      <if test="logTime != null" >
+        log_time = #{logTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where integral_log_id = #{integralLogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.IntegralsLog" >
+    update integrals_log
+    set ID = #{id,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      integral_source = #{integralSource,jdbcType=VARCHAR},
+      system_source = #{systemSource,jdbcType=VARCHAR},
+      integral_value = #{integralValue,jdbcType=INTEGER},
+      log_time = #{logTime,jdbcType=TIMESTAMP}
+    where integral_log_id = #{integralLogId,jdbcType=VARCHAR}
+  </update>
+</mapper>
