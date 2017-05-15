@@ -46,6 +46,7 @@ public class IntegralsBusiSVImpl implements IIntegralsBusiSV {
 			integralsLog.setId(integrals.getId());
 			integralsLog.setIntegralSource(updateIntegralsParam.getIntegralsResource());
 			integralsLog.setSystemSource(updateIntegralsParam.getSystemResource());
+			integralsLog.setIntegralValue(updateIntegralsParam.getIntegrals());
 			integralsLog.setLogTime(DateUtil.getSysDate());
 			integralsLog.setUserId(integrals.getUserId());
 			integralsAtomLogSV.createIntegralsLog(integralsLog);
@@ -65,6 +66,7 @@ public class IntegralsBusiSVImpl implements IIntegralsBusiSV {
 			integralsLog.setSystemSource(updateIntegralsParam.getSystemResource());
 			integralsLog.setLogTime(DateUtil.getSysDate());
 			integralsLog.setUserId(updateIntegralsParam.getUserId());
+			integralsLog.setIntegralValue(updateIntegralsParam.getIntegrals());
 			integralsAtomLogSV.createIntegralsLog(integralsLog);
 		}
 	}
