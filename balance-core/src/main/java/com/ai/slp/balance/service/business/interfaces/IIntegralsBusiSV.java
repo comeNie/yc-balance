@@ -2,7 +2,10 @@ package com.ai.slp.balance.service.business.interfaces;
 
 
 import com.ai.opt.base.exception.BusinessException;
+import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.integrals.param.DelIntegralsResponse;
+import com.ai.slp.balance.api.integrals.param.IncomeQueryIntegralsRequest;
+import com.ai.slp.balance.api.integrals.param.IntegralsQueryResponse;
 import com.ai.slp.balance.api.integrals.param.UpdateIntegralsParam;
 import com.ai.slp.balance.dao.mapper.bo.Integrals;
 
@@ -32,5 +35,12 @@ public interface IIntegralsBusiSV {
 	 * @throws BusinessException
 	 */
 	public void delIntegrals(String userID) throws BusinessException;
+	/**
+	 * 积分收支查询
+	 * @param param
+	 * @return
+	 * @throws BusinessException
+	 */
+	public IntegralsQueryResponse incomeOutQueryIntegrals(IncomeQueryIntegralsRequest param) throws BusinessException,SystemException;
 
 }

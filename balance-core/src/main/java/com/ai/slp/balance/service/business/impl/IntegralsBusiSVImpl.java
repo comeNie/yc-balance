@@ -1,12 +1,13 @@
 package com.ai.slp.balance.service.business.impl;
 
 import com.ai.opt.base.exception.BusinessException;
+import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.DateUtil;
-import com.ai.slp.balance.api.integrals.param.DelIntegralsResponse;
-import com.ai.slp.balance.api.integrals.param.UpdateIntegralsParam;
+import com.ai.slp.balance.api.integrals.param.*;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.constants.SeqConstants;
 import com.ai.slp.balance.dao.mapper.bo.Integrals;
@@ -91,5 +92,17 @@ public class IntegralsBusiSVImpl implements IIntegralsBusiSV {
 				throw new BusinessException(ExceptCodeConstants.Special.SYSTEM_ERROR, "删除积分信息失败");
 			}
 		}
+	}
+
+	@Override
+	public IntegralsQueryResponse incomeOutQueryIntegrals(IncomeQueryIntegralsRequest param) throws BusinessException, SystemException {
+		IntegralsQueryResponse integralsQueryResponse = new IntegralsQueryResponse();
+		try {
+			PageInfo<IntegralsDetail> integralsDetailPageInfo = integralsAtomLogSV.queryIntegralsLog(param);
+			integralsQueryResponse.setPageInfo(integralsDetailPageInfo);
+		}catch (BusinessException e){
+			throw new BusinessException(ExceptCodeConstants.Special.SYSTEM_ERROR, "积分收支信息失败");
+		}
+		return integralsQueryResponse;
 	}
 }
