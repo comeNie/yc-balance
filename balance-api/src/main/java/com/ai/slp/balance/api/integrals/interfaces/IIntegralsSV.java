@@ -2,11 +2,10 @@ package com.ai.slp.balance.api.integrals.interfaces;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
-import com.ai.slp.balance.api.accountmaintain.param.AccountUpdateParam;
-import com.ai.slp.balance.api.accountmaintain.param.RegAccReq;
+import com.ai.slp.balance.api.integrals.param.DelIntegralsResponse;
 import com.ai.slp.balance.api.integrals.param.IntegralsResponse;
-import com.ai.slp.balance.api.integrals.param.UpdateIntegralsParam;
 import com.ai.slp.balance.api.integrals.param.UpdateIntegralsResponse;
+import com.ai.slp.balance.api.integrals.param.UpdateIntegralsParam;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -54,5 +53,18 @@ public interface IIntegralsSV {
     @POST
     @Path("/queryIntegrals")
     public IntegralsResponse queryIntegrals(String userID) throws BusinessException,SystemException;
+    /**
+     * 积分删除.<br>
+     *
+     * @param userID
+     * @return 成功,失败
+     * @author lxk
+     * @ApiDocMethod
+     * @ApiCode ABM_0030
+     * @RestRelativeURL integralsService/delIntegrals
+     */
+    @POST
+    @Path("/delIntegrals")
+    public DelIntegralsResponse delIntegrals(String userID) throws BusinessException,SystemException;
 
 }

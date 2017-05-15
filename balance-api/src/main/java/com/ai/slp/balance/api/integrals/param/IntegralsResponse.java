@@ -1,21 +1,14 @@
 package com.ai.slp.balance.api.integrals.param;
 
 import com.ai.opt.base.vo.BaseResponse;
-import com.ai.opt.base.vo.PageInfo;
-import com.ai.slp.balance.api.incomeoutquery.param.IncomeDetail;
 
 import java.sql.Timestamp;
 
 /**
- * Created by liquid on 16/11/8.
- *
- * 收入支出查询结果对象
+ * Created by liquid on 17/5/15.
  */
 public class IntegralsResponse extends BaseResponse {
-
-
     private static final long serialVersionUID = 1L;
-
     private String id;
 
     private String userId;

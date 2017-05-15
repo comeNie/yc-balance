@@ -30,5 +30,13 @@ public interface IIntegralsAtomSV {
 	 * @ApiCode
 	 */
 	public List<Integrals> queryIntegrals(String userId);
+	/**
+	 * 通过用户id删除积分信息
+	 * @param userId
+	 * @author lxk
+	 * @ApiDocMethod
+	 * @ApiCode
+	 */
+	public void delIntegrals(String userId);
 
 }

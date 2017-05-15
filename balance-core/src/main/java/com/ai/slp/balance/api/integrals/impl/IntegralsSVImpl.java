@@ -7,9 +7,10 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.integrals.interfaces.IIntegralsSV;
-import com.ai.slp.balance.api.integrals.param.IntegralsResponse;
-import com.ai.slp.balance.api.integrals.param.UpdateIntegralsParam;
+import com.ai.slp.balance.api.integrals.param.DelIntegralsResponse;
 import com.ai.slp.balance.api.integrals.param.UpdateIntegralsResponse;
+import com.ai.slp.balance.api.integrals.param.UpdateIntegralsParam;
+import com.ai.slp.balance.api.integrals.param.IntegralsResponse;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.dao.mapper.bo.Integrals;
 import com.ai.slp.balance.service.business.interfaces.IIntegralsBusiSV;
@@ -91,6 +92,30 @@ public class IntegralsSVImpl implements IIntegralsSV{
             integralsResponse.setResponseHeader(responseHeader);
             return integralsResponse;
         }
+    }
+
+    @Override
+    public DelIntegralsResponse delIntegrals(String userID) throws BusinessException, SystemException {
+        log.debug("积分删除---开始");
+        DelIntegralsResponse delIntegralsResponse = new DelIntegralsResponse();
+        ResponseHeader responseHeader = new ResponseHeader();
+        try {
+            //积分删除
+            integralsBusiSV.delIntegrals(userID);
+            responseHeader.setIsSuccess(true);
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
+            responseHeader.setResultMessage("积分删除成功!");
+            delIntegralsResponse.setResponseHeader(responseHeader);
+        }catch (BusinessException businessException){
+            responseHeader.setResultCode(businessException.getErrorCode());
+            responseHeader.setResultMessage(businessException.getErrorMessage());
+            delIntegralsResponse.setResponseHeader(responseHeader);
+        }catch (Exception e){
+            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
+            responseHeader.setResultMessage("积分删除失败");
+            delIntegralsResponse.setResponseHeader(responseHeader);
+        }
+        return delIntegralsResponse;
     }
 }
 

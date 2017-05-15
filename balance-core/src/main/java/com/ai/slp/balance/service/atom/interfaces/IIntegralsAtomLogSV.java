@@ -15,5 +15,13 @@ public interface IIntegralsAtomLogSV {
 	 * @ApiCode
 	 */
 	public void createIntegralsLog(IntegralsLog integralsLog);
+	/**
+	 * 创建积分信息变更记录
+	 * @param userID
+	 * @author lxk
+	 * @ApiDocMethod
+	 * @ApiCode
+	 */
+	public void delIntegralsLog(String userID);
 
 }

@@ -3,6 +3,7 @@ package com.ai.slp.balance.service.atom.impl;
 import com.ai.slp.balance.dao.mapper.bo.Integrals;
 import com.ai.slp.balance.dao.mapper.bo.IntegralsCriteria;
 import com.ai.slp.balance.dao.mapper.bo.IntegralsLog;
+import com.ai.slp.balance.dao.mapper.bo.IntegralsLogCriteria;
 import com.ai.slp.balance.dao.mapper.factory.MapperFactory;
 import com.ai.slp.balance.service.atom.interfaces.IIntegralsAtomLogSV;
 import com.ai.slp.balance.service.atom.interfaces.IIntegralsAtomSV;
@@ -16,5 +17,12 @@ public class IntegralsAtomLogSVImpl implements IIntegralsAtomLogSV {
 	@Override
 	public void createIntegralsLog(IntegralsLog integralsLog) {
 		MapperFactory.getIntegralsLogMapper().insert(integralsLog);
+	}
+
+	@Override
+	public void delIntegralsLog(String userID) {
+		IntegralsLogCriteria example = new IntegralsLogCriteria();
+		example.createCriteria().andUserIdEqualTo(userID);
+		MapperFactory.getIntegralsLogMapper().deleteByExample(example);
 	}
 }

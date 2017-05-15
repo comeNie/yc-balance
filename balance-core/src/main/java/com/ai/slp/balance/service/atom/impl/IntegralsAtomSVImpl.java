@@ -31,4 +31,11 @@ public class IntegralsAtomSVImpl implements IIntegralsAtomSV {
 	public void createIntegrals(Integrals integrals) {
 		MapperFactory.getIntegralsMapper().insert(integrals);
 	}
+
+	@Override
+	public void delIntegrals(String userId) {
+		IntegralsCriteria example = new IntegralsCriteria();
+		example.createCriteria().andUserIdEqualTo(userId);
+		MapperFactory.getIntegralsMapper().deleteByExample(example);
+	}
 }
