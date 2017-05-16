@@ -47,7 +47,8 @@ public class IntegralsAtomLogSVImpl implements IIntegralsAtomLogSV {
 		if ("1".equals(param.getFlag())){
 			criteria.andIntegralValueLessThanOrEqualTo(0);
 		}
-		pageInfo.setCount(MapperFactory.getIntegralsLogMapper().countByExample(example));
+		List<IntegralsLog> integralsLogslist = MapperFactory.getIntegralsLogMapper().selectByExample(example);
+		pageInfo.setCount(integralsLogslist.size());
 		if (param.getPageInfo() == null) {
 			pageInfo.setPageNo(1);
 			pageInfo.setPageSize(pageInfo.getPageSize() == null ? 10 : pageInfo.getPageSize());
