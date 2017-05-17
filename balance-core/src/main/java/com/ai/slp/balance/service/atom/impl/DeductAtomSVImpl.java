@@ -212,6 +212,34 @@ public class DeductAtomSVImpl implements IDeductAtomSV {
     }
 
     @Override
+    public String recordFundSerialGeneral(DeductVo vo) {
+        FunFundSerial funFundSerial = new FunFundSerial();
+        funFundSerial.setPaySerialCode(SeqUtil.getNewId(
+                SeqConstants.FUN_FUND_SERIAL$PAY_SERIAL_CODE).toString());
+        funFundSerial.setTenantId(vo.getTenantId());
+        funFundSerial.setSystemId(vo.getSystemId());
+        funFundSerial.setPeerSerialCode(vo.getExternalId());
+        funFundSerial.setTotalAmount(vo.getTotalAmount());
+        funFundSerial.setAcctId1(vo.getAccountId());
+        FunAccountInfo funAccountInfo = funAccountInfoSV.getBeanByPrimaryKey(vo.getAccountId());
+        funFundSerial.setAcctName1(funAccountInfo.getAcctName());// TODO 是否要保存账户姓名
+        funFundSerial.setRemark(vo.getBusiDesc());
+        funFundSerial.setOptType(vo.getOptType());//记录操作类型
+        funFundSerial.setPayStatus(BalancesCostants.FunFundSerial.PayStatus.SUCCESS);// TODO 成功？
+        funFundSerial.setCreateTime(DateUtil.getSysDate());// TODO 不需要交易时间，只保留创建时间
+        funFundSerial.setPayTime(DateUtil.getSysDate()); // FIXME 应该修改表模型，删掉字段
+        funFundSerial.setLastStatusDate(DateUtil.getSysDate());
+        funFundSerial.setTransSummary("无");// FIXME
+        funFundSerial.setCurrencyUnit(vo.getCurrencyUnit());
+        funFundSerial.setIncomeFlag("0");
+        funFundSerial.setChannel(vo.getChannel());
+        funFundSerial.setBusiOperCode(vo.getBusinessCode());
+        log.debug("记录订单交易FUN_FUND_SERIAL:pay_serial_code=" + funFundSerial.getPaySerialCode());
+        funFundSerialSV.insertFunFundSerial(funFundSerial);
+        return funFundSerial.getPaySerialCode();
+    }
+
+    @Override
     public String recordFundDetail(DeductVo depositVo) {
         if (!CollectionUtil.isEmpty(depositVo.getTransSummary())) {
             for (TransSummaryVo summary : depositVo.getTransSummary()) {
