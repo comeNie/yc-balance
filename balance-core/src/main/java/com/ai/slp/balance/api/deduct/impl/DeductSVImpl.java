@@ -1,6 +1,7 @@
 package com.ai.slp.balance.api.deduct.impl;
 
 import com.ai.slp.balance.api.accountquery.interfaces.IAccountQuerySV;
+import com.ai.slp.balance.api.deduct.param.*;
 import com.ai.slp.balance.dao.mapper.bo.FunAccountSet;
 import com.ai.slp.balance.service.business.interfaces.IAccountManagerSV;
 import org.apache.logging.log4j.LogManager;
@@ -14,13 +15,6 @@ import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.deduct.interfaces.IDeductSV;
-import com.ai.slp.balance.api.deduct.param.DeductAccount;
-import com.ai.slp.balance.api.deduct.param.DeductParam;
-import com.ai.slp.balance.api.deduct.param.DeductResponse;
-import com.ai.slp.balance.api.deduct.param.ForegiftDeduct;
-import com.ai.slp.balance.api.deduct.param.SettleParam;
-import com.ai.slp.balance.api.deduct.param.SettleSummary;
-import com.ai.slp.balance.api.deduct.param.TransSummary;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.IDeductBusiSV;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -92,6 +86,76 @@ public class DeductSVImpl implements IDeductSV {
                 }
             }
             serialNo = deductBusiSV.deductFund(param);
+            deductResponse.setSerialNo(serialNo);
+        } catch (BusinessException e) {
+            responseHeader = new ResponseHeader(false, e.getErrorCode(), e.getErrorMessage());
+        }catch (SystemException e){
+            responseHeader = new ResponseHeader(false, e.getErrorCode(), e.getErrorMessage());
+        }catch (Exception e){
+            responseHeader = new ResponseHeader(false, e.getMessage(), e.getMessage());
+        }
+        deductResponse.setResponseHeader(responseHeader);
+        return deductResponse;
+    }
+
+    @Override
+    public DeductResponse deductFundGeneral(DeductParamGeneral param) throws BusinessException, SystemException {
+        log.debug("开始扣款服务");
+        String serialNo = "";
+        ResponseHeader responseHeader = new ResponseHeader(true, "success", "扣款成功");
+
+        DeductResponse deductResponse = new DeductResponse();
+        try {
+            if (param == null) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "请求参数不能为空");
+            }
+            if (StringUtil.isBlank(param.getTenantId())) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "租户ID不能为空");
+            }
+            if (StringUtil.isBlank(param.getSystemId())) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "系统ID不能为空");
+            }
+            if (param.getAccountId() == 0) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "账户号不能为空");
+            }
+            if (StringUtil.isBlank(param.getOptType())) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "业务操作类型不能为空");
+            }
+
+            //校验支付密码
+            long accountId = param.getAccountId();
+            FunAccountSet funAccountSet = accountSV.queryFunAccountSetInfo(accountId);
+            if (funAccountSet.getPayCheck().equals("1")) {
+                //是否已设置支付密码
+                if (StringUtil.isBlank(funAccountSet.getPayPassword())){
+                    throw new BusinessException(ExceptCodeConstants.Special.NO_SET_PASSWORD, "抱歉，您还没有设置支付密码，无法用账户余额付款。");
+                }
+                //传入的支付密码是否为空
+                if (StringUtil.isBlank(param.getPassword())){
+                    throw new BusinessException(ExceptCodeConstants.Special.PASSWORD_IS_NULL, "支付密码不能为空");
+                }
+                //校验支付密码是否正确
+                if (!funAccountSet.getPayPassword().equals(param.getPassword())){
+                    throw new BusinessException(ExceptCodeConstants.Special.PASSWORD_IS_WRONG, "支付密码不正确");
+                }
+
+            }
+            if (StringUtil.isBlank(param.getExternalId())) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "外部流水号不能为空");
+            }
+            if (StringUtil.isBlank(param.getBusinessCode())) {
+                throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL, "业务操作类型不能为空");
+            }
+            if (!CollectionUtil.isEmpty(param.getTransSummary())) {
+
+                for (TransSummary summary : param.getTransSummary()) {
+                    if (summary.getSubjectId() == 0) {
+                        throw new BusinessException(ExceptCodeConstants.Special.PARAM_IS_NULL,
+                                "资金科目ID不能为空[" + JSON.toJSONString(summary) + "]");
+                    }
+                }
+            }
+            serialNo = deductBusiSV.deductFundGeneral(param);
             deductResponse.setSerialNo(serialNo);
         } catch (BusinessException e) {
             responseHeader = new ResponseHeader(false, e.getErrorCode(), e.getErrorMessage());
