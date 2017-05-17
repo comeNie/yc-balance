@@ -90,6 +90,15 @@ public interface IDeductAtomSV {
      * @ApiDocMethod
      */
     public String recordFundSerial(DeductVo vo);
+    /**
+     * 记录交易订单表(通用) <br>
+     * 返回交易流水号
+     *
+     * @param vo
+     * @author lxk
+     * @ApiDocMethod
+     */
+    public String recordFundSerialGeneral(DeductVo vo);
 
     /**
      * 记录资金异动 <br>
