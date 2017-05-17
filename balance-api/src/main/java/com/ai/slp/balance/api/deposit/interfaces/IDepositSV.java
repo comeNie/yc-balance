@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.slp.balance.api.deposit.param.DepositParam;
+import com.ai.slp.balance.api.deposit.param.DepositParamGeneral;
 import com.ai.slp.balance.api.deposit.param.ForegiftDeposit;
 
 /**
@@ -26,7 +27,7 @@ public interface IDepositSV {
 
     /**
      * 存款 (存入).<br>
-     * 处理外部平台向余额中心发起的存款的请求，支持存入现金、赠款等<br>
+     * 处理外部平台向余额中心发起的存款的请求，支持充值等<br>
      * 
      * @param param
      * @return 交易流水号
@@ -39,6 +40,21 @@ public interface IDepositSV {
 	@POST
 	@Path("/depositFund")
     public String depositFund(DepositParam param) throws BusinessException,SystemException;
+    /**
+     * 存款 (存入).<br>
+     * 处理外部平台向余额中心发起的存款的请求，支持退款,接单<br>
+     *
+     * @param param
+     * @return 交易流水号
+     * @throws BusinessException,SystemException
+     * @author lilg
+     * @ApiDocMethod
+     * @ApiCode ABM_0016
+     * @RestRelativeURL depositService/depositFundGeneral
+     */
+    @POST
+    @Path("/depositFundGeneral")
+    public String depositFundGeneral(DepositParamGeneral param) throws BusinessException,SystemException;
 
     /**
      * 押金存入.<br>

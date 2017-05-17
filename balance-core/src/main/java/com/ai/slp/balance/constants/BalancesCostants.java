@@ -202,39 +202,39 @@ public final class BalancesCostants {
             }
 
             /**
-             * 存入
+             * 充值
              */
             public static final String DEPOSIT = "1";
 
             /**
-             * 扣款
+             * 下单
              */
             public static final String DEDUCT = "2";
 
             /**
-             * 转账
-             */
-            public static final String TRANSFER = "3";
-
-            /**
              * 提现
              */
-            public static final String WITHDROW = "4";
+            public static final String WITHDROW = "3";
 
             /**
-             * 预存转兑
+             * 退款
              */
-            public static final String PREEXCHANGE = "5";
+            public static final String REFUND = "4";
 
             /**
-             * 冲正
+             * 接单
              */
-            public static final String REVERSE = "6";
+            public static final String ORDER_TAKING = "5";
 
             /**
-             * 活动终止
+             * 译员佣金
              */
-            public static final String PAY_RULE_CANCLE = "7";
+            public static final String INTERPRETER_FEE = "6";
+
+            /**
+             * 平台佣金
+             */
+            public static final String PLATFORM_FEE = "7";
 
         }
 

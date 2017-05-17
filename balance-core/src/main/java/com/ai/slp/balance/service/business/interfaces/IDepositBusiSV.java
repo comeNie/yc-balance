@@ -2,6 +2,7 @@ package com.ai.slp.balance.service.business.interfaces;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.slp.balance.api.deposit.param.DepositParam;
+import com.ai.slp.balance.api.deposit.param.DepositParamGeneral;
 import com.ai.slp.balance.api.deposit.param.ForegiftDeposit;
 import com.ai.slp.balance.vo.DepositVo;
 
@@ -15,13 +16,22 @@ import com.ai.slp.balance.vo.DepositVo;
 public interface IDepositBusiSV {
     /**
      * 存款接口
-     * @param balanceDepositVo
+     * @param param
      * @return
      * @throws Exception
      * @author lilg
      * @ApiDocMethod
      */
     public String depositFund(DepositParam param) throws BusinessException;
+    /**
+     * 存款接口
+     * @param param
+     * @return
+     * @throws Exception
+     * @author lilg
+     * @ApiDocMethod
+     */
+    public String depositFundGeneral(DepositParamGeneral param) throws BusinessException;
     
     /**
      * 押金存入

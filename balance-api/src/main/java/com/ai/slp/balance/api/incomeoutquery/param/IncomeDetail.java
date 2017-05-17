@@ -71,9 +71,8 @@ public class IncomeDetail extends BaseInfo {
      *币种：人民币,美元
      */
     private String currencyUnit;
-
     /**
-     *类型1:充值；2:下单；3:提现；4: 退款
+     * 业务操作类型，必填 类型  1:充值;2:下单;3:提现;4: 退款;5:接单;6:译员佣金;7:平台佣金
      */
     private String optType;
 

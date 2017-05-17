@@ -27,7 +27,7 @@ public interface IDepositAtomSV {
      * 入参，存款对象DepositVo <br>
      * 出参，Subject的JSON对象<br>
      * 
-     * @param subjectIds
+     * @param vo
      * @return
      * @author lilg
      * @ApiDocMethod
@@ -64,6 +64,16 @@ public interface IDepositAtomSV {
      * @ApiDocMethod
      */
     public String recordFundSerial(DepositVo vo);
+    /**
+     * 记录交易订单表(通用) <br>
+     * 返回交易流水号
+     *
+     * @param vo
+     * @author lilg
+     * @ApiDocMethod
+     */
+    public String recordFundSerialGeneral(DepositVo vo);
+
 
     /**
      * 记录资金异动 <br>

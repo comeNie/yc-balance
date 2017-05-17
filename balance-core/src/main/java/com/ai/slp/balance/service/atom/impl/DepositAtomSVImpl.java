@@ -252,6 +252,38 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
         return funFundSerial.getPaySerialCode();
     }
 
+    @Override
+    public String recordFundSerialGeneral(DepositVo vo) {
+        FunFundSerial funFundSerial = new FunFundSerial();
+        funFundSerial.setPaySerialCode(SeqUtil.getNewId(
+                SeqConstants.FUN_FUND_SERIAL$PAY_SERIAL_CODE).toString());
+        funFundSerial.setTenantId(vo.getTenantId());
+        funFundSerial.setSystemId(vo.getSystemId());
+        funFundSerial.setPeerSerialCode(vo.getBusiSerialNo());
+        funFundSerial.setTotalAmount(vo.getTotalAmount());
+        funFundSerial.setAcctId1(vo.getAccountId());
+        FunAccountInfo funAccountInfo = funAccountInfoSV.getBeanByPrimaryKey(vo.getAccountId());
+        funFundSerial.setAcctName1(funAccountInfo.getAcctName());
+        // funFundSerial.setAcctName1(vo.getAccountInfo().getAcctName());// TODO 是否要保存账户姓名
+        funFundSerial.setRemark(vo.getBusiDesc());
+        funFundSerial.setOptType(vo.getOptType());//业务操作类型
+        funFundSerial.setPayStatus(BalancesCostants.FunFundSerial.PayStatus.SUCCESS);// TODO 成功？
+        funFundSerial.setCreateTime(DateUtil.getSysDate());// TODO 不需要交易时间，只保留创建时间
+        funFundSerial.setPayTime(DateUtil.getSysDate()); // FIXME 应该修改表模型，删掉字段
+        funFundSerial.setLastStatusDate(DateUtil.getSysDate());
+        funFundSerial.setTransSummary("无");// FIXME
+        //业务渠道
+        funFundSerial.setChannel(vo.getPayStyle());
+        //业务操作类型
+        funFundSerial.setBusiOperCode(vo.getBusiOperCode());
+        //币种
+        funFundSerial.setCurrencyUnit(vo.getCurrencyUnit());
+        //收支标识 1:收入   0:支出
+        funFundSerial.setIncomeFlag("1");
+        log.debug("记录订单交易FUN_FUND_SERIAL:pay_serial_code=" + funFundSerial.getPaySerialCode());
+        funFundSerialSV.insertFunFundSerial(funFundSerial);
+        return funFundSerial.getPaySerialCode();
+    }
 
     @Override
     public String recordFundDetail(DepositVo depositVo) {
