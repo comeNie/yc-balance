@@ -8,11 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
-import com.ai.slp.balance.api.deduct.param.DeductAccount;
-import com.ai.slp.balance.api.deduct.param.DeductParam;
-import com.ai.slp.balance.api.deduct.param.DeductResponse;
-import com.ai.slp.balance.api.deduct.param.ForegiftDeduct;
-import com.ai.slp.balance.api.deduct.param.SettleParam;
+import com.ai.slp.balance.api.deduct.param.*;
 
 /**
  * 余额扣减服务 <br>
@@ -28,7 +24,7 @@ import com.ai.slp.balance.api.deduct.param.SettleParam;
 public interface IDeductSV {
     /**
      * 扣款 (扣减).<br>
-     * 处理外部平台向余额中心发起的单次扣款或提现的请求，支持扣减账户的现金、赠款、红包、优惠券<br>
+     * 处理外部平台向余额中心发起的单次扣款或提现的请求，支持下单<br>
      * 
      * @param param
      * @return 交易流水号
@@ -40,6 +36,21 @@ public interface IDeductSV {
 	@POST
 	@Path("/deductFund")
     public DeductResponse deductFund(DeductParam param) throws BusinessException,SystemException;
+
+    /**
+     * 扣款 (扣减).(通用接口)<br>
+     * 处理外部平台向余额中心发起的单次扣款的请求，支持提现,退款,译员佣金,平台佣金<br>
+     *
+     * @param param
+     * @return 交易流水号
+     * @author lxk
+     * @ApiDocMethod
+     * @ApiCode ABM_00191
+     * @RestRelativeURL deductService/deductFundGeneral
+     */
+    @POST
+    @Path("/deductFundGeneral")
+    public DeductResponse deductFundGeneral(DeductParamGeneral param) throws BusinessException,SystemException;
 
     /**
      * 销账扣款 (扣减).<br>
