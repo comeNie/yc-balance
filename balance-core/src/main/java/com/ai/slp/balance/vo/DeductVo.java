@@ -56,6 +56,11 @@ public class DeductVo extends BaseVo {
     private long subsId;
 
     /**
+     * 业务操作类型，必填 类型  1:充值;2:下单;3:提现;4: 退款;5:接单;6:译员佣金;7:平台佣金
+     */
+    private String optType;
+
+    /**
      * 币种
      * @return
      */
@@ -246,5 +251,13 @@ public class DeductVo extends BaseVo {
 
     public void setSubsId(long subsId) {
         this.subsId = subsId;
+    }
+
+    public String getOptType() {
+        return optType;
+    }
+
+    public void setOptType(String optType) {
+        this.optType = optType;
     }
 }
