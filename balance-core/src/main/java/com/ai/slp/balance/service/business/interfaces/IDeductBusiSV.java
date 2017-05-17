@@ -1,10 +1,7 @@
 package com.ai.slp.balance.service.business.interfaces;
 
 import com.ai.opt.base.exception.BusinessException;
-import com.ai.slp.balance.api.deduct.param.DeductAccount;
-import com.ai.slp.balance.api.deduct.param.DeductParam;
-import com.ai.slp.balance.api.deduct.param.ForegiftDeduct;
-import com.ai.slp.balance.api.deduct.param.SettleParam;
+import com.ai.slp.balance.api.deduct.param.*;
 
 /**
  * 扣款业务层<br>
@@ -27,6 +24,18 @@ public interface IDeductBusiSV {
      * @ApiCode
      */
     public String deductFund(DeductParam param) throws BusinessException;
+
+    /**
+     * 单次扣款(通用)
+     *
+     * @param param
+     * @return
+     * @throws BusinessException
+     * @author lxk
+     * @ApiDocMethod
+     * @ApiCode
+     */
+    public String deductFundGeneral(DeductParamGeneral param) throws BusinessException;
 
     /**
      * 销账扣款
