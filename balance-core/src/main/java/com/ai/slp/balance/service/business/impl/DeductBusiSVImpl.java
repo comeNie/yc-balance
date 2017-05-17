@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ai.slp.balance.api.deduct.param.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,6 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.paas.ipaas.mds.IMessageSender;
-import com.ai.slp.balance.api.deduct.param.DeductAccount;
-import com.ai.slp.balance.api.deduct.param.DeductParam;
-import com.ai.slp.balance.api.deduct.param.ForegiftDeduct;
-import com.ai.slp.balance.api.deduct.param.SettleParam;
-import com.ai.slp.balance.api.deduct.param.SettleSummary;
-import com.ai.slp.balance.api.deduct.param.TransSummary;
 import com.ai.slp.balance.constants.BalancesCostants;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.dao.mapper.bo.FunFundBook;
@@ -125,6 +120,78 @@ public class DeductBusiSVImpl implements IDeductBusiSV {
         //
         return paySerialCode;
     }
+
+    @Override
+    public String deductFundGeneral(DeductParamGeneral param) throws BusinessException {
+        log.debug("普通扣款开始");
+        /* 参数转化 */
+        DeductVo deductVo = new DeductVo();
+        BeanUtils.copyProperties(deductVo, param);
+        if (!CollectionUtil.isEmpty(param.getTransSummary())) {
+            for (TransSummary summary : param.getTransSummary()) {
+                BeanUtils.copyProperties(deductVo.createTransSummary(), summary);
+            }
+        }
+        /* 1.数据校验 */
+        /* 账户校验 */
+        deductAtomSV.validAccountInfo(deductVo.getAccountId(), deductVo.getTenantId(),param.getCheckPwd(),param.getPassword());
+        /* 幂等性校验 */
+        String paySerialCode = deductAtomSV.validIdempotent(deductVo);
+        if (!StringUtil.isBlank(paySerialCode)) {
+            return paySerialCode;
+        }
+        /* 科目校验 */
+        // 资金类型只能是现金流 //TODO 现金流的科目类型如何确认
+        deductVo.addFundType(BalancesCostants.FunSubject.FundType.CASH);
+        deductVo.addFundType(BalancesCostants.FunSubject.FundType.GRANT);
+        final Map<Long, SubjectFundVo> subjectList = deductAtomSV.validSubject(deductVo);
+        /* 2.账本扣款 */
+        DeductVo destDeductVo = new DeductVo();// 存储确定账本后的数据
+        BeanUtils.copyProperties(destDeductVo, deductVo);
+        long alreadyDeduct = 0;
+        if (!CollectionUtil.isEmpty(param.getTransSummary())) {
+            for (TransSummaryVo summary : deductVo.getTransSummary()) {
+                // 统计扣减的金额
+                alreadyDeduct = alreadyDeduct + summary.getAmount();
+                // 2.1 账本明确
+                if (summary.getBookId() != 0) {
+                    // 校验账本
+                    deductAtomSV.validFundBook(deductVo.getAccountId(), deductVo.getTenantId(),
+                            summary.getBookId());
+                    // 单账本扣款
+                    deductAtomSV.deductFundBook(deductVo.getAccountId(), summary.getBookId(),
+                            summary.getAmount());
+                    // copy结果到新对象
+                    destDeductVo.addTransSummary(summary.getBookId(), summary.getSubjectId(),
+                            summary.getAmount());
+                }
+                // 2.2 科目明确，账本不明确
+                else if (summary.getSubjectId() != 0) {
+                    long subjectId = summary.getSubjectId();
+                    long amount = summary.getAmount();
+                    // 按照科目扣减，扣减结果保存在destDeductVo中
+                    this.subjectDecude(deductVo, destDeductVo, subjectId, amount);
+                }
+            }
+        }
+        // 2.3账本和科目均不明确的扣减
+        if (deductVo.getTotalAmount() > alreadyDeduct) {
+            // 需要按照系统规则扣减的金额
+            long ruleAmount = deductVo.getTotalAmount() - alreadyDeduct;
+            // 按照系统默认自然扣减，扣减结果保存在destDeductVo中
+            this.naturalDecude(deductVo, destDeductVo, subjectList, ruleAmount);
+        }
+        // 3.记录交易订单
+        paySerialCode = deductAtomSV.recordFundSerialGeneral(destDeductVo);
+        destDeductVo.setPaySerialCode(paySerialCode);
+        // 4.记录资金流水
+        deductAtomSV.recordFundDetail(destDeductVo);
+        // 5.更新账户信息余额
+        deductAtomSV.addAccountInfoBalance(destDeductVo);
+
+        return paySerialCode;
+    }
+
     /**
      * 扣款业务,发送MDS消息
      * @param request
