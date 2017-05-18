@@ -99,7 +99,7 @@ public class DepositBusiSVImpl implements IDepositBusiSV {
         paySerialCode = depositAtomSV.recordFundSerialGeneral(depositVo);
         depositVo.setPaySerialCode(paySerialCode);
         // 资金异动流水
-        depositAtomSV.recordFundDetail(depositVo);
+        depositAtomSV.recordFundDetailGeneral(depositVo);
         // 更新账户信息余额
         depositAtomSV.addAccountInfoBalance(depositVo);
         // 异步更新索引表FUN_FUND_SERIAL_BY_ACCT_ID_IDX

@@ -238,7 +238,33 @@ public class DeductAtomSVImpl implements IDeductAtomSV {
         funFundSerialSV.insertFunFundSerial(funFundSerial);
         return funFundSerial.getPaySerialCode();
     }
-
+    @Override
+    public String recordFundDetailGeneral(DeductVo depositVo) {
+        if (!CollectionUtil.isEmpty(depositVo.getTransSummary())) {
+            for (TransSummaryVo summary : depositVo.getTransSummary()) {
+                FunFundDetail funFundDetail = new FunFundDetail();
+                funFundDetail.setSerialCode(SeqUtil.getNewId(
+                        SeqConstants.FUN_FUND_DETAIL$SERIAL_CODE).toString());
+                funFundDetail.setPaySerialCode(depositVo.getPaySerialCode());
+                funFundDetail.setAccountId(depositVo.getAccountId());
+                //扣款,库中存储负值
+                funFundDetail.setTotalAmount(0-summary.getAmount());
+                funFundDetail.setBookId(summary.getBookId());
+                funFundDetail.setCreateTime(DateUtil.getSysDate());
+                funFundDetail.setValueDate(DateUtil.getSysDate());// FIXME 应该修改表模型，删掉字段
+                FunFundBook funFundBook = funFundBookSV.getBean(depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
+                funFundDetail.setBalancePre(funFundBook.getBalance());
+//                funFundDetail.setBalancePre(0l);// FIXME 应该修改表模型，删掉字段
+                funFundDetail.setOptType(depositVo.getOptType());
+                funFundDetail.setRemark(depositVo.getBusiDesc());
+                funFundDetail.setSubjectId(summary.getSubjectId());
+                funFundDetail.setCurrencyUnit(depositVo.getCurrencyUnit());
+                log.debug("记录资金流水FUN_FUND_SERIAL:serial_code=" + funFundDetail.getSerialCode());
+                funFundDetailSV.insertFunFundDetail(funFundDetail);
+            }
+        }
+        return depositVo.getPaySerialCode();
+    }
     @Override
     public String recordFundDetail(DeductVo depositVo) {
         if (!CollectionUtil.isEmpty(depositVo.getTransSummary())) {

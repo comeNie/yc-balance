@@ -109,7 +109,15 @@ public interface IDeductAtomSV {
      * @ApiDocMethod
      */
     public String recordFundDetail(DeductVo vo);
-
+    /**
+     * 记录资金异动 (通用)<br>
+     * 返回交易流水号
+     *
+     * @param depositVo
+     * @author lilg
+     * @ApiDocMethod
+     */
+    public String recordFundDetailGeneral(DeductVo depositVo);
     /**
      * 更新账户信息，增加账户余额
      * 

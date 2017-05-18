@@ -284,6 +284,54 @@ public class DepositAtomSVImpl implements IDepositAtomSV {
         funFundSerialSV.insertFunFundSerial(funFundSerial);
         return funFundSerial.getPaySerialCode();
     }
+    @Override
+    public String recordFundDetailGeneral(DepositVo depositVo) {
+        log.info("$$$$开始recordFundDetail的for循环处理。。。。");
+        for (TransSummaryVo summary : depositVo.getTransSummary()) {
+            log.info("开始recordFundDetail的单条处理。。。。");
+            FunFundDetail funFundDetail = new FunFundDetail();
+            funFundDetail.setSerialCode(SeqUtil.getNewId(SeqConstants.FUN_FUND_DETAIL$SERIAL_CODE)
+                    .toString());
+            funFundDetail.setPaySerialCode(depositVo.getPaySerialCode());
+            funFundDetail.setAccountId(depositVo.getAccountId());
+            funFundDetail.setTotalAmount(summary.getAmount());
+            funFundDetail.setBookId(summary.getBookId());
+            funFundDetail.setCreateTime(DateUtil.getSysDate());
+            funFundDetail.setValueDate(DateUtil.getSysDate());// FIXME 应该修改表模型，删掉字段
+            log.info("开始查询funFundBookAtomSV.getBean,tenantId:{},accountId:{},bookId:{}",
+                    depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
+
+            //如果第一次创建账本,赋值异动前余额为输入的金额,否则赋值为账本余额
+            if(summary.getNewBook()){
+                log.info("第一次创建账本充值:",summary.getAmount());
+                funFundDetail.setBalancePre(depositVo.getTotalAmount());
+            }else {
+                log.info("多次次创建账本充值:",summary.getAmount());
+                FunFundBook funFundBook = funFundBookAtomSV.getBean(depositVo.getTenantId(),depositVo.getAccountId(),summary.getBookId());
+                log.info("结束查询funFundBookAtomSV.getBean");
+                if(funFundBook==null){
+                    log.info("funFundBook为空，未查询到");
+                }
+                else{
+                    log.info("funFundBook已创建，OK："+JSON.toJSONString(funFundBook));
+                }
+                funFundDetail.setBalancePre(funFundBook.getBalance());
+            }
+//            funFundDetail.setBalancePre(0l);// FIXME 应该修改表模型，删掉字段
+            funFundDetail.setOptType(depositVo.getOptType());
+            funFundDetail.setRemark(depositVo.getBusiDesc());
+            funFundDetail.setSubjectId(summary.getSubjectId());
+            //币种
+            funFundDetail.setCurrencyUnit(depositVo.getCurrencyUnit());
+            log.info("记录资金流水FUN_FUND_SERIAL:serial_code=" + funFundDetail.getSerialCode());
+            log.info("开始处理funFundDetailSV.insertFunFundDetail");
+            funFundDetailSV.insertFunFundDetail(funFundDetail);
+            log.info("结束处理funFundDetailSV.insertFunFundDetail");
+            log.info("结束recordFundDetail的单条处理。。。。");
+        }
+        log.info("$$$$结束recordFundDetail的for循环处理。。。。");
+        return depositVo.getPaySerialCode();
+    }
 
     @Override
     public String recordFundDetail(DepositVo depositVo) {

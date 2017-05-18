@@ -185,7 +185,7 @@ public class DeductBusiSVImpl implements IDeductBusiSV {
         paySerialCode = deductAtomSV.recordFundSerialGeneral(destDeductVo);
         destDeductVo.setPaySerialCode(paySerialCode);
         // 4.记录资金流水
-        deductAtomSV.recordFundDetail(destDeductVo);
+        deductAtomSV.recordFundDetailGeneral(destDeductVo);
         // 5.更新账户信息余额
         deductAtomSV.addAccountInfoBalance(destDeductVo);
 
