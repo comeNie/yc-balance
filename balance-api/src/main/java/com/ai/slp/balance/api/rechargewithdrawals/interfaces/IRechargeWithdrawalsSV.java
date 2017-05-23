@@ -14,7 +14,7 @@ import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageQueryResponse;
 
 
 /**
- * 优惠券模板接口
+ * 充值提现管理接口
  */
 @Path("/rechargewithdrawals")
 @Consumes({ MediaType.APPLICATION_JSON })
@@ -22,8 +22,8 @@ import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageQueryResponse;
 public interface IRechargeWithdrawalsSV {
 
 	/**
-     * 用途列表查询分页
-     * @return 用途列表
+     * 充值提现列表查询分页
+     * @return 充值提现列表
      * @throws BusinessException,SystemException
      * @author shancc
      * @ApiDocMethod
