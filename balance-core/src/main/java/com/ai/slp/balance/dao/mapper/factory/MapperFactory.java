@@ -2,13 +2,47 @@ package com.ai.slp.balance.dao.mapper.factory;
 
 import javax.annotation.PostConstruct;
 
-import com.ai.slp.balance.dao.mapper.attach.*;
-import com.ai.slp.balance.dao.mapper.interfaces.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ai.slp.balance.dao.mapper.bo.FunActivityCriteria.Criteria;
+import com.ai.slp.balance.dao.mapper.attach.FunAccountInfoAttachMapper;
+import com.ai.slp.balance.dao.mapper.attach.FunFundBookAttachMapper;
+import com.ai.slp.balance.dao.mapper.attach.FunResBookAttachMapper;
+import com.ai.slp.balance.dao.mapper.attach.FunResBookRestAmountAttachMapper;
+import com.ai.slp.balance.dao.mapper.attach.FunResOperaDetailAttachMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.BillAccountMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.BillCycleDefMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.BillOrder2feeMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.BillPayDetailMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.BillPayLogMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountDetailMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountInfoByCustIdIdxMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountInfoByExternalIdIdxMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountInfoMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountLogMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountSetLogMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunAccountSetMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunActivityCouponRelMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunActivityMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunCouponTemplateMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunCouponUseRuleMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunDiscountCouponMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunFundBookMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunFundDetailMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunFundSerialByAcctIdIdxMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunFundSerialMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunRechargeWithdrawalsMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunResBookMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunResBookRestAmountMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunResOperaDetailMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunSubjectFundMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunSubjectMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.FunSubsFreezeMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.IntegralsLogMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.IntegralsMapper;
+import com.ai.slp.balance.dao.mapper.interfaces.TAccountParamMapper;
 
 @Component
 public class MapperFactory {
@@ -167,5 +201,9 @@ public class MapperFactory {
     }
     public static IntegralsLogMapper getIntegralsLogMapper(){
         return sqlSessionTemplate.getMapper(IntegralsLogMapper.class);
+    }
+    
+    public static FunRechargeWithdrawalsMapper getFunRechargeWithdrawalsMapper(){
+    	return sqlSessionTemplate.getMapper(FunRechargeWithdrawalsMapper.class);
     }
 }
