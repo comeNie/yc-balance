@@ -1,7 +1,6 @@
 package com.ai.slp.balance.service.atom.interfaces;
 
 
-import java.util.List;
 
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ChangeStateRequest;
@@ -18,6 +17,6 @@ public interface IQueryRechWeithAtomSV {
 
 	void updateStateConfirm(ChangeStateRequest param);
 
-	List<FunRechargeWithdrawals> queryRechWith(QueryByIdRequest param);
+	FunRechargeWithdrawals queryRechWith(QueryByIdRequest param);
      
 }

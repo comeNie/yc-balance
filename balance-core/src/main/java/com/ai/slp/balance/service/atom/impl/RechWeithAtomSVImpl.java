@@ -107,13 +107,10 @@ public class RechWeithAtomSVImpl implements IQueryRechWeithAtomSV {
 	}
 
 	@Override
-	public List<FunRechargeWithdrawals> queryRechWith(QueryByIdRequest param) {
-		FunRechargeWithdrawalsCriteria sysRechWeithCriteria = new FunRechargeWithdrawalsCriteria();
-		FunRechargeWithdrawalsCriteria.Criteria criteria = sysRechWeithCriteria.createCriteria();
-		criteria.andWidEqualTo(param.getWid());
+	public FunRechargeWithdrawals queryRechWith(QueryByIdRequest param) {
 		FunRechargeWithdrawalsMapper mapper = MapperFactory.getFunRechargeWithdrawalsMapper();
-		List<FunRechargeWithdrawals> selectByExample = mapper.selectByExample(sysRechWeithCriteria);
-		return selectByExample;
+		FunRechargeWithdrawals selectByPrimaryKey = mapper.selectByPrimaryKey(param.getWid());
+		return selectByPrimaryKey;
 	}
 
 	

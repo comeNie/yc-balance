@@ -41,10 +41,8 @@ public class RechWeithBusiSVImpl implements IQueryRechWeithBusiSV {
 	@Override
 	public QueryInfoResponse queryRechWith(QueryByIdRequest param) {
 		QueryInfoResponse queryInfoResponse = new QueryInfoResponse();
-		List<FunRechargeWithdrawals> queryRechWith = queryRechWeithAtomSV.queryRechWith(param);
-		for (FunRechargeWithdrawals funRechargeWithdrawals : queryRechWith) {
-			BeanUtils.copyProperties(queryInfoResponse, funRechargeWithdrawals);
-		}
+		FunRechargeWithdrawals queryRechWith = queryRechWeithAtomSV.queryRechWith(param);
+		BeanUtils.copyProperties(queryInfoResponse, queryRechWith);
 		return queryInfoResponse;
 	}
 	
