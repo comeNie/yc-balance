@@ -112,21 +112,7 @@ public class QueryRechWeithSVImpl implements IRechargeWithdrawalsSV {
 
 	@Override
 	public QueryInfoResponse queryRechWith(QueryByIdRequest param) throws BusinessException, SystemException {
-		QueryInfoResponse queryInfoResponse = new QueryInfoResponse();
-		ResponseHeader responseHeader = new ResponseHeader();
-		try {
-			iQueryRechWeithBusiSV.queryRechWith(param);
-            responseHeader.setIsSuccess(true);
-            responseHeader.setResultCode(ExceptCodeConstants.Special.SUCCESS);
-            responseHeader.setResultMessage("充值提现查询成功");
-        }catch (BusinessException businessException){
-            responseHeader.setResultCode(businessException.getErrorCode());
-            responseHeader.setResultMessage(businessException.getErrorMessage());
-        }catch (Exception e){
-        	logger.error(ExceptCodeConstants.Special.SYSTEM_ERROR, e);
-            responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-            responseHeader.setResultMessage("充值提现查询失败");
-        }
-		return queryInfoResponse;
+		QueryInfoResponse queryRechWith = iQueryRechWeithBusiSV.queryRechWith(param);
+		return queryRechWith;
 	}
 }
