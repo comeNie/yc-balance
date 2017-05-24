@@ -9,6 +9,7 @@ import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
+import com.ai.slp.balance.api.rechargewithdrawals.param.ChangeStateRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPagePageQueryRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageVo;
 import com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals;
@@ -80,6 +81,28 @@ public class RechWeithAtomSVImpl implements IQueryRechWeithAtomSV {
 		pageInfo.setPageCount((pageInfo.getCount() + pageInfo.getPageSize() - 1) / pageInfo.getPageSize());
 		pageInfo.setResult(reWiehPageVos);
 		return pageInfo;
+	}
+
+	@Override
+	public void updateStateLock(ChangeStateRequest param) {
+		FunRechargeWithdrawalsCriteria sysRechWeithCriteria = new FunRechargeWithdrawalsCriteria();
+		FunRechargeWithdrawalsCriteria.Criteria criteria = sysRechWeithCriteria.createCriteria();
+		criteria.andWidEqualTo(param.getWid());
+		FunRechargeWithdrawalsMapper mapper = MapperFactory.getFunRechargeWithdrawalsMapper();
+		FunRechargeWithdrawals rechargeWithdrawals = new FunRechargeWithdrawals();
+		rechargeWithdrawals.setState("3");
+		mapper.updateByExampleSelective(rechargeWithdrawals, sysRechWeithCriteria);
+	}
+
+	@Override
+	public void updateStateConfirm(ChangeStateRequest param) {
+		FunRechargeWithdrawalsCriteria sysRechWeithCriteria = new FunRechargeWithdrawalsCriteria();
+		FunRechargeWithdrawalsCriteria.Criteria criteria = sysRechWeithCriteria.createCriteria();
+		criteria.andWidEqualTo(param.getWid());
+		FunRechargeWithdrawalsMapper mapper = MapperFactory.getFunRechargeWithdrawalsMapper();
+		FunRechargeWithdrawals rechargeWithdrawals = new FunRechargeWithdrawals();
+		rechargeWithdrawals.setState("2");
+		mapper.updateByExampleSelective(rechargeWithdrawals, sysRechWeithCriteria);
 	}
 
 	

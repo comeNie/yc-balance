@@ -9,8 +9,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPagePageQueryRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageQueryResponse;
+import com.ai.slp.balance.api.rechargewithdrawals.param.ChangeStateRequest;
 
 
 /**
@@ -34,5 +36,25 @@ public interface IRechargeWithdrawalsSV {
 	@Path("/rechargewithdrawalsPage")
 	public ReWiehPageQueryResponse rechargewithdrawalsPage(ReWiehPagePageQueryRequest param)throws BusinessException,SystemException;
 	
+	/**
+	 * 更改状态为确认
+	 * @throws BusinessException,SystemException
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL rechargewithdrawals/updateStateConfirm
+     */
+	@POST
+	@Path("/updateStateConfirm")
+    public BaseResponse updateStateConfirm(ChangeStateRequest param) throws BusinessException,SystemException;
+	/**
+	 * 更改状态为锁定
+	 * @throws BusinessException,SystemException
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL rechargewithdrawals/updateStateLock
+     */
+	@POST
+	@Path("/updateStateLock")
+    public BaseResponse updateStateLock(ChangeStateRequest param) throws BusinessException,SystemException;
 }
 
