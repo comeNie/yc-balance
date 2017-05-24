@@ -10,6 +10,7 @@ import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ChangeStateRequest;
+import com.ai.slp.balance.api.rechargewithdrawals.param.QueryByIdRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPagePageQueryRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageVo;
 import com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals;
@@ -103,6 +104,16 @@ public class RechWeithAtomSVImpl implements IQueryRechWeithAtomSV {
 		FunRechargeWithdrawals rechargeWithdrawals = new FunRechargeWithdrawals();
 		rechargeWithdrawals.setState("2");
 		mapper.updateByExampleSelective(rechargeWithdrawals, sysRechWeithCriteria);
+	}
+
+	@Override
+	public FunRechargeWithdrawals queryRechWith(QueryByIdRequest param) {
+		FunRechargeWithdrawalsCriteria sysRechWeithCriteria = new FunRechargeWithdrawalsCriteria();
+		FunRechargeWithdrawalsCriteria.Criteria criteria = sysRechWeithCriteria.createCriteria();
+		criteria.andWidEqualTo(param.getWid());
+		FunRechargeWithdrawalsMapper mapper = MapperFactory.getFunRechargeWithdrawalsMapper();
+		FunRechargeWithdrawals selectByPrimaryKey = mapper.selectByPrimaryKey(param.getWid());
+		return selectByPrimaryKey;
 	}
 
 	

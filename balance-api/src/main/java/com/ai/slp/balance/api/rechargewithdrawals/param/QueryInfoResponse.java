@@ -2,8 +2,10 @@ package com.ai.slp.balance.api.rechargewithdrawals.param;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
-public class ReWiehPageVo implements Serializable {
+/**
+ * 查询可用优惠券出参
+ */
+public class QueryInfoResponse  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 主键

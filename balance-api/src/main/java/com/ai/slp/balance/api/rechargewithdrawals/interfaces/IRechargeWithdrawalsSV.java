@@ -13,6 +13,8 @@ import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPagePageQueryRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageQueryResponse;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ChangeStateRequest;
+import com.ai.slp.balance.api.rechargewithdrawals.param.QueryByIdRequest;
+import com.ai.slp.balance.api.rechargewithdrawals.param.QueryInfoResponse;
 
 
 /**
@@ -56,5 +58,16 @@ public interface IRechargeWithdrawalsSV {
 	@POST
 	@Path("/updateStateLock")
     public BaseResponse updateStateLock(ChangeStateRequest param) throws BusinessException,SystemException;
+	
+	/**
+	 * 根据ID查询
+	 * @throws BusinessException,SystemException
+	 * @ApiDocMethod
+     * @ApiCode
+     * @RestRelativeURL rechargewithdrawals/queryRechWith
+     */
+	@POST
+	@Path("/queryRechWith")
+    public QueryInfoResponse queryRechWith(QueryByIdRequest param) throws BusinessException,SystemException;
 }
 

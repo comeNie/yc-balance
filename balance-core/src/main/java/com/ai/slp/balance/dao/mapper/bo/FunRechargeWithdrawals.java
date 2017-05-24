@@ -35,6 +35,8 @@ public class FunRechargeWithdrawals {
 
     private Timestamp bruisesTime;
 
+    private String uid;
+
     public String getWid() {
         return wid;
     }
@@ -161,5 +163,13 @@ public class FunRechargeWithdrawals {
 
     public void setBruisesTime(Timestamp bruisesTime) {
         this.bruisesTime = bruisesTime;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
     }
 }

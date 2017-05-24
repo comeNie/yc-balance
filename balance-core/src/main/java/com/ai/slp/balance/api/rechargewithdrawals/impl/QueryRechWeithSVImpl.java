@@ -13,6 +13,8 @@ import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.constants.ExceptCodeConstants;
 import com.ai.slp.balance.api.rechargewithdrawals.interfaces.IRechargeWithdrawalsSV;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ChangeStateRequest;
+import com.ai.slp.balance.api.rechargewithdrawals.param.QueryByIdRequest;
+import com.ai.slp.balance.api.rechargewithdrawals.param.QueryInfoResponse;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPagePageQueryRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageQueryResponse;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageVo;
@@ -104,5 +106,12 @@ public class QueryRechWeithSVImpl implements IRechargeWithdrawalsSV {
 			response.setResponseHeader(responseHeader);
 		}
 		return response;
+	}
+
+
+
+	@Override
+	public QueryInfoResponse queryRechWith(QueryByIdRequest param) throws BusinessException, SystemException {
+		return iQueryRechWeithBusiSV.queryRechWith(param);
 	}
 }

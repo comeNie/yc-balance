@@ -5,9 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.opt.base.vo.PageInfo;
+import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ChangeStateRequest;
+import com.ai.slp.balance.api.rechargewithdrawals.param.QueryByIdRequest;
+import com.ai.slp.balance.api.rechargewithdrawals.param.QueryInfoResponse;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPagePageQueryRequest;
 import com.ai.slp.balance.api.rechargewithdrawals.param.ReWiehPageVo;
+import com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals;
 import com.ai.slp.balance.service.atom.interfaces.IQueryRechWeithAtomSV;
 import com.ai.slp.balance.service.business.interfaces.IQueryRechWeithBusiSV;
 @Service
@@ -30,6 +34,14 @@ public class RechWeithBusiSVImpl implements IQueryRechWeithBusiSV {
 	@Override
 	public void updateStateConfirm(ChangeStateRequest param) {
 		queryRechWeithAtomSV.updateStateConfirm(param);
+	}
+
+	@Override
+	public QueryInfoResponse queryRechWith(QueryByIdRequest param) {
+		QueryInfoResponse queryInfoResponse = new QueryInfoResponse();
+		FunRechargeWithdrawals queryRechWith = queryRechWeithAtomSV.queryRechWith(param);
+		BeanUtils.copyProperties(queryInfoResponse, queryRechWith);
+		return queryInfoResponse;
 	}
 	
 	
