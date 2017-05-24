@@ -1,5 +1,7 @@
 package com.ai.slp.balance.service.business.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,8 +41,10 @@ public class RechWeithBusiSVImpl implements IQueryRechWeithBusiSV {
 	@Override
 	public QueryInfoResponse queryRechWith(QueryByIdRequest param) {
 		QueryInfoResponse queryInfoResponse = new QueryInfoResponse();
-		FunRechargeWithdrawals queryRechWith = queryRechWeithAtomSV.queryRechWith(param);
-		BeanUtils.copyProperties(queryInfoResponse, queryRechWith);
+		List<FunRechargeWithdrawals> queryRechWith = queryRechWeithAtomSV.queryRechWith(param);
+		for (FunRechargeWithdrawals funRechargeWithdrawals : queryRechWith) {
+			BeanUtils.copyProperties(queryInfoResponse, funRechargeWithdrawals);
+		}
 		return queryInfoResponse;
 	}
 	
