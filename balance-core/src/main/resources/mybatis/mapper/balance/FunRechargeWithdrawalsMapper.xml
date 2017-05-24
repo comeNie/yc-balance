@@ -1,44 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.FunRechargeWithdrawalsMapper">
-  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
-    <id column="wid" jdbcType="VARCHAR" property="wid" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="mobilephone" jdbcType="VARCHAR" property="mobilephone" />
-    <result column="fullName" jdbcType="VARCHAR" property="fullname" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="pattem" jdbcType="VARCHAR" property="pattem" />
-    <result column="account_number" jdbcType="VARCHAR" property="accountNumber" />
-    <result column="money" jdbcType="VARCHAR" property="money" />
-    <result column="currency" jdbcType="VARCHAR" property="currency" />
-    <result column="apply_remark" jdbcType="VARCHAR" property="applyRemark" />
-    <result column="state" jdbcType="VARCHAR" property="state" />
-    <result column="apply_people" jdbcType="VARCHAR" property="applyPeople" />
-    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
-    <result column="bruises_people" jdbcType="VARCHAR" property="bruisesPeople" />
-    <result column="bruises_time" jdbcType="TIMESTAMP" property="bruisesTime" />
-    <result column="uid" jdbcType="VARCHAR" property="uid" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.FunRechargeWithdrawalsMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals" >
+    <id column="wid" property="wid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="mobilephone" property="mobilephone" jdbcType="VARCHAR" />
+    <result column="fullName" property="fullname" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="pattem" property="pattem" jdbcType="VARCHAR" />
+    <result column="account_number" property="accountNumber" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="apply_remark" property="applyRemark" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="apply_people" property="applyPeople" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="bruises_people" property="bruisesPeople" jdbcType="VARCHAR" />
+    <result column="bruises_time" property="bruisesTime" jdbcType="TIMESTAMP" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -49,25 +49,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -78,46 +78,46 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     wid, username, mobilephone, fullName, email, type, pattem, account_number, money, 
     currency, apply_remark, state, apply_people, apply_time, bruises_people, bruises_time, 
     uid
   </sql>
-  <select id="selectByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
     from fun_recharge_withdrawals
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    <if test="limitStart != null and limitStart&gt;=0">
+    <if test="limitStart != null and limitStart>=0" >
       limit #{limitStart} , #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from fun_recharge_withdrawals
     where wid = #{wid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from fun_recharge_withdrawals
     where wid = #{wid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria">
+  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria" >
     delete from fun_recharge_withdrawals
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
+  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals" >
     insert into fun_recharge_withdrawals (wid, username, mobilephone, 
       fullName, email, type, 
       pattem, account_number, money, 
@@ -131,181 +131,181 @@
       #{applyPeople,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{bruisesPeople,jdbcType=VARCHAR}, 
       #{bruisesTime,jdbcType=TIMESTAMP}, #{uid,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
+  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals" >
     insert into fun_recharge_withdrawals
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="wid != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
         wid,
       </if>
-      <if test="username != null">
+      <if test="username != null" >
         username,
       </if>
-      <if test="mobilephone != null">
+      <if test="mobilephone != null" >
         mobilephone,
       </if>
-      <if test="fullname != null">
+      <if test="fullname != null" >
         fullName,
       </if>
-      <if test="email != null">
+      <if test="email != null" >
         email,
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type,
       </if>
-      <if test="pattem != null">
+      <if test="pattem != null" >
         pattem,
       </if>
-      <if test="accountNumber != null">
+      <if test="accountNumber != null" >
         account_number,
       </if>
-      <if test="money != null">
+      <if test="money != null" >
         money,
       </if>
-      <if test="currency != null">
+      <if test="currency != null" >
         currency,
       </if>
-      <if test="applyRemark != null">
+      <if test="applyRemark != null" >
         apply_remark,
       </if>
-      <if test="state != null">
+      <if test="state != null" >
         state,
       </if>
-      <if test="applyPeople != null">
+      <if test="applyPeople != null" >
         apply_people,
       </if>
-      <if test="applyTime != null">
+      <if test="applyTime != null" >
         apply_time,
       </if>
-      <if test="bruisesPeople != null">
+      <if test="bruisesPeople != null" >
         bruises_people,
       </if>
-      <if test="bruisesTime != null">
+      <if test="bruisesTime != null" >
         bruises_time,
       </if>
-      <if test="uid != null">
+      <if test="uid != null" >
         uid,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="wid != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
         #{wid,jdbcType=VARCHAR},
       </if>
-      <if test="username != null">
+      <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="mobilephone != null">
+      <if test="mobilephone != null" >
         #{mobilephone,jdbcType=VARCHAR},
       </if>
-      <if test="fullname != null">
+      <if test="fullname != null" >
         #{fullname,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
+      <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="pattem != null">
+      <if test="pattem != null" >
         #{pattem,jdbcType=VARCHAR},
       </if>
-      <if test="accountNumber != null">
+      <if test="accountNumber != null" >
         #{accountNumber,jdbcType=VARCHAR},
       </if>
-      <if test="money != null">
+      <if test="money != null" >
         #{money,jdbcType=VARCHAR},
       </if>
-      <if test="currency != null">
+      <if test="currency != null" >
         #{currency,jdbcType=VARCHAR},
       </if>
-      <if test="applyRemark != null">
+      <if test="applyRemark != null" >
         #{applyRemark,jdbcType=VARCHAR},
       </if>
-      <if test="state != null">
+      <if test="state != null" >
         #{state,jdbcType=VARCHAR},
       </if>
-      <if test="applyPeople != null">
+      <if test="applyPeople != null" >
         #{applyPeople,jdbcType=VARCHAR},
       </if>
-      <if test="applyTime != null">
+      <if test="applyTime != null" >
         #{applyTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="bruisesPeople != null">
+      <if test="bruisesPeople != null" >
         #{bruisesPeople,jdbcType=VARCHAR},
       </if>
-      <if test="bruisesTime != null">
+      <if test="bruisesTime != null" >
         #{bruisesTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="uid != null">
+      <if test="uid != null" >
         #{uid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria" resultType="java.lang.Integer" >
     select count(*) from fun_recharge_withdrawals
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update fun_recharge_withdrawals
-    <set>
-      <if test="record.wid != null">
+    <set >
+      <if test="record.wid != null" >
         wid = #{record.wid,jdbcType=VARCHAR},
       </if>
-      <if test="record.username != null">
+      <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.mobilephone != null">
+      <if test="record.mobilephone != null" >
         mobilephone = #{record.mobilephone,jdbcType=VARCHAR},
       </if>
-      <if test="record.fullname != null">
+      <if test="record.fullname != null" >
         fullName = #{record.fullname,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null">
+      <if test="record.email != null" >
         email = #{record.email,jdbcType=VARCHAR},
       </if>
-      <if test="record.type != null">
+      <if test="record.type != null" >
         type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="record.pattem != null">
+      <if test="record.pattem != null" >
         pattem = #{record.pattem,jdbcType=VARCHAR},
       </if>
-      <if test="record.accountNumber != null">
+      <if test="record.accountNumber != null" >
         account_number = #{record.accountNumber,jdbcType=VARCHAR},
       </if>
-      <if test="record.money != null">
+      <if test="record.money != null" >
         money = #{record.money,jdbcType=VARCHAR},
       </if>
-      <if test="record.currency != null">
+      <if test="record.currency != null" >
         currency = #{record.currency,jdbcType=VARCHAR},
       </if>
-      <if test="record.applyRemark != null">
+      <if test="record.applyRemark != null" >
         apply_remark = #{record.applyRemark,jdbcType=VARCHAR},
       </if>
-      <if test="record.state != null">
+      <if test="record.state != null" >
         state = #{record.state,jdbcType=VARCHAR},
       </if>
-      <if test="record.applyPeople != null">
+      <if test="record.applyPeople != null" >
         apply_people = #{record.applyPeople,jdbcType=VARCHAR},
       </if>
-      <if test="record.applyTime != null">
+      <if test="record.applyTime != null" >
         apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.bruisesPeople != null">
+      <if test="record.bruisesPeople != null" >
         bruises_people = #{record.bruisesPeople,jdbcType=VARCHAR},
       </if>
-      <if test="record.bruisesTime != null">
+      <if test="record.bruisesTime != null" >
         bruises_time = #{record.bruisesTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.uid != null">
+      <if test="record.uid != null" >
         uid = #{record.uid,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update fun_recharge_withdrawals
     set wid = #{record.wid,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
@@ -324,65 +324,65 @@
       bruises_people = #{record.bruisesPeople,jdbcType=VARCHAR},
       bruises_time = #{record.bruisesTime,jdbcType=TIMESTAMP},
       uid = #{record.uid,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals" >
     update fun_recharge_withdrawals
-    <set>
-      <if test="username != null">
+    <set >
+      <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="mobilephone != null">
+      <if test="mobilephone != null" >
         mobilephone = #{mobilephone,jdbcType=VARCHAR},
       </if>
-      <if test="fullname != null">
+      <if test="fullname != null" >
         fullName = #{fullname,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
+      <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="pattem != null">
+      <if test="pattem != null" >
         pattem = #{pattem,jdbcType=VARCHAR},
       </if>
-      <if test="accountNumber != null">
+      <if test="accountNumber != null" >
         account_number = #{accountNumber,jdbcType=VARCHAR},
       </if>
-      <if test="money != null">
+      <if test="money != null" >
         money = #{money,jdbcType=VARCHAR},
       </if>
-      <if test="currency != null">
+      <if test="currency != null" >
         currency = #{currency,jdbcType=VARCHAR},
       </if>
-      <if test="applyRemark != null">
+      <if test="applyRemark != null" >
         apply_remark = #{applyRemark,jdbcType=VARCHAR},
       </if>
-      <if test="state != null">
+      <if test="state != null" >
         state = #{state,jdbcType=VARCHAR},
       </if>
-      <if test="applyPeople != null">
+      <if test="applyPeople != null" >
         apply_people = #{applyPeople,jdbcType=VARCHAR},
       </if>
-      <if test="applyTime != null">
+      <if test="applyTime != null" >
         apply_time = #{applyTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="bruisesPeople != null">
+      <if test="bruisesPeople != null" >
         bruises_people = #{bruisesPeople,jdbcType=VARCHAR},
       </if>
-      <if test="bruisesTime != null">
+      <if test="bruisesTime != null" >
         bruises_time = #{bruisesTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="uid != null">
+      <if test="uid != null" >
         uid = #{uid,jdbcType=VARCHAR},
       </if>
     </set>
     where wid = #{wid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
+  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals" >
     update fun_recharge_withdrawals
     set username = #{username,jdbcType=VARCHAR},
       mobilephone = #{mobilephone,jdbcType=VARCHAR},
@@ -400,391 +400,6 @@
       bruises_people = #{bruisesPeople,jdbcType=VARCHAR},
       bruises_time = #{bruisesTime,jdbcType=TIMESTAMP},
       uid = #{uid,jdbcType=VARCHAR}
-    where wid = #{wid,jdbcType=VARCHAR}
-  </update>
-  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
-    <id column="wid" jdbcType="VARCHAR" property="wid" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="mobilephone" jdbcType="VARCHAR" property="mobilephone" />
-    <result column="fullName" jdbcType="VARCHAR" property="fullname" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="pattem" jdbcType="VARCHAR" property="pattem" />
-    <result column="account_number" jdbcType="VARCHAR" property="accountNumber" />
-    <result column="money" jdbcType="VARCHAR" property="money" />
-    <result column="currency" jdbcType="VARCHAR" property="currency" />
-    <result column="apply_remark" jdbcType="VARCHAR" property="applyRemark" />
-    <result column="state" jdbcType="VARCHAR" property="state" />
-    <result column="apply_people" jdbcType="VARCHAR" property="applyPeople" />
-    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
-    <result column="bruises_people" jdbcType="VARCHAR" property="bruisesPeople" />
-    <result column="bruises_time" jdbcType="TIMESTAMP" property="bruisesTime" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    wid, username, mobilephone, fullName, email, type, pattem, account_number, money, 
-    currency, apply_remark, state, apply_people, apply_time, bruises_people, bruises_time
-  </sql>
-  <select id="selectByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from fun_recharge_withdrawals
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limitStart != null and limitStart&gt;=0">
-      limit #{limitStart} , #{limitEnd}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from fun_recharge_withdrawals
-    where wid = #{wid,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from fun_recharge_withdrawals
-    where wid = #{wid,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria">
-    delete from fun_recharge_withdrawals
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
-    insert into fun_recharge_withdrawals (wid, username, mobilephone, 
-      fullName, email, type, 
-      pattem, account_number, money, 
-      currency, apply_remark, state, 
-      apply_people, apply_time, bruises_people, 
-      bruises_time)
-    values (#{wid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{mobilephone,jdbcType=VARCHAR}, 
-      #{fullname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{pattem,jdbcType=VARCHAR}, #{accountNumber,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, 
-      #{currency,jdbcType=VARCHAR}, #{applyRemark,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
-      #{applyPeople,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{bruisesPeople,jdbcType=VARCHAR}, 
-      #{bruisesTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
-    insert into fun_recharge_withdrawals
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="wid != null">
-        wid,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="mobilephone != null">
-        mobilephone,
-      </if>
-      <if test="fullname != null">
-        fullName,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="pattem != null">
-        pattem,
-      </if>
-      <if test="accountNumber != null">
-        account_number,
-      </if>
-      <if test="money != null">
-        money,
-      </if>
-      <if test="currency != null">
-        currency,
-      </if>
-      <if test="applyRemark != null">
-        apply_remark,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="applyPeople != null">
-        apply_people,
-      </if>
-      <if test="applyTime != null">
-        apply_time,
-      </if>
-      <if test="bruisesPeople != null">
-        bruises_people,
-      </if>
-      <if test="bruisesTime != null">
-        bruises_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="wid != null">
-        #{wid,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="mobilephone != null">
-        #{mobilephone,jdbcType=VARCHAR},
-      </if>
-      <if test="fullname != null">
-        #{fullname,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="pattem != null">
-        #{pattem,jdbcType=VARCHAR},
-      </if>
-      <if test="accountNumber != null">
-        #{accountNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=VARCHAR},
-      </if>
-      <if test="currency != null">
-        #{currency,jdbcType=VARCHAR},
-      </if>
-      <if test="applyRemark != null">
-        #{applyRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="applyPeople != null">
-        #{applyPeople,jdbcType=VARCHAR},
-      </if>
-      <if test="applyTime != null">
-        #{applyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bruisesPeople != null">
-        #{bruisesPeople,jdbcType=VARCHAR},
-      </if>
-      <if test="bruisesTime != null">
-        #{bruisesTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawalsCriteria" resultType="java.lang.Integer">
-    select count(*) from fun_recharge_withdrawals
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update fun_recharge_withdrawals
-    <set>
-      <if test="record.wid != null">
-        wid = #{record.wid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.mobilephone != null">
-        mobilephone = #{record.mobilephone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.fullname != null">
-        fullName = #{record.fullname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.type != null">
-        type = #{record.type,jdbcType=VARCHAR},
-      </if>
-      <if test="record.pattem != null">
-        pattem = #{record.pattem,jdbcType=VARCHAR},
-      </if>
-      <if test="record.accountNumber != null">
-        account_number = #{record.accountNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="record.money != null">
-        money = #{record.money,jdbcType=VARCHAR},
-      </if>
-      <if test="record.currency != null">
-        currency = #{record.currency,jdbcType=VARCHAR},
-      </if>
-      <if test="record.applyRemark != null">
-        apply_remark = #{record.applyRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.state != null">
-        state = #{record.state,jdbcType=VARCHAR},
-      </if>
-      <if test="record.applyPeople != null">
-        apply_people = #{record.applyPeople,jdbcType=VARCHAR},
-      </if>
-      <if test="record.applyTime != null">
-        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.bruisesPeople != null">
-        bruises_people = #{record.bruisesPeople,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bruisesTime != null">
-        bruises_time = #{record.bruisesTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update fun_recharge_withdrawals
-    set wid = #{record.wid,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
-      mobilephone = #{record.mobilephone,jdbcType=VARCHAR},
-      fullName = #{record.fullname,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=VARCHAR},
-      pattem = #{record.pattem,jdbcType=VARCHAR},
-      account_number = #{record.accountNumber,jdbcType=VARCHAR},
-      money = #{record.money,jdbcType=VARCHAR},
-      currency = #{record.currency,jdbcType=VARCHAR},
-      apply_remark = #{record.applyRemark,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=VARCHAR},
-      apply_people = #{record.applyPeople,jdbcType=VARCHAR},
-      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
-      bruises_people = #{record.bruisesPeople,jdbcType=VARCHAR},
-      bruises_time = #{record.bruisesTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
-    update fun_recharge_withdrawals
-    <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="mobilephone != null">
-        mobilephone = #{mobilephone,jdbcType=VARCHAR},
-      </if>
-      <if test="fullname != null">
-        fullName = #{fullname,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="pattem != null">
-        pattem = #{pattem,jdbcType=VARCHAR},
-      </if>
-      <if test="accountNumber != null">
-        account_number = #{accountNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=VARCHAR},
-      </if>
-      <if test="currency != null">
-        currency = #{currency,jdbcType=VARCHAR},
-      </if>
-      <if test="applyRemark != null">
-        apply_remark = #{applyRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="applyPeople != null">
-        apply_people = #{applyPeople,jdbcType=VARCHAR},
-      </if>
-      <if test="applyTime != null">
-        apply_time = #{applyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bruisesPeople != null">
-        bruises_people = #{bruisesPeople,jdbcType=VARCHAR},
-      </if>
-      <if test="bruisesTime != null">
-        bruises_time = #{bruisesTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where wid = #{wid,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunRechargeWithdrawals">
-    update fun_recharge_withdrawals
-    set username = #{username,jdbcType=VARCHAR},
-      mobilephone = #{mobilephone,jdbcType=VARCHAR},
-      fullName = #{fullname,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      pattem = #{pattem,jdbcType=VARCHAR},
-      account_number = #{accountNumber,jdbcType=VARCHAR},
-      money = #{money,jdbcType=VARCHAR},
-      currency = #{currency,jdbcType=VARCHAR},
-      apply_remark = #{applyRemark,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR},
-      apply_people = #{applyPeople,jdbcType=VARCHAR},
-      apply_time = #{applyTime,jdbcType=TIMESTAMP},
-      bruises_people = #{bruisesPeople,jdbcType=VARCHAR},
-      bruises_time = #{bruisesTime,jdbcType=TIMESTAMP}
     where wid = #{wid,jdbcType=VARCHAR}
   </update>
 </mapper>
