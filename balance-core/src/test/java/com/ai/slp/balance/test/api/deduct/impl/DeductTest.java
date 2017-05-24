@@ -3,6 +3,7 @@ package com.ai.slp.balance.test.api.deduct.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ai.slp.balance.api.deduct.param.*;
 import junit.framework.TestCase;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,13 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.slp.balance.api.deduct.interfaces.IDeductSV;
-import com.ai.slp.balance.api.deduct.param.DeductAccount;
-import com.ai.slp.balance.api.deduct.param.DeductParam;
-import com.ai.slp.balance.api.deduct.param.DeductResponse;
-import com.ai.slp.balance.api.deduct.param.ForegiftDeduct;
-import com.ai.slp.balance.api.deduct.param.SettleParam;
-import com.ai.slp.balance.api.deduct.param.SettleSummary;
-import com.ai.slp.balance.api.deduct.param.TransSummary;
 import com.alibaba.fastjson.JSON;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -57,23 +51,24 @@ public class DeductTest extends TestCase {
     
     @Test
     public void testDeductFund(){
-        DeductParam param = new DeductParam();
+        DeductParamGeneral param = new DeductParamGeneral();
         TransSummary summary = new TransSummary();
         summary.setSubjectId(100000);
         List<TransSummary> transSummaryList = new ArrayList<TransSummary>();
         transSummaryList.add(summary);
         param.setTransSummary(transSummaryList);
-        param.setAccountId(11531);
+        param.setAccountId(12781);
         param.setExternalId(SeqUtil.getNewId("lilg_test_external_Id").toString());
         param.setSystemId("Cloud-UAC_WEB");
         param.setBusinessCode("1");
         param.setTenantId("yeecloud");
         param.setTenantPwd("yeecloud");
-        param.setTotalAmount(1);
+        param.setTotalAmount(1000);
+        param.setOptType("6");
 //        param.setCheckPwd(1);
-        param.setCurrencyUnit("rmb");
+        param.setCurrencyUnit("2");
         param.setChannel("支付宝");
-        DeductResponse result = deductSV.deductFund(param);
+        DeductResponse result = deductSV.deductFundGeneral(param);
         log.info("result:"+JSON.toJSONString(result));
         assertNotNull("返回结果空，扣款失败", result);
         assertFalse("返回结果空，扣款失败", "".equals(result));

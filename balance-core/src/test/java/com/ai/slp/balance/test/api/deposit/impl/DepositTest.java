@@ -3,6 +3,7 @@ package com.ai.slp.balance.test.api.deposit.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ai.slp.balance.api.deposit.param.DepositParamGeneral;
 import junit.framework.TestCase;
 //import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
 //import net.sourceforge.groboutils.junit.v1.TestRunnable;
@@ -37,13 +38,13 @@ public class DepositTest extends TestCase {
     @Test
     public void testDepositForegift() {
         ForegiftDeposit param = new ForegiftDeposit();
-        param.setAccountId(902);
-        param.setAmount(1);
-        param.setBusiDesc("李林刚测试");
+        param.setAccountId(12781);
+        param.setAmount(10000);
+        param.setBusiDesc("liquid测试");
         param.setBusiSerialNo(SeqUtil.getNewId("lilg_test_external_Id").toString());
         param.setTenantId("BIS-ST");
         param.setSystemId("1");
-        param.setFundexpDate("2015-12-31 23:59:59");
+        param.setFundexpDate("2017-5-18 23:59:59");
         param.setSubjectId(100001);
         String result = depositSV.depositForegift(param);
         assertNotNull("返回结果空，存入失败", result);
@@ -53,24 +54,26 @@ public class DepositTest extends TestCase {
     
     @Test
     public void testDepositCash() {
-        DepositParam param = new DepositParam();
+        DepositParamGeneral param = new DepositParamGeneral();
         TransSummary summary = new TransSummary();
-        summary.setAmount(10);
+        summary.setAmount(10000);
         summary.setSubjectId(100000);
         List<TransSummary> transSummaryList = new ArrayList<TransSummary>();
         transSummaryList.add(summary);
         param.setTransSummary(transSummaryList);
-        param.setAccountId(11531);
-        param.setBusiDesc("李林刚测试");
-        param.setBusiSerialNo(SeqUtil.getNewId("lilg_test_external_Id").toString());
+        param.setAccountId(12781);
+        param.setBusiDesc("账号充值测试111");
+        param.setBusiSerialNo("2F0C20A7EF414E678969B236CE3C2BAt");
         param.setSystemId("Cloud-UAC_WEB");
         param.setTenantId("yeecloud");
-        param.setTenantPwd("yeecloud");
-        param.setCurrencyUnit("rmb");
+//        param.setTenantPwd(null);
+        param.setCurrencyUnit("1");
         param.setPayStyle("支付宝");
-
+        param.setBusiOperCode("300000");
+        param.setSubsId(0);
+        param.setOptType("5");
 //        param.setAccountId(432);
-        String result = depositSV.depositFund(param);
+        String result = depositSV.depositFundGeneral(param);
         assertNotNull("返回结果空，存入失败", result);
         assertFalse("返回结果空，存入失败", "".equals(result));
         log.debug("押金存入成功，交易流水：" + result);

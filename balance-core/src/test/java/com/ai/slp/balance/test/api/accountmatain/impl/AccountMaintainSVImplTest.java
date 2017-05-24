@@ -54,12 +54,12 @@ public class AccountMaintainSVImplTest extends TestCase {
         vo.setSystemId("Cloud-UAC_WEB");// 系统ID
         vo.setTenantId("yeecloud");// 租户ID
         vo.setRegCustomerId("1112");
-        vo.setAcctName("加多宝");
+        vo.setAcctName("lsp");
         vo.setAcctType("0");// 账户类型， 0 后付费
 //        vo.setRegType("3");//注册方式网站注册
 //        vo.setPayType("2");// 支付方式
         vo.setRegEmail("jiaduobao@asiainfo.com");//注册邮箱
-        vo.setAcctAddr("加多宝厂区");
+        vo.setAcctAddr("中译语通");
         long newAccountId;
         try {
             newAccountId = accountMaintainSV.createAccount(vo);

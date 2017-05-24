@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.slp.balance.dao.mapper.interfaces.FunActivityRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_ID" property="activityId" jdbcType="BIGINT" />
+    <result column="used_scene" property="usedScene" jdbcType="VARCHAR" />
+    <result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
+    <result column="TOTAL_MONEY_AMOUNT" property="totalMoneyAmount" jdbcType="BIGINT" />
+    <result column="FREQUENCY" property="frequency" jdbcType="INTEGER" />
+    <result column="REMAINING_MONEY_AMOUNT" property="remainingMoneyAmount" jdbcType="BIGINT" />
+    <result column="ACTIVITY_TIME" property="activityTime" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_STAFF" property="createStaff" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime" jdbcType="DATE" />
+    <result column="END_TIME" property="endTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ACTIVITY_ID, used_scene, CURRENCY_UNIT, TOTAL_MONEY_AMOUNT, FREQUENCY, REMAINING_MONEY_AMOUNT, 
+    ACTIVITY_TIME, STATUS, CREATE_STAFF, START_TIME, END_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRuleCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from fun_activity_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fun_activity_rule
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fun_activity_rule
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRuleCriteria" >
+    delete from fun_activity_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
+    insert into fun_activity_rule (id, ACTIVITY_ID, used_scene, 
+      CURRENCY_UNIT, TOTAL_MONEY_AMOUNT, FREQUENCY, 
+      REMAINING_MONEY_AMOUNT, ACTIVITY_TIME, STATUS, 
+      CREATE_STAFF, START_TIME, END_TIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{activityId,jdbcType=BIGINT}, #{usedScene,jdbcType=VARCHAR}, 
+      #{currencyUnit,jdbcType=VARCHAR}, #{totalMoneyAmount,jdbcType=BIGINT}, #{frequency,jdbcType=INTEGER}, 
+      #{remainingMoneyAmount,jdbcType=BIGINT}, #{activityTime,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createStaff,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
+    insert into fun_activity_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activityId != null" >
+        ACTIVITY_ID,
+      </if>
+      <if test="usedScene != null" >
+        used_scene,
+      </if>
+      <if test="currencyUnit != null" >
+        CURRENCY_UNIT,
+      </if>
+      <if test="totalMoneyAmount != null" >
+        TOTAL_MONEY_AMOUNT,
+      </if>
+      <if test="frequency != null" >
+        FREQUENCY,
+      </if>
+      <if test="remainingMoneyAmount != null" >
+        REMAINING_MONEY_AMOUNT,
+      </if>
+      <if test="activityTime != null" >
+        ACTIVITY_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createStaff != null" >
+        CREATE_STAFF,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=BIGINT},
+      </if>
+      <if test="usedScene != null" >
+        #{usedScene,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyUnit != null" >
+        #{currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoneyAmount != null" >
+        #{totalMoneyAmount,jdbcType=BIGINT},
+      </if>
+      <if test="frequency != null" >
+        #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="remainingMoneyAmount != null" >
+        #{remainingMoneyAmount,jdbcType=BIGINT},
+      </if>
+      <if test="activityTime != null" >
+        #{activityTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaff != null" >
+        #{createStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRuleCriteria" resultType="java.lang.Integer" >
+    select count(*) from fun_activity_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fun_activity_rule
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityId != null" >
+        ACTIVITY_ID = #{record.activityId,jdbcType=BIGINT},
+      </if>
+      <if test="record.usedScene != null" >
+        used_scene = #{record.usedScene,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyUnit != null" >
+        CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalMoneyAmount != null" >
+        TOTAL_MONEY_AMOUNT = #{record.totalMoneyAmount,jdbcType=BIGINT},
+      </if>
+      <if test="record.frequency != null" >
+        FREQUENCY = #{record.frequency,jdbcType=INTEGER},
+      </if>
+      <if test="record.remainingMoneyAmount != null" >
+        REMAINING_MONEY_AMOUNT = #{record.remainingMoneyAmount,jdbcType=BIGINT},
+      </if>
+      <if test="record.activityTime != null" >
+        ACTIVITY_TIME = #{record.activityTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createStaff != null" >
+        CREATE_STAFF = #{record.createStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        START_TIME = #{record.startTime,jdbcType=DATE},
+      </if>
+      <if test="record.endTime != null" >
+        END_TIME = #{record.endTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fun_activity_rule
+    set id = #{record.id,jdbcType=VARCHAR},
+      ACTIVITY_ID = #{record.activityId,jdbcType=BIGINT},
+      used_scene = #{record.usedScene,jdbcType=VARCHAR},
+      CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
+      TOTAL_MONEY_AMOUNT = #{record.totalMoneyAmount,jdbcType=BIGINT},
+      FREQUENCY = #{record.frequency,jdbcType=INTEGER},
+      REMAINING_MONEY_AMOUNT = #{record.remainingMoneyAmount,jdbcType=BIGINT},
+      ACTIVITY_TIME = #{record.activityTime,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      CREATE_STAFF = #{record.createStaff,jdbcType=VARCHAR},
+      START_TIME = #{record.startTime,jdbcType=DATE},
+      END_TIME = #{record.endTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
+    update fun_activity_rule
+    <set >
+      <if test="activityId != null" >
+        ACTIVITY_ID = #{activityId,jdbcType=BIGINT},
+      </if>
+      <if test="usedScene != null" >
+        used_scene = #{usedScene,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyUnit != null" >
+        CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoneyAmount != null" >
+        TOTAL_MONEY_AMOUNT = #{totalMoneyAmount,jdbcType=BIGINT},
+      </if>
+      <if test="frequency != null" >
+        FREQUENCY = #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="remainingMoneyAmount != null" >
+        REMAINING_MONEY_AMOUNT = #{remainingMoneyAmount,jdbcType=BIGINT},
+      </if>
+      <if test="activityTime != null" >
+        ACTIVITY_TIME = #{activityTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaff != null" >
+        CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
+    update fun_activity_rule
+    set ACTIVITY_ID = #{activityId,jdbcType=BIGINT},
+      used_scene = #{usedScene,jdbcType=VARCHAR},
+      CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
+      TOTAL_MONEY_AMOUNT = #{totalMoneyAmount,jdbcType=BIGINT},
+      FREQUENCY = #{frequency,jdbcType=INTEGER},
+      REMAINING_MONEY_AMOUNT = #{remainingMoneyAmount,jdbcType=BIGINT},
+      ACTIVITY_TIME = #{activityTime,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=DATE},
+      END_TIME = #{endTime,jdbcType=DATE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

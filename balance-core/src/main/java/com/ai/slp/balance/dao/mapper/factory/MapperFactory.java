@@ -202,8 +202,11 @@ public class MapperFactory {
     public static IntegralsLogMapper getIntegralsLogMapper(){
         return sqlSessionTemplate.getMapper(IntegralsLogMapper.class);
     }
-    
+
     public static FunRechargeWithdrawalsMapper getFunRechargeWithdrawalsMapper(){
     	return sqlSessionTemplate.getMapper(FunRechargeWithdrawalsMapper.class);
+    }
+    public static FunActivityRuleMapper getFunActivityRuleMapper(){
+        return sqlSessionTemplate.getMapper(FunActivityRuleMapper.class);
     }
 }

@@ -47,6 +47,7 @@ public class FundBookQueryTest extends TestCase {
         AccountIdParam param = new AccountIdParam();
         param.setAccountId(11531);
         param.setTenantId("yeecloud");
+        param.setUserID("525522");
         FundInfo fundInfo = fundQuerySV.queryFund(param);
         assertNotNull("返回结果为NULL", fundInfo);
         assertNotNull("返回账本结果为NULL", fundInfo.getFundBooks());
@@ -58,13 +59,14 @@ public class FundBookQueryTest extends TestCase {
     @Test
     public void testQueryUsableFund() {
         AccountIdParam param = new AccountIdParam();
-        param.setAccountId(11481);
+        param.setAccountId(11531);//11531
         param.setTenantId("yeecloud");
+//        param.setUserID("525522");
         FundInfo fundInfo = fundQuerySV.queryUsableFund(param);
         assertNotNull("返回结果为NULL", fundInfo);
         assertNotNull("返回账本结果为NULL", fundInfo.getFundBooks());
         assertTrue("返回结果集为空", fundInfo.getFundBooks().size() > 0);
-        assertEquals("查询账户ID不是预期值", 604, fundInfo.getAccountId());
+        assertEquals("查询账户ID不是预期值", 11531, fundInfo.getAccountId());
         log.debug("查询结果:" + JSON.toJSON(fundInfo));
     }
 
