@@ -4,6 +4,7 @@ package com.ai.slp.balance.service.atom.interfaces;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.slp.balance.api.activity.param.FunActivityQueryRequest;
 import com.ai.slp.balance.api.activity.param.FunActivityResponse;
+import com.ai.slp.balance.api.activityrule.param.FunActivityRuleRequest;
 import com.ai.slp.balance.api.activityrule.param.FunActivityRuleResponse;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface IActivityRuleAtomSV {
 	/**
 	 * 批量更新活动规则
 	 */
-	public void updateFunActivityRule(List<String> activityRuleIds);
+	public void updateFunActivityRule(List<FunActivityRuleRequest> activityRuleIds);
 	/**
 	 * 删除活动规则
 	 */

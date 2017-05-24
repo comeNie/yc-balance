@@ -4,16 +4,11 @@
   <resultMap id="BaseResultMap" type="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="ACTIVITY_ID" property="activityId" jdbcType="BIGINT" />
-    <result column="used_scene" property="usedScene" jdbcType="VARCHAR" />
     <result column="CURRENCY_UNIT" property="currencyUnit" jdbcType="VARCHAR" />
     <result column="TOTAL_MONEY_AMOUNT" property="totalMoneyAmount" jdbcType="BIGINT" />
     <result column="FREQUENCY" property="frequency" jdbcType="INTEGER" />
     <result column="REMAINING_MONEY_AMOUNT" property="remainingMoneyAmount" jdbcType="BIGINT" />
-    <result column="ACTIVITY_TIME" property="activityTime" jdbcType="VARCHAR" />
-    <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="CREATE_STAFF" property="createStaff" jdbcType="VARCHAR" />
-    <result column="START_TIME" property="startTime" jdbcType="DATE" />
-    <result column="END_TIME" property="endTime" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,8 +69,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, ACTIVITY_ID, used_scene, CURRENCY_UNIT, TOTAL_MONEY_AMOUNT, FREQUENCY, REMAINING_MONEY_AMOUNT, 
-    ACTIVITY_TIME, STATUS, CREATE_STAFF, START_TIME, END_TIME
+    id, ACTIVITY_ID, CURRENCY_UNIT, TOTAL_MONEY_AMOUNT, FREQUENCY, REMAINING_MONEY_AMOUNT, 
+    CREATE_STAFF
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRuleCriteria" >
     select
@@ -112,16 +107,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
-    insert into fun_activity_rule (id, ACTIVITY_ID, used_scene, 
-      CURRENCY_UNIT, TOTAL_MONEY_AMOUNT, FREQUENCY, 
-      REMAINING_MONEY_AMOUNT, ACTIVITY_TIME, STATUS, 
-      CREATE_STAFF, START_TIME, END_TIME
-      )
-    values (#{id,jdbcType=VARCHAR}, #{activityId,jdbcType=BIGINT}, #{usedScene,jdbcType=VARCHAR}, 
-      #{currencyUnit,jdbcType=VARCHAR}, #{totalMoneyAmount,jdbcType=BIGINT}, #{frequency,jdbcType=INTEGER}, 
-      #{remainingMoneyAmount,jdbcType=BIGINT}, #{activityTime,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createStaff,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}
-      )
+    insert into fun_activity_rule (id, ACTIVITY_ID, CURRENCY_UNIT, 
+      TOTAL_MONEY_AMOUNT, FREQUENCY, REMAINING_MONEY_AMOUNT, 
+      CREATE_STAFF)
+    values (#{id,jdbcType=VARCHAR}, #{activityId,jdbcType=BIGINT}, #{currencyUnit,jdbcType=VARCHAR}, 
+      #{totalMoneyAmount,jdbcType=BIGINT}, #{frequency,jdbcType=INTEGER}, #{remainingMoneyAmount,jdbcType=BIGINT}, 
+      #{createStaff,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
     insert into fun_activity_rule
@@ -131,9 +122,6 @@
       </if>
       <if test="activityId != null" >
         ACTIVITY_ID,
-      </if>
-      <if test="usedScene != null" >
-        used_scene,
       </if>
       <if test="currencyUnit != null" >
         CURRENCY_UNIT,
@@ -147,20 +135,8 @@
       <if test="remainingMoneyAmount != null" >
         REMAINING_MONEY_AMOUNT,
       </if>
-      <if test="activityTime != null" >
-        ACTIVITY_TIME,
-      </if>
-      <if test="status != null" >
-        STATUS,
-      </if>
       <if test="createStaff != null" >
         CREATE_STAFF,
-      </if>
-      <if test="startTime != null" >
-        START_TIME,
-      </if>
-      <if test="endTime != null" >
-        END_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -169,9 +145,6 @@
       </if>
       <if test="activityId != null" >
         #{activityId,jdbcType=BIGINT},
-      </if>
-      <if test="usedScene != null" >
-        #{usedScene,jdbcType=VARCHAR},
       </if>
       <if test="currencyUnit != null" >
         #{currencyUnit,jdbcType=VARCHAR},
@@ -185,20 +158,8 @@
       <if test="remainingMoneyAmount != null" >
         #{remainingMoneyAmount,jdbcType=BIGINT},
       </if>
-      <if test="activityTime != null" >
-        #{activityTime,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
       <if test="createStaff != null" >
         #{createStaff,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=DATE},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -217,9 +178,6 @@
       <if test="record.activityId != null" >
         ACTIVITY_ID = #{record.activityId,jdbcType=BIGINT},
       </if>
-      <if test="record.usedScene != null" >
-        used_scene = #{record.usedScene,jdbcType=VARCHAR},
-      </if>
       <if test="record.currencyUnit != null" >
         CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
       </if>
@@ -232,20 +190,8 @@
       <if test="record.remainingMoneyAmount != null" >
         REMAINING_MONEY_AMOUNT = #{record.remainingMoneyAmount,jdbcType=BIGINT},
       </if>
-      <if test="record.activityTime != null" >
-        ACTIVITY_TIME = #{record.activityTime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        STATUS = #{record.status,jdbcType=VARCHAR},
-      </if>
       <if test="record.createStaff != null" >
         CREATE_STAFF = #{record.createStaff,jdbcType=VARCHAR},
-      </if>
-      <if test="record.startTime != null" >
-        START_TIME = #{record.startTime,jdbcType=DATE},
-      </if>
-      <if test="record.endTime != null" >
-        END_TIME = #{record.endTime,jdbcType=DATE},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -256,16 +202,11 @@
     update fun_activity_rule
     set id = #{record.id,jdbcType=VARCHAR},
       ACTIVITY_ID = #{record.activityId,jdbcType=BIGINT},
-      used_scene = #{record.usedScene,jdbcType=VARCHAR},
       CURRENCY_UNIT = #{record.currencyUnit,jdbcType=VARCHAR},
       TOTAL_MONEY_AMOUNT = #{record.totalMoneyAmount,jdbcType=BIGINT},
       FREQUENCY = #{record.frequency,jdbcType=INTEGER},
       REMAINING_MONEY_AMOUNT = #{record.remainingMoneyAmount,jdbcType=BIGINT},
-      ACTIVITY_TIME = #{record.activityTime,jdbcType=VARCHAR},
-      STATUS = #{record.status,jdbcType=VARCHAR},
-      CREATE_STAFF = #{record.createStaff,jdbcType=VARCHAR},
-      START_TIME = #{record.startTime,jdbcType=DATE},
-      END_TIME = #{record.endTime,jdbcType=DATE}
+      CREATE_STAFF = #{record.createStaff,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -275,9 +216,6 @@
     <set >
       <if test="activityId != null" >
         ACTIVITY_ID = #{activityId,jdbcType=BIGINT},
-      </if>
-      <if test="usedScene != null" >
-        used_scene = #{usedScene,jdbcType=VARCHAR},
       </if>
       <if test="currencyUnit != null" >
         CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
@@ -291,20 +229,8 @@
       <if test="remainingMoneyAmount != null" >
         REMAINING_MONEY_AMOUNT = #{remainingMoneyAmount,jdbcType=BIGINT},
       </if>
-      <if test="activityTime != null" >
-        ACTIVITY_TIME = #{activityTime,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        STATUS = #{status,jdbcType=VARCHAR},
-      </if>
       <if test="createStaff != null" >
         CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null" >
-        START_TIME = #{startTime,jdbcType=DATE},
-      </if>
-      <if test="endTime != null" >
-        END_TIME = #{endTime,jdbcType=DATE},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -312,16 +238,11 @@
   <update id="updateByPrimaryKey" parameterType="com.ai.slp.balance.dao.mapper.bo.FunActivityRule" >
     update fun_activity_rule
     set ACTIVITY_ID = #{activityId,jdbcType=BIGINT},
-      used_scene = #{usedScene,jdbcType=VARCHAR},
       CURRENCY_UNIT = #{currencyUnit,jdbcType=VARCHAR},
       TOTAL_MONEY_AMOUNT = #{totalMoneyAmount,jdbcType=BIGINT},
       FREQUENCY = #{frequency,jdbcType=INTEGER},
       REMAINING_MONEY_AMOUNT = #{remainingMoneyAmount,jdbcType=BIGINT},
-      ACTIVITY_TIME = #{activityTime,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=VARCHAR},
-      CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
-      START_TIME = #{startTime,jdbcType=DATE},
-      END_TIME = #{endTime,jdbcType=DATE}
+      CREATE_STAFF = #{createStaff,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

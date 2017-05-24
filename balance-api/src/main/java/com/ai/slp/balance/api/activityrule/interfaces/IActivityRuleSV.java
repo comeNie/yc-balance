@@ -4,6 +4,8 @@ import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.slp.balance.api.activityrule.param.FunActivityQueryRuleResponse;
+import com.ai.slp.balance.api.activityrule.param.FunActivityRuleActivityRequest;
+import com.ai.slp.balance.api.activityrule.param.FunActivityRuleRequest;
 import com.ai.slp.balance.api.activityrule.param.UpdateFunActivityRuleResponse;
 
 import javax.ws.rs.Consumes;
@@ -48,8 +50,8 @@ public interface IActivityRuleSV {
 	 * @RestRelativeURL activityRuleQueryService/updateFunActivityRule
 	 */
 	@POST
-	@Path("/updateIntegrals")
-	public UpdateFunActivityRuleResponse updateFunActivityRule(List<String> activityRuleIds) throws BusinessException,SystemException;
+	@Path("/updateFunActivityRule")
+	public UpdateFunActivityRuleResponse updateFunActivityRule(FunActivityRuleActivityRequest activityRuleIds) throws BusinessException,SystemException;
 
 	
 	/**

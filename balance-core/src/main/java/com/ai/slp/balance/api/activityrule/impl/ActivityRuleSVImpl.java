@@ -11,9 +11,7 @@ import com.ai.slp.balance.api.activity.param.FunActivityQueryRequest;
 import com.ai.slp.balance.api.activity.param.FunActivityQueryResponse;
 import com.ai.slp.balance.api.activity.param.FunActivityResponse;
 import com.ai.slp.balance.api.activityrule.interfaces.IActivityRuleSV;
-import com.ai.slp.balance.api.activityrule.param.FunActivityQueryRuleResponse;
-import com.ai.slp.balance.api.activityrule.param.FunActivityRuleResponse;
-import com.ai.slp.balance.api.activityrule.param.UpdateFunActivityRuleResponse;
+import com.ai.slp.balance.api.activityrule.param.*;
 import com.ai.slp.balance.constants.ExceptCodeConstants;
 import com.ai.slp.balance.service.business.interfaces.IActivityBusiSV;
 import com.ai.slp.balance.service.business.interfaces.IActivityRuleBusiSV;
@@ -59,13 +57,13 @@ public class ActivityRuleSVImpl implements IActivityRuleSV {
 	}
 
 	@Override
-	public UpdateFunActivityRuleResponse updateFunActivityRule(List<String> activityRuleIds) throws BusinessException, SystemException {
-		log.info("传过来的参数============"+ JSON.toJSONString(activityRuleIds));
+	public UpdateFunActivityRuleResponse updateFunActivityRule(FunActivityRuleActivityRequest activityRules) throws BusinessException, SystemException {
+		log.info("传过来的参数============"+ JSON.toJSONString(activityRules));
 		log.debug("活动规则变更---开始");
 		UpdateFunActivityRuleResponse updateFunActivityRuleResponse = new UpdateFunActivityRuleResponse();
 		ResponseHeader responseHeader = new ResponseHeader();
 		try {
-			if (activityRuleIds == null) {
+			if (activityRules == null) {
 				responseHeader.setIsSuccess(true);
 				responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
 				responseHeader.setResultMessage("无活动规则可变!");
@@ -73,7 +71,7 @@ public class ActivityRuleSVImpl implements IActivityRuleSV {
 				return updateFunActivityRuleResponse;
 			}
 			//规则变更
-			iActivityRuleBusiSV.updateFunActivityRule(activityRuleIds);
+			iActivityRuleBusiSV.updateFunActivityRule(activityRules);
 			responseHeader.setIsSuccess(true);
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
 			responseHeader.setResultMessage("活动规则变更变更成功!");
@@ -92,7 +90,7 @@ public class ActivityRuleSVImpl implements IActivityRuleSV {
 
 	@Override
 	public BaseResponse deleteActivityRule(String activityRuleId) throws BusinessException, SystemException {
-		log.debug("积分删除---开始");
+		log.debug("规则删除---开始");
 		BaseResponse baseResponse = new BaseResponse();
 		ResponseHeader responseHeader = new ResponseHeader();
 		try {
@@ -100,7 +98,7 @@ public class ActivityRuleSVImpl implements IActivityRuleSV {
 			iActivityRuleBusiSV.deleteActivityRule(activityRuleId);
 			responseHeader.setIsSuccess(true);
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_SUCCESS);
-			responseHeader.setResultMessage("积分删除成功!");
+			responseHeader.setResultMessage("规则删除成功!");
 			baseResponse.setResponseHeader(responseHeader);
 		}catch (BusinessException businessException){
 			responseHeader.setResultCode(businessException.getErrorCode());
@@ -108,7 +106,7 @@ public class ActivityRuleSVImpl implements IActivityRuleSV {
 			baseResponse.setResponseHeader(responseHeader);
 		}catch (Exception e){
 			responseHeader.setResultCode(ExceptCodeConstants.Special.SYSTEM_ERROR);
-			responseHeader.setResultMessage("积分删除失败");
+			responseHeader.setResultMessage("规则删除失败");
 			baseResponse.setResponseHeader(responseHeader);
 		}
 		return baseResponse;

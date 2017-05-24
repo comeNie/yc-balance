@@ -83,4 +83,18 @@ public class ActivityAtomSVImpl implements IActivityAtomSV {
 		int deleteByPrimaryKey = mapper.deleteByPrimaryKey(activityId);
 		return deleteByPrimaryKey;
 	}
+
+	@Override
+	public void updateFunActivity(FunActivity funActivity) {
+		FunActivityMapper mapper = MapperFactory.getFunActivityMapper();
+		FunActivity funActivity1 = mapper.selectByPrimaryKey(funActivity.getActivityId());
+		funActivity1.setActivityId(funActivity.getActivityId());
+		funActivity1.setUsedScene(funActivity.getUsedScene());
+		funActivity1.setActivityDesc(funActivity.getActivityDesc());
+		funActivity1.setStartTime(funActivity.getStartTime());
+		funActivity1.setEndTime(funActivity.getEndTime());
+		funActivity1.setStatus(funActivity.getStatus());
+		funActivity1.setActivityTime(funActivity.getActivityTime());
+		mapper.updateByPrimaryKeySelective(funActivity1);
+	}
 }

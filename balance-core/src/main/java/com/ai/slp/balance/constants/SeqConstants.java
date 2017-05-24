@@ -11,6 +11,10 @@ public final class SeqConstants {
     private SeqConstants() {
     }
     /**
+     *活动规则表[FUN_ACTIVITY_RULE$ID]
+     */
+    public static final String INTEGRALS_LOG$ID = "fun_activity_rule$id";
+    /**
      * 积分变更记录表[INTEGRALS_LOG$INTEGRAL_LOG_ID]
      */
     public static final String INTEGRALS_LOG$INTEGRAL_LOG_ID = "integrals_log$integral_log_id";

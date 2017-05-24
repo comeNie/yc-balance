@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * 活动策略查询出参.<br>
+ * 活动规则变更.<br>
  */
-public class FunActivityRuleResponse implements Serializable {
+public class FunActivityRuleRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+    /**
+	 * 活动规则信息
+	 */
 	private String id;
 
 	private Long activityId;
@@ -77,4 +81,5 @@ public class FunActivityRuleResponse implements Serializable {
 	public void setCreateStaff(String createStaff) {
 		this.createStaff = createStaff == null ? null : createStaff.trim();
 	}
+
 }
